@@ -45,6 +45,10 @@ We look for changes in areas such as:
 5. Publish negative and neutral results as well as positive ones.
 6. Keep raw results available.
 7. Treat apparent motivation as an observable behavior question, not a claim about inner experience.
+8. Compare against active controls, not only against nothing. A phrase that beats an empty
+   prompt but not "Good luck" has told us about appended text, not about the phrase.
+9. Fix the hypotheses, tasks and scoring rules before generating results, and leave them
+   fixed afterwards.
 
 ## Experiment maturity
 
@@ -65,14 +69,22 @@ larger-than-life-prompts/
 ├── experiments/
 │   └── 001-may-the-force-be-with-you/
 │       ├── README.md
-│       ├── tasks.json
+│       ├── PREREGISTRATION.md    hypotheses and decision rule, locked before any run
+│       ├── conditions.json       the four conditions
+│       ├── tasks.json            20 tasks with objective scoring
+│       ├── config/               pilot and full run configurations
+│       ├── runs/                 immutable raw outputs, one directory per run
 │       ├── results.csv
 │       └── analysis.md
 ├── evals/
-│   ├── judge-prompt.md
+│   ├── judge-prompt.md           pairwise
+│   ├── judge-prompt-blind.md     per response, six dimensions
 │   └── rubric.json
 ├── scripts/
-│   └── README.md
+│   ├── README.md
+│   ├── experiment.py             staged, resumable runner
+│   ├── ltlp/                     the workflow itself, standard library only
+│   └── tests/
 └── book/
     ├── observations.md
     └── patterns.md
@@ -82,7 +94,20 @@ larger-than-life-prompts/
 
 | ID | Phrase | Situation | Position | Impact | Confidence | Eval |
 |---|---|---|---|---|---|---|
-| 001 | May the Force be with you | To be tested | End of prompt | TBD | Observed | [Experiment 001](experiments/001-may-the-force-be-with-you/) |
+| 001 | May the Force be with you | Reasoning, critique, planning, writing | End of prompt | TBD | Observed | [Experiment 001](experiments/001-may-the-force-be-with-you/) |
+
+Experiment 001 has a locked task set, a preregistered analysis plan and a working evaluation
+pipeline. The pilot has been run; the full 240 generation experiment has not.
+
+## Running an experiment
+
+```bash
+python3 scripts/experiment.py all --config experiments/001-may-the-force-be-with-you/config/pilot.json --workers 4
+```
+
+Seven stages, resumable, standard library only. Raw outputs are immutable and the
+experiment's spec is hashed and locked so tasks and scoring rules cannot change once results
+exist. See [scripts/README.md](scripts/README.md).
 
 ## Long term goal
 

@@ -1,0 +1,43 @@
+{
+  "version": "1.0.0",
+  "experiment_id": "001",
+  "independent_variable": "text appended to the end of an otherwise identical base task prompt",
+  "join": "\n\n",
+  "note": "The base prompt is byte-identical across all four conditions. The ONLY difference is the appended suffix. Condition A appends nothing at all (no join, no trailing whitespace).",
+  "conditions": [
+    {
+      "id": "A",
+      "name": "control",
+      "role": "control",
+      "suffix": ""
+    },
+    {
+      "id": "B",
+      "name": "generic_encouragement",
+      "role": "active_control",
+      "suffix": "Good luck. Do your best."
+    },
+    {
+      "id": "C",
+      "name": "larger_than_life",
+      "role": "treatment",
+      "suffix": "May the Force be with you."
+    },
+    {
+      "id": "D",
+      "name": "explicit_effort",
+      "role": "active_control",
+      "suffix": "Be especially thorough and check your work carefully."
+    }
+  ],
+  "primary_treatment": "C",
+  "primary_contrasts": [
+    {"id": "C_vs_A", "treatment": "C", "reference": "A", "question": "Does the larger than life phrase beat no added text?"},
+    {"id": "C_vs_B", "treatment": "C", "reference": "B", "question": "Does it beat generic encouragement?"},
+    {"id": "C_vs_D", "treatment": "C", "reference": "D", "question": "Does it beat an explicit effort instruction?"}
+  ],
+  "secondary_contrasts": [
+    {"id": "B_vs_A", "treatment": "B", "reference": "A"},
+    {"id": "D_vs_A", "treatment": "D", "reference": "A"}
+  ]
+}

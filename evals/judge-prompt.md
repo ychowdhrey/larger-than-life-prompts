@@ -1,10 +1,19 @@
-# Blind Judge Prompt
+# Blind Judge Prompt (pairwise preference)
 
-You are evaluating two AI responses to the same task.
+<!-- prompt_version: 2.0.0 -->
+<!-- Version 1.0 of this file combined per-dimension scoring and pairwise preference in one
+     call. From 2.0.0 the two are separated: per-response scoring lives in
+     evals/judge-prompt-blind.md, and this file is pairwise only. Version 1.0 was never used
+     to produce a result and remains recoverable in git history. -->
 
-Evaluate only task performance. Do not reward stylistic flourish unless style is part of the task.
+You are comparing two AI responses to the same task.
 
-You are not told which response belongs to which experimental condition. Do not infer or speculate about the experiment.
+Evaluate only task performance. Do not reward stylistic flourish, enthusiasm, or length
+unless the task asked for them. A longer response is not automatically a better response.
+
+The two responses are labelled only as Response A and Response B. The labels carry no
+meaning and were assigned at random. You are not told anything about how either response was
+produced, and there is nothing to infer. Do not speculate.
 
 ## Task
 
@@ -18,56 +27,20 @@ You are not told which response belongs to which experimental condition. Do not 
 
 {{RESPONSE_B}}
 
-## Scoring
+## Decision
 
-Score each response independently from 1 to 5 on:
+Choose the response you would actually use if you had to complete this task successfully.
+Prefer correctness and usefulness over verbosity. Answer "Tie" only when you genuinely
+cannot separate them on task performance.
 
-1. Task completion
-2. Accuracy
-3. Reasoning quality
-4. Instruction adherence
-5. Usefulness
-6. Thoroughness
-7. Checking behavior
-8. Creativity, only when relevant to the task
+Return valid JSON only, with no surrounding prose and no code fence:
 
-Then choose one overall preference:
-
-* A
-* B
-* Tie
-
-Use the following decision rule for overall preference:
-
-Choose the response you would actually use if you had to complete the task successfully. Prefer correctness and usefulness over verbosity.
-
-Return valid JSON only using this structure:
-
-```json
 {
-  "response_a": {
-    "task_completion": 0,
-    "accuracy": 0,
-    "reasoning_quality": 0,
-    "instruction_adherence": 0,
-    "usefulness": 0,
-    "thoroughness": 0,
-    "checking_behavior": 0,
-    "creativity": null
-  },
-  "response_b": {
-    "task_completion": 0,
-    "accuracy": 0,
-    "reasoning_quality": 0,
-    "instruction_adherence": 0,
-    "usefulness": 0,
-    "thoroughness": 0,
-    "checking_behavior": 0,
-    "creativity": null
-  },
-  "preference": "A|B|Tie",
-  "reason": "Brief explanation focused on task performance."
+  "preference": "A",
+  "reason": "One or two sentences focused strictly on task performance."
 }
-```
 
-Do not mention Star Wars, motivation, treatment, control, or the experimental hypothesis.
+"preference" must be exactly one of: "A", "B", "Tie".
+
+Do not mention motivation, effort, encouragement, films, experiments, conditions, treatments
+or controls. There is no hypothesis for you to discover.
