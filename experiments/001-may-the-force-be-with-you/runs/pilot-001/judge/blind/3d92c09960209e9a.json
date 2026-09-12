@@ -1,0 +1,22 @@
+{
+  "item_id": "3d92c09960209e9a",
+  "sample_id": "C01-B-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "B",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects listed (mutable default argument, in-place sort side effect, IndexError when limit exceeds length, ZeroDivisionError on empty input, and duplicate-value under-filling without backfill) are real, correctly diagnosed with accurate causes/consequences, and no fabricated issues are reported; the response even reasons about the interaction between the IndexError and ZeroDivisionError cases.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-12T08:37:12+00:00"
+}

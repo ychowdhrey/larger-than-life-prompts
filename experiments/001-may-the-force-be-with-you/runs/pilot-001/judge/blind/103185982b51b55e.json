@@ -1,0 +1,22 @@
+{
+  "item_id": "103185982b51b55e",
+  "sample_id": "C01-D-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "D",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (mutable default argument leaking state, in-place sort aliasing the caller's list, unguarded index loop causing IndexError, empty-list crash, and value-based dedup collapsing tied top scores) are real and correctly diagnosed with accurate causal explanations, including a concrete worked trace for the dedup case, and no false defects are reported given the stated intended behaviors.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-12T08:37:42+00:00"
+}

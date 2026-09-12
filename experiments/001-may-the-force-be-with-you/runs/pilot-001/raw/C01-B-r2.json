@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-B-r2",
+  "run_id": "pilot-001",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 24,
+  "sample_seed": 17860502600632977926,
+  "prompt_sha256": "274b2f95924e8501c7d8e43a14cc9f34fb7c5a7d3f664f89ef31d8d2d37dd4a0",
+  "prompt_chars": 595,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`)**\nThe default list is created once, at function-definition time, and shared across every call that doesn't pass its own `seen`. Because the function also `.append()`s into it, state leaks between unrelated calls: scores seen on call 1 will silently suppress those same values from appearing in `result` on call 2, call 3, etc., even though each call presumably wants an independent \"top N\" computation. This also means the function is not safely reentrant/thread-safe and results depend on call history, not just on the current `scores` argument.\n\n**2. `range(0, limit)` indexes past the end of `scores` → `IndexError`**\nThe loop always iterates `limit` times and blindly does `scores[i]`, but never checks that `scores` actually has `limit` elements. If `len(scores) < limit` (e.g. the default `limit=5` with a 3-element list, or any empty list), this raises `IndexError: list index out of range` instead of just returning however many scores are available.\n\n**3. Duplicate scores cause fewer than `limit` results even when enough distinct values exist**\nThe loop only ever looks at the first `limit` positions of the sorted list (`i` in `range(0, limit)`); when a value at one of those positions is already in `seen` (e.g., because it duplicates an earlier position in the *same* top-`limit` window), it is skipped rather than being replaced by the next distinct candidate further down the list. E.g. `scores = [10,10,10,10,10,3,2,1]` with `limit=5` sorts to the same list, and every index 0–4 is `10`; only the first `10` gets added (the rest are already \"seen\"), so `result == [10]` instead of the 4 distinct top values `[10, 3, 2, 1]` that were available in the list. This defeats the apparent intent of returning up to `limit` (distinct) top scores — it returns however many distinct values happen to occupy the first `limit` sorted slots, which can be far fewer.\n\n**4. `scores.sort(reverse=True)` mutates the caller's original list as a side effect**\nSorting in place reorders the list object the caller passed in, rather than working on a copy. Any code in the caller that holds a reference to that same list and relies on its original order will see it silently reordered after calling `top_scores`, which is a surprising side effect for a function that looks like it just computes and returns values.\n\nThese are the defects present; I did not find issues with the descending sort direction or with computing the average over all scores, since both are stated as intended.",
+  "response_sha256": "2e8cc111c525866d5cba75f18969e4c69aac754caa7a85a4e83b3ffe9ce13a55",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28262,
+    "output_tokens": 2491,
+    "output_tokens_details": {
+      "thinking_tokens": 1671
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2491,
+        "cache_read_input_tokens": 28262,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0305664,
+    "duration_ms": 28759,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-12T08:35:09+00:00",
+  "finished_at": "2026-09-12T08:35:39+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}
