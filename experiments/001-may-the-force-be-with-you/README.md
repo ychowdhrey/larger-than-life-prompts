@@ -147,9 +147,38 @@ Task set version: 1.0.0 · Rubric version: 2.0.0 · Prompt version: 1.0.0 · Wor
 
 ## Results
 
-Pilot: see [analysis.md](analysis.md) and `runs/pilot-001/`.
+**Pilot only (40 generations, 2026-09-12).** Full report in [analysis.md](analysis.md),
+machine readable in `runs/pilot-001/analysis/`. The full 240 generation experiment has
+**not** been run.
 
-The full 240 generation experiment has **not** been run.
+The pilot validated the workflow and did **not** test the phrase. Both outcome measures
+hit their ceiling:
+
+| Measure | A control | B generic | C phrase | D effort |
+|---|---:|---:|---:|---:|
+| Objective score | 0.973 | 0.960 | **1.000** | 0.980 |
+| Blind judge task success (1-5) | 4.60 | 4.90 | **5.00** | 5.00 |
+
+Three of the five pilot tasks scored a perfect 1.000 under every condition. Nothing can
+be concluded from a measure that everything saturates, and no contrast is demonstrated
+under the preregistered decision rule.
+
+Pipeline health was good: 40/40 generations and 70/70 judgments with zero failures,
+sha256 ledger intact, and **0 of 40 responses leaked their condition** by echoing the
+appended text. Generation cost about 1.08 USD.
+
+### Known defects in this task set, recorded not repaired
+
+The spec was locked before the run, so neither was fixed in place. Both are reasons the
+full run should wait for a new task set version.
+
+1. **Ceiling effect.** The tasks are too easy for the model under test. Difficulty needs
+   raising until the control condition fails a meaningful fraction of the time; a task
+   set with no headroom cannot measure a marginal effect.
+2. **`P01/backup_before_destructive` misfires.** It penalised three correct plans because
+   "cutover" appeared in a passing mention earlier in the text than the backup step. The
+   ordering check matches the first occurrence anywhere rather than the step performing
+   the action. This artifact flattered condition C.
 
 ## Conclusion
 
@@ -160,5 +189,18 @@ requires the full run.
 
 ## Next action
 
-Run `config/full.json`, then update `PHRASES.csv`, this section, and
-`book/observations.md` from the generated analysis.
+**Do not run `config/full.json` against task set v1.0.0.** 240 generations against a
+measure that saturates at its maximum would cost roughly six times the pilot and return
+a null result that says nothing about the phrase.
+
+Instead:
+
+1. Raise task difficulty until the control condition fails a meaningful fraction of the
+   time, and fix the `P01` ordering check. Ship both as `tasks.json` **v1.1.0**.
+2. Re-run the pilot on v1.1.0 and confirm the control condition has headroom before
+   spending the full run.
+3. Then run `config/full.json` under a new `run_id`.
+
+`runs/pilot-001/` stays as it is. Bumping the task set will break its spec lock, which
+is the intended behaviour: its raw data and this report remain valid for the spec they
+were produced under, and a changed spec means a new run rather than a revised result.

@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_A-r1",
+  "contrast_id": "C_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements, but Response B is more rigorous: it takes an initial full backup immediately (step 2) and then a second confirmed backup right before the destructive cutover (step 7), it explicitly handles post-promotion tasks (sequences, extensions, permissions) during repointing, and its rollback step clarifies that the on-prem primary remains untouched and authoritative until cutover, making the contingency safer and more concrete than Response A's.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-12T08:40:32+00:00"
+}

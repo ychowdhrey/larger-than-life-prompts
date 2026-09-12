@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_D-r1",
+  "contrast_id": "C_vs_D",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "D",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements equally well, but Response A makes the go/no-go branching explicit (step 10 states clearly 'if fail, go to step 11 rollback; else go to step 12 close-out'), whereas Response B lists 'resume traffic' (11) before its 'rollback contingency' (12) even though its own verification step says checks happen 'before re-enabling traffic' — creating an ambiguous sequence for an operator following the runbook live during the cutover.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-12T08:41:51+00:00"
+}

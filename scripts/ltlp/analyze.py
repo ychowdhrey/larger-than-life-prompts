@@ -155,7 +155,12 @@ def _pairwise_summary(cfg, seed) -> Dict[str, Any]:
             "ci95_win_rate": list(ci) if ci else None,
             "p_binomial_excluding_ties": (stats.binom_test_two_sided(wins, decided)
                                           if decided else None),
-            "slot_a_preference_rate": (slot_a_pref / len(rs)) if rs else None,
+            "tie_rate": (ties / len(rs)) if rs else None,
+            # Position-bias diagnostic. Ties are excluded from the denominator: with a
+            # high tie rate, a rate over all comparisons cannot be read against a null
+            # of 0.5 and makes mild bias look severe.
+            "slot_a_preference_rate_excluding_ties": (slot_a_pref / decided) if decided else None,
+            "slot_a_preference_rate_all_comparisons": (slot_a_pref / len(rs)) if rs else None,
         }
     return out
 

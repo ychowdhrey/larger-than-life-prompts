@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-C_vs_D-r2",
+  "contrast_id": "C_vs_D",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses identify the same five defects with equivalent explanations, but Response B's example for the duplicate-collapse defect (scores=[10,10,10,9,8], limit=3 → [10] instead of [10,9,8]) more clearly demonstrates the root cause—that the loop's fixed range never reaches the distinct lower-ranked values that could fill the result—whereas Response A's example uses limit==len(scores), which only shows the result shrinking without illustrating that unreached elements existed to compensate.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-12T08:41:57+00:00"
+}

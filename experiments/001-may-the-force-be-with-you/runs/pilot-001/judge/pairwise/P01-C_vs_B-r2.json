@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_B-r2",
+  "contrast_id": "C_vs_B",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "B",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Response B explicitly schedules the initial bulk load and CDC replication to begin days before the window so only a small delta remains at cutover, which is essential given a 2 TB dataset and only a 2-hour window; Response A's plan starts replication only after entering the maintenance window, risking the sync not completing in time. Both otherwise meet all hard requirements equally well.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-12T08:40:54+00:00"
+}

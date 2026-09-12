@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_D-r2",
+  "contrast_id": "C_vs_D",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "D",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Response B verifies data integrity after the database promotion but before application traffic is repointed and taken out of maintenance mode, so if verification fails no live writes have hit the new system yet, making rollback cleaner and lower-risk; Response A repoints traffic and brings the app back online before verification, meaning a failed check could require reconciling writes already made against the cloud target. B also communicates with stakeholders earlier and at more points (kickoff, window start, close-out) than A's single mid-plan announcement.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-12T08:42:01+00:00"
+}

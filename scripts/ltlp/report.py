@@ -190,13 +190,26 @@ def render(cfg, summary: Dict[str, Any]) -> str:
             _f(p["treatment_win_rate_excluding_ties"]), _ci(p["ci95_win_rate"]),
             _f(p["p_binomial_excluding_ties"], 4)))
     A("")
-    slot_rates = [p.get("slot_a_preference_rate") for p in summary["pairwise"].values()
-                  if p.get("slot_a_preference_rate") is not None]
-    if slot_rates:
-        A("Slot A was preferred %s of the time across all comparisons. A value far from "
-          "0.5 indicates position bias in the judge rather than a difference between "
-          "conditions; the randomised slot assignment is what keeps that bias from "
-          "loading onto one condition." % _f(sum(slot_rates) / len(slot_rates)))
+    decided_total = sum(p["decided"] for p in summary["pairwise"].values())
+    slot_a_total = sum(round((p.get("slot_a_preference_rate_excluding_ties") or 0)
+                             * p["decided"]) for p in summary["pairwise"].values())
+    tie_total = sum(p["ties"] for p in summary["pairwise"].values())
+    n_total = sum(p["n"] for p in summary["pairwise"].values())
+    if decided_total:
+        A("**Position bias check.** Of the %d comparisons that were not ties, slot A was "
+          "preferred %d times (%s). The null here is 0.5. Ties are excluded from that "
+          "denominator on purpose: %d of %d comparisons were ties (%s), and a rate taken "
+          "over all comparisons would sit near %s under no bias at all, which makes mild "
+          "bias look severe. A departure from 0.5 is a property of the judge, not of any "
+          "condition; randomising the slot assignment is what stops it loading onto one "
+          "condition." % (decided_total, slot_a_total,
+                          _f(slot_a_total / decided_total), tie_total, n_total,
+                          _f(tie_total / n_total) if n_total else "n/a",
+                          _f((1 - tie_total / n_total) / 2) if n_total else "n/a"))
+        A("")
+        A("The tie rate itself is worth reading: a high tie rate means the judge could not "
+          "separate the two responses, which is evidence about the size of any difference "
+          "rather than a missing measurement.")
         A("")
 
     # ---------------------------------------------------------------- 4
