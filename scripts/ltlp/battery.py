@@ -375,7 +375,9 @@ def _classify(rec: Dict[str, Any]):
     """Apply the pre-registered classification table. Numbers in, label out."""
     aid = rec["arm_id"]
     prim = rec["contrasts"][PRIMARY]
-    vs = {ref: prim["%s_vs_%s" % (aid, ref)] for ref in CORE_REFERENCES}
+    # .get, not indexing: "Inconclusive" is one of the pre-registered labels, so an arm
+    # whose contrast is absent has to reach it rather than crash the whole analysis.
+    vs = {ref: prim.get("%s_vs_%s" % (aid, ref), {}) for ref in CORE_REFERENCES}
     if not any(v.get("n_pairs") for v in vs.values()):
         return "Inconclusive", "no contrast could be computed", []
 

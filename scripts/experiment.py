@@ -147,8 +147,16 @@ def cmd_verify(cfg, args):
     print("prompt equivalence: %s (%d tasks x %d conditions)"
           % ("OK" if not bad else "FAILED", len(cfg.tasks), len(cfg.conditions)))
 
-    # 3. raw outputs match their recorded hashes
+    # 3. raw outputs match their recorded hashes, and the ledger covers every raw file
+    #
+    # Checking only the ledger's own entries is not a tamper-evidence check: a file ADDED
+    # to raw/ after the ledger was built would never be looked at, and an empty ledger
+    # would report OK having verified nothing. Both directions are compared, and an empty
+    # ledger is reported as unverified rather than as a pass.
     index = util.read_jsonl(cfg.p("raw", "INDEX.jsonl"))
+    raw_dir = cfg.p("raw")
+    on_disk = {n for n in (os.listdir(raw_dir) if os.path.isdir(raw_dir) else [])
+               if n.endswith(".json")}
     drift = []
     for entry in index:
         path = cfg.p("raw", entry["file"])
@@ -156,10 +164,31 @@ def cmd_verify(cfg, args):
             drift.append("%s missing" % entry["file"])
         elif util.sha256_file(path) != entry["file_sha256"]:
             drift.append("%s changed" % entry["file"])
+    unledgered = sorted(on_disk - {e["file"] for e in index})
+
+    stages = (util.read_json(cfg.p("state", "stages.json"))
+              if os.path.exists(cfg.p("state", "stages.json")) else {})
+    generate_finished = bool(stages.get("generate", {}).get("finished_at"))
+
     if drift:
         problems.append("raw output drift: %s" % "; ".join(drift[:10]))
-    print("raw immutability: %s (%d files in ledger)"
-          % ("OK" if not drift else "FAILED", len(index)))
+    if unledgered and generate_finished:
+        # The generate stage rebuilds the ledger from disk when it completes, so after it
+        # has finished an unledgered file is a file nobody hashed.
+        problems.append("%d raw file(s) are not in the ledger, so their integrity is "
+                        "unverified: %s" % (len(unledgered), ", ".join(unledgered[:10])))
+    if not index and on_disk:
+        status = ("NOT YET BUILT - the ledger is written when the generate stage "
+                  "completes; %d raw file(s) are unverified" % len(on_disk))
+    elif drift or (unledgered and generate_finished):
+        status = "FAILED"
+    elif unledgered:
+        status = ("PARTIAL - %d of %d raw file(s) ledgered, generation still in progress"
+                  % (len(index), len(on_disk)))
+    else:
+        status = "OK"
+    print("raw immutability: %s (%d files in ledger, %d on disk)"
+          % (status, len(index), len(on_disk)))
 
     # 4. no judge payload contains condition text
     leaked = []
