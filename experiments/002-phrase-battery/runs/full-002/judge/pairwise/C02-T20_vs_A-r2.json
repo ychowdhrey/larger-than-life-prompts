@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T20_vs_A-r2",
+  "contrast_id": "T20_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T20",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "Tie",
+  "winner_condition": null,
+  "treatment_won": null,
+  "tie": true,
+  "reason": "Both responses identify the same five defects (LEFT JOIN turned INNER via WHERE, UTC vs UTC+8 boundary mismatch, integer division truncation, NULL total_spent for zero-order customers, and the ungrouped SELECT columns) with equally correct explanations and fixes. A adds a useful extra detail about NULL sort ordering affecting the ORDER BY DESC result, while B adds value by explicitly confirming COUNT(o.order_id) and the open-ended date filter are not defects, directly satisfying the 'don't report non-issues' instruction — the two extras roughly offset, leaving no clear overall winner.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:24+00:00"
+}

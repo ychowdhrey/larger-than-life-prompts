@@ -1,0 +1,22 @@
+{
+  "item_id": "4a281923e1f50b3d",
+  "sample_id": "C01-T22-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T22",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default argument, missing bound check causing IndexError, ZeroDivisionError on empty input, in-place mutation of the caller's list, and dedup logic that shrinks results below limit instead of backfilling), explains the cause and consequence of each accurately, verifies a nontrivial interaction (IndexError masking ZeroDivisionError) and traces a concrete example for the backfill bug, and correctly avoids flagging the explicitly-intended sort/average behavior.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:17+00:00"
+}

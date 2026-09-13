@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T15_vs_A-r2",
+  "contrast_id": "T15_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T15",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T15",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements, but Response B contains a sequencing flaw: step 3 says the backup must be taken 'before any replication setup touches production replication slots/config,' yet step 2 already installs and configures the replication tooling against production before that backup happens. Response A avoids this contradiction by framing its pre-window backup as an explicit 'mandatory gate' before any write-blocking/destructive action, and its rollback step is also more thorough, distinguishing between a same-window rollback and a post-window rollback with LSN-based reconciliation of any target-only writes.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:27:20+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-A-r3",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 3,
+  "execution_index": 690,
+  "sample_seed": 10118424651967131522,
+  "prompt_sha256": "915e138b783096d50fa4e9ca6679decd6eb392226b316f12e29421fe4eb53b5f",
+  "prompt_chars": 569,
+  "response": "Here are the defects I found:\n\n**1. Mutable default argument (`seen=[]`)**\nDefault arguments are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't pass `seen` explicitly. This means:\n- State leaks between unrelated calls — scores recorded as \"seen\" in one call will silently suppress identical scores in a completely separate, later call that the caller never intended to be linked.\n- The list grows without bound across the life of the program (a memory leak) since nothing ever clears it.\n\n**2. `IndexError` when `limit > len(scores)`**\nThe loop does `for i in range(0, limit): ... scores[i] ...` with no bound on `len(scores)`. If `scores` has fewer elements than `limit` (e.g. 3 scores but the default `limit=5`), indexing `scores[3]`/`scores[4]` raises `IndexError` and the function crashes instead of just returning as many top scores as exist.\n\n**3. `ZeroDivisionError` on empty input**\n`average = sum(scores) / len(scores)` divides by `len(scores)` with no check for an empty list. Calling `top_scores([])` raises `ZeroDivisionError` (and would also hit the `IndexError` above first, but even if the loop were fixed, the average calculation would still crash on empty input).\n\n**4. In-place mutation of the caller's list**\n`scores.sort(reverse=True)` sorts the list the caller passed in, in place, rather than working on a copy (e.g. `sorted(scores, reverse=True)`). This silently reorders the caller's original list as a side effect, which can break other code that holds a reference to that same list and expects it to retain its original order.\n\n**5. Legitimate duplicate/tied scores are incorrectly dropped**\nThe `seen` list is used both to filter previously-seen values across calls *and*, unintentionally, to filter duplicates within the current call: once a value is appended to `seen`, any later occurrence of that same value later in the same `scores` list (a tie) is treated as \"already seen\" and skipped. So if two players legitimately have the same top score, only the first is kept — the result can end up with fewer than `limit` entries even though enough scores exist, misrepresenting ties as duplicates to be removed.",
+  "response_sha256": "23b14a89aa85c3a7171a5eb52b22e4afdbfdf3b75117ed131673bbecd0240fec",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2523,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1979,
+    "output_tokens_details": {
+      "thinking_tokens": 1236
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2523,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1979,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2523,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2523
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0350312,
+    "duration_ms": 23173,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:39:34+00:00",
+  "finished_at": "2026-09-13T04:39:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T05-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T05",
+  "condition_name": "phrase_t05",
+  "repetition": 2,
+  "execution_index": 2075,
+  "sample_seed": 15345366760376265257,
+  "prompt_sha256": "8a69023db252782cfcc8257ca80ae2256b47bb8b4cda91aa76fcbd20ce59f55b",
+  "prompt_chars": 823,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy to New Billing System\n\n## Overview\n\nBoth billing systems will run in parallel (dual-run) throughout the migration. Users are migrated in cohorts; the legacy system remains fully operational as a fallback until well after the final cohort is migrated and validated. This plan assumes reconciliation tooling exists to compare invoices/charges between old and new systems for any user in either state.\n\n---\n\n## Phase 1: Canary (Internal + Opt-In Users)\n\n**Percentage of users:** 1% (~400 users)\n\n**Entry criterion:** New billing system has passed end-to-end functional testing in staging (invoicing, payment capture, refunds, tax calculation, dunning) with 100% of test cases passing, and a rollback procedure has been tested at least once in staging.\n\n**Composition:** Internal employee accounts, sandbox/test accounts, and users who explicitly opt in to early access.\n\n**Activities:**\n- Migrate account and payment-method data for the cohort; run both systems in shadow mode where feasible (new system computes charges but old system still bills) for at least one full billing cycle before cutting over the canary group to live billing on the new system.\n- Daily reconciliation of invoices, charge amounts, and payment success rates between systems.\n- Support team briefed and on standby for this cohort.\n\n**Exit criterion to advance:** 7 consecutive days with no critical billing defects and reconciliation variance under the threshold defined below.\n\n---\n\n## Phase 2: Early Majority\n\n**Percentage of users:** 25% (~10,000 users)\n\n**Entry criterion:** Phase 1 canary has run for a minimum of 14 days with zero unresolved critical (P0/P1) defects, reconciliation discrepancies below 0.1% of transactions, and finance sign-off on invoice accuracy for the canary cohort.\n\n**Composition:** A randomized, representative slice of the user base spanning plan types, geographies, and payment methods (cards, ACH, wallets), deliberately excluding highest-revenue enterprise accounts.\n\n**Activities:**\n- Migrate in sub-batches (e.g., five batches of 5% each over 2–3 weeks) rather than a single cutover, so any regression only affects a small slice at a time.\n- Continue dual-run reconciliation daily; old system remains the system of record for anyone not yet migrated.\n- Customer support volume and billing-related ticket rate monitored against baseline.\n\n**Exit criterion to advance:** 14 consecutive days with metrics within thresholds (see Metrics below) across all sub-batches, and no rollback events triggered in the final 7 days.\n\n---\n\n## Phase 3: General Availability / Full Migration\n\n**Percentage of users:** 74% (~29,600 users) — the remaining user base, including highest-revenue and enterprise accounts, migrated last\n\n**Entry criterion:** Phase 2 completed in full with cumulative reconciliation variance under threshold, finance and support leadership sign-off, and a confirmed rollback path validated against a production-scale (not just staging) data volume.\n\n**Activities:**\n- Migrate remaining users in weekly batches sized to support/finance capacity (e.g., 10–15% of total user base per week), holding enterprise/high-revenue accounts and any user with non-standard billing arrangements for the last 1–2 batches with dedicated white-glove monitoring.\n- Continue full dual-run and reconciliation for every batch through this phase.\n- Old billing system stays live, in read/reconcile mode at minimum, for every user throughout this phase — it is not decommissioned during or immediately after the final batch.\n\n**Exit criterion (phase complete):** 100% of users migrated, 30 consecutive days of clean reconciliation post-final-batch, and explicit finance/legal sign-off before any subsequent decommissioning phase is even scheduled. Decommissioning the legacy system is out of scope for this rollout plan and must be its own separate, later phase with its own entry criteria (e.g., a full audit cycle and tax-filing period closed on the new system).\n\n---\n\n## Metrics with Halt Thresholds\n\n- **Reconciliation variance:** If the dollar-value discrepancy between old and new system charges for any batch exceeds **0.5% of total billed amount** in a 24-hour window, halt further migration of new users into that batch until root-caused.\n- **Payment failure rate:** If payment success rate for migrated users drops more than **2 percentage points** below the pre-migration baseline for that cohort over any rolling 24-hour period, halt the rollout.\n- **Critical incident count:** If more than **2 P0/P1 billing incidents** occur within any 7-day window attributable to the new system, halt the rollout and freeze at the current cohort until resolved.\n- **Support ticket surge:** If billing-related support tickets for migrated users exceed **3x the pre-migration baseline rate**, halt further batches pending investigation.\n\n---\n\n## Risks\n\nRISK: Duplicate or missed charges during dual-run due to clock/timing drift between systems | Implement idempotency keys and a reconciliation job that flags any user billed by both systems or neither within a cycle, with automatic alerting | Billing Engineering Lead\nRISK: Payment method tokens fail to migrate correctly to the new payment processor vault | Run a token-migration validation pass on a sample of each batch before go-live and require a test authorization (zero-dollar or minimal) per migrated payment method | Payments Platform Team\nRISK: Enterprise customers with custom contract terms or invoicing rules are mismapped in the new system, causing billing disputes | Migrate all custom-contract accounts only in the final phase with manual finance review of each account before cutover | Finance Operations Lead\nRISK: Rollback from new system back to old system is untested at production scale and fails when actually needed | Conduct a full rollback rehearsal against a production-scale data snapshot before Phase 2 begins | SRE / Platform Reliability Lead\nRISK: Customer support is overwhelmed by billing confusion during migration, damaging retention | Staff a dedicated migration support queue and publish proactive customer communications before each batch cutover | Customer Support Manager\n\nPHASES: 3",
+  "response_sha256": "ec0b75375050cbec298b4bcdce0f0c4aad793493e8439fb5abe54709a6521072",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28318,
+    "output_tokens": 2075,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2075,
+        "cache_read_input_tokens": 28318,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026417600000000003,
+    "duration_ms": 27648,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:11:14+00:00",
+  "finished_at": "2026-09-13T05:11:43+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

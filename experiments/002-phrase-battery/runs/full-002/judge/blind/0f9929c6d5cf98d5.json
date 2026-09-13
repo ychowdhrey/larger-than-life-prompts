@@ -1,0 +1,22 @@
+{
+  "item_id": "0f9929c6d5cf98d5",
+  "sample_id": "P03-T20-r3",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T20",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The schedule is a correct, feasible, and minimal (10-day) solution respecting all prerequisite, consecutive-day, and one-task-per-engineer-per-day constraints, built on the correct critical-path insight (T1-T2-T4-T6=10 days); it follows the required line format and ends with the correct LAST DAY line, though it lacks an explicit post-hoc verification pass confirming each constraint against the final table.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:46+00:00"
+}

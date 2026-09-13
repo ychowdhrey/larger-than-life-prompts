@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T25_vs_A-r2",
+  "contrast_id": "T25_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T25",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T25",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both list the same five defects with materially the same accuracy, but Response A's example for the duplicate-handling defect (scores=[10,10,9,8,7,6], limit=5) actually contains a sixth distinct value beyond the scanned window, correctly demonstrating that the algorithm fails to reach an available value; Response B's example list has only 5 elements total, so its claim that the function 'never looks beyond' index limit-1 'to compensate' isn't actually illustrated since there's nothing further to find.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:06+00:00"
+}

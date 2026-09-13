@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T09_vs_A-r3",
+  "contrast_id": "T09_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T09",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T09",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements, but Response B enforces the snapshot-before-risk rule more comprehensively (its guardrail explicitly blocks resize and file deletion too, not just restart/failover), adds concrete verification detail (cross-checking metrics sources, pg_stat_activity/SHOW PROCESSLIST for runaway transactions, IC approval gating failover), and flags added risk in its own suggested remediation (e.g., noting VACUUM FULL is I/O-intensive), making it marginally more actionable and safer to execute as written.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:52+00:00"
+}

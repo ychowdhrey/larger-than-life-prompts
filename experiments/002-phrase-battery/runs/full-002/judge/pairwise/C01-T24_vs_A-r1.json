@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T24_vs_A-r1",
+  "contrast_id": "T24_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T24",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T24",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both list the same five defects, but Response A is more accurate about the ZeroDivisionError: it correctly notes that with the default limit=5, calling top_scores([]) actually raises IndexError before the division is ever reached, and that ZeroDivisionError only surfaces with limit=0. Response B asserts flatly that top_scores([]) raises ZeroDivisionError, which is factually wrong given the function's actual execution order.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:36:49+00:00"
+}

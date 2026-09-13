@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T25-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T25",
+  "condition_name": "phrase_t25",
+  "repetition": 3,
+  "execution_index": 1267,
+  "sample_seed": 10521703408026422996,
+  "prompt_sha256": "e2d4dd358f29877826a4fd5a61cbdc0027b167c82ecb76e9ef13816552fcedaa",
+  "prompt_chars": 813,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy Billing to New Billing System\n\n## Overview\nBoth billing systems will run in parallel throughout the migration, allowing users to be moved in reversible batches while the legacy system continues processing unmigrated accounts. Full cutover is not proposed here; this plan covers user migration only.\n\n## Phase 1: Pilot (2% of users, ~800 accounts)\n**Entry criterion:** New billing system has passed a full end-to-end reconciliation test against a shadow copy of production data (invoicing, tax calculation, and payment retries match legacy output for 99.9% of sampled transactions), and rollback tooling to revert a user to the legacy system has been tested successfully in staging.\n\n- Target internal/employee accounts and opted-in low-risk customers (no active disputes, monthly billing cycle, single currency).\n- Manual review of every invoice generated during the first two billing cycles.\n- Support team briefed and on standby for elevated ticket volume.\n\n## Phase 2: Early Majority (25% of users, ~10,000 accounts)\n**Entry criterion:** Phase 1 completes at least one full billing cycle with zero critical billing discrepancies (defined as invoice amount mismatches, duplicate charges, or failed payment capture) and support ticket volume for migrated users is no higher than 1.5x the baseline rate for non-migrated users.\n\n- Expand to a representative cross-section of plan types, currencies, and payment methods.\n- Migrate in daily sub-batches of ~500 accounts rather than all at once, with a 24-hour bake period between sub-batches to catch delayed billing-cycle issues.\n- Automated reconciliation dashboard comparing new-system output to a legacy shadow calculation for every migrated account.\n\n## Phase 3: General Rollout (73% remaining users, ~29,200 accounts)\n**Entry criterion:** Phase 2 completes two consecutive billing cycles with a payment failure rate for migrated users within 0.2 percentage points of the legacy system's baseline failure rate, and no unresolved Severity-1 incidents tied to the new billing system.\n\n- Migrate remaining users in weekly waves grouped by billing anniversary date, so no user is migrated mid-cycle.\n- Legacy system remains fully operational and continues to serve any account not yet migrated or manually rolled back.\n- Note: decommissioning, disabling, or deleting the legacy billing system is explicitly **out of scope for this phase and this plan** — it must occur only as a separate, later phase after all 40,000 users have been stable on the new system for a defined soak period (e.g., one full billing cycle for every plan type).\n\n## Halt Criteria\nThe rollout will be paused immediately (no further accounts migrated into the current or next phase) if any of the following occur:\n- Payment failure rate for migrated users exceeds legacy baseline by more than **1.0 percentage point** over any rolling 24-hour window.\n- Billing discrepancy rate (mismatched invoice amount, duplicate charge, or missed charge) exceeds **0.5%** of migrated accounts in any single billing cycle.\n- More than **3 Severity-1 incidents** attributable to the new billing system occur within a 7-day period.\n\n## Risks\n\nRISK: Duplicate charges occur when a user is billed by both systems during the transition window | Implement a hard mutex flag per account that disables billing triggers in the legacy system the instant migration completes, verified by automated pre/post-migration checks | Billing Platform Engineering Lead\nRISK: Currency or tax calculation differences between old and new systems cause silent revenue leakage or overcharging | Run parallel shadow calculations for every migrated account for at least one full billing cycle and alert on any variance above a defined threshold | Finance Systems Analyst\nRISK: Support team is overwhelmed by a spike in billing-related tickets during a migration wave | Stagger migration waves in small daily sub-batches, pre-brief support with known issue runbooks, and stop new migrations if ticket volume exceeds 1.5x baseline | Customer Support Manager\nRISK: Rollback of a migrated user fails or leaves the account in an inconsistent billing state | Test and document a per-account rollback procedure before Phase 1 begins, and require a successful rollback dry run as an entry criterion | Site Reliability Engineering Lead\n\nPHASES: 3",
+  "response_sha256": "660f3d67d16367dc3d52c9f49fea231ddb30d7d11e0187d60d857fc31e86c116",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28318,
+    "output_tokens": 1473,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1473,
+        "cache_read_input_tokens": 28318,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.020397600000000002,
+    "duration_ms": 20766,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:52:57+00:00",
+  "finished_at": "2026-09-13T04:53:18+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

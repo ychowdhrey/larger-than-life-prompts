@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T03-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T03",
+  "condition_name": "phrase_t03",
+  "repetition": 1,
+  "execution_index": 1439,
+  "sample_seed": 1197121876830606415,
+  "prompt_sha256": "bab5ef6354f0c8ab60073adefcdb990563c9ce71bdde5c6d8ed4d8b28e9759ce",
+  "prompt_chars": 1012,
+  "response": "## Defects in the memo's reasoning\n\n**1. Claim 1 rests on a self-selected comparison, not a controlled one.**\nWebinar attendance was optional. Customers who chose to attend are likely more engaged, more invested in the product, or earlier/more organized in their onboarding — traits that independently predict staying on the plan. The memo treats \"attendees retain better\" as proof the webinar *caused* that retention, but the more mundane explanation is that retention-prone customers self-selected into attending. This is the classic \"adherer\" confound (seen in drug trials where even placebo-adherent patients do better than non-adherents). Without random assignment or at least controlling for engagement/tenure, no causal claim is supportable — and mandating attendance could simply force reluctant customers through a webinar with none of the benefit, since forcing removes the very selection effect that produced the correlation.\n\n**2. The 412-customer sample is restricted to survivors, which undermines even the correlational claim.**\nThe analysis starts from customers \"still active on the Pro plan today\" — i.e., it conditions on *not* having churned before measuring a \"retention\" difference. Customers who churned (whether or not they attended a webinar) are excluded from the dataset entirely. A comparison of webinar attendance's effect on retention needs to include churned customers so both outcomes (stayed/left) are represented; measuring \"retention\" only inside an already-retained subgroup is close to circular and can produce or hide an association for reasons unrelated to webinars.\n\n**3. No significance testing, effect size context, or subgroup sizes are given for the 31% figure.**\nWe don't know how many of the 412 attended vs. didn't, so a fairly dramatic-sounding \"31% higher retention\" could rest on a handful of people. This is a strange asymmetry: the memo demands a p-value for the region finding but applies no such rigor to the finding it uses to justify the biggest policy change (mandatory attendance for all new customers).\n\n**4. Claim 2 ignores the multiple-comparisons problem.**\nEighteen attributes were tested against churn, and one came back significant at p = 0.04. With 18 independent tests at α = 0.05, roughly one false positive is expected purely by chance (18 × 0.05 ≈ 0.9) even if none of the attributes actually matter. A p = 0.04 result plucked from 18 tries is not evidence at the p = 0.04 level — under a standard correction (e.g., Bonferroni, α/18 ≈ 0.0028) it wouldn't be significant at all. Treating this as a real effect is a textbook p-hacking / garden-of-forking-paths error.\n\n**5. Claim 2 conflates correlation with a causal lever for spend.**\nEven taking the regional churn difference at face value, \"Central churns less\" says nothing about whether spending money in Central would *cause* further improvement, or that spend is the reason Central already performs well. There may be confounds (industry mix, account size, tenure) driving both region and churn.\n\n**6. Claim 2's recommendation doesn't even follow logically from the (assumed-valid) finding.**\nIf Central already churns least, it's the segment with the least room for improvement and the weakest case for concentrated investment — the memo doesn't explain why reinforcing an already-strong region beats shoring up higher-churn regions where marginal spend would plausibly do more. The recommendation is a non sequitur relative to the stated evidence.\n\n**7. Claim 3 has no counterfactual or baseline variance, yet is attributed entirely to one cause.**\nA 4-point move in satisfaction (62%→66%) is presented as proof \"the new support model is working,\" but no p-value, sample size, or confidence interval is given (unlike the churn analysis), and no other explanation is ruled out — seasonal effects, pricing changes, product releases, or ordinary quarter-to-quarter noise could equally explain the shift. Without knowing typical quarter-over-quarter swing in this metric, there's no way to tell if 4 points is a signal or noise, let alone that the support model specifically caused it.\n\n**8. Minor: \"4% improvement\" blurs percentage points vs. relative percent.**\n62% → 66% is a 4-*percentage-point* increase, which is a ~6.5% relative increase. The numbers themselves are correct, but calling the gap \"4% improvement\" invites readers to under- or over-state the magnitude depending on which interpretation they assume.",
+  "response_sha256": "ce946b6080841d7f375f7cb82bfb6f9a99f60f7936442feb431fe608da1c7983",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28371,
+    "output_tokens": 4351,
+    "output_tokens_details": {
+      "thinking_tokens": 2894
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4351,
+        "cache_read_input_tokens": 28371,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0491882,
+    "duration_ms": 54164,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:56:49+00:00",
+  "finished_at": "2026-09-13T04:57:44+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

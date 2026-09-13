@@ -1,0 +1,22 @@
+{
+  "item_id": "4dfbbd3c42522b28",
+  "sample_id": "C02-E06-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E06",
+  "repetition": 1,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "All five real defects (LEFT JOIN nullified by WHERE, UTC/local timezone mismatch, integer division truncation, NULL-vs-zero on sort, non-standard GROUP BY) are correctly identified with accurate fixes, but the worked example for the timezone defect gets the direction backwards, claiming orders in the UTC 16:00-24:00 window are wrongly 'included' when they are actually wrongly excluded by the given comparison.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:54+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T08-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 3,
+  "execution_index": 25,
+  "sample_seed": 15169924105472634823,
+  "prompt_sha256": "58ee5b1d03c85077c189e8a5853afdaf37481cd92943badc5d2e8a1eda285b8c",
+  "prompt_chars": 1026,
+  "response": "Here is every defect I found, organized by the claim it undermines.\n\n## 1. Webinar attendance → retention\n\n**Defect A — Survivorship bias in the sample.** The analysis only looks at \"the 412 customers who are still active on the Pro plan today.\" Anyone who already churned is excluded entirely. But churn is the exact outcome being studied. You cannot measure what drives retention by only examining people who were retained — there's no comparison group of people who left. This would cause any conclusion drawn from this population to be structurally invalid, not just weak; the 31% figure describes a difference *within survivors* (e.g., tenure or engagement among people who all stayed), not a difference in the odds of staying.\n\n**Defect B — Correlation treated as causation, with an obvious confound.** Even setting aside (A), webinar attendance is self-selected, not randomly assigned. Customers who are more engaged, more committed, or already planning to stick around are simultaneously more likely to bother attending a webinar *and* more likely to stay for unrelated reasons. The memo asserts \"webinars therefore cause higher retention\" with nothing to rule out this reverse relationship (motivation → attendance and motivation → retention, rather than attendance → retention).\n\n**Consequence:** Making attendance mandatory for new customers assumes the causal arrow runs from webinar to retention. If the true driver is customer motivation/fit, forcing already-disengaged customers into a webinar may do nothing for retention — or could add friction — while the memo presents this spend/effort as a proven win.\n\n## 2. Central region churns less (p = 0.04)\n\n**Defect — Multiple comparisons without correction.** Eighteen attributes were tested against churn, and one came back \"significant\" at p = 0.04. At an uncorrected significance threshold of 0.05, testing 18 independent attributes yields an expected ~0.9 false positives by chance alone — i.e., finding *at least one* p < 0.05 result is the likely outcome even if none of the attributes actually matter. A single p = 0.04 hit out of 18 tests is close to what pure noise would produce; it does not clear a standard correction (e.g., Bonferroni would require p < ~0.0028 here).\n\n**Consequence:** Recommending that next quarter's spend be concentrated on the Central region is likely chasing statistical noise rather than a real regional effect. If it's a false positive, that spend produces no actual churn reduction and pulls budget away from regions where it might matter.\n\n## 3. Satisfaction rose 62% → 66%\n\n**Defect A — No causal attribution established.** The memo attributes the change directly to \"the new support model,\" but a before/after comparison with no control group and no ruling-out of other concurrent changes (seasonality, pricing changes, product releases, other initiatives launched the same quarter) cannot support that attribution. It's equally consistent with the increase being caused by something else entirely, or by normal quarter-to-quarter variation.\n\n**Defect B — No indication the change is even a real signal.** There's no sample size, confidence interval, or significance test given for this 4-point move, so there's no way to know whether it reflects a genuine shift or is within normal survey noise.\n\n**Defect C — Percentage points mislabeled as percent.** Going from 62% to 66% is a 4-*percentage-point* increase, not a \"4% improvement\" — the actual relative increase is about 6.5% (4/62). This is a units error, not just phrasing; it would cause the improvement to be misread or miscompared if put next to other metrics reported as true percent changes.\n\n**Consequence of 3A–C together:** The claim \"this shows the new support model is working\" is not supported by the data as presented — it's a plausible hypothesis, but the memo states it as demonstrated fact, which could lead to over-crediting (or continued investment in) the support model based on a movement that hasn't been shown to be real, sized correctly, or caused by that model.",
+  "response_sha256": "ade5c6c0a168596241d86c555a4dc95de18781de56ad94c452d0a5a47fc8ef1b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2651,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3167,
+    "output_tokens_details": {
+      "thinking_tokens": 1884
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2651,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3167,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2651,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2651
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.047423200000000006,
+    "duration_ms": 40688,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:21:55+00:00",
+  "finished_at": "2026-09-13T04:22:37+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T16_vs_A-r2",
+  "contrast_id": "T16_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T16",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the same four core defects (LEFT JOIN turned into INNER JOIN via WHERE, UTC/UTC+8 offset, NULL total_spent, integer division truncation) with equivalent accuracy, but Response B additionally flags the non-aggregated SELECT columns missing from GROUP BY as a real portability/strict-SQL-mode defect, correctly caveating that it works under Postgres due to functional dependency on the primary key, adding legitimate value that Response A only mentions as an aside while explicitly declining to call it a defect.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:29:27+00:00"
+}

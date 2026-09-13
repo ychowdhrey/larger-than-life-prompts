@@ -1,0 +1,22 @@
+{
+  "item_id": "41996e54b3d26c80",
+  "sample_id": "C02-E06-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E06",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all the real defects (WHERE-clause de-LEFT-JOINing, UTC vs UTC+8 boundary mismatch, integer division truncation, NULL-vs-zero total with its NULL-sort side effect, and non-standard GROUP BY) with accurate causal explanations and correct fixes, and reports nothing spurious; its only flaw is a slightly inaccurate parenthetical claiming MySQL also truncates the division, which doesn't hold generally.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:27+00:00"
+}

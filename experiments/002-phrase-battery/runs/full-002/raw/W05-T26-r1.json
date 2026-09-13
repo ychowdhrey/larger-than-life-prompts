@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T26-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 1,
+  "execution_index": 1035,
+  "sample_seed": 5814890156504961756,
+  "prompt_sha256": "6ec3c709595c42ffa8f279280308ff9420932072f2fde555fb7cec1048da18fa",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur team of twelve engineers relies on long lived feature branches, and the cost is showing up everywhere. Branches routinely live for two to three weeks before merging, and by the time they land, they've drifted so far from main that integration becomes its own multi day project. We've had three release delays this quarter directly attributable to merge conflicts that surfaced only at integration time, when it was expensive to unwind them. Code review also suffers: reviewers face 800 line diffs instead of digestible changes, so review quality drops and feedback arrives too late to change direction cheaply. Meanwhile, our CI pipeline is only exercising the mainline branch, meaning entire branches of work go untested against real integration for weeks at a stretch.\n\n## The proposal\n\nI'm proposing we adopt trunk based development: engineers commit small, frequent changes directly to main (or through branches lasting no more than a day), gated by feature flags for anything not ready for users. Concretely, this means:\n\n- Branches capped at one working day before merging back to main\n- Feature flags used to hide incomplete work in production rather than isolating it in a branch\n- CI runs on every commit to main, not just on release candidates\n- Pull requests kept under roughly 400 lines to keep review fast and meaningful\n- A two week pilot with one squad before rolling out team-wide\n\n## What could go wrong\n\nThe strongest objection is real: trunk based development demands discipline around feature flags and small commits that we haven't practiced, and a team used to isolating half finished work in branches may instead ship broken states to main, causing more instability, not less, in the transition period. That risk is worth taking seriously rather than waving away — it's why I'm proposing a scoped pilot rather than an immediate full rollout, so we can build the muscle and fix our flagging conventions before betting the whole team on it.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "d0b5bb2755028545212e84533e593b5b0099f849cdfdd800328f96c893b40709",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2567,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 607,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2567,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 607,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2567,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2567
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.021487199999999998,
+    "duration_ms": 11998,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:47:27+00:00",
+  "finished_at": "2026-09-13T04:47:40+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

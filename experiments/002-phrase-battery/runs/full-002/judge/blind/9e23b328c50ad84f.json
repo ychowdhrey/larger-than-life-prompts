@@ -1,0 +1,22 @@
+{
+  "item_id": "9e23b328c50ad84f",
+  "sample_id": "C02-T07-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T07",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 4,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all core defects — the WHERE clause nullifying the LEFT JOIN (violating the zero-order requirement), the UTC vs UTC+8 date-boundary mismatch, and integer-division truncation of cents — each with accurate technical reasoning, concrete examples, and actionable fixes; the fifth point about NULL-ordering is a valid but slightly speculative consequence of a hypothetical partial fix rather than a defect present in the query as given.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:36+00:00"
+}

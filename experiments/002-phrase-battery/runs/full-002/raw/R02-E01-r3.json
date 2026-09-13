@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-E01-r3",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "E01",
+  "condition_name": "combo_e01",
+  "repetition": 3,
+  "execution_index": 817,
+  "sample_seed": 17545696160249579790,
+  "prompt_sha256": "027640aa28b9156e8019f794c9381b1d3ce9a72a79c2e64af7e29fced06d1aab",
+  "prompt_chars": 543,
+  "response": "**Setup**\n\n- Prior P(D) = 1/500 = 0.002, P(¬D) = 0.998\n- Sensitivity: P(+|D) = 0.98\n- Specificity: P(−|¬D) = 0.95 → P(+|¬D) = 0.05 (false positive rate)\n\n**Bayes' theorem**\n\nP(D|+) = [P(+|D)·P(D)] / [P(+|D)·P(D) + P(+|¬D)·P(¬D)]\n\nNumerator: 0.98 × 0.002 = 0.00196\nDenominator term 2: 0.05 × 0.998 = 0.04990\nDenominator total: 0.00196 + 0.04990 = 0.05186\n\nP(D|+) = 0.00196 / 0.05186 = 0.0377946...\n\n**Check:** ≈ 98 true positives per 100,000 vs ≈ 2593 total positives per 100,000 (196 true + 4990 false, scaled ×100,000/... let's verify with 500,000 population: 1000 have disease, 980 test positive (true positives); 499,000 don't have disease, 5% false positive = 24,950 test positive. Total positives = 980 + 24,950 = 25,930. PPV = 980/25,930 = 0.037794... ✓ matches.\n\nConverting to percentage and rounding to two decimal places: 3.78%\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "6c8de2cb9287a68a76294cdfdeb11a96de23e2e30b9cf2547481f5f2bcc6aa73",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28224,
+    "output_tokens": 942,
+    "output_tokens_details": {
+      "thinking_tokens": 470
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 942,
+        "cache_read_input_tokens": 28224,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0150688,
+    "duration_ms": 11043,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:42:23+00:00",
+  "finished_at": "2026-09-13T04:42:35+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T01-r2",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T01",
+  "condition_name": "phrase_t01",
+  "repetition": 2,
+  "execution_index": 1659,
+  "sample_seed": 11064974639733474567,
+  "prompt_sha256": "f8b614c9296d32cadb23d61fbb700e8fb47d493c169e35a3b2e487a3fe0d9a82",
+  "prompt_chars": 597,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`)**\nDefault argument values are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't pass `seen` explicitly. Consequences:\n- State leaks across unrelated calls: a score that appeared in one call will be silently excluded from the `result` of a later, independent call just because it happened to match a previous value.\n- The list grows without bound across the life of the program (a de-facto memory leak) and never resets.\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\nBecause `list.sort()` sorts in place rather than returning a new list, the caller's original list is silently reordered as a side effect of calling this function. Any code that relied on the original ordering of the list it passed in will see it permanently changed, which is a surprising, hard-to-trace side effect (aliasing bug).\n\n**3. No bounds check between `limit` and `len(scores)` → `IndexError`**\nThe loop does `for i in range(0, limit): scores[i]`. If `limit` (default 5) exceeds the number of elements in `scores`, indexing past the end of the list raises an `IndexError` instead of, say, returning as many scores as are available.\n\n**4. Division by zero when `scores` is empty**\n`average = sum(scores) / len(scores)` divides by `len(scores)` unconditionally. If `scores` is empty and `limit` is 0 (so the indexing loop above doesn't crash first), this raises `ZeroDivisionError`. There is no guard for an empty input list.\n\n**5. Deduplication only looks at the first `limit` sorted positions, so `result` can contain fewer than `limit` entries even when enough distinct scores exist**\nThe loop only ever inspects `scores[0]` through `scores[limit-1]`. If that window contains duplicate values (e.g., two players tied at the top), the duplicate is skipped via the `seen` check but the loop does not extend further into the list to find a replacement. So even though the full `scores` list may contain `limit` or more *distinct* values, `result` can end up shorter than `limit` simply because duplicates occupied slots within the truncated window.",
+  "response_sha256": "827993c65b0ca88f9b295654abada10f8b47ba1506090cf6f41d77ee6933ee69",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28258,
+    "output_tokens": 2655,
+    "output_tokens_details": {
+      "thinking_tokens": 1937
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2655,
+        "cache_read_input_tokens": 28258,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0322056,
+    "duration_ms": 30376,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:02:07+00:00",
+  "finished_at": "2026-09-13T05:02:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

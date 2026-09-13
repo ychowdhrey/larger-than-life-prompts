@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T06_vs_A-r1",
+  "contrast_id": "T06_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T06",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy all hard requirements, but Response B adds more practically useful safeguards—checking WAL/temp volumes separately, snapshotting to a separate target if the near-full disk itself constrains snapshot capacity, and throttling non-critical writes as a stopgap while the snapshot completes—plus a more concrete, actionable abort/rollback condition (restoring from snapshot to a scratch instance, resuming only if safe) and post-mitigation data-integrity verification in FOLLOW UP.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:33:15+00:00"
+}

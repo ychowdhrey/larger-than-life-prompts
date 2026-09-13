@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T19-r2",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 2,
+  "execution_index": 1036,
+  "sample_seed": 1022781371771552683,
+  "prompt_sha256": "c98bd69cf61816465cd391bba3d56ada8876784f2c324b39e9859b7417524f9f",
+  "prompt_chars": 750,
+  "response": "# Incident Response Runbook: Production Database — Critical Disk Utilisation with Write Latency Degradation\n\n**Trigger condition:** Primary production database disk utilisation ≥ 95% AND/OR write latency has increased ≥ 2x baseline within a 30-minute window.\n**Severity:** SEV-1 (imminent risk of write failure / outage)\n\n---\n\n## DETECTION\n\n1. **Confirm the alert is real, not a monitoring artifact.**\n   - Cross-check disk utilisation from at least two sources (e.g., cloud provider console/CloudWatch/Datadog AND `df -h` or equivalent on the host/instance).\n   - Cross-check write latency from the database's own metrics (e.g., `pg_stat_activity`, slow query log, RDS Performance Insights) against the APM/dashboard alert.\n2. **Establish current state and record a timestamp baseline.**\n   - Record: current disk usage %, free space in GB, write latency (p50/p95/p99), IOPS, active connection count, and replication lag (if applicable).\n   - Record which host/instance/cluster node is affected (primary vs. replica).\n3. **Declare the incident.**\n   - Open an incident channel/ticket. Page the on-call DBA and the on-call engineering lead.\n   - Assign an Incident Commander (IC) and a Scribe to log all actions with timestamps. Every action from this point forward must be logged.\n4. **Determine trend, not just snapshot.**\n   - Pull the disk usage growth rate over the last 1–6 hours to estimate time-to-full (e.g., \"growing at 2%/10min → ~10 minutes to 100%\").\n   - This estimate determines how much time is available for the steps below.\n\n---\n\n## IMMEDIATE ACTIONS\n\n> **Ordering constraint (hard rule): Do NOT restart, reboot, or fail over the primary database until Step 1 (snapshot) has completed successfully and been verified.** Any action in this runbook that could lose data, corrupt state, or roll back transactions must wait until the snapshot exists.\n\n1. **Take a storage snapshot of the primary database FIRST, before any other risk-bearing action.**\n   - Trigger a storage-level snapshot (e.g., EBS snapshot, RDS/Aurora snapshot, LVM snapshot, or SAN snapshot) of the primary's data volume.\n   - Confirm the snapshot job has reached \"completed\"/\"available\" state — do not proceed on a snapshot that is still \"in progress\" or \"pending.\"\n   - If the snapshotting mechanism itself requires significant I/O or a brief freeze, note that this is expected and acceptable; it is the highest-priority action.\n   - Log the snapshot ID/ARN and completion timestamp in the incident channel.\n2. **Only after the snapshot is confirmed complete, identify and stop non-essential disk growth.**\n   - Check for and pause/kill runaway processes: large batch jobs, ad-hoc reporting queries, bulk imports, or backfills currently writing to the primary.\n   - Check for log/WAL bloat: identify if write-ahead logs, binlogs, or audit logs are the primary consumer of space rather than table data.\n   - Do NOT delete WAL/binlog files manually without DBA sign-off — doing so can break replication or point-in-time recovery even after the snapshot.\n3. **Reassess time-to-full after Step 2.**\n   - If disk usage is still climbing toward 100% and time-to-full is under ~15 minutes, escalate to MITIGATION immediately in parallel with continued monitoring.\n4. **Protect against total disk exhaustion (data-safe options only).**\n   - If the platform supports online volume expansion (e.g., cloud block storage resize) with zero/minimal downtime, initiate the resize now — this is non-destructive and can run concurrently with other steps.\n   - Do not attempt manual file deletion, table truncation, or partition drops as an \"immediate\" measure — these are destructive and belong in MITIGATION only after DBA review.\n\n---\n\n## MITIGATION\n\n1. **Expand storage capacity (preferred path).**\n   - If not already done in IMMEDIATE ACTIONS, perform an online disk/volume expansion. This is the lowest-risk fix and should be attempted before any data-reduction measure.\n   - Verify the expansion completed and disk utilisation has dropped to a safe threshold (< 80%) before standing down.\n2. **If expansion is not possible (e.g., hardware limit reached, no cloud auto-scaling), reduce disk consumption — DBA-approved only, and only after the snapshot from IMMEDIATE ACTIONS Step 1 is confirmed:**\n   - Archive or offload old partitions/tables to cold storage per data retention policy.\n   - Vacuum/compact bloated tables and indexes (e.g., `VACUUM FULL`, `OPTIMIZE TABLE`) — note this can itself increase I/O and latency temporarily; schedule during lowest-traffic window if latency allows, and only if free space margin permits the operation.\n   - Rotate and archive old logs/binlogs/WAL segments that are safely past the required retention/replication point.\n3. **If write latency continues to degrade despite disk relief, consider read traffic shedding.**\n   - Redirect non-critical read queries to replicas to reduce contention on the primary.\n   - Enable rate limiting or backpressure on write-heavy application endpoints if the application supports graceful degradation.\n4. **Failover — only as a last resort, and only after the snapshot is confirmed and disk-expansion/mitigation options have been exhausted or deemed insufficient.**\n   - If the primary is genuinely unrecoverable in place (disk hard-capped, expansion impossible, latency causing cascading application failure), the IC may authorize a controlled failover to a healthy, in-sync replica.\n   - Before failover: confirm replica lag is at or near zero, confirm the replica has adequate disk headroom, and confirm the snapshot of the (about-to-be-former) primary exists and is verified.\n   - Perform the failover using the standard documented failover procedure (not an ad-hoc restart).\n\n### Abort / Rollback Conditions\n\n- **Abort the failover** if replica lag is greater than a few seconds, if the replica's own disk utilisation is above a safe threshold (e.g., ≥ 80%), or if the replica fails a health/consistency check. In this case, do NOT fail over — instead hold traffic shedding/rate limiting in place and re-attempt storage expansion or emergency cleanup on the primary.\n- **Roll back / reverse any cleanup action** (e.g., archival, deletion, VACUUM FULL) immediately if: application error rates spike, data integrity checks fail, replication breaks, or free space does not improve as expected within 5 minutes of the action. Restore from the Step 1 snapshot rather than attempting further destructive remediation if data loss or corruption is suspected at any point.\n- **Abort any manual log/WAL rotation** if it is discovered that replicas or backup tooling still depend on those segments — restore the deleted/rotated files from the snapshot or backup immediately and re-sync replicas before continuing.\n\n---\n\n## FOLLOW UP\n\n1. **Post-incident verification.**\n   - Confirm disk utilisation is stable below 80% and write latency has returned to baseline for at least 30 consecutive minutes before closing the incident.\n   - Verify replication (if used) is fully caught up and consistent.\n2. **Root cause analysis.**\n   - Determine what drove disk growth (data growth, log bloat, runaway job, missing retention policy, undersized volume) and what drove latency (I/O contention, lock contention, connection storms).\n3. **Preventive actions.**\n   - Implement or tighten disk-usage alerting thresholds (e.g., page at 80%, not 95%+) with enough lead time to act.\n   - Add automated log/WAL retention and rotation policies.\n   - Evaluate autoscaling storage or a scheduled capacity review cadence.\n   - Add a pre-flight check to any batch/import jobs to estimate disk impact before running against production.\n4. **Documentation and review.**\n   - Write the post-incident report including timeline, snapshot IDs taken, decisions made, and any abort/rollback triggered.\n   - Review this runbook itself for gaps surfaced during the incident and update it accordingly.\n5. **Snapshot cleanup.**\n   - Confirm retention policy for the incident snapshot(s) taken in IMMEDIATE ACTIONS; do not delete until root cause analysis and any potential data-recovery need is fully closed out.\n\nSECTIONS: 4",
+  "response_sha256": "159590f342999453bb57ebfb98956e546d874851b0748ed6fb419723369cd13a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2580,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2919,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2580,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2919,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2580,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2580
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.044659199999999996,
+    "duration_ms": 36199,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:47:29+00:00",
+  "finished_at": "2026-09-13T04:48:06+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

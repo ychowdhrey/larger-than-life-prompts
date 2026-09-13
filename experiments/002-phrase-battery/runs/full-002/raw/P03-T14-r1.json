@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-T14-r1",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 1,
+  "execution_index": 111,
+  "sample_seed": 11627860312981162166,
+  "prompt_sha256": "28896b668f1b3a5c45148930e8cbb91f8fbf2592baa7546f7bd48a2fa9d968d6",
+  "prompt_chars": 1098,
+  "response": "**Reasoning**\n\nDependency chain lengths (in days of work):\n- T1→T2→T4→T6 = 2+2+3+3 = 10 days\n- T1→T3→T5→T6 = 2+2+2+3 = 9 days\n\nSince T6 needs *both* T4 and T5 finished, and the T2/T4 branch alone consumes 10 of the 10 available days, there is zero slack: T1 must start Day 1, and every task on the T2→T4→T6 branch must run with no idle gap. The only freedom is where to put T3/T5 (they only need to finish by the time T6 starts, i.e., by end of Day 7) and which engineer does which task, since T4 and T5 overlap in time and thus must be done by different people.\n\nPlan:\n- E1 handles T1 → T2 → T4 (the tight branch), fully packed Days 1–7.\n- E2 handles T3 → T5 (with a day of slack), then takes T6 alone once both T4 and T5 are done.\n\nCheck prerequisites:\n- T1 (E1, D1–2) finishes end of Day 2.\n- T2 (E1, D3–4) and T3 (E2, D3–4) start Day 3 (>2) ✓, finish end of Day 4.\n- T4 (E1, D5–7) starts Day 5 (>4, after T2) ✓.\n- T5 (E2, D5–6) starts Day 5 (>4, after T3) ✓, finishes Day 6.\n- T6 (E2, D8–10) starts Day 8, which is >7 (after T4 finishes D7) and >6 (after T5 finishes D6) ✓.\n- No engineer double-booked any day; every task is on consecutive days by one engineer; everything fits in Day 1–10.\n\nThis is the only feasible layout given zero slack on the T1-T2-T4-T6 chain, so it's tight but it does fit — 10 days is achievable, not \"impossible.\"\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E2 | T6\nDAY 9 | E2 | T6\nDAY 10 | E2 | T6\n\nLAST DAY: 10",
+  "response_sha256": "97141c01aa7ae434feb8b5b7b96e34a10c0f03257968e5a8d6b584c47060b8aa",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28478,
+    "output_tokens": 3283,
+    "output_tokens_details": {
+      "thinking_tokens": 2436
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3283,
+        "cache_read_input_tokens": 28478,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0385296,
+    "duration_ms": 32174,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:24:50+00:00",
+  "finished_at": "2026-09-13T04:25:23+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

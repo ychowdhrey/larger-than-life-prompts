@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-T18-r1",
+  "run_id": "full-002",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T18",
+  "condition_name": "phrase_t18",
+  "repetition": 1,
+  "execution_index": 1776,
+  "sample_seed": 13745447158679322499,
+  "prompt_sha256": "40561e5ff20235c9d04932d6507e0983f6118025b2fd5cb78011193f101fa9a8",
+  "prompt_chars": 1268,
+  "response": "## Defects Found\n\n**1. Contradictory notice periods (4.1 vs. 4.2)**\nClause 4.1 states either party may terminate on 30 days' notice. Clause 4.2 then requires the Client specifically to give \"not less than 45 days'\" notice when the Client initiates termination. These two provisions directly conflict for the case of Client-initiated termination: 4.1 says 30 days suffices, while 4.2 demands at least 45 days. As drafted, it is impossible to determine whether a Client notice of, say, 35 days is valid (compliant with 4.1) or a breach (non-compliant with 4.2). This would cause disputes over whether a termination notice was validly given and when the termination actually takes effect.\n\n**2. Gap in Table 4A refund bands (missing coverage for 6 months remaining)**\nThe bands given are \"9 or more,\" \"7 to 8,\" \"3 to 5,\" and \"fewer than 3\" months remaining. There is no band covering exactly 6 months remaining. A client terminating with exactly 6 months left on a prepayment would fall into no row of the table, making the refund calculation required by 4.3 impossible to perform for that case and leaving the refund amount undefined/disputable.\n\n**3. Arithmetic error in the \"3 to 5 months\" refund row**\nThe table states a 40% refund rate for 3–5 months remaining, with a worked example of $3,600 on a $12,000 annual prepayment. But 40% of $12,000 is $4,800, not $3,600 ($3,600 is actually 30% of $12,000). The stated rate and the stated dollar figure are inconsistent with each other, so it is unclear whether the intended rate is 40% (and the dollar figure is wrong) or 30% (and the percentage is wrong). This would cause an incorrect refund to be paid or invite a dispute over which figure controls.",
+  "response_sha256": "d261ad917a0b73c3c7700cc7f6c6d5f7c064cdcdb937f3b6b0da9298a0425815",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28533,
+    "output_tokens": 2867,
+    "output_tokens_details": {
+      "thinking_tokens": 2254
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2867,
+        "cache_read_input_tokens": 28533,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.034380600000000004,
+    "duration_ms": 31006,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:04:42+00:00",
+  "finished_at": "2026-09-13T05:05:15+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

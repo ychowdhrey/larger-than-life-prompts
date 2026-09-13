@@ -1,0 +1,22 @@
+{
+  "item_id": "18dfce5ae6cd0fb0",
+  "sample_id": "C01-T19-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T19",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects listed are real and accurately described, including the non-obvious dedup-window backfill bug verified with a concrete trace, and no false positives are reported; the response covers both the obvious pitfalls (mutable default, in-place sort, IndexError) and the subtler cross-call/backfill issues, though it stops short of overlap-free organization between the IndexError and empty-list cases.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:45+00:00"
+}

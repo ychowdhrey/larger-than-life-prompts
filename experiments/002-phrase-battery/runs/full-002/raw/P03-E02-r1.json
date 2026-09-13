@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-E02-r1",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 1,
+  "execution_index": 2174,
+  "sample_seed": 3679979127572781784,
+  "prompt_sha256": "b9126337a92164dac9c72d07b9f2130ef0e762310f33442bb7289b32580db706",
+  "prompt_chars": 1154,
+  "response": "**Reasoning**\n\nDependency chain forces a critical path: T1 → T2 → T4 → T6 (2+2+3+3 = 10 days) and T1 → T3 → T5 → T6 (2+2+2+3 = 9 days). The first chain is the critical path, exactly 10 days, so there is zero slack — the schedule below is essentially the only valid ordering (up to swapping which engineer does which parallel task).\n\n- T1 (2d, no prereq): must go first. Assign to E1, Days 1–2.\n- After T1 finishes (end Day 2), T2 and T3 can both start Day 3. Assign T2 to E1, T3 to E2 (parallel), Days 3–4.\n- T4 needs T2 done (end Day 4) → starts Day 5, takes 3 days → Days 5–7. Assign to E1 (who just did T2).\n- T5 needs T3 done (end Day 4) → starts Day 5, takes 2 days → Days 5–6. Assign to E2 (who just did T3).\n- T6 needs both T4 (end Day 7) and T5 (end Day 6) done → can only start Day 8, takes 3 days → Days 8–10. Only one task remains, so assign to either engineer with consecutive availability — E1 is free from Day 8 onward, so assign to E1.\n\nCheck: each engineer works consecutive days on any given task, never two tasks at once, all prerequisite constraints satisfied (each successor starts strictly after prerequisite's finish day), and everything fits within Day 1–10 (finishing exactly on Day 10).\n\n**Schedule**\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "1015227b763e078165e6a423adf26e464d39e4b2c482e8c7f13c0d297d12e581",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28491,
+    "output_tokens": 1493,
+    "output_tokens_details": {
+      "thinking_tokens": 754
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1493,
+        "cache_read_input_tokens": 28491,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0206322,
+    "duration_ms": 15054,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:35+00:00",
+  "finished_at": "2026-09-13T05:13:51+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

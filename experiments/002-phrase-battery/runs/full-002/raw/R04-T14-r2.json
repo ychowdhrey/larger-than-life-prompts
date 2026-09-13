@@ -1,0 +1,68 @@
+{
+  "sample_id": "R04-T14-r2",
+  "run_id": "full-002",
+  "task_id": "R04",
+  "family": "reasoning",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 2,
+  "execution_index": 936,
+  "sample_seed": 18354932395036437377,
+  "prompt_sha256": "2024c9c7e2596092f0ff6bbb1feea138de3c6d831d9ef4277d4c38f9d25ca3cb",
+  "prompt_chars": 515,
+  "response": "Let me compute this carefully, step by step.\n\n**Year 1:**\n- Start: 10,000.00\n- Return: +12% → 10,000.00 × 1.12 = 11,200.00\n- Fee: 11,200.00 − 90.00 = **11,110.00**\n\n**Year 2:**\n- Return: −12% → 11,110.00 × 0.88 = 9,776.80\n- Fee: 9,776.80 − 90.00 = **9,686.80**\n\n**Year 3:**\n- Return: +5% → 9,686.80 × 1.05 = 10,171.14\n- Fee: 10,171.14 − 90.00 = **10,081.14**\n\nNo rounding ambiguity arises at any intermediate step — every multiplication happens to land exactly on a whole number of cents (11,200.00 → 11,110.00 → 9,776.80 → 9,686.80 → 10,171.14 → 10,081.14), so there's no compounding-rounding trap hiding here despite three sequential percentage operations plus fees.\n\nFINAL ANSWER: 10081.14",
+  "response_sha256": "6fd04839554b24f845f8be9e95bbbb27b53799924de52ea47e109396ac14c547",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2522,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 519,
+    "output_tokens_details": {
+      "thinking_tokens": 164
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2522,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 519,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2522,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2522
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0204272,
+    "duration_ms": 6612,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:44:52+00:00",
+  "finished_at": "2026-09-13T04:45:00+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

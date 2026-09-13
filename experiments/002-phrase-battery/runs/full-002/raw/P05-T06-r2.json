@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T06-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 2,
+  "execution_index": 2131,
+  "sample_seed": 849744943399269613,
+  "prompt_sha256": "85f8f077d13bd286180c0eee8abc82e87cb46e049e15e8bff352e6689c8a5ecc",
+  "prompt_chars": 827,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy Billing to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the old billing system to the new one while both systems run in parallel (dual-run). Migration proceeds in named phases, each gated by an entry criterion and monitored against halt thresholds. The old billing system remains fully operational (not disabled or decommissioned) throughout all user-migration phases, including the final one; decommissioning is explicitly deferred to a separate, later phase after the last batch of users has been migrated and validated.\n\n---\n\n## Phase 1: Pilot (2.5% of users — 1,000 users)\n\n**Entry criterion:** New billing system has passed end-to-end integration testing in staging (including invoicing, payment capture, refunds, and proration), dual-write/dual-read reconciliation tooling is live, and an internal rollback procedure has been rehearsed at least once in staging.\n\n**Scope:** 1,000 users selected from internal/employee accounts and consenting low-risk external customers (e.g., accounts with no active disputes, non-enterprise contracts).\n\n**Activities:**\n- Migrate accounts to the new system while keeping old system as system-of-record fallback.\n- Run parallel billing cycles on both systems and reconcile invoice totals, tax calculations, and payment statuses daily.\n- Collect support ticket volume and reconciliation discrepancies.\n\n**Exit criterion to advance:** ≤0.5% invoice mismatch rate between systems over 2 consecutive billing cycles, and no critical (Sev-1) incidents open.\n\n---\n\n## Phase 2: Expanded Rollout (25% of users — 10,000 users)\n\n**Entry criterion:** Phase 1 exit criteria met, reconciliation discrepancy rate stayed below threshold for 2 consecutive billing cycles, and support ticket volume attributable to migration is below 1% of migrated users.\n\n**Scope:** Broader mix of customer segments (varied plan types, geographies, payment methods) but excluding highest-revenue enterprise accounts.\n\n**Activities:**\n- Batch migration in waves of ~2,000 users every 3–5 days, with reconciliation checks between waves.\n- Enable customer-facing communication (billing statement notices) explaining the transition.\n- Load-test new system under real concurrent billing volume.\n\n**Exit criterion to advance:** Payment failure rate on migrated accounts stays within 0.2 percentage points of the old system's baseline failure rate, and reconciliation mismatch rate remains ≤0.5%.\n\n---\n\n## Phase 3: General Availability / Full Migration (72.5% of users — 29,000 users)\n\n**Entry criterion:** Phase 2 exit criteria met, finance sign-off obtained on reconciliation accuracy, and customer support has confirmed staffing/readiness for full-volume ticket load.\n\n**Scope:** All remaining users, including enterprise and highest-revenue accounts, migrated last due to contract complexity.\n\n**Activities:**\n- Migrate remaining users in waves (e.g., 5,000–7,000 per wave) with a 48–72 hour monitoring window between waves.\n- Enterprise accounts migrated individually with dedicated account-manager coordination.\n- Both systems continue running in parallel through the end of this phase; the old system remains fully operational as fallback for every migrated user until post-migration validation is complete.\n\n**Exit criterion (phase complete, not a decommission trigger):** 100% of users migrated, reconciliation mismatch rate ≤0.5% sustained for 2 full billing cycles across the entire user base, and zero unresolved Sev-1 billing incidents.\n\n---\n\n## Phase 4: Legacy Decommission (0% of users — infrastructure only, no user migration activity)\n\n**Entry criterion:** Phase 3 fully complete, a minimum 2 full billing cycles have elapsed post-final-migration with no reconciliation discrepancies above threshold, and finance/compliance have signed off that no regulatory retention requirement blocks legacy shutdown.\n\n**Activities:** Archive legacy billing data per retention policy, disable dual-write, decommission old billing system infrastructure.\n\n*(This phase is intentionally separated from Phase 3 so that decommissioning the old system never occurs in the same phase as the final batch of user migration.)*\n\n---\n\n## Risks\n\nRISK: Reconciliation mismatches between old and new systems cause incorrect customer charges | Run automated daily reconciliation with alerting; require manual sign-off before advancing any phase | Finance Systems Lead\nRISK: Payment gateway integration behaves differently under new system, causing elevated payment failures | Load-test gateway integration in staging with production-like traffic; monitor failure rate in real time during rollout | Payments Engineering Lead\nRISK: Migrated enterprise customers experience billing disruption affecting contractual SLAs | Migrate enterprise accounts last, individually, with dedicated account-manager coordination and rollback plan per account | Enterprise Customer Success Lead\nRISK: Support team is overwhelmed by ticket volume during rollout, delaying issue resolution | Stagger wave sizes, forecast ticket volume from pilot data, and pre-scale support staffing before each phase | Customer Support Manager\nRISK: Data corruption or loss during account migration between systems | Use idempotent migration scripts with pre/post checksums on account and invoice data; keep old system as read fallback until validated | Data Migration Engineering Lead\n\n---\n\n## Halt Criteria (Automatic Rollout Pause)\n\nThe rollout must pause immediately and roll back the current wave if any of the following occur:\n- **Reconciliation mismatch rate exceeds 1.0%** of migrated accounts in any single billing cycle.\n- **Payment failure rate on migrated accounts exceeds baseline (old-system) failure rate by more than 0.5 percentage points** in any 24-hour window.\n- Any Sev-1 billing incident (e.g., duplicate charges, failed refunds at scale) remains unresolved for more than 4 hours.\n\n---\n\n## Notes on Numeric Consistency\n\n- 2.5% of 40,000 = 1,000 ✓\n- 25% of 40,000 = 10,000 ✓\n- 72.5% of 40,000 = 29,000 ✓\n- 1,000 + 10,000 + 29,000 = 40,000 ✓ (100% of users accounted for across the three user-migration phases)\n- Phase 4 carries 0% user-migration share by design, since it is infrastructure decommissioning only, occurring strictly after Phase 3's final batch.\n\nPHASES: 4",
+  "response_sha256": "853a29211b4492a011068852b5b5d3a3530a87166b0816b9b4136d56bf421575",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28319,
+    "output_tokens": 2239,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2239,
+        "cache_read_input_tokens": 28319,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0280578,
+    "duration_ms": 27278,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:12:33+00:00",
+  "finished_at": "2026-09-13T05:13:02+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

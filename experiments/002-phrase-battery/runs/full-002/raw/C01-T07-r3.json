@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T07-r3",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 3,
+  "execution_index": 152,
+  "sample_seed": 18050732121123033968,
+  "prompt_sha256": "e1f3b82d37028e8259a4b160236e903c50ce13b9741449e16e34ee8325010a77",
+  "prompt_chars": 622,
+  "response": "Here are the defects I found:\n\n**1. Mutable default argument (`seen=[]`)**\nDefault argument values are evaluated once, at function definition time, and the same list object is reused on every call that doesn't explicitly pass `seen`. Because the function also mutates it (`seen.append(...)`), state leaks across calls: scores returned as \"top\" in one call will silently be excluded from the result of a later, unrelated call simply because they were seen before. Over many calls the list also grows without bound. This is almost certainly not the intended behavior of a \"seen\" parameter meant to be per-call.\n\n**2. Index out of range when `scores` is shorter than `limit`**\nThe loop does `for i in range(0, limit): ... scores[i] ...` without checking `len(scores)`. If `scores` has fewer than `limit` elements (e.g. `scores=[10, 20]` with the default `limit=5`), this raises an `IndexError` once `i` reaches `len(scores)`.\n\n**3. Crash on empty `scores`**\nIf `scores` is `[]`, the loop immediately raises `IndexError` on `scores[0]` (for any `limit > 0`). If `limit` is `0` (so the loop body never executes), the function instead reaches `average = sum(scores) / len(scores)` and raises `ZeroDivisionError`. Either way, an empty list crashes the function instead of returning something reasonable like `([], 0)`.\n\n**4. Deduplication only scans the first `limit` positions, not the first `limit` unique values**\nThe loop stops after examining exactly `limit` positions of the sorted list, even though duplicates within that range are skipped rather than replaced by the next candidate. Example: `scores=[5,5,5,5,5,3,2,1]`, `limit=5` → sorted is unchanged, and the loop only looks at indices 0–4, all of which are `5`. The first `5` is kept, the rest are skipped as duplicates, and the loop never advances to index 5, 6, or 7 to pick up `3`, `2`, `1`. Result is `[5]` instead of `[5, 3, 2, 1, ...]`/whatever \"top 5 distinct scores\" was meant to produce — the function returns fewer results than `limit` even though enough distinct values exist in `scores`.\n\n**5. In-place sort mutates the caller's list**\n`scores.sort(reverse=True)` sorts the list the caller passed in, in place, rather than working on a copy. Descending order itself is stated as intended, but silently reordering the caller's original object is a separate, likely-unwanted side effect — any other code holding a reference to that same list will see its order changed after calling `top_scores`.",
+  "response_sha256": "52d92963cf31966e599ca7f1709cd884962779dfbb1a3b76efacfbde9492396f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2540,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3255,
+    "output_tokens_details": {
+      "thinking_tokens": 2378
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2540,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3255,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2540,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2540
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.047859200000000005,
+    "duration_ms": 36157,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:25:41+00:00",
+  "finished_at": "2026-09-13T04:26:18+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

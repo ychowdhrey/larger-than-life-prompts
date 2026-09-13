@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T20-r1",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 1,
+  "execution_index": 1579,
+  "sample_seed": 7843440391317224722,
+  "prompt_sha256": "53d9cd7d0e760cf2fc108f3bbb145a9f109c3ff26c75cef48d50433aa8421a7a",
+  "prompt_chars": 748,
+  "response": "# Incident Response Runbook: Production Database — Critical Disk Utilisation with Elevated Write Latency\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 95% (observed: 98%) AND write latency has increased significantly over a short window (observed: ~3x over 20 minutes).\n\n**Severity:** SEV-1 (imminent risk of write failure / outage)\n\n---\n\n## DETECTION\n\n1. Confirm the alert is real, not a monitoring glitch:\n   - Check disk utilisation from at least two sources (e.g., cloud provider metrics console AND `df -h` / `node_exporter` on the host) to rule out a stale or misreporting agent.\n   - Confirm write latency trend on the database's own metrics (p50/p95/p99 write latency, commit latency) over the last 20–60 minutes, not just a single spike.\n2. Identify the exact resource under pressure:\n   - Is it the data volume, the WAL/redo log volume, or a temp/spill volume? These may be separate mounts with different remediation paths.\n3. Establish current trajectory:\n   - Calculate rate of disk growth (GB/min) over the last 20 minutes. Extrapolate time-to-full at current rate. This number drives urgency and choice of mitigation.\n4. Open an incident channel/ticket and page the on-call DBA and the responsible service owner. Note timestamp of first detection.\n5. Declare incident severity (SEV-1) and assign an Incident Commander (IC) if not already assigned. All actions below are logged in the incident channel with timestamps and the responder's name.\n\n---\n\n## IMMEDIATE ACTIONS\n\n**Ordering constraint: no destructive, data-mutating, or service-disrupting action (including restart or failover) may be taken until a storage snapshot has been successfully completed and verified. This is non-negotiable — see rationale below.**\n\n1. **Take a storage snapshot of the primary's data volume(s) now, before any other corrective action.**\n   - Use the platform's point-in-time snapshot mechanism (e.g., EBS snapshot, cloud disk snapshot, LVM/ZFS snapshot, storage-array snapshot).\n   - If the snapshot tool itself requires disk headroom to complete and headroom is nearly exhausted, prefer a metadata-only/copy-on-write snapshot mechanism over one that requires a full copy. If no snapshot method can succeed at current free space, immediately escalate to step 2 (read-only lockdown) as the safer interim measure, and retry the snapshot once space is freed.\n   - **Do not proceed to step 3 or beyond until the snapshot job reports \"complete\" and you have confirmed it is restorable/listed in the snapshot inventory.**\n2. If disk is projected to hit 100% before the snapshot completes or before a mitigation can take effect (time-to-full < 10 minutes), immediately set the database to **read-only mode** (not restart, not failover) to stop further write-driven disk growth while the snapshot completes. Read-only mode is reversible and does not require a restart on most engines (e.g., `SET default_transaction_read_only = on` / equivalent), so it does not violate the no-restart-before-snapshot rule.\n3. Once the snapshot is confirmed complete, notify the incident channel: \"Snapshot complete at <timestamp>, ID <snapshot-id>. Cleared to proceed with disk remediation.\"\n4. Only after step 3, proceed to MITIGATION.\n\n**Why this order matters:** Restarting or failing over a database at 98% disk with degrading write latency risks incomplete transaction flushes, WAL replay failures on restart, or a failover target inheriting the same disk-full condition mid-promotion — any of which can cause data loss or corruption. A snapshot taken *before* touching the instance guarantees a clean recovery point regardless of what happens next.\n\n---\n\n## MITIGATION\n\nOnce the snapshot is verified complete, choose the fastest safe path to reclaim headroom or reduce write pressure. Prefer non-destructive, additive actions first.\n\n1. **Expand storage first, if possible (preferred — no data risk):**\n   - If the platform supports online volume expansion (most cloud block storage does), increase volume size now. This is the lowest-risk action and should be attempted before any deletion.\n   - Confirm the filesystem/database recognizes the new capacity (e.g., `resize2fs`, `growpart`, or engine-specific online resize) without requiring a restart, if the platform supports it.\n2. **If expansion is not possible or not fast enough, reclaim space non-destructively:**\n   - Purge or archive rotated logs, old WAL/binlog segments already confirmed replicated to replicas/archive storage, and expired temp files.\n   - Truncate or vacuum bloated tables only if this is a routine, low-risk maintenance operation for your engine (e.g., `VACUUM` on Postgres) — never a first-time or untested operation during an active incident.\n   - Do NOT delete any WAL/binlog segment that has not been confirmed as archived/replicated — doing so can break point-in-time recovery or replica consistency.\n3. **Reduce write pressure:**\n   - Throttle or pause known bulk-write jobs, batch imports, or non-critical background writers.\n   - If application-level write throttling/backpressure exists, engage it.\n4. **Failover / restart, if still necessary — only now permitted:**\n   - If disk pressure persists after expansion and cleanup, and only after the snapshot from IMMEDIATE ACTIONS is confirmed and current mitigation steps have been attempted, failover to a standby with confirmed healthy disk headroom may proceed, with the IC's explicit sign-off.\n   - Before failover: confirm the standby is caught up (replication lag near zero) and itself has sufficient free disk. Do not fail over onto a target with its own disk pressure.\n5. **Re-check trajectory every 5 minutes:** disk utilisation, write latency, and free-space growth rate. Log each check in the incident channel.\n\n### Abort / Rollback Condition\n\n**Abort mitigation and reverse course immediately if any of the following occur:**\n- Any data deletion, archival, or vacuum operation causes replication lag to spike, replica divergence, or errors on standbys — **stop the operation immediately**, do not proceed further, and restore from the pre-mitigation snapshot taken in IMMEDIATE ACTIONS rather than attempting further ad hoc cleanup.\n- Volume expansion or filesystem resize fails partway or reports inconsistency — **stop**, do not attempt a restart to \"fix\" it; escalate to the DBA lead and consider restoring from snapshot to a new instance instead.\n- Write latency continues to climb after read-only mode or throttling is applied (indicating the bottleneck is not disk space) — **stop treating this as a disk-capacity incident**, reassess (e.g., check for lock contention, I/O saturation, autovacuum storms, or a runaway query) before taking further disk-directed action.\n- At any point free disk space drops below 2% before remediation completes — **halt all non-essential write mitigation steps and re-invoke IMMEDIATE ACTIONS step 2 (read-only mode)** as the safe fallback while reassessing.\n\nIf any abort condition triggers, the IC must confirm the last-known-good snapshot ID and communicate the rollback plan to the incident channel before any further action is taken.\n\n---\n\n## FOLLOW UP\n\n1. Confirm disk utilisation has returned to a stable, healthy margin (e.g., < 70%) and write latency has returned to baseline for at least 30 consecutive minutes before declaring the incident resolved.\n2. Verify the pre-incident snapshot and any subsequent snapshots are retained per policy in case delayed corruption is discovered.\n3. Root-cause analysis: identify what drove the disk growth (log retention misconfiguration, missing autovacuum, unbounded table growth, a bulk job, WAL accumulation from a stalled replica, etc.).\n4. Add or tune proactive alerting: lower the disk-utilisation warning threshold (e.g., alert at 75% and 85%, not just at/near 98%), and add a rate-of-growth alert so this is caught earlier next time.\n5. Review and, if needed, automate: storage auto-scaling, log/WAL retention policies, and routine vacuum/maintenance schedules.\n6. Conduct a blameless post-incident review within 5 business days; document timeline, snapshot IDs used, decisions made, and update this runbook with any gaps found during the response.\n7. Confirm on-call handoff notes reflect current state and any temporary measures (e.g., read-only mode, throttled jobs) still in effect are tracked to full reversal.\n\nSECTIONS: 4",
+  "response_sha256": "1d0f8242ceda98b5048740bf7a4cff387e966601b3733a36a46b68e2f87c7092",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28305,
+    "output_tokens": 2950,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2950,
+        "cache_read_input_tokens": 28305,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.035165,
+    "duration_ms": 37803,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:00:19+00:00",
+  "finished_at": "2026-09-13T05:00:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

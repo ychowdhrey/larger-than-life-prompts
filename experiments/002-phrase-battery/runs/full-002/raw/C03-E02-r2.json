@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-E02-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 2,
+  "execution_index": 1014,
+  "sample_seed": 15292423544931395733,
+  "prompt_sha256": "59c39299731a94d346ef8c57b0a8c9e8e59f988264c11c2e245f873dad836b82",
+  "prompt_chars": 1078,
+  "response": "Here is every defect I found, organized by the section of the memo it comes from.\n\n## 1. Webinar attendance → retention\n\n**Defect 1: Causation claimed from an observational correlation (self-selection confound).**\nWebinar attendance is voluntary, not randomly assigned. Customers who choose to attend an onboarding webinar are plausibly more engaged, more invested in the product, or more likely to succeed with it regardless of the webinar — and that same underlying engagement (not the webinar itself) could drive both attendance and retention. It's equally possible the causal arrow runs backward: customers who already intend to stick around bother to attend. The memo treats \"attended → stayed\" as proven causation.\n*What it causes:* Mandating webinar attendance for all new customers assumes the effect will transfer to unwilling/uninterested attendees who differ systematically from the self-selected group that produced the 31% figure. The policy could cost time and money and produce little or no retention benefit — or even backfire if forced attendance is experienced as friction.\n\n**Defect 2: Survivorship bias in the sample.**\nThe analysis is run only on the 412 customers \"still active on the Pro plan today\" — churned customers are excluded entirely. A retention comparison computed purely on survivors doesn't have visibility into how many webinar-attendees vs. non-attendees actually churned, so it can't validly establish a retention *rate* difference. Customers who churned early (and may disproportionately have been non-attendees, or attendees) are invisible to the analysis.\n*What it causes:* The 31% figure can be biased in either direction and is not a trustworthy estimate of the true effect of webinars on retention.\n\n**Defect 3: No reported sample sizes, variance, or significance for the 31% figure.**\nUnlike the churn-attribute test (which at least reports a p-value), the webinar comparison gives no group sizes, confidence interval, or significance test. If, say, only a handful of the 412 attended a webinar, \"31% higher\" could be noise.\n*What it causes:* A potentially unstable or non-significant number is being treated as a solid basis for a company-wide mandatory policy.\n\n## 2. Region and churn\n\n**Defect 4: Multiple-comparisons problem (data dredging).**\nEighteen attributes were tested against churn, and the one that hit p = 0.04 was highlighted. With 18 tests at α = 0.05, the probability that at least one comes back \"significant\" purely by chance is roughly 1 − 0.95¹⁸ ≈ 60%, even if none of the attributes truly matter. No correction (Bonferroni, FDR, etc.) was applied.\n*What it causes:* The \"Central region churns less\" finding is quite likely a false positive. Concentrating next quarter's spend there is likely to be based on noise rather than a real regional effect, misallocating budget.\n\n**Defect 5: Statistical significance conflated with a causal, actionable driver.**\nEven if the regional effect is real, a bivariate association between region and churn doesn't identify *why* — it could be confounded by industry mix, customer size, tenure, or product usage patterns that happen to cluster geographically. Nothing in the memo rules out confounders.\n*What it causes:* Spending more in the Central region may not address whatever is actually driving churn elsewhere, and may not even be the lever that keeps Central churn low (it could just be a marker for some other trait) — wasting the incremental spend.\n\n## 3. Satisfaction increase\n\n**Defect 6: Percentage points reported as \"percent,\" obscuring magnitude.**\nGoing from 62% to 66% is a 4 percentage-point increase, which is roughly a 6.5% *relative* increase. Calling this \"4% improvement\" blurs which quantity is meant.\n*What it causes:* Understates or misstates the actual relative magnitude of the change, which can mislead comparisons to other metrics reported in relative terms.\n\n**Defect 7: Causal attribution without a control group or ruling out other explanations (post hoc ergo propter hoc).**\nThe memo attributes the satisfaction rise to \"the new support model\" purely because the model was introduced and satisfaction went up in the same quarter. No comparison group, no check of concurrent changes (seasonality, pricing, product releases, other initiatives), and no assessment of whether a 4-point move is within the metric's normal quarter-to-quarter variance.\n*What it causes:* Credit (and future investment) may be misdirected at the support model when the real driver is something else, or the move could be ordinary noise — leading to continued spend on an intervention that isn't actually responsible for the gain, while the true cause goes unidentified.\n\n---\n\nEvery substantive conclusion in the memo — \"webinars cause retention,\" \"spend on Central region,\" \"the support model is working\" — rests on one of these gaps: uncontrolled confounding, survivorship bias, uncorrected multiple testing, or causal attribution from a single before/after comparison. The underlying numbers may be accurate, but none of the three recommendations is currently supported by the evidence presented.",
+  "response_sha256": "826b86c074f74e896875a57590b9eabf1ba961d79c90d3c140c7841ce0a6247c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28389,
+    "output_tokens": 4590,
+    "output_tokens_details": {
+      "thinking_tokens": 2931
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4590,
+        "cache_read_input_tokens": 28389,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0515818,
+    "duration_ms": 56355,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:46:45+00:00",
+  "finished_at": "2026-09-13T04:47:42+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

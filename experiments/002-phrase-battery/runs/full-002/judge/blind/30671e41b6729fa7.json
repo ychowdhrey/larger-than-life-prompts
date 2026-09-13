@@ -1,0 +1,22 @@
+{
+  "item_id": "30671e41b6729fa7",
+  "sample_id": "C01-T18-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T18",
+  "repetition": 2,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "All five real defects (mutable default, in-place sort mutation, IndexError, ZeroDivisionError with correct ordering nuance, and duplicate-skipping shortfall) are correctly identified with no fabricated issues, but the first illustrative example under defect 5 ([10,10,9,8,7,6], limit=5) is computed wrong — actual output is [10,9,8,7] (4 items), not the claimed [10,9,8,7,6] — indicating the response wasn't hand-traced/verified before submission, even though the second example for the same defect is correct.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:13+00:00"
+}

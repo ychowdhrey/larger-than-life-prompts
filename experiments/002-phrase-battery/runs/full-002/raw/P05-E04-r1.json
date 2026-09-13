@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E04-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E04",
+  "condition_name": "combo_e04",
+  "repetition": 1,
+  "execution_index": 1462,
+  "sample_seed": 8545559097247054159,
+  "prompt_sha256": "fb3d9bd0dcbca56883eb08251c7793c510d948cfcabfc546b13b00121bc468df",
+  "prompt_chars": 891,
+  "response": "# Rollout Plan: Migration from Legacy Billing System to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the legacy billing system (\"Old\") to the new billing system (\"New\"). Both systems will run in parallel (dual-run) for the duration of the migration, allowing rollback of any individual user or batch without service interruption. No decommissioning, disabling, or deletion of the old system occurs until a separate, dedicated decommission phase that starts only after the final migration batch has passed its full validation window.\n\n---\n\n## Phase Structure\n\n### Phase 1: Canary (0.5% of users, ~200 users)\n\n**Entry criterion:** New billing system has passed end-to-end reconciliation testing against a shadow copy of production data for 14 consecutive days with zero unresolved invoice/ledger mismatches, and rollback tooling (revert-to-old-system for a single user) has been tested successfully in staging.\n\n**Population:** Internal accounts and opted-in low-risk external users (no active disputes, standard payment methods, monthly billing cycle only).\n\n**Duration:** Minimum 7 days, covering at least one full billing cycle event (invoice generation) before proceeding.\n\n### Phase 2: Early Adopters (10% of users, ~4,000 users)\n\n**Entry criterion:** Phase 1 completed its full duration with zero critical incidents (see halt metrics below), invoice accuracy at 100% for canary cohort, and support ticket volume from canary users at or below baseline ticket rate for the equivalent cohort size.\n\n**Population:** Randomly sampled users stratified across payment method types (card, ACH, invoice/net-terms) and billing frequencies (monthly, annual), excluding enterprise accounts with custom contracts.\n\n**Duration:** Minimum 14 days, covering at least one full monthly billing cycle and one annual-billing edge case if present in the cohort.\n\n### Phase 3: General Availability Ramp (40% of users, ~16,000 users)\n\n**Entry criterion:** Phase 2 completed with cumulative invoice discrepancy rate below 0.1% (see halt metric), customer-reported billing complaints not exceeding 1.5x pre-migration baseline, and finance team sign-off on reconciliation reports for Phase 1 + 2 cohorts.\n\n**Population:** Broad general user base, excluding highest-value enterprise/custom-contract accounts, which are held back for Phase 4.\n\n**Duration:** Minimum 14 days, staged in two sub-batches of 20% each with a 3-day bake period between sub-batches to catch delayed billing-cycle issues.\n\n### Phase 4: Full Migration Including Enterprise Accounts (49.5% of users, remaining ~19,800 users)\n\n**Entry criterion:** Phase 3 fully complete with no open Severity-1/Severity-2 incidents attributable to the new billing system, dual-run reconciliation dashboards green for 7 consecutive days, and explicit written sign-off from Finance, Support, and Engineering leads.\n\n**Population:** All remaining users, including enterprise accounts with custom contracts, migrated in contract-aware batches (custom pricing/terms validated individually before batch inclusion).\n\n**Duration:** Minimum 21 days given contract complexity, with enterprise accounts migrated in the final sub-batch only after standard accounts in this phase are confirmed stable for 7 days.\n\n### Phase 5: Old System Decommission (post-migration, 0% additional user migration)\n\n**Entry criterion:** 100% of users successfully migrated and stable on the new system for a minimum of 30 consecutive days with zero open reconciliation discrepancies; full data archival of the old system completed and verified restorable; final audit sign-off from Finance and Compliance.\n\n**Scope:** This phase performs no user migration. It is exclusively read-only freeze, archival, and eventual decommissioning of the old billing system, kept fully separate from the final user migration batch in Phase 4 per the hard requirement against combining decommissioning with the last migration batch.\n\n---\n\n## Halt Metrics (numeric thresholds)\n\nThe rollout must be immediately paused (no further batches promoted) if any of the following occur:\n\n- **Invoice discrepancy rate exceeds 0.5%** of invoices generated in the new system within any rolling 24-hour window (compared against shadow-reconciled expected values).\n- **Failed/duplicate payment charge rate exceeds 0.2%** of transactions processed in the new system within any rolling 24-hour window.\n- **Customer-reported billing support tickets exceed 3x the pre-migration baseline rate** for the currently migrated cohort within any rolling 48-hour window.\n- **Reconciliation job lag (old vs. new ledger sync) exceeds 4 hours** for more than two consecutive sync cycles.\n\nAny single breach triggers an automatic freeze of further phase/batch promotion pending root-cause analysis; already-migrated users are not automatically rolled back unless the specific incident is user-impacting (e.g., incorrect charge), in which case affected users are individually reverted to the old system via dual-run failback.\n\n---\n\n## Risks\n\nRISK: Duplicate or double-billing of users during the dual-run window due to both systems independently triggering invoice generation | Implement an idempotency lock and single source-of-truth flag per user account that designates exactly one system as authoritative for charge execution at any time, with the non-authoritative system running in shadow/read-only mode | Billing Platform Engineering Lead\nRISK: Data drift between old and new systems for payment method tokens, causing failed charges after migration | Run automated reconciliation jobs every 4 hours comparing tokenized payment methods and account balances between systems, alerting on any mismatch before a user's cutover is finalized | Data Migration Engineering Lead\nRISK: Enterprise customers with custom contract terms (discounts, proration rules, multi-entity billing) are migrated incorrectly, causing revenue leakage or customer disputes | Require manual contract-term validation and customer success sign-off for each enterprise account prior to inclusion in any migration batch, with enterprise accounts held to the final sub-batch of Phase 4 | Enterprise Customer Success Lead\nRISK: Rollback path for a migrated user fails or is untested at scale, leaving no safe recovery option during an incident | Test single-user and batch-level rollback procedures in staging before each phase and re-verify rollback success criteria at the start of every phase using a small synthetic batch | Site Reliability Engineering Lead\nRISK: Support and Finance teams are unable to triage new-system billing issues due to unfamiliarity with new tooling, slowing incident response | Conduct hands-on training and produce a runbook for Support/Finance before Phase 2 begins, and staff an on-call billing engineer during all active migration windows | Support Operations Lead\n\n---\n\nPHASES: 5",
+  "response_sha256": "b78b712bf5089b6732cdf746ce958450d84bccae8b1ab6c88d6665a74d8db16c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28341,
+    "output_tokens": 2307,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2307,
+        "cache_read_input_tokens": 28341,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.028742200000000002,
+    "duration_ms": 29209,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:57:18+00:00",
+  "finished_at": "2026-09-13T04:57:49+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

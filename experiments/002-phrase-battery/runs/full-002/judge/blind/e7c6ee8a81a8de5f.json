@@ -1,0 +1,22 @@
+{
+  "item_id": "e7c6ee8a81a8de5f",
+  "sample_id": "C01-T10-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T10",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default argument, IndexError from unchecked limit, ZeroDivisionError on empty input, the dedup loop's fixed-index-range flaw yielding fewer than limit distinct results, and in-place mutation of the caller's list), each with accurate cause/effect explanations, a correct worked example, and no fabricated issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:06+00:00"
+}

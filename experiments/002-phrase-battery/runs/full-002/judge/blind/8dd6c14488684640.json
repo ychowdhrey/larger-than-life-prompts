@@ -1,0 +1,22 @@
+{
+  "item_id": "8dd6c14488684640",
+  "sample_id": "C01-E02-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E02",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (mutable default arg, IndexError from unguarded range(limit), ZeroDivisionError on empty input, undercounting due to skipped duplicates, and in-place mutation of the caller's list) are real and correctly explained with causes, no false positives are introduced, and the response even verifies claims with a concrete worked example and notes the exception-ordering interaction between defects 2 and 3.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:16:43+00:00"
+}

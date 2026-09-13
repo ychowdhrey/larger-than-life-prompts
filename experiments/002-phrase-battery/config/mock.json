@@ -1,0 +1,28 @@
+{
+  "run_id": "mock-002",
+  "mode": "pilot",
+  "experiment_id": "002",
+  "phrase": "phrase battery: 25 phrases across 9 behavioural families",
+  "report_style": "battery",
+  "experiment_dir": "experiments/002-phrase-battery",
+  "seed": 20260913,
+  "repetitions": 3,
+  "generation": {"backend": "mock", "model": "mock-model"},
+  "judging": {"backend": "mock", "model": "mock-model"},
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  },
+  "spec": {
+    "tasks": "tasks/core-v1.json",
+    "conditions": "experiments/002-phrase-battery/conditions.json",
+    "phrases": "experiments/002-phrase-battery/phrases.json",
+    "rubric": "evals/rubric.json",
+    "judge_prompt_blind": "evals/judge-prompt-blind.md",
+    "judge_prompt_pairwise": "evals/judge-prompt.md",
+    "preregistration": "experiments/002-phrase-battery/PREREGISTRATION.md"
+  },
+  "_tasks_note": "Full-size offline dry run: every arm, every task, every repetition, synthetic output. Validates the plumbing and the battery analysis at real scale for zero cost. Every record it writes is tagged backend=mock and can never be mistaken for data."
+}

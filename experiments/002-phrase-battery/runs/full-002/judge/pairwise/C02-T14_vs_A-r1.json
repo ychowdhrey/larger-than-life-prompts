@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T14_vs_A-r1",
+  "contrast_id": "T14_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T14",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T14",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the same four core defects (WHERE nullifying the LEFT JOIN, UTC+8 boundary miscalculation, missing COALESCE causing NULL totals, and integer-division truncation) with equally correct technical explanations, but Response B additionally calls out the NULL-sort-order distortion in ORDER BY as its own explicit, well-reasoned item (rather than folding it into the COALESCE fix) and explicitly verifies that COUNT, GROUP BY, and the missing upper bound are not defects, giving a more complete and precise review without introducing any incorrect claims.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:48:02+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-B-r2",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 981,
+  "sample_seed": 9785860894520685899,
+  "prompt_sha256": "a188603be835b0740c692dfb2f95dc83642ab0439563afe3c6d0255cf73d438a",
+  "prompt_chars": 836,
+  "response": "## Defects Found\n\n**1. Off-by-one boundary error in the implementation (violates R1)**\n\nThe code uses `if total > 100:` instead of `if total >= 100:`. R1 states an order with a total of **100 or more** gets the discount, i.e., 100 should be included.\n\n- Effect: `discount(100)` falls through to `return 0.0` instead of returning `10.0` (10% of 100). An order at exactly the threshold silently gets no discount, contradicting R1.\n\n**2. `test_cap` asserts the wrong expected value**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nGiven the implementation, `discount(1000)` computes `d = 1000 * 0.10 = 100.0`, then `min(d, 50.0)` → **50.0**. The test expects `100.0`, which the function never returns.\n\n- Effect: this test fails when actually run against the implementation shown — it's simply wrong, not a description of correct behavior.\n- Additionally, `100.0` as an *expected* value is itself inconsistent with R2 (\"the discount is never more than 50.00\") — a test asserting a 100.0 discount is asserting behavior that would violate R2 if it were true. So the test both fails to run cleanly and, in its stated intent, misrepresents the cap requirement.\n\n**3. No test covers the R1/R3 boundary (total = 100)**\n\nNone of the three tests exercise `total == 100`. This is precisely the value where the off-by-one bug (defect #1) manifests, so the test suite as written would not catch that bug even after fixing `test_cap`. There's also no test confirming values just below 100 (e.g., 99.99) correctly get no discount, or that the cap actually engages at a value that produces exactly 50 (e.g., 500) — the one test intended to exercise the cap (`test_cap`) is broken as noted above.\n\n## Not defects (verified, to avoid false positives)\n- `test_small` (`discount(50) == 0.0`) and `test_large` (`discount(200) == 20.0`) are both correct and pass as written.\n- No floating-point rounding issue affects `200 * 0.10` (evaluates to exactly `20.0` in IEEE-754 double precision), so `test_large` is fine.\n- The cap logic `min(d, 50.0)` itself correctly enforces R2 for all totals that do reach that branch — the cap mechanism is not defective, only the test asserting its output is.",
+  "response_sha256": "2f6aaa5c9bbef42c696a3f522db8493e3bb4c9f3c155d38a162cf7e988366b8f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2627,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2913,
+    "output_tokens_details": {
+      "thinking_tokens": 2105
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2627,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2913,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2627,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2627
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0447872,
+    "duration_ms": 30746,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:46:04+00:00",
+  "finished_at": "2026-09-13T04:46:36+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

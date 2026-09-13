@@ -1,0 +1,68 @@
+{
+  "sample_id": "R03-T17-r3",
+  "run_id": "full-002",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "T17",
+  "condition_name": "phrase_t17",
+  "repetition": 3,
+  "execution_index": 721,
+  "sample_seed": 16056524223481053823,
+  "prompt_sha256": "f544d1823db2b69447a1754873fb814786e738c3b3ace7ffa84233a53294ebcc",
+  "prompt_chars": 671,
+  "response": "Seat 1: Dev\nSeat 2: Ben\nSeat 3: Ana\nSeat 4: Eli\nSeat 5: Chi\n\nVerification:\n1. Ben(2) < Chi(5) ✓\n2. Ana in seat 3, not 1/5 ✓\n3. Dev(1) and Eli(4): exactly two people (seats 2,3) between them ✓\n4. Chi(5) not adjacent to Dev(1) ✓\n5. Eli(4) > Ana(3) ✓\n6. Ana(3) immediately right of Ben(2) ✓\n\nFINAL ANSWER: Dev, Ben, Ana, Eli, Chi",
+  "response_sha256": "f0db12c8df65bccd65a8c0a67358c4892ff2c1a46ff1aafbc00dc02cbc68a96d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2610,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1240,
+    "output_tokens_details": {
+      "thinking_tokens": 1012
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2610,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1240,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2610,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2610
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0279892,
+    "duration_ms": 11931,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:40:17+00:00",
+  "finished_at": "2026-09-13T04:40:30+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

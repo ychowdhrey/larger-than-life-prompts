@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T02_vs_A-r3",
+  "contrast_id": "T02_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T02",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the structural requirements, but Response B's snapshot step includes an escape hatch letting the IC 'accept the risk of proceeding without' a completed snapshot before any destructive/state-changing step, which undermines the hard rule that no restart/failover may occur before a snapshot is taken. Response A enforces the snapshot-first rule without exception and is otherwise equally thorough and operationally sound.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:28:02+00:00"
+}

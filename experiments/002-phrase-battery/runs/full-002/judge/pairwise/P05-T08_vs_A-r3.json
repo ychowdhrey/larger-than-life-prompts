@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T08_vs_A-r3",
+  "contrast_id": "T08_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T08",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet every hard requirement, but Response A is more operationally complete: it specifies both entry and exit criteria for every phase, and its halt-metric set covers both business impact (payment failure, discrepancy rate) and system health (API error rate, P95 latency) with explicit rolling-window definitions and a clear freeze-vs-immediate-rollback escalation policy, making it more directly actionable as a runbook. Response B is comparably strong but omits phase exit criteria and its halt metrics skip technical performance indicators like latency/error rate.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:30:10+00:00"
+}

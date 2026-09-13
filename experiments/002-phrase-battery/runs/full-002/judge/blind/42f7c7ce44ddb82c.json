@@ -1,0 +1,22 @@
+{
+  "item_id": "42f7c7ce44ddb82c",
+  "sample_id": "P02-T16-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T16",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four headings in order, places a mandatory storage snapshot before any destructive step, explicitly gates restart/failover behind snapshot completion, and includes multiple well-defined abort/rollback conditions, while also addressing non-obvious causes (WAL retention, replication slots, orphaned transactions) that make it genuinely actionable for an on-call responder.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:49+00:00"
+}

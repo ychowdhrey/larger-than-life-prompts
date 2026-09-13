@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-E08-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "E08",
+  "condition_name": "combo_e08",
+  "repetition": 3,
+  "execution_index": 749,
+  "sample_seed": 8864260250109999507,
+  "prompt_sha256": "db22c4aef9929479afa5960a8e5a8bf0c8bb7eaed43e3291c7573f5b0ba9750f",
+  "prompt_chars": 780,
+  "response": "## The problem\n\nOur team of twelve is spending more time managing merges than shipping features. Feature branches routinely live for two to three weeks, and by the time they're ready to merge, they've drifted so far from main that integration becomes its own multi-day project. We've had three release delays this quarter caused directly by merge conflicts and integration bugs that only surfaced when long-lived branches finally collided. Code review also suffers: reviewers face enormous diffs touching dozens of files, so they skim instead of scrutinize. Meanwhile, our CI pipeline gives us false confidence — it's green on isolated branches but tells us nothing about whether those branches actually work together.\n\n## The proposal\n\nI propose we move to trunk-based development, where everyone commits small, frequent changes directly to main (or through branches that live less than a day), protected by feature flags for anything incomplete. Concretely:\n\n- Branches must merge within 24 hours of creation, enforced informally at first and via CI branch-age checks later.\n- Incomplete or risky work ships behind feature flags rather than sitting unmerged.\n- We invest in a faster, more reliable CI suite since it becomes the primary safety net on every commit to main.\n- Code review shifts to smaller, same-day PRs so reviewers can actually reason about changes.\n- We run a two-sprint pilot with one squad before rolling this out team-wide, so we can adjust based on real friction points.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development requires excellent test coverage and CI discipline we may not yet have, and forcing small commits onto a shaky pipeline could mean shipping broken code to main constantly, eroding trust in the branch rather than building it. This is a legitimate risk: our current test suite has known gaps in the payments and notifications modules. I don't think this kills the proposal, but it does mean we should sequence the work — shoring up coverage in those two modules before or alongside the pilot, not after. If we can't get CI reliable within the pilot window, we should delay the wider rollout rather than push through.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "b15a4d2c7049113b62304d6cd6b553f64c90af3068abd2bd7ec4c22ef708094a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2582,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 682,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2582,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 682,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2582,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2582
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0222972,
+    "duration_ms": 11401,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:40:48+00:00",
+  "finished_at": "2026-09-13T04:41:01+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "34e8ffedcade82b2",
+  "sample_id": "P02-T16-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T16",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses exactly the four required headings in order, places a mandatory snapshot step before any risky action, explicitly forbids restart/failover prior to that snapshot, and includes a clearly labeled abort/rollback condition with concrete triggers, satisfying all hard requirements while also addressing non-obvious edge cases (snapshot failing due to near-full disk, replica lag before failover, safe log cleanup).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:55+00:00"
+}

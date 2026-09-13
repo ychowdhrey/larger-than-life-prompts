@@ -1,0 +1,22 @@
+{
+  "item_id": "67e2988c35e39043",
+  "sample_id": "C05-T06-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T06",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one boundary bug (>100 vs R1's 'or more'), correctly recomputes and flags the wrong expected value in test_cap (actual result is 50.0, not 100.0, due to the cap), and correctly notes the missing boundary test at total=100, all without inventing spurious issues or mislabeling the correct tests/cap logic.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:41+00:00"
+}

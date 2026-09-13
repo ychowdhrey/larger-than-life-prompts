@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T08-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 2,
+  "execution_index": 1823,
+  "sample_seed": 10201112544457781080,
+  "prompt_sha256": "a2c6c5ea842beb30ab09015292f8e619a8b4cdf6a5f053eae51ed913d3c4e8ef",
+  "prompt_chars": 827,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\nBoth billing systems (legacy \"Old Billing\" and new \"New Billing\") will run concurrently throughout the migration. Users are migrated in batches by moving their account-of-record and active billing operations (invoicing, payment processing, subscription changes) to the new system, while the old system remains live, read-accessible, and capable of processing fallback transactions until the final phase's stabilization window has passed.\n\n---\n\n## Phase 1: Pilot (2% of users — 800 users)\n\n**Entry Criterion:** New billing system has passed full parallel-run reconciliation testing against the old system for 30 consecutive days with zero unresolved discrepancies in invoice totals, tax calculation, and payment posting; rollback procedure has been tested end-to-end in staging.\n\n**Scope:** Internal employee accounts and opted-in low-risk customers (no active disputes, month-to-month plans, no enterprise contracts).\n\n**Activities:** Migrate accounts, run daily dual-invoice comparison (old system generates invoice in shadow mode, compared against new system's live invoice), manual review of every transaction.\n\n**Exit Criterion:** 800 users migrated with invoice/payment accuracy ≥ 99.9%, no P1/P2 incidents open, support ticket volume from pilot cohort within 1.5x baseline.\n\n---\n\n## Phase 2: Expanded Rollout (28% of users — 11,200 users, cumulative 30%)\n\n**Entry Criterion:** Phase 1 exit criteria met and signed off by Billing Engineering Lead and Customer Support Lead; automated reconciliation dashboard live (replacing manual review); at least 2 weeks elapsed post-Phase 1 with no reopened incidents.\n\n**Scope:** Broadened segment including mid-tier customers across multiple geographies and plan types, still excluding enterprise/custom-contract accounts.\n\n**Activities:** Batch migrations in waves of ~2,000 users every 3–4 days, automated daily reconciliation, monitoring of payment failure rates and support escalations per wave before proceeding to next wave.\n\n**Exit Criterion:** Cumulative payment failure rate ≤ 0.5% above pre-migration baseline; billing support ticket volume ≤ 1.3x baseline sustained for 2 weeks; no unresolved P1 incidents.\n\n---\n\n## Phase 3: General Availability (70% of users — 28,000 users, cumulative 100%)\n\n**Entry Criterion:** Phase 2 exit criteria met; finance has reconciled Phase 1+2 revenue recognition against old system with no material variance; enterprise/custom-contract account migration runbook separately reviewed and approved by Legal and Finance (these accounts migrate last within this phase due to contractual complexity).\n\n**Scope:** All remaining users, including enterprise and custom-contract accounts (migrated in the final sub-batch of this phase).\n\n**Activities:** Migrate remaining users in waves of ~5,000–7,000, prioritizing standard accounts first and enterprise accounts last; maintain old system in full standby/fallback mode for all migrated users.\n\n**Exit Criterion:** 100% of users migrated; reconciliation accuracy ≥ 99.9% sustained for 30 days; zero open P1 incidents.\n\n**Post-Phase 3 (separate phase, not part of final migration batch):** Old billing system moves to read-only archival mode no earlier than 60 days after Phase 3 exit criteria are met, followed by formal decommissioning only after finance archival and audit sign-off. Decommissioning is explicitly scheduled as its own phase, distinct from the final user-migration batch.\n\n---\n\n## Risks\n\nRISK: Payment processing failures spike during cutover due to tokenization mismatches between old and new payment gateways | Run parallel tokenization validation for each batch 48 hours before cutover and auto-rollback any account with failed token validation | Payments Engineering Lead\nRISK: Revenue recognition discrepancies between old and new systems cause financial reporting errors | Daily automated reconciliation reports reviewed by Finance with mandatory sign-off before each subsequent wave | Finance Controller\nRISK: Customer support volume overwhelms team due to billing confusion or duplicate charges | Pre-scale support staffing per phase using projected ticket volume models and maintain a dedicated migration escalation queue | Customer Support Director\nRISK: Enterprise customers with custom contract terms are migrated incorrectly, causing contractual breach | Require Legal and Account Management sign-off on each enterprise account's migration mapping before inclusion in any batch | Enterprise Accounts Manager\nRISK: Data corruption or loss during account data transfer between systems | Maintain immutable snapshots of old system data pre-migration and run automated field-level validation post-migration for every account | Data Engineering Lead\n\n---\n\n## Halt Metric\n\nIf the **payment failure rate for any migration wave exceeds 2% above the pre-migration baseline**, measured over a rolling 24-hour window, the rollout is immediately halted, no further batches are migrated, and the incident response team triages before any subsequent wave proceeds.\n\nPHASES: 3",
+  "response_sha256": "49c916cbcacbb841703d799031b0730309d2ffd484f8bc10ea2e846874c8848d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28325,
+    "output_tokens": 1769,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1769,
+        "cache_read_input_tokens": 28325,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.023359,
+    "duration_ms": 23253,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:05:34+00:00",
+  "finished_at": "2026-09-13T05:05:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T16-r1",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T16",
+  "condition_name": "phrase_t16",
+  "repetition": 1,
+  "execution_index": 1064,
+  "sample_seed": 11195937384528819513,
+  "prompt_sha256": "751b7e49ef0bf2b6e1777d43da1fb7658cfac50126f0a7926e8ea8a6f09e2c00",
+  "prompt_chars": 679,
+  "response": "A content delivery network solves a simple problem: a website's home base might be far away, and distance makes things slow. That home base is called the origin server — the original computer where all the website's files actually live. Instead of making every visitor's request travel all the way to that one distant computer, a content delivery network stores copies of the website's content at many smaller computers scattered around the world, called edge locations, positioned close to where people actually are. When a visitor asks for a page and a nearby edge location already has a saved copy ready to serve, that's called a cache hit — a lucky shortcut where the answer is already waiting close by, so nothing has to travel far. Think of it like a chain of neighborhood libraries holding copies of a popular book instead of everyone driving to one faraway central archive. If the neighborhood library has the book, it can be handed over instantly; if not, that library borrows a copy from the archive and keeps it on hand for the next visitor. This is why pages load quickly, videos stream smoothly, and busy websites stay standing even when huge numbers of people show up at once: the load gets spread across many nearby helpers instead of crushing one distant machine.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The original computer storing a website's real files | It's the ultimate source of truth when nothing else has a copy |\n| Edge location | A nearby computer holding copies of content | It shortens the distance information has to travel |\n| Cache hit | A request answered from a nearby saved copy | It makes loading feel instant and reduces strain elsewhere |\n| Latency | The delay caused by distance and travel time | Less delay means a smoother, faster-feeling experience |",
+  "response_sha256": "406cf4384d3fed813f82e0bafe22e6f1ced5ad0d7792f6f57fafadcde6a8b357",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28277,
+    "output_tokens": 542,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 542,
+        "cache_read_input_tokens": 28277,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0110794,
+    "duration_ms": 9711,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:48:06+00:00",
+  "finished_at": "2026-09-13T04:48:17+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

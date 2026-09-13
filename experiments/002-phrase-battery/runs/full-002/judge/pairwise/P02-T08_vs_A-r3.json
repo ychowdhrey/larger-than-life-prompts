@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T08_vs_A-r3",
+  "contrast_id": "T08_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T08",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy all hard requirements equally well (correct headings, snapshot-first mandate, explicit no-restart/failover-before-snapshot rule, and clear abort/rollback conditions), but Response A's MITIGATION section has more coherent risk-ordering logic, treating failover strictly as a last resort only if space reclamation fails and write failure is imminent. Response B's mitigation step 3 is internally confusing, proposing failover only after disk pressure is already relieved and latency is recovering, which undercuts the stated rationale of using failover to relieve load.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:46+00:00"
+}

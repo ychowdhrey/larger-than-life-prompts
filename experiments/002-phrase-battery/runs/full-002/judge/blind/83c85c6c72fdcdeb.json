@@ -1,0 +1,22 @@
+{
+  "item_id": "83c85c6c72fdcdeb",
+  "sample_id": "P02-A-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "A",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four headings in order, places a verified storage snapshot before any destructive or failover action, includes a clear abort/rollback condition, and ends with the correct SECTIONS line, while also addressing non-obvious details like separate WAL/temp volume checks, replica lag verification before failover, and post-incident integrity validation.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:46+00:00"
+}

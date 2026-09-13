@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-E02-r3",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 3,
+  "execution_index": 204,
+  "sample_seed": 15146350936729170069,
+  "prompt_sha256": "f068d17718a6d601f89c6f9ba4b2e07242b4e1aa3034872d4b658e2817347501",
+  "prompt_chars": 901,
+  "response": "Here are the defects I found, in rough order of severity:\n\n**1. The WHERE clause silently turns the LEFT JOIN into an INNER JOIN**\n`WHERE o.created_at >= '2026-01-01'` filters on a column from the right-hand (outer-joined) table. For a customer with no orders, `o.created_at` is NULL, and `NULL >= '2026-01-01'` evaluates to NULL/false, so the WHERE clause drops that row entirely.\n*Effect:* customers with zero orders disappear from the report completely — directly violating the stated requirement that they must appear with a count of zero. Fix: move the date condition into the `ON` clause (`LEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= ...`), not the `WHERE` clause.\n\n**2. The date boundary is compared in UTC, not the team's local UTC+8 calendar day**\n`created_at` is stored in UTC, but `'2026-01-01'` is being compared directly against it with no timezone conversion. Local midnight Jan 1 in UTC+8 is `2025-12-31 16:00:00` UTC — eight hours earlier than what this query uses as the cutoff.\n*Effect:* orders placed between local midnight and 8:00am on Jan 1 (UTC+8) are still timestamped Dec 31 in UTC and get excluded from \"since Jan 1\" — the report's day boundaries don't match the calendar days the team actually experiences. The literal needs to be converted to the equivalent UTC instant (or the column converted to UTC+8 before comparing).\n\n**3. Integer division truncates the total**\n`total_cents` is INTEGER, and `SUM(o.total_cents) / 100` divides an integer by an integer literal. In many engines (PostgreSQL, SQL Server, SQLite, Oracle) integer÷integer performs truncating integer division, not decimal division.\n*Effect:* `total_spent` loses the cents and is rounded down to whole currency units (e.g., 12,345 cents becomes 123, not 123.45) — understating every customer's total. Needs an explicit decimal division, e.g. `SUM(o.total_cents) / 100.0` or `CAST(SUM(o.total_cents) AS NUMERIC) / 100`.\n\n**4. `total_spent` will be NULL (not 0) for customers with no qualifying orders**\nOnce the join is fixed so zero-order customers remain in the result, `SUM(o.total_cents)` over zero matched rows returns NULL, not 0 — unlike `COUNT(o.order_id)`, which correctly returns 0.\n*Effect:* the report shows a blank/NULL spend figure for these customers instead of 0, which is inconsistent with the \"count of zero\" requirement and will look like missing/bad data downstream. Needs `COALESCE(SUM(o.total_cents), 0) / 100.0`.\n\n**5. `ORDER BY total_spent DESC` will misplace the NULL rows**\nFollowing directly from #4: in databases where NULLs sort as highest by default in descending order (e.g., PostgreSQL's default `NULLS FIRST` on DESC), the zero-order customers with NULL `total_spent` will be sorted to the *top* of a report that's supposed to rank customers by spend, ahead of actual top spenders.\n*Effect:* the ranking is corrupted — the \"biggest spenders\" list starts with customers who spent nothing. Needs an explicit `NULLS LAST` (or the COALESCE-to-0 fix above, which also resolves the ordering since 0 sorts naturally last).\n\n**6. Non-aggregated columns in SELECT aren't in GROUP BY**\n`c.name` and `c.signup_date` are selected but neither aggregated nor listed in `GROUP BY` (only `c.customer_id` is).\n*Effect:* this is only safe in engines that recognize `c.name`/`c.signup_date` as functionally dependent on the grouped primary key `c.customer_id` (PostgreSQL, SQLite, MySQL with `ONLY_FULL_GROUP_BY` disabled). On SQL Server, standard ANSI-mode engines, or MySQL with `ONLY_FULL_GROUP_BY` enabled (the default since MySQL 5.7), this query will simply fail to run. Worth flagging if the target engine isn't confirmed to support functional-dependency grouping.\n\nI didn't find any problems with `COUNT(o.order_id)` itself (it correctly yields 0 for unmatched rows once the join is fixed), nor with the basic join key (`o.customer_id = c.customer_id`).",
+  "response_sha256": "6b87de1c017bf9a3531b38d6a735b4a7babb60bd46917c76db555a7620e84f19",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2679,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 6647,
+    "output_tokens_details": {
+      "thinking_tokens": 5087
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2679,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 6647,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2679,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2679
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.08233520000000001,
+    "duration_ms": 68700,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:26:54+00:00",
+  "finished_at": "2026-09-13T04:28:04+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

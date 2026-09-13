@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T12_vs_A-r3",
+  "contrast_id": "T12_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T12",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements, but Response A's halt-condition metrics are more rigorous, each paired with a precise, short time window (24h, 1h, 30min), whereas Response B's incident-count threshold is scoped to 'any single phase' (potentially weeks), making it a much slower and less actionable trigger. Response A also keeps its phase count internally consistent (three clearly numbered phases matching 'PHASES: 3') and states the no-decommissioning-with-final-batch constraint explicitly, whereas Response B introduces an unnumbered fourth 'phase' with 0% migrated users to justify 'PHASES: 4', which is a slightly awkward way to satisfy the phase-count requirement.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:39:26+00:00"
+}

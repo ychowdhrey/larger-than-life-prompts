@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T22-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T22",
+  "condition_name": "phrase_t22",
+  "repetition": 2,
+  "execution_index": 2096,
+  "sample_seed": 15409942584580412455,
+  "prompt_sha256": "811cedbeb425a2526cc0a6e8aa4ab0130b42cec053419d3c1daaa3eef2c4949b",
+  "prompt_chars": 819,
+  "response": "# Billing System Migration Rollout Plan\n## Migrating 40,000 Users: Legacy Billing → New Billing System\n\n### Overview\n\nBoth billing systems will run in parallel (dual-run) throughout the migration. Users are moved from the legacy system to the new system in batches, with reconciliation and monitoring gates between each phase. The legacy system remains fully operational as the fallback/source of truth until well after 100% of users are migrated and validated — decommissioning is explicitly a separate, later effort and is not part of any migration phase below.\n\n---\n\n### Phase 1: Pilot (2% of users, ~800 accounts)\n\n**Entry criterion:** New billing system has passed end-to-end functional testing in staging (invoicing, proration, tax calculation, payment capture, and refunds all verified against at least 500 synthetic test accounts), dual-write reconciliation tooling is deployed and producing diffs, and a rollback path (re-pointing a migrated account back to legacy billing) has been tested successfully at least 10 times.\n\n**Cohort selection:** Internal accounts, employee test accounts, and opted-in low-risk customers (month-to-month, no active disputes, no complex contract terms).\n\n**Purpose:** Validate the migration mechanism itself, data mapping accuracy, and dual-run reconciliation under real (low-volume) production traffic.\n\n---\n\n### Phase 2: Expanded Early Adopters (15% of users, ~6,000 accounts)\n\n**Entry criterion:** Phase 1 cohort has run for a minimum of 14 days with zero billing-accuracy incidents (defined below), invoice discrepancy rate between old and new systems ≤0.1% of line items, support ticket volume attributable to billing for the pilot cohort is not statistically elevated versus baseline, and engineering has signed off on any fixes required from Phase 1 findings.\n\n**Cohort selection:** Broader mix of plan types and geographies, still excluding highest-ARR enterprise accounts and accounts with custom contract terms.\n\n**Purpose:** Test migration at meaningful scale, validate performance/throughput of the migration pipeline, and surface edge cases across plan variety.\n\n---\n\n### Phase 3: General Rollout (53% of users, ~21,200 accounts)\n\n**Entry criterion:** Phase 2 cohort has run for a minimum of 14 days with invoice discrepancy rate ≤0.1%, payment failure rate on migrated accounts within 0.2 percentage points of the legacy-system baseline failure rate, zero Sev1/Sev2 billing incidents open, and customer support has confirmed staffing/readiness for increased volume.\n\n**Cohort selection:** Remaining standard accounts, batched by cohort (e.g., billing cycle date or region) to spread invoice-generation load and simplify rollback scoping.\n\n**Purpose:** Bulk of the migration; largest single phase, executed in sub-batches (e.g., 10 batches of ~2,100) rather than a single cutover, each sub-batch gated by the same discrepancy/error thresholds monitored continuously.\n\n---\n\n### Phase 4: Final Cohort & Stabilization (30% of users, ~12,000 accounts)\n\n**Entry criterion:** Phase 3 fully complete with cumulative discrepancy rate ≤0.1% sustained across all prior phases, all P1/P2 issues from earlier phases resolved and verified, and explicit sign-off from Finance/Revenue on reconciliation of aggregate billed amounts between systems.\n\n**Cohort selection:** Remaining accounts, including highest-complexity enterprise contracts, accounts with active disputes, and any accounts deliberately held back from earlier phases. These are migrated last specifically because they carry the highest risk and benefit most from a mature, battle-tested pipeline.\n\n**Note:** This phase migrates the final batch of users only. The legacy billing system remains live, in dual-run, and untouched at the conclusion of this phase. A separate, subsequent decommissioning phase — with its own entry criteria (minimum soak period post-100%-migration, full audit close-out, tax/compliance sign-off, and a defined data-retention period) — governs any disabling or removal of the old system, and is out of scope for this rollout plan.\n\n---\n\n### Halt Criteria (Automatic Rollback Trigger)\n\nThe rollout must be paused immediately, and the active batch rolled back, if any of the following occur:\n\n- **Invoice discrepancy rate exceeds 0.5%** of line items compared between old and new system outputs, measured over any rolling 24-hour window during an active phase.\n- Failed payment/charge rate on migrated accounts exceeds legacy baseline by more than 1 percentage point over a rolling 24-hour window.\n- More than 5 customer-reported billing incidents classified Sev1/Sev2 occur within any single 24-hour period.\n\n---\n\n### Risks\n\nRISK: Duplicate or double-billing occurs when both systems attempt to charge the same account during dual-run | Implement a single-source-of-truth flag per account (only one system is authoritative for charging at any time) enforced at the payment-gateway level, with automated pre-charge checks | Billing Platform Engineering Lead\nRISK: Data mapping errors (e.g., incorrect proration, tax jurisdiction, or currency handling) cause silent under- or over-billing for migrated accounts | Run automated reconciliation comparing computed invoices between systems for every migrated account before and after cutover, with manual review of any diff above threshold | Data Migration Engineer\nRISK: Migration batch scripts fail partway through, leaving accounts in an inconsistent state (e.g., migrated in billing but not in CRM/support tooling) | Design migration as idempotent, resumable, per-account transactions with a status ledger; test rollback-from-partial-failure in staging before each phase | Site Reliability Engineering (SRE) Lead\nRISK: Customer support is unprepared for an influx of billing-related questions during high-volume phases, leading to poor customer experience and escalations | Provide support team with phase-specific runbooks, a dedicated Slack escalation channel, and staffing surge plans tied to each phase's start date | Customer Support Manager\nRISK: Enterprise customers with custom contract terms migrated in the final phase encounter contract-specific edge cases not seen in earlier, simpler cohorts | Conduct a manual contract-term audit and dry-run simulation for all Phase 4 accounts at least 2 weeks before their migration window | Enterprise Account Engineering Lead\n\nPHASES: 4",
+  "response_sha256": "338209b031f417841f40c73c9d14a41f28563a12c4604380d2944e4b5ac2f874",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28319,
+    "output_tokens": 2199,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2199,
+        "cache_read_input_tokens": 28319,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0276578,
+    "duration_ms": 27847,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:11:40+00:00",
+  "finished_at": "2026-09-13T05:12:09+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

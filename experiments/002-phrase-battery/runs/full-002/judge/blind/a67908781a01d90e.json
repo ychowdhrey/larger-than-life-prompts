@@ -1,0 +1,22 @@
+{
+  "item_id": "a67908781a01d90e",
+  "sample_id": "C02-E02-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E02",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all major defects (WHERE-clause null-killing the LEFT JOIN, UTC/UTC+8 boundary mismatch, integer division truncation, NULL vs zero for non-aggregated SUM, NULL sort placement, and GROUP BY column dependency) with accurate causal explanations and fixes, though it incorrectly claims Oracle performs truncating integer division on NUMBER columns.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:10+00:00"
+}

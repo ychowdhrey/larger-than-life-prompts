@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T01_vs_A-r2",
+  "contrast_id": "T01_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T01",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "Tie",
+  "winner_condition": null,
+  "treatment_won": null,
+  "tie": true,
+  "reason": "Both plans satisfy every hard requirement (≤12 steps, rollback, rehearsal on non-production data, post-cutover integrity checks via row counts/checksums, stakeholder communication, and a full backup preceding the destructive cutover steps) with essentially equivalent technical soundness. Each has minor offsetting strengths — Response A's rollback narrative is slightly clearer about the untouched on-prem state, while Response B offers a more thorough upfront inventory, finer-grained cutover steps, and a documented lessons-learned close-out — leaving no clear overall winner on task performance.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:29:06+00:00"
+}

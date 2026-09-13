@@ -1,0 +1,22 @@
+{
+  "item_id": "7e0b09b288b2510a",
+  "sample_id": "C05-T04-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T04",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one bug at total=100 (R1 violation via strict '>'), correctly flags that test_cap's expected value of 100.0 contradicts R2's 50.00 cap and would fail against the actual implementation (which returns 50.0), and correctly notes the missing boundary test at total=100 — with no fabricated or incorrect defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:15+00:00"
+}

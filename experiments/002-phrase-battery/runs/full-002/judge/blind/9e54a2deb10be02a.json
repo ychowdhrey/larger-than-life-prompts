@@ -1,0 +1,22 @@
+{
+  "item_id": "9e54a2deb10be02a",
+  "sample_id": "C05-E05-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E05",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug at total==100 (R1 violation), correctly computes that discount(1000) actually returns 50.0 rather than the asserted 100.0 (making test_cap fail), and accurately notes the resulting coverage gaps, while correctly clearing test_small and test_large as valid; all claims check out arithmetically and no false defects are reported.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:45+00:00"
+}

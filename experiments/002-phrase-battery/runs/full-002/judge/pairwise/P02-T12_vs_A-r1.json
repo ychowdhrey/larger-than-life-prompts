@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T12_vs_A-r1",
+  "contrast_id": "T12_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T12",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response B is more technically precise and actionable: it separates WAL/temp volume monitoring from main disk, offers a concrete fix if snapshot capacity itself is constrained (snapshot to a separate target), adds a non-destructive write-throttling option to buy time, and its abort/rollback condition specifies concrete reversal steps plus post-mitigation data integrity checks (checksums, replica consistency) that Response A omits.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:43+00:00"
+}

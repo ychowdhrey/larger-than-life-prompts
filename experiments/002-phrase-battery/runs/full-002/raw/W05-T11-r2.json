@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T11-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T11",
+  "condition_name": "phrase_t11",
+  "repetition": 2,
+  "execution_index": 413,
+  "sample_seed": 12376024081112639227,
+  "prompt_sha256": "feee8f2e8b95b9650a98d3ab52af02680d97ae897d0d4aead4a3e4e05e44fb58",
+  "prompt_chars": 751,
+  "response": "## The problem\n\nOur team of twelve now routinely carries six or more feature branches alive for two to four weeks at a time. Merge day has become dreaded rather than routine: conflicts pile up across shared modules, integration bugs surface only after the fact, and QA discovers problems that are hard to trace to a single change. Release velocity has slipped for three consecutive quarters, and two production incidents this year were traced directly to merges that combined weeks of divergent work. The root cause isn't carelessness — it's that our branching model defers integration risk instead of retiring it early, and with twelve engineers working in parallel, that deferred risk compounds daily.\n\n## The proposal\n\nI propose we move to trunk-based development, with all engineers committing small, reviewed changes directly to main at least once a day, protected by feature flags for incomplete work. Specifically:\n\n- Adopt feature flags for any change that can't be completed and merged within a single day.\n- Require CI to pass (build, unit tests, lint) before any merge to main.\n- Cap any working branch's lifetime at 48 hours.\n- Run a two-week pilot with two sub-teams before rolling out to the full group.\n- Pair this with mandatory code review turnaround of under four hours to keep the pipeline moving.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development shifts risk from \"big merge day\" to \"main is unstable more often,\" and if our test suite has gaps, we could ship broken code to main more frequently, not less. This is a legitimate concern — our current test coverage is around 68%, and flags add their own complexity, including the discipline to remove stale ones. I take this seriously rather than waving it away: we should raise coverage on critical paths before the pilot begins, and assign explicit flag-cleanup ownership so flags don't become permanent clutter. Done without that groundwork, this proposal could genuinely make things worse before they get better.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "ad29422ddb4b82fc619035b77d1e00bc9f7d7bf1eda5100943066ee67a3f62bf",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28298,
+    "output_tokens": 699,
+    "output_tokens_details": {
+      "thinking_tokens": 67
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 699,
+        "cache_read_input_tokens": 28298,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012653600000000001,
+    "duration_ms": 12672,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:12+00:00",
+  "finished_at": "2026-09-13T04:32:26+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

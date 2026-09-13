@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T11-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T11",
+  "condition_name": "phrase_t11",
+  "repetition": 3,
+  "execution_index": 15,
+  "sample_seed": 7879442229462195934,
+  "prompt_sha256": "feee8f2e8b95b9650a98d3ab52af02680d97ae897d0d4aead4a3e4e05e44fb58",
+  "prompt_chars": 751,
+  "response": "## The problem\n\nOur team of twelve now maintains branches that live for two to four weeks before merging, and integration pain has become routine. Every merge day burns half a day resolving conflicts across five or six overlapping branches, and features that looked complete in isolation regularly break when combined. We've shipped three regressions this quarter that only surfaced after a long-delayed merge exposed interactions no one had tested together. Code review has also degraded: reviewers face 2,000-line diffs that arrive after logic has already hardened, so feedback comes too late to change direction cheaply.\n\n- CI signal is nearly worthless for the weeks a feature branch runs unobserved, since the pipeline reports only on the branch itself, not on how it behaves against everyone else's changes.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequently tested changes directly to main, gated by feature flags rather than long-lived branches. Concretely:\n\n- Break work into changes that merge to main at least once a day, using flags to hide incomplete features from users.\n- Require every commit to main to pass the full CI suite before and after merge, with a fast-revert policy if it breaks the build.\n- Retire the current branch-per-feature workflow within one release cycle, migrating open branches individually rather than all at once.\n\nThis shortens feedback loops, keeps integration cost constant instead of exponential, and lets us catch interaction bugs the day they're introduced instead of weeks later.\n\n## What could go wrong\n\nThe strongest objection is that daily merges to main increase the risk of shipping half-built or poorly reviewed code, and that feature flags themselves become a maintenance burden and a source of hidden complexity. This is a real cost, not a strawman: flag sprawl is a documented failure mode at other companies, and small commits can get rubber-stamped under time pressure just as easily as large ones. We should meet this honestly with a mandatory flag-cleanup ritual each sprint and by holding review standards for small diffs just as high as for large ones, not lower.\n\n- Expect a rough first month as habits change; short-term velocity may dip before it recovers.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "6bfe6ec18b9772725505017dfdfc46ffa31c1d361e1d79bb2bbeb8d710ccfd0b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2572,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1778,
+    "output_tokens_details": {
+      "thinking_tokens": 1074
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2572,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1778,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2572,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2572
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0332172,
+    "duration_ms": 20916,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:21:32+00:00",
+  "finished_at": "2026-09-13T04:21:54+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

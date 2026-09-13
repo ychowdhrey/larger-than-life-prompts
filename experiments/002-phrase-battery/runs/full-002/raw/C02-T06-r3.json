@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T06-r3",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 3,
+  "execution_index": 412,
+  "sample_seed": 6294959752296619571,
+  "prompt_sha256": "6daa1628069f1b8bb9e90079b1542608cef9ab9d3b07cc86ee4662b4325e0a37",
+  "prompt_chars": 849,
+  "response": "## Defects found\n\n**1. The date filter is in `WHERE`, not in the `JOIN` condition — this silently turns the `LEFT JOIN` into an `INNER JOIN`**\n\n```sql\nLEFT JOIN orders o ON o.customer_id = c.customer_id\nWHERE o.created_at >= '2026-01-01'\n```\n\nFor a customer with no matching orders, the join produces a row where `o.created_at` is `NULL`. `NULL >= '2026-01-01'` evaluates to `UNKNOWN`, so `WHERE` discards that row. The same thing happens to a customer whose orders all fall *before* the cutoff — every one of their joined rows fails the `WHERE` test, so the customer vanishes entirely.\n\n**Effect:** customers with zero orders (or zero orders since the cutoff) are dropped from the result set completely, directly violating the stated requirement that they must appear with `order_count = 0`. The fix is to move the date condition into the `ON` clause:\n```sql\nLEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= <cutoff>\n```\n\n**2. The date cutoff is compared in UTC, not the team's UTC+8 local calendar day**\n\n`created_at` is stored in UTC, but `'2026-01-01'` is applied as a raw literal with no timezone conversion. The team wants \"local calendar day Jan 1\" to mean UTC+8 midnight, which is `2025-12-31 16:00:00` UTC — 8 hours earlier than the literal used.\n\n**Effect:** orders placed between `2025-12-31 16:00:00 UTC` and `2026-01-01 00:00:00 UTC` — which already fall on **Jan 1 in local time** (00:00–08:00 local) — are wrongly excluded, because their UTC timestamp is still less than `'2026-01-01'`. The report will systematically miss the first 8 hours of each local day it's supposed to include (and the same skew applies at any other day boundary the query might be extended to use). The comparison needs to be shifted/converted to the UTC+8 offset, e.g. `o.created_at >= '2025-12-31 16:00:00'` or an explicit timezone conversion of the column before comparing.\n\n**3. `SUM(o.total_cents) / 100` risks integer division, truncating cents**\n\n`total_cents` is an `INTEGER` column, and `100` is an integer literal. On several common databases (PostgreSQL, SQL Server, SQLite — MySQL is an exception, since its `/` always promotes to decimal), dividing two integers with `/` performs integer division and truncates the fractional part.\n\n**Effect:** e.g. a summed total of 1099 cents ($10.99) would report `total_spent = 10` instead of `10.99` on an affected engine — a silent loss of the cents portion for every non-round-dollar total. Should be `SUM(o.total_cents) / 100.0` or `CAST(SUM(o.total_cents) AS NUMERIC) / 100`.\n\n**4. `total_spent` is `NULL` (not `0`) for customers with no qualifying orders**\n\n`SUM()` over zero matched rows (after fixing defect #1) returns `NULL`, not `0`. `COUNT(o.order_id)` correctly returns `0` in the same situation, but `total_spent` will show `NULL`, which is inconsistent and can break downstream consumers that expect a number.\n\n**Effect:** a zero-order customer's row shows `order_count = 0` but `total_spent = NULL` instead of `0`. Fix with `COALESCE(SUM(o.total_cents), 0) / 100.0`.\n\n**5. (Minor/portability) Non-aggregated columns in `SELECT` with `GROUP BY c.customer_id`**\n\n`c.name` and `c.signup_date` are selected without being aggregated or included in `GROUP BY`. This is only legal because `customer_id` is presumably the primary key of `customers`, and only on engines that recognize that functional dependency (PostgreSQL, MySQL with default settings). On engines that require every non-aggregated selected column to appear in `GROUP BY` (e.g. SQL Server, or PostgreSQL if `customer_id` isn't actually declared as the primary key), this query will fail outright. Worth calling out since the target engine isn't specified.\n\n## Not a defect (checked, found fine)\n- `COUNT(o.order_id)` correctly counts only matched orders and ignores NULLs — fine once the join fix in #1 is applied.\n- Using the `total_spent` alias in `ORDER BY` is valid in standard SQL and all major engines.\n- No `HAVING`/duplicate-row issues from the join — each order row is joined at most once per customer, so no fan-out double counting.",
+  "response_sha256": "0291b88e2a7a9e6b1dc8ecbee18dccc58208e61b9e97bb3fcae4976342cabb71",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2661,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 8144,
+    "output_tokens_details": {
+      "thinking_tokens": 6545
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2661,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 8144,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2661,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2661
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0972332,
+    "duration_ms": 87903,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:11+00:00",
+  "finished_at": "2026-09-13T04:33:40+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

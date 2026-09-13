@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T06-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 3,
+  "execution_index": 1943,
+  "sample_seed": 5428156365059105623,
+  "prompt_sha256": "8ee57aef2b713f3058141d10380d3e15bca0176203739f98ff900c3a6657c7bc",
+  "prompt_chars": 652,
+  "response": "A content delivery network, or CDN, is a system of computers spread across many cities and countries that work together to deliver websites, videos, and images faster. Without one, every visitor to a website would have to fetch data from a single origin server — the main computer where the website's original files live, often located in just one place. If that origin server sits far away, loading takes longer, and if many people request data at once, it can become overloaded.\n\nA CDN solves this by storing copies of a website's content at many edge locations — smaller computer centers positioned closer to where people actually are, in cities around the world. When someone requests a page, the network checks whether a nearby edge location already holds a saved copy. If it does, this is called a cache hit, meaning the content is delivered instantly from nearby storage instead of traveling all the way back to the origin server. Think of it like a chain of neighborhood libraries holding copies of popular books, so readers never need to travel to one central warehouse every time they want something. This arrangement reduces waiting time, spreads out traffic so no single computer gets overwhelmed, and keeps content available even if one location runs into trouble. That is the essential idea behind how a content delivery network quietly speeds up the internet for millions of people every day.\n\n| Term | Plain meaning | Why it matters |\n|------|---------------|-----------------|\n| Origin server | The main computer storing a website's original files | Everything ultimately comes from here if no copy exists elsewhere |\n| Edge location | A smaller storage point placed near groups of people | Shortens the distance content has to travel |\n| Cache hit | A request answered by a nearby saved copy | Means faster loading and less strain on the origin |\n| CDN | A network of edge locations working together | Spreads traffic and keeps service reliable and quick |",
+  "response_sha256": "70531282d54073bc60351ed26c2bf1dd8d34e0c04e16ee8f3bbdbfc08b2b9f68",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28270,
+    "output_tokens": 1124,
+    "output_tokens_details": {
+      "thinking_tokens": 559
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1124,
+        "cache_read_input_tokens": 28270,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.016898,
+    "duration_ms": 13852,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:08:17+00:00",
+  "finished_at": "2026-09-13T05:08:32+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

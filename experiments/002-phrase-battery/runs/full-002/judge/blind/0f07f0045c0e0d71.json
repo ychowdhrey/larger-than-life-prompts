@@ -1,0 +1,22 @@
+{
+  "item_id": "0f07f0045c0e0d71",
+  "sample_id": "C01-E03-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E03",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default arg, in-place sort side effect, IndexError when scores shorter than limit, ZeroDivisionError on empty input, and the subtler duplicate-skipping truncation bug), explains the mechanism and consequence for each, includes a concrete traced example for the non-obvious duplicate bug, and reports no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:16:31+00:00"
+}

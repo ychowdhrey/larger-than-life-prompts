@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T21_vs_A-r1",
+  "contrast_id": "T21_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T21",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T21",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the hard requirements, but Response A's rollout design is more rigorous for a billing-specific migration: it starts with a much smaller true canary (0.25%) before scaling up, gates phase advancement on billing-cycle completion (appropriate since discrepancies surface per invoice cycle) rather than arbitrary calendar weeks, and defines three distinct numeric halt metrics with clear measurement windows versus Response B's two. A also adds useful nuance on rollback semantics (already-migrated users get enhanced monitoring rather than automatic rollback) that B lacks.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:35:45+00:00"
+}

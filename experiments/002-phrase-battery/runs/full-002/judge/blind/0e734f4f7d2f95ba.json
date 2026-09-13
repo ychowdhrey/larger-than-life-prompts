@@ -1,0 +1,22 @@
+{
+  "item_id": "0e734f4f7d2f95ba",
+  "sample_id": "C01-T17-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T17",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (mutable default arg, in-place mutation of caller's list, IndexError on large limit, ZeroDivisionError on empty input, dedup dropping legitimate ties) are real and correctly diagnosed with concrete triggering scenarios, no false positives, and the intended sort/average behaviors are correctly left unflagged.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:36+00:00"
+}

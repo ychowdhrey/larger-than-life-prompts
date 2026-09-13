@@ -1,0 +1,22 @@
+{
+  "item_id": "84ef49c5a1e73746",
+  "sample_id": "C01-B-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "B",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default seen, in-place sort mutating caller's list, IndexError when limit exceeds list length, ZeroDivisionError on empty input, and the subtler dedup-within-window bug that can shrink the result below limit), each with accurate causal explanation and, for the trickiest one, a concrete verifying example, while introducing no false defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:16:37+00:00"
+}

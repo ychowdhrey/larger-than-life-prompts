@@ -1,0 +1,68 @@
+{
+  "sample_id": "R03-E08-r3",
+  "run_id": "full-002",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "E08",
+  "condition_name": "combo_e08",
+  "repetition": 3,
+  "execution_index": 1296,
+  "sample_seed": 18157433379892872139,
+  "prompt_sha256": "c1238673876138ce3d8b5501ad1108b9df48003eae865f9138718af450c0f946",
+  "prompt_chars": 727,
+  "response": "**Solution:**\n\n- Seat 1: Dev\n- Seat 2: Ben\n- Seat 3: Ana\n- Seat 4: Eli\n- Seat 5: Chi\n\n**Verification of all clues:**\n1. Ben(2) < Chi(5) ✓\n2. Ana(3) is not in seat 1 or 5 ✓\n3. Dev(1) and Eli(4) have exactly two people (seats 2,3) between them ✓\n4. Chi(5) is not next to Dev(1) — they're on opposite ends ✓\n5. Eli(4) is right of Ana(3) ✓\n6. Ana(3) is immediately right of Ben(2) ✓\n\nI also checked the other candidate arrangements (Ana in seat 2 or seat 4) and both fail: with Ana=2, the leftover seats {3,4,5} can't produce a Dev/Eli gap of 3; with Ana=4, Chi would need to sit right of Ben(3) among leftover seats {1,2,5}, forcing Chi=5, but then Dev/Eli from {1,2} can't have a gap of 3. So this arrangement is indeed unique.\n\nFINAL ANSWER: Dev, Ben, Ana, Eli, Chi",
+  "response_sha256": "6948e98d8523b0e317e740a0697b9ed843ff64ee008a2b7212dd31e09ab7d06e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2627,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1564,
+    "output_tokens_details": {
+      "thinking_tokens": 1149
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2627,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1564,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2627,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2627
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0312972,
+    "duration_ms": 14159,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:53:28+00:00",
+  "finished_at": "2026-09-13T04:53:43+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

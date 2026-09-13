@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T14_vs_A-r1",
+  "contrast_id": "T14_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T14",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T14",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the same core defects (mutable default, index-out-of-range, division by zero, in-place sort, and the same-call dedup/under-fill logic bug), but Response A correctly notes that top_scores([]) with the default limit=5 hits the IndexError before ever reaching the division, and pins the ZeroDivisionError to the limit=0 case, whereas Response B asserts 'top_scores([]) raises ZeroDivisionError' without that caveat, which is actually false under the default arguments. A's dedup example is also more concrete and demonstrates the under-fill precisely.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:26+00:00"
+}

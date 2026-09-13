@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-E06-r2",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E06",
+  "condition_name": "combo_e06",
+  "repetition": 2,
+  "execution_index": 440,
+  "sample_seed": 17772814786585328513,
+  "prompt_sha256": "ee969b6b68e32a3af550ccb577e8c12c678f7f7843a7c47e087c49d4322bfb7e",
+  "prompt_chars": 674,
+  "response": "Here are the defects I found in `top_scores`, each with cause and effect:\n\n**1. Mutable default argument (`seen=[]`)**\nThe default list is created once, at function-definition time, and is reused across every call that doesn't pass its own `seen`. Since the function does `seen.append(...)`, it mutates that same shared list on each call.\n*Effect:* Values returned as \"top scores\" in one call silently poison later, unrelated calls — a score that was in someone else's earlier top-5 will be treated as \"already seen\" and excluded from a completely different `scores` list next time. Results become dependent on call history rather than purely on the input (`result` can silently shrink or omit legitimate values), and the list grows without bound for the life of the program (a subtle memory leak). This is very hard to diagnose because the function looks pure from its signature.\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\nSorting descending is intended, but doing it via `.sort()` rather than `sorted()` reorders the caller's original list as a side effect.\n*Effect:* Any code that holds a reference to the list passed in will see it silently reordered after the call, which can break assumptions elsewhere in the caller (e.g., code relying on insertion order, or another thread/consumer reading the same list). It also means `scores` must be a mutable sequence — passing a tuple raises `AttributeError: 'tuple' object has no attribute 'sort'`.\n\n**3. Deduplication only looks at the first `limit` positions, so it never backfills**\nThe loop iterates over exactly indices `0..limit-1` of the sorted list and skips a value if it's already in `seen`, but it never advances further into the list to find additional distinct values to compensate for skipped duplicates.\n*Effect:* When there are duplicate values within the first `limit` entries, `result` ends up shorter than `limit` even though enough distinct scores exist later in the list. Example: `scores = [10, 10, 9, 8, 7, 6]`, `limit=5`. The five distinct top values are `[10, 9, 8, 7, 6]`, but the function only inspects indices 0–4 (`10, 10, 9, 8, 7`), so it returns `[10, 9, 8, 7]` — missing `6` entirely, even though it's present in the list.\n\n**4. `IndexError` when `len(scores) < limit`**\nThe loop does `scores[i]` for `i` in `range(0, limit)` with no check that the list actually has `limit` elements.\n*Effect:* Any call where the list is shorter than `limit` (e.g., `scores=[3, 1]` with the default `limit=5`) raises `IndexError: list index out of range` instead of simply returning however many scores are available.\n\n**5. Unhandled empty-list cases**\nIf `scores` is empty: with the default `limit=5`, the loop immediately does `scores[0]` and raises `IndexError` (a special case of defect 4). If `limit` is `0` (or otherwise the loop is skipped) and `scores` is empty, execution reaches `sum(scores) / len(scores)`, which raises `ZeroDivisionError`.\n*Effect:* Calling the function on an empty list crashes rather than returning something sensible like `([], 0)` or a handled error.\n\n**6. Side effect on a caller-supplied `seen` list**\nEven when a caller explicitly passes their own `seen` list (rather than relying on the default), the function still appends to it in place.\n*Effect:* The caller's list is mutated as an unintended side effect of what looks like a read-only filter argument, which can surprise callers who reuse or inspect that list afterward.",
+  "response_sha256": "886e5834ff654588df20381fd49af9338e38d957ff87ddd876099cda4a3f1da7",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2554,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 5531,
+    "output_tokens_details": {
+      "thinking_tokens": 4334
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2554,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5531,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2554,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2554
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.07067520000000001,
+    "duration_ms": 60252,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:53+00:00",
+  "finished_at": "2026-09-13T04:33:54+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T07-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 3,
+  "execution_index": 903,
+  "sample_seed": 11695597553767133759,
+  "prompt_sha256": "bbd6b89a4b9522c87b1e43fe65909a27f4c4aa6ee1bede6896c157af97320227",
+  "prompt_chars": 738,
+  "response": "## The problem\n\nOur team of twelve now maintains feature branches that routinely live for two to three weeks before merging. Merge conflicts have become a weekly fire drill, integration bugs surface only after code has sat \"done\" for days, and our release cadence keeps slipping because every merge window turns into a half-day reconciliation effort. Reviewers face enormous diffs and increasingly rubber-stamp changes just to unblock teammates. We are spending more time managing branches than writing software, and nobody has a clear picture of what \"main\" actually does at any given moment.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, incremental changes directly to main, or through branches merged within a day, gated by feature flags for anything not ready for users. This requires:\n\n- A CI pipeline that runs the full test suite on every commit, with a hard rule that a red build gets fixed before new work lands\n- Feature flags (an existing service or simple in-house config) to hide incomplete work while keeping it integrated\n- A team norm of slicing work into pieces small enough to review and merge within a day, with pairing for anything that resists slicing\n\nThis should shrink integration risk, surface conflicts while they're still small, and give us continuous, honest visibility into the product's real state.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands testing discipline and tooling maturity we don't fully have yet. If our suite is slow or flaky, \"commit small and often\" just means breaking main often, and a broken trunk blocks all twelve of us at once — a far bigger blast radius than one broken feature branch. That risk is legitimate, not hypothetical, and we should treat CI reliability as a prerequisite, not an afterthought.\n\n- We should not roll this out broadly until CI runs fast and green reliably, and until we've agreed on flag hygiene so stale flags don't accumulate as permanent clutter\n- A two-week pilot with one squad would let us validate the workflow before company-wide adoption\n\nI would like a decision by the end of next week.",
+  "response_sha256": "01205911120a572d731cd49078ae6483916ae64c3ad24094a5273fbd80ecc242",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28297,
+    "output_tokens": 1581,
+    "output_tokens_details": {
+      "thinking_tokens": 919
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1581,
+        "cache_read_input_tokens": 28297,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.021473399999999997,
+    "duration_ms": 20011,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:44:04+00:00",
+  "finished_at": "2026-09-13T04:44:25+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "cf9b4501a36c8457",
+  "sample_id": "C02-T02-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T02",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all the real defects (WHERE-clause turning the LEFT JOIN into an INNER JOIN, the UTC/UTC+8 boundary mismatch with accurate math, integer-division truncation, NULL-vs-zero and NULL-sort-order issues, and a fairly-caveated GROUP BY portability note) without inventing spurious ones, and pairs each with a correct fix.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:40+00:00"
+}

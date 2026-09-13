@@ -1,0 +1,22 @@
+{
+  "item_id": "445da72d7b63e666",
+  "sample_id": "P01-T23-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T23",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and satisfies every hard requirement (rehearsal with rehearsal-timed validation, mandatory pre-cutover backup, post-cutover checksum/row-count/sequence verification, stakeholder communication, and a concrete rollback tied to an untouched on-prem source), while also addressing non-obvious details like WAL/LSN sync draining, tooling choice tradeoffs, and staged decommissioning, making it directly actionable by a real migration team.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:39+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "e2d6a7a216be6336",
+  "sample_id": "C01-T12-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T12",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default argument, IndexError from unbounded limit, in-place mutation of the caller's list, duplicate-driven result shortfall, and ZeroDivisionError on empty input) with accurate causal explanations, including the non-obvious duplicate-filtering interaction, and introduces no fabricated issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:18+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-D-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 1,
+  "execution_index": 399,
+  "sample_seed": 3959321835494779790,
+  "prompt_sha256": "14067dae325c643d814f9d9e1ac82a805e1feef3a8ecdea7036b110e853ee8d0",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur twelve-person engineering team increasingly develops on feature branches that live for weeks, sometimes over a month. Merges have become dreaded events: conflicts pile up, integration bugs surface late, and code review turns into an archaeology exercise across hundreds of changed files. Two releases last quarter slipped specifically because a long-lived branch merge broke functionality that had shipped fine in isolation. We are paying an integration tax that grows with every day a branch stays open, and it compounds as the team grows.\n\n## The proposal\n\nI propose we adopt trunk-based development: every engineer commits directly to main at least daily, behind feature flags when work is incomplete, with short-lived branches (under two days) used only for local review. This requires:\n\n- A CI pipeline that runs the full test suite on every commit to main, with a hard rule that a red build gets fixed before anything else\n- Feature flags for any change that cannot be safely shipped incomplete, so partial work stays invisible to users without blocking integration\n- A team norm of small, reviewable commits, with pull requests scoped to roughly a day of work rather than a whole feature\n- A two-week pilot on one squad before rolling out team-wide, so we can fix process gaps cheaply\n- A rollback plan: if the pilot increases production incidents, that squad reverts to feature branches while we diagnose why\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development pushes risk into production: half-finished features behind flags can leak to users, flags multiply and become their own maintenance burden, and engineers accustomed to isolated branches may commit lower-quality code under the pressure of integrating daily. This is a real cost, not a strawman. Flag hygiene requires discipline we do not yet have as a team, and our current test coverage has gaps that daily integration would expose almost immediately rather than weeks later. Those gaps are precisely why the pilot and rollback plan above exist: they are designed to surface these problems on one squad, at small scale, before we commit the whole team to the change. If the pilot shows the risk is unmanageable, we will have learned that cheaply instead of expensively.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "ae380ec91d2d837e0b7c5f740eed52375ff3dd27e771c8dd03b1383e4778c71f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28296,
+    "output_tokens": 1628,
+    "output_tokens_details": {
+      "thinking_tokens": 918
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1628,
+        "cache_read_input_tokens": 28296,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.021943200000000003,
+    "duration_ms": 19409,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:31:52+00:00",
+  "finished_at": "2026-09-13T04:32:12+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

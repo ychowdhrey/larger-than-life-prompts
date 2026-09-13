@@ -1,0 +1,22 @@
+{
+  "item_id": "70166bacad202855",
+  "sample_id": "P03-T05-r3",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T05",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The schedule correctly identifies the critical path (T1-T2-T4-T6 = 10 days), places it on E1 with no idle gaps, and slots T3/T5 on E2 in their slack window, satisfying every prerequisite and consecutive-day constraint exactly within Day 1-10; the output format and LAST DAY line are followed precisely, with only a brief closing verification rather than an explicit constraint-by-constraint check.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:07+00:00"
+}

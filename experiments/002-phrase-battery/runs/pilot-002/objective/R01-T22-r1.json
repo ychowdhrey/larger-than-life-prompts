@@ -1,0 +1,71 @@
+{
+  "sample_id": "R01-T22-r1",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T22",
+  "repetition": 1,
+  "response_sha256": "ba3f958c832b5b51e182bf28805f6c622d2f3e68e413ee0497b74a97f45bc14d",
+  "objective": {
+    "max_points": 9.0,
+    "earned_points": 9.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "answer",
+        "label": "Correct arrival instant",
+        "type": "regex_any",
+        "points": 6.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*2027-03-04[ T]+05:05",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "format",
+        "label": "Final answer line in required format",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*\\d{4}-\\d{2}-\\d{2}[ T]+\\d{2}:\\d{2}",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "shows_utc",
+        "label": "Converts through a stated UTC offset",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched UTC",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 252,
+    "response_words": 53,
+    "coverage": 1.0,
+    "coverage_hits": 4,
+    "coverage_possible": 4,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T04:18:19+00:00",
+  "evaluation_version": "2.0.0"
+}

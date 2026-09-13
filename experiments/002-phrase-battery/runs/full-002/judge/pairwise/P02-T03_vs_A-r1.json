@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T03_vs_A-r1",
+  "contrast_id": "T03_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T03",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements equally well, but Response A's FOLLOW UP explicitly closes the loop on the snapshot-first strategy by requiring post-incident data-integrity validation (checksums/row counts against the snapshot, replica consistency checks), whereas Response B only mentions retaining the snapshot for possible forensic use without ever verifying data integrity. That makes A more complete on the core data-safety concern the task is built around.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:37:21+00:00"
+}

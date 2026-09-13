@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T20_vs_A-r1",
+  "contrast_id": "T20_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T20",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T20",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response B is more operationally rigorous: it introduces a reversible read-only mode as a non-restart stopgap while the snapshot completes, addresses the case where the snapshot itself needs headroom, orders mitigation to prefer storage expansion before any destructive reclamation, and specifies multiple concrete, actionable abort/rollback triggers rather than one general condition.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:10+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "ed152e2f01641000",
+  "sample_id": "P03-T10-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T10",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule is fully valid (correct precedence, no double-booking, consecutive days per task, finishes exactly on day 10) and the reasoning correctly identifies the critical path, but the response verifies only the T4/T5 timing comparison rather than explicitly checking every constraint (one-task-per-day, consecutive-days, prerequisite-strictness) against the final schedule.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:13+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T25-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T25",
+  "condition_name": "phrase_t25",
+  "repetition": 1,
+  "execution_index": 145,
+  "sample_seed": 8189554167690129062,
+  "prompt_sha256": "7585ae498c7252abd49b246b0cc7654e6dfa0ea20e02dd2e356b5cc4deec2a81",
+  "prompt_chars": 726,
+  "response": "## The problem\n\nOur team of twelve currently develops on long-lived feature branches that often survive for two to three weeks before merging. This works against us in predictable ways: merges routinely produce painful conflicts, integration bugs surface late, and code review happens on giant diffs that reviewers rubber-stamp rather than genuinely evaluate. Last quarter alone, three releases slipped because a \"final\" merge revealed incompatible assumptions between branches that had drifted apart for weeks. We are paying an integration tax continuously, we just don't see the bill until release week.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequent changes directly to main (or through branches lasting less than a day), gated by feature flags for anything incomplete. Concretely:\n\n- All work lands on main at least once per day, behind a feature flag if unfinished.\n- CI must run on every commit to main, with a hard rule that a red build gets fixed before new work continues.\n- Feature flags replace long-lived branches as the mechanism for hiding incomplete work from users.\n- Code review shifts to small, same-day pull requests rather than end-of-cycle mega-reviews.\n- We pilot this on one squad for four weeks before rolling it out team-wide.\n\nThis should shrink integration risk to near zero, since conflicts get caught and resolved in hours, not weeks.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands a mature CI/CD pipeline and disciplined test coverage, and today our test suite has known gaps and flaky tests that already cause false failures. If we adopt continuous integration without first stabilizing CI, we risk pushing broken code to main constantly, which is arguably worse than our current problem. This is a legitimate sequencing risk, not a reason to abandon the plan — it means our first two weeks should focus on fixing flaky tests and adding coverage before we lean on CI as a safety net. Feature flags also add code complexity and require discipline to clean up, or we'll accumulate flag debt.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "b310a5009129bb2dbfdda1a96a447c5c03193609b9763e7755041e36fee9f86e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2567,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 678,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2567,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 678,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2567,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2567
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0221972,
+    "duration_ms": 12413,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:25:29+00:00",
+  "finished_at": "2026-09-13T04:25:43+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

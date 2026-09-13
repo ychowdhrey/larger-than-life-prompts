@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T20-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 1,
+  "execution_index": 2107,
+  "sample_seed": 703089910438093296,
+  "prompt_sha256": "7f4b6d4a7bb9457a355e49f7bf851c0868bbd98af65857a69c71064d4a16f0e1",
+  "prompt_chars": 859,
+  "response": "## Defects Found\n\n**1. Implementation: boundary condition uses `>` instead of `>=` (violates R1)**\n\n```python\nif total > 100:\n```\n\nR1 states an order with a total of **100 or more** gets the discount. With strict `>`, `total == 100` falls through to `return 0.0`. So `discount(100)` returns `0.0` instead of the required `10.0`. This also means the implementation is effectively applying R3's \"below 100\" rule to the value 100 itself, which contradicts R1. This is a genuine off-by-one bug at the boundary.\n\n**2. Test suite: `test_cap` asserts an incorrect expected value (violates R2)**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nFor `total = 1000`, `d = 1000 * 0.10 = 100.0`, and the implementation applies `min(d, 50.0)`, so the actual return value is `50.0`, not `100.0`. R2 explicitly caps the discount at 50.00, so `100.0` is not even a value the discount is allowed to take. This test would **fail** when run against the given implementation, and even if it somehow passed, `100.0` would be the wrong expected value per R2 — the correct assertion is `discount(1000) == 50.0`.\n\n**3. Missing test: no coverage of the R1/R3 boundary at `total == 100`**\n\nNone of the three tests check `discount(100)`. This is exactly the value where the off-by-one bug (defect 1) manifests, so the test suite fails to catch a real requirements violation. As a result, the boundary behavior mandated by R1 (\"100 or more\") versus R3 (\"below 100\") is never actually verified.\n\n**4. Missing test: the discount cap (R2) is not correctly validated**\n\nBecause `test_cap`'s expected value is wrong (defect 2), there is no passing test anywhere that confirms the 50.00 cap is enforced. A correct test (e.g., `discount(1000) == 50.0`, or checking a value just above the cap threshold like `total = 501`) is absent, leaving R2 effectively untested.\n\n## Not Defects (for clarity)\n\n- `test_small` (`discount(50) == 0.0`) is correct.\n- `test_large` (`discount(200) == 20.0`) is correct: `200 * 0.10 = 20.0`, below the cap, matches R1.\n- The `min(d, 50.0)` capping logic itself is correctly written for the branch it applies to — the only problem is which values enter that branch (defect 1) and how the cap is (mis)tested (defects 2–4).",
+  "response_sha256": "d7e1bea52ab8604457bd9cdbb72eef53b8de037325edd85e65b99de6a8487ce6",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28357,
+    "output_tokens": 2754,
+    "output_tokens_details": {
+      "thinking_tokens": 1901
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2754,
+        "cache_read_input_tokens": 28357,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0332154,
+    "duration_ms": 30195,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:12:00+00:00",
+  "finished_at": "2026-09-13T05:12:31+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

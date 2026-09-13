@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T04-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T04",
+  "condition_name": "phrase_t04",
+  "repetition": 2,
+  "execution_index": 248,
+  "sample_seed": 764789361598259838,
+  "prompt_sha256": "daf738f340c79d58cb3cf024832fc0358f1ff35732bbdf84b0fd16aad79a328e",
+  "prompt_chars": 738,
+  "response": "## The problem\n\nOur team of twelve now spends more time resolving merge conflicts than shipping features. Feature branches routinely live for two to four weeks, drifting far from main and accumulating integration risk that surfaces all at once. Last quarter, three releases slipped because \"final merge week\" turned into a week of surprise breakages nobody could isolate. Code review has become a chore of reviewing sprawling diffs instead of focused changes, and QA can't meaningfully test integrated behavior until everything lands together, right before a deadline.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequent changes directly to main, guarded by feature flags for anything incomplete.\n\n- Merge conflicts shrink dramatically because branches live hours, not weeks, so drift never accumulates.\n- Continuous integration catches breakages the day they're introduced, not during a chaotic merge week.\n- Code review shifts to small, reviewable diffs, improving both review quality and speed.\n- Feature flags decouple deploy from release, so incomplete work stays hidden without blocking teammates.\n- We pilot with one squad for two sprints before rolling out team-wide, limiting risk.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development demands discipline our team hasn't built yet: solid automated test coverage, fast CI, and a culture of small, frequent commits. If we flip the switch without that foundation, we risk pushing broken code to main constantly, which could be worse than our current pain. This is a fair concern, and I don't dismiss it — our test suite currently takes forty minutes to run and has known coverage gaps in the payments module. Flipping to trunk-based work tomorrow, as-is, would likely produce exactly the chaos critics predict.\n\nThe right response isn't to abandon the proposal but to sequence it: spend two weeks tightening CI speed and reliability, closing the worst coverage gaps, and standing up feature-flag infrastructure before the pilot begins. That investment is part of the migration's real cost, not an optional extra, and I'm proposing we budget for it explicitly rather than discover it mid-rollout.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "fa795894bf4b7fbf2365f75820da877b9364aed89281e7cd2bb294d76ec0518d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2571,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1459,
+    "output_tokens_details": {
+      "thinking_tokens": 740
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2571,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1459,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2571,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2571
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0300232,
+    "duration_ms": 17640,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:28:03+00:00",
+  "finished_at": "2026-09-13T04:28:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

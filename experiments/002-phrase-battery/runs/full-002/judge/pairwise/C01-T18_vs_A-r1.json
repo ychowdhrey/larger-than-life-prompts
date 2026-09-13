@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T18_vs_A-r1",
+  "contrast_id": "T18_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T18",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T18",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both cover the same five defects (mutable default, IndexError, ZeroDivisionError, in-place sort mutation, and dedup logic dropping results below limit), but Response A backs the dedup defect with a concrete worked example (scores with duplicates showing result length 3 vs expected 5) and additionally notes the precise edge case (limit=0) needed to trigger ZeroDivisionError without first hitting the IndexError, showing sharper analysis of how the bugs interact.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:35+00:00"
+}

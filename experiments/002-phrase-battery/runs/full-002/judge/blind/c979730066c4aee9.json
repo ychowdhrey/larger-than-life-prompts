@@ -1,0 +1,22 @@
+{
+  "item_id": "c979730066c4aee9",
+  "sample_id": "P01-T11-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T11",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all hard requirements (12 numbered steps, dry run, rollback, integrity verification via row counts/checksums, stakeholder communication, and backup ordered strictly before the cutover) with a technically sound approach using pre-window logical replication to fit a 2 TB migration into a 2-hour window. It is directly actionable, though the dry run's use of a subset rather than full-scale data slightly limits confidence in timing validation.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:04+00:00"
+}

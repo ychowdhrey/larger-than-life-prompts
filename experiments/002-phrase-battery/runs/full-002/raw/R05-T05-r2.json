@@ -1,0 +1,68 @@
+{
+  "sample_id": "R05-T05-r2",
+  "run_id": "full-002",
+  "task_id": "R05",
+  "family": "reasoning",
+  "condition_id": "T05",
+  "condition_name": "phrase_t05",
+  "repetition": 2,
+  "execution_index": 2205,
+  "sample_seed": 10320410072420507258,
+  "prompt_sha256": "3385371311f6adc6208d52d7b3cdd4d31a60d19eecf48d7bea4466551b3d0e67",
+  "prompt_chars": 250,
+  "response": "**Step 1: Count integers divisible by 3 or 5 (1–1000)**\n\nUsing inclusion-exclusion:\n- Divisible by 3: ⌊1000/3⌋ = 333\n- Divisible by 5: ⌊1000/5⌋ = 200\n- Divisible by 15 (3∩5): ⌊1000/15⌋ = 66\n\nDivisible by 3 or 5 = 333 + 200 − 66 = **467**\n\n**Step 2: Subtract those also divisible by 7**\n\nI need to remove numbers that are divisible by 7 **and** (divisible by 3 or 5) — i.e., divisible by 21 or by 35.\n\n- Divisible by 21 (7∩3): ⌊1000/21⌋ = 47\n- Divisible by 35 (7∩5): ⌊1000/35⌋ = 28\n- Divisible by 105 (7∩3∩5, lcm(21,35)=105): ⌊1000/105⌋ = 9\n\nDivisible by 21 or 35 = 47 + 28 − 9 = **66**\n\n**Step 3: Final count**\n\nNumbers divisible by 3 or 5, but not by 7 = 467 − 66 = **401**\n\nFINAL ANSWER: 401",
+  "response_sha256": "c44a52ba7a44872607e37b668bc1b8009feebcd820eed26debf44c2096494618",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28150,
+    "output_tokens": 620,
+    "output_tokens_details": {
+      "thinking_tokens": 203
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 620,
+        "cache_read_input_tokens": 28150,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.011834,
+    "duration_ms": 6954,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:14:33+00:00",
+  "finished_at": "2026-09-13T05:14:41+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

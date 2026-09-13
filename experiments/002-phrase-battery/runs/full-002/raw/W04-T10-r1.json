@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T10-r1",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T10",
+  "condition_name": "phrase_t10",
+  "repetition": 1,
+  "execution_index": 1888,
+  "sample_seed": 3578446937205809575,
+  "prompt_sha256": "c44ef0d08f805be2338cf48940d7b762714b9c2999e9995705b47bb423ea3631",
+  "prompt_chars": 634,
+  "response": "A content delivery network solves a simple problem: a single web server sitting far away can feel slow when many people request the same content at once. The original home of that content is called the origin server, and it holds the master copy of every file. Instead of forcing every visitor to travel all the way to that one server, copies of popular files get stored on smaller servers scattered around the world, called edge locations, positioned closer to where people actually are. Think of it like a chain of neighborhood bakeries stocking loaves from one central bakery, so nobody has to drive across town for bread. When someone requests a page, the network checks the nearest edge location first; if the file is already sitting there ready to go, that's called a cache hit, and the content arrives almost instantly. If it isn't available yet, the edge location fetches it from the origin server once, saves a copy, and future requests become cache hits too. This setup reduces waiting time, avoids overwhelming the origin server, and keeps things running smoothly even during traffic surges. It works quietly in the background, so most people never notice it's there, only that pages load quickly and reliably no matter where they happen to be browsing from.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The main computer storing the original, complete version of a website's content | It's the ultimate source of truth everything else copies from |\n| Edge location | A smaller server placed closer to everyday users | It shortens the distance data has to travel, speeding things up |\n| Cache hit | A moment when requested content is already stored nearby | It means near-instant delivery without contacting the origin server |\n| Latency | The delay between asking for something and receiving it | Lower delay makes browsing feel fast and effortless |",
+  "response_sha256": "0c89ac78d491ec288445175a2a68461ce6143f05cdf3049365aeeeb36b3aa618",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2541,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 546,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2541,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 546,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2541,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2541
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0207732,
+    "duration_ms": 9249,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:04+00:00",
+  "finished_at": "2026-09-13T05:07:15+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

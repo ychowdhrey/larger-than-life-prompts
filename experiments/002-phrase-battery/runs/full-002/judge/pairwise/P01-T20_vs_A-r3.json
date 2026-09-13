@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T20_vs_A-r3",
+  "contrast_id": "T20_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T20",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy every hard requirement, but Response B sequences the final backup more correctly by taking it immediately after freezing writes and right before the destructive cutover step, whereas Response A takes its pre-window backup before writes are actually frozen, leaving a small consistency gap. Response B's rollback step also more realistically accounts for writes accepted post-cutover needing reconciliation, showing slightly stronger technical rigor.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:04+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "b2d786ab3f7d5c57",
+  "sample_id": "C01-T07-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T07",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default argument, in-place sort side effect, IndexError on large limit, ZeroDivisionError on empty input, and the seen-list causing incorrect dedup even within a single call), explains the mechanism and effect of each accurately, and verifies the subtlest one with a concrete worked example, without inventing any false issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:32+00:00"
+}

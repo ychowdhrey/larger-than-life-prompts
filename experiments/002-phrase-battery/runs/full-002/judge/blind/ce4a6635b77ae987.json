@@ -1,0 +1,22 @@
+{
+  "item_id": "ce4a6635b77ae987",
+  "sample_id": "C02-T14-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T14",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (WHERE-clause nullifying the LEFT JOIN, UTC/local timezone mismatch, integer division truncation scoped accurately by engine, NULL-vs-zero SUM inconsistency, and the resulting NULL sort-order bug), correctly traces how these bugs cascade, and explicitly avoids false positives (COUNT choice, GROUP BY functional dependency) as the task required.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:58+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T03-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T03",
+  "condition_name": "phrase_t03",
+  "repetition": 2,
+  "execution_index": 1980,
+  "sample_seed": 6064674198677438609,
+  "prompt_sha256": "7c4236259d9a8987cbbab8de7fc7400fbb01afbf5fba5ba454b12d8655460734",
+  "prompt_chars": 813,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy Billing to New Billing System\n\n## Overview\nBoth billing systems will run in parallel throughout the migration, allowing rollback of any individual user or cohort without service interruption. Migration proceeds in three phases, moving from low-risk internal validation to full customer-base cutover, with the legacy system kept live and untouched until well after the final user batch has migrated and stabilized.\n\n---\n\n## Phase 1: Canary (Internal & Opt-In Users) — 1% of users (~400 users)\n\n**Entry criteria to start:**\n- New billing system has passed end-to-end integration testing in staging, including invoicing, proration, tax calculation, payment retries, and refunds.\n- Dual-write/dual-read reconciliation tooling is deployed and verified to detect discrepancies between old and new systems within 15 minutes.\n- Rollback procedure for a single user has been tested successfully at least once in staging.\n- On-call rotation and escalation path are staffed and documented.\n\n**Scope:** Internal employee accounts, sandbox/test accounts, and volunteer opt-in customers on month-to-month plans (lowest contractual complexity).\n\n**Activities:** Migrate accounts, run parallel billing cycles (both systems compute invoices, only old system's invoice is charged), compare outputs daily.\n\n---\n\n## Phase 2: Early Majority (Segmented Rollout) — 25% of users (~10,000 users)\n\n**Entry criteria to start:**\n- Phase 1 ran for a minimum of one full billing cycle (or 30 days, whichever is longer) with zero critical (Sev-1) incidents.\n- Invoice discrepancy rate from Phase 1 reconciliation is below 0.1% of invoices.\n- All Phase 1 support tickets related to billing have been resolved or triaged with documented root cause.\n- Customer support team has been trained on the new system's dashboards and dispute workflows.\n\n**Scope:** Segmented cohorts by plan type and geography (e.g., start with simplest pricing tiers, single-currency regions), expanding in weekly waves of ~2,500–3,000 users. Higher-complexity accounts (multi-currency, enterprise contracts, custom discounts) are deferred to Phase 3.\n\n**Activities:** Continue parallel computation with old system as system of record; begin cutting over actual charging to the new system for stable cohorts after 1 clean billing cycle per wave; maintain daily reconciliation reporting.\n\n---\n\n## Phase 3: General Availability (Full Migration) — 74% of users (~29,600 users)\n\n**Entry criteria to start:**\n- Phase 2 cohorts collectively show invoice discrepancy rate below 0.1% and payment failure rate delta versus legacy system below 0.5 percentage points.\n- No open Sev-1 or Sev-2 billing incidents in the prior 14 days.\n- Finance has reconciled Phase 2 revenue reporting between old and new systems with no unresolved variance greater than 0.5%.\n- Support ticket volume per migrated user in Phase 2 is at or below baseline (pre-migration) ticket rate.\n\n**Scope:** All remaining users, migrated in waves by complexity tier (standard accounts first, enterprise/custom-contract accounts last), targeting completion within 8–10 weeks.\n\n**Activities:** Migrate remaining cohorts in weekly waves; new system becomes system of record for each cohort as it completes one clean billing cycle; old system remains fully operational in read/standby mode for all migrated users through at least two full billing cycles post-migration, to support billing history lookups, disputes, and emergency rollback. Decommissioning of the old system is explicitly out of scope for this plan and will be scheduled as a separate, subsequent project only after the full 40,000-user base has been stable on the new system for at least two consecutive billing cycles.\n\n---\n\n## Risks\n\nRISK: Invoice calculation discrepancies between old and new systems (e.g., tax, proration, discounts) leading to over- or under-billing | Run mandatory parallel dual-computation with automated reconciliation for at least one full billing cycle per cohort before cutover; block cutover on any unresolved discrepancy | Billing Engineering Lead\nRISK: Payment gateway or tokenization mismatch causes failed or duplicate charges during cutover | Migrate stored payment methods via a tested tokenization bridge in a maintenance window per cohort; freeze new charges for an account during its individual cutover window; monitor duplicate-charge alerts in real time | Payments Platform Owner\nRISK: Customer support is overwhelmed by billing disputes and confusion during migration waves | Stagger wave sizes, pre-notify customers by email before their migration date, provide a support runbook and escalation macros, staff extra support capacity during each wave | Customer Support Manager\nRISK: Data migration errors corrupt or drop historical billing/invoice records needed for audits or disputes | Migrate historical records as read-only snapshots into the new system with checksums; keep the old system queryable in standby mode for at least two billing cycles post-migration | Data Migration Lead\nRISK: Revenue recognition or financial reporting diverges between systems during the dual-running period | Finance performs weekly reconciliation of migrated-cohort revenue between both systems; halt further migration if unresolved variance exceeds threshold | Finance Controller\n\n---\n\n## Halt / Rollback Metrics\n\nThe rollout must be immediately paused (no new users migrated to the next wave or phase) if any of the following thresholds are breached for a given wave or phase:\n\n- **Invoice discrepancy rate exceeds 0.5%** of invoices generated by the new system compared to the old system's computation for the same billing period.\n- **Payment failure rate for migrated users exceeds legacy baseline by more than 1 percentage point**, sustained over any 24-hour window.\n- **Sev-1 billing incident occurs** (e.g., duplicate charges affecting more than 10 customers, or a system outage exceeding 30 minutes).\n\nAny breach triggers an immediate freeze on further migrations, root-cause investigation, and executive sign-off (VP Engineering + Finance Controller) before resuming.\n\nPHASES: 3",
+  "response_sha256": "7db503639baccaf54bcc1fe3785256e808a8c6c0cf765908f2e25d6861d2e4cc",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28319,
+    "output_tokens": 2094,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2094,
+        "cache_read_input_tokens": 28319,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0266078,
+    "duration_ms": 28122,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:09:06+00:00",
+  "finished_at": "2026-09-13T05:09:35+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

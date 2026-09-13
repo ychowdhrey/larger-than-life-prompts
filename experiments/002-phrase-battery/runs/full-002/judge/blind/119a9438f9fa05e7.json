@@ -1,0 +1,22 @@
+{
+  "item_id": "119a9438f9fa05e7",
+  "sample_id": "C02-T08-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T08",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all the defects implied by the schema notes (WHERE clause nullifying the LEFT JOIN, missing UTC+8 offset in the date boundary, integer-division truncation of cents, NULL vs. 0 for SUM, and the resulting sort-order quirk) and correctly declines to flag the non-aggregated GROUP BY columns as a defect, matching the 'do not report non-issues' instruction; its only flaw is a factual slip claiming MySQL's '/' performs integer truncation, when MySQL actually returns a decimal result there.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:33+00:00"
+}

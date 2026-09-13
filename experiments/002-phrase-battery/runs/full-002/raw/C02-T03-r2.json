@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T03-r2",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T03",
+  "condition_name": "phrase_t03",
+  "repetition": 2,
+  "execution_index": 1581,
+  "sample_seed": 18260362747371912670,
+  "prompt_sha256": "fd2f6eb7221b089df5f78bf1c796d3caadd1aace031f3fdd3d4c034ba981bfec",
+  "prompt_chars": 835,
+  "response": "Here are the defects I found in this query:\n\n**1. The `WHERE` clause silently turns the `LEFT JOIN` into an `INNER JOIN`**\n\n`WHERE o.created_at >= '2026-01-01'` is applied *after* the join, so for any customer with no matching orders, `o.created_at` is `NULL` — and `NULL >= '2026-01-01'` is unknown/false, so that row gets filtered out. The same happens to a customer whose orders all fall before 2026-01-01.\n\n*Effect:* Customers with zero orders (or zero orders in range) disappear from the report entirely, directly violating the stated requirement that they must appear with a count of zero. Fix: move the date filter into the `ON` clause (`LEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= ...`) so it restricts which orders match instead of which customers survive.\n\n**2. The date boundary is compared in UTC, not the team's local calendar day (UTC+8)**\n\n`created_at` is stored in UTC, but the literal `'2026-01-01'` is compared directly with no timezone shift. UTC+8 midnight on Jan 1 is `2025-12-31 16:00:00` UTC — eight hours earlier than what this query actually uses as its cutoff.\n\n*Effect:* Orders placed between local midnight and 08:00 local time on Jan 1 (i.e., `2025-12-31 16:00`–`24:00` UTC) are on \"Jan 1\" from the team's local-day perspective but get excluded by this filter, since the query effectively treats the cutoff as Jan 1 08:00 local time. Any day-boundary logic built on this pattern will be systematically off by 8 hours from the calendar days the team actually wants.\n\n**3. `total_spent` will show `NULL` instead of `0` for no-order customers, and will sort ahead of real spenders**\n\n`SUM(o.total_cents)` over a group with no matching order rows evaluates to `NULL`, not `0` — there's no `COALESCE`/`SUM(...,0)` guard. Combined with `ORDER BY total_spent DESC`, in most engines (e.g., PostgreSQL) `NULL` sorts first in a `DESC` ordering by default.\n\n*Effect:* Even after fixing defect #1 so zero-order customers appear, their `total_spent` column reads `NULL` (misleading for a report that should show 0), and those rows would jump to the very top of a \"highest spenders\" listing instead of the bottom.\n\n**4. Possible integer-division truncation in `SUM(o.total_cents) / 100`**\n\n`total_cents` is an INTEGER, and `100` is an integer literal. On databases where integer ÷ integer performs integer division (e.g., PostgreSQL, SQL Server), this truncates any fractional dollar amount.\n\n*Effect:* A customer whose orders sum to 1999 cents would report `total_spent = 19` instead of `19.99` — silently losing cents on every customer whose total isn't an exact multiple of 100. Fix: divide by `100.0` or cast to `numeric`/`decimal` first.",
+  "response_sha256": "77872137b8838a60f107ae83396cda4c3e59df2f8b13fdc1563d1231b8181590",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28387,
+    "output_tokens": 4706,
+    "output_tokens_details": {
+      "thinking_tokens": 3661
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4706,
+        "cache_read_input_tokens": 28387,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0527414,
+    "duration_ms": 50140,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:00:21+00:00",
+  "finished_at": "2026-09-13T05:01:12+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

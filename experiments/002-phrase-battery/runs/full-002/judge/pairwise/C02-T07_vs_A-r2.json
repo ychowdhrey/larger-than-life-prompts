@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T07_vs_A-r2",
+  "contrast_id": "T07_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T07",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T07",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly and near-identically identify the same four core defects (WHERE clause defeating the LEFT JOIN, UTC vs UTC+8 boundary mismatch, integer division truncation, and NULL vs 0 for zero-order customers). Response A's bonus fifth point (NULLS FIRST default breaking the DESC sort once NULLs appear) is accurate and directly relevant to the query as written, whereas Response B's bonus fifth point about GROUP BY/ONLY_FULL_GROUP_BY is factually shaky — MySQL's functional-dependency detection (like Postgres's) generally accepts this pattern when customer_id is the primary key, so the claim that ONLY_FULL_GROUP_BY would reject it is likely incorrect.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:45:49+00:00"
+}

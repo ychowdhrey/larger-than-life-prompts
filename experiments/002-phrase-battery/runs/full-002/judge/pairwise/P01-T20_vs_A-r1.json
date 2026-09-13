@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T20_vs_A-r1",
+  "contrast_id": "T20_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T20",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T20",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans meet every hard requirement equally well, but Response A sequences data integrity verification (step 9) before repointing application traffic (step 10), so the cutover only proceeds once source and target are confirmed to match — Response B repoints traffic and restarts app services (step 9) before running verification (step 10), which is riskier ordering even though maintenance mode still gates end-user exposure. Response A also ties its rollback trigger explicitly to the preceding steps and backup, making the runbook slightly more precise and safer to execute.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:19+00:00"
+}

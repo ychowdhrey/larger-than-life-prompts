@@ -1,0 +1,68 @@
+{
+  "sample_id": "R01-E08-r1",
+  "run_id": "pilot-002",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "E08",
+  "condition_name": "combo_e08",
+  "repetition": 1,
+  "execution_index": 38,
+  "sample_seed": 17513151569534674245,
+  "prompt_sha256": "ccda228029e97f597e90432399363e208f69383f5d1f593dc25b4fd65c990e3b",
+  "prompt_chars": 497,
+  "response": "# Working Through the Problem\n\n**Departure:** 23:40 on 3 March 2027, Kuala Lumpur time (UTC+8)\n\n**Step 1 — Convert departure to UTC:**\n23:40 − 8:00 = 15:40 UTC on 3 March 2027\n\n**Step 2 — Add flight duration (13h 25m) in UTC:**\n15:40 + 13:25\n= 15:40 + 13:00 = 28:40 → 04:40 (next day, since 24:00 rolls over)\n= 04:40 + 0:25 = 05:05\n\nSo: 15:40 + 13h25m = 05:05 UTC on 4 March 2027 (crossing midnight once)\n\n**Step 3 — Convert to London local time:**\nLondon is UTC+0 on that date (still on GMT, before the UK's clocks spring forward — that changeover in 2027 falls on the last Sunday of March, which is after 4 March).\n\nSo UTC time = local London time directly: **05:05 on 4 March 2027**\n\n**Cross-check using local clock times directly:**\n- Departure: 23:40 (KL, UTC+8) on 3 March\n- Arrival in KL-equivalent local clock: 23:40 + 13:25 = 13:05 on 4 March (KL time)\n- Convert to UTC (London): 13:05 − 8:00 = 05:05 on 4 March\n\nBoth methods agree: **05:05 on 4 March 2027**.\n\nFINAL ANSWER: 2027-03-04 05:05",
+  "response_sha256": "25a549bfba2bf00329d0b0e75b4e1f793a3c7c57ef796126c626701897f72c02",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2528,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 762,
+    "output_tokens_details": {
+      "thinking_tokens": 258
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2528,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 762,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2528,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2528
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.022881199999999997,
+    "duration_ms": 9466,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:17:16+00:00",
+  "finished_at": "2026-09-13T04:17:27+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

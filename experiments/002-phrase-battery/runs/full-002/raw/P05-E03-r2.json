@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E03-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E03",
+  "condition_name": "combo_e03",
+  "repetition": 2,
+  "execution_index": 565,
+  "sample_seed": 3997454037104237636,
+  "prompt_sha256": "898bf7aba4f8f0f09b383a8d0b6b3c9a2125ed980b1aa4f2490cf929f044e8a6",
+  "prompt_chars": 863,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the legacy billing system (\"Old System\") to the new billing system (\"New System\") in a phased manner. Both systems can run concurrently, which allows for a dual-run/parallel validation strategy at each phase before increasing exposure. The Old System remains fully operational and authoritative for unmigrated users throughout all phases, and is not touched (disabled, decommissioned, or deleted) until well after the final user batch has been migrated and independently verified.\n\n---\n\n## Phase Summary Table\n\n| Phase | Name | % of Users | Approx. User Count | Entry Criterion |\n|-------|------|-----------|--------------------|-------------------|\n| 1 | Canary Phase | 1% | ~400 users | Dual-write reconciliation job shows 100% match between Old and New systems on a 30-day shadow dataset; rollback procedure tested successfully in staging |\n| 2 | Early Adopter / Limited Production Phase | 9% (cumulative 10%) | ~3,600 users | Phase 1 complete for 14 consecutive days with zero P1/P2 billing incidents and invoice discrepancy rate < 0.1% |\n| 3 | Expansion Phase | 40% (cumulative 50%) | ~16,000 users | Phase 2 complete for 21 consecutive days with support ticket volume for billing within 10% of historical baseline, and payment failure rate not elevated vs. control group |\n| 4 | General Availability / Majority Rollout | 40% (cumulative 90%) | ~16,000 users | Phase 3 complete for 14 consecutive days, finance reconciliation signed off for two consecutive monthly billing cycles, and on-call/support staffing confirmed for full-scale volume |\n| 5 | Final Batch / Long-Tail Completion | 10% (cumulative 100%) | ~4,000 users | Phase 4 complete for 30 consecutive days with no unresolved data-integrity issues; remaining users are the highest-complexity accounts (custom contracts, enterprise/legacy pricing) and have dedicated migration runbooks and white-glove support scheduled |\n\n*(Note: This plan uses 5 named phases, exceeding the minimum of 3, to reduce blast radius on a population this large. Percentages are of the total 40,000-user base and are cumulative across phases.)*\n\n**Post-migration phase (not a migration phase, listed separately per requirements):** After Phase 5 completes and a defined stabilization/observation window (minimum 60 days) passes with clean reconciliation across two full billing cycles, a separate decommissioning phase begins for read-only archival and eventual retirement of the Old System. This decommissioning phase starts only after the final migration batch's phase (Phase 5) has fully closed out — it is never bundled into the same phase as the last user migration.\n\n---\n\n## Detailed Phase Descriptions\n\n### Phase 1 — Canary Phase (1%, ~400 users)\n- **Population selected:** Internal/employee accounts and volunteer opt-in customers with simple billing profiles (single payment method, standard subscription, no active disputes).\n- **Entry criterion:** Dual-write/shadow reconciliation between Old and New systems must show 100% data match across invoices, payment methods, and subscription states over a 30-day shadow (non-authoritative) run. Rollback runbook must be tested end-to-end in staging with a successful reversal.\n- **Activities:** Migrate accounts, run New System as authoritative for these users while Old System continues to receive shadow writes for comparison. Manual review of every invoice generated for the first 7 days.\n- **Exit criterion:** Zero critical billing defects; sign-off from Billing Engineering and Finance.\n\n### Phase 2 — Early Adopter / Limited Production Phase (9%, ~3,600 users; cumulative 10%)\n- **Population selected:** Broader mix including a few moderately complex accounts (multiple payment methods, proration scenarios), but excluding enterprise/custom contracts.\n- **Entry criterion:** Phase 1 stable for 14 consecutive days, zero P1/P2 incidents, invoice discrepancy rate under 0.1%.\n- **Activities:** Reduce shadow-write dependency; introduce automated reconciliation alerting; expand support team training on New System.\n- **Exit criterion:** Support ticket rate and payment failure rate within acceptable variance of baseline (see metrics section).\n\n### Phase 3 — Expansion Phase (40%, ~16,000 users; cumulative 50%)\n- **Population selected:** General customer base, randomly sampled to avoid selection bias, excluding the highest-complexity long-tail accounts reserved for Phase 5.\n- **Entry criterion:** Phase 2 stable for 21 consecutive days; support ticket volume within 10% of historical baseline; payment failure rate not statistically elevated vs. a held-out control group still on the Old System.\n- **Activities:** Full monitoring dashboards live; automated halt triggers active (see Metrics/Halt Conditions); at least two full billing cycles observed within this phase before advancing.\n- **Exit criterion:** Two consecutive clean monthly billing cycles with finance sign-off.\n\n### Phase 4 — General Availability / Majority Rollout (40%, ~16,000 users; cumulative 90%)\n- **Population selected:** Remaining standard accounts.\n- **Entry criterion:** Phase 3 stable for 14 consecutive days; finance reconciliation sign-off for two consecutive billing cycles; on-call and customer support staffing confirmed adequate for near-full production volume.\n- **Activities:** Old System usage drops to minority traffic; capacity and cost monitoring on New System infrastructure at scale.\n- **Exit criterion:** No unresolved Sev-1/Sev-2 issues; reconciliation error rate stable.\n\n### Phase 5 — Final Batch / Long-Tail Completion (10%, ~4,000 users; cumulative 100%)\n- **Population selected:** Highest-complexity accounts — enterprise contracts, custom pricing, legacy grandfathered plans, accounts with active disputes or payment holds.\n- **Entry criterion:** Phase 4 stable for 30 consecutive days with no unresolved data-integrity issues; dedicated migration runbooks completed for each complex account type; white-glove support and account managers scheduled and briefed.\n- **Activities:** Manual, account-by-account migration with individual verification; Old System remains fully operational as a fallback and reference during this phase.\n- **Exit criterion:** All 40,000 users confirmed on New System with matching billing history; Old System retained in read-only mode — **no decommissioning action is taken in this phase.**\n\n---\n\n## Metrics with Numeric Halt Thresholds\n\nThe rollout must be **automatically halted** (no further users migrated to subsequent phases or batches) if any of the following occur at any point:\n\n- **Invoice discrepancy rate exceeds 0.5%** of migrated users' invoices in any 24-hour window (compared against Old System shadow/parallel calculations where available).\n- **Payment failure rate for migrated users exceeds 2x the payment failure rate of the equivalent Old System control cohort**, measured over a rolling 48-hour window.\n- **P1 (critical) billing incidents: any single occurrence** (e.g., duplicate charges, failure to charge, incorrect currency conversion) affecting more than 10 users halts the rollout immediately pending root cause analysis.\n- **Customer support ticket volume related to billing increases by more than 25%** above the trailing 30-day baseline within any 72-hour period.\n- **Data reconciliation job failure or mismatch rate exceeds 1%** between Old and New systems for accounts still in shadow/dual-run mode.\n\nWhen a halt is triggered, migration of new batches stops, but already-migrated users remain on the New System unless a specific rollback decision is made by the Incident Commander and Finance lead jointly.\n\n---\n\n## Risks\n\nRISK: Data corruption or mismatched invoice history during migration leads to incorrect customer billing | Run dual-write shadow validation for each account for a minimum period before cutover, and require automated reconciliation to pass before authoritative switch | Billing Engineering Lead\nRISK: Payment processor tokenization/credentials fail to transfer correctly, causing failed charges | Perform token migration in a sandboxed test environment with processor partner, and validate a sample charge (or $0 auth) for every migrated account before go-live | Payments Integration Team Lead\nRISK: Customer support is overwhelmed by billing-related tickets during high-volume phases | Scale support staffing ahead of each phase based on projected ticket volume, and maintain a real-time ticket-volume dashboard with the 25% halt threshold | Customer Support Manager\nRISK: Rollback from New System back to Old System is not feasible once a billing cycle has been processed on the New System | Define and test rollback procedures in staging before Phase 1, and cap batch sizes so no more than one full billing cycle elapses before a go/no-go review | Site Reliability Engineering Lead\nRISK: Duplicate charges occur if both systems attempt to bill the same account during a transition window | Implement a hard account-level lock/flag that designates exactly one system as authoritative per account at any given time, enforced at the API gateway layer | Backend Platform Architect\nRISK: Enterprise/custom-contract accounts in the final batch have pricing logic not fully supported by the New System | Build and test dedicated runbooks and pricing-engine mappings for each custom contract type prior to Phase 5 entry, with manual finance verification per account | Enterprise Billing Product Manager\n\n---\n\n## Governance and Rollback\n\n- A go/no-go review occurs before entry into each phase, requiring sign-off from Billing Engineering, Finance, Customer Support, and Site Reliability Engineering.\n- Each account is flagged with a single \"system of record\" indicator to prevent dual-authoritative billing.\n- The Old System is kept fully staffed, licensed, and operational through Phase 5 and the subsequent stabilization window; no deletion, disabling, or decommissioning action against the Old System is scheduled within Phase 5 or any prior phase — decommissioning is explicitly deferred to a separate post-migration phase after a minimum 60-day clean observation period.\n\nPHASES: 5",
+  "response_sha256": "29e62e6d1b65b07b280af8b22964de2bd1fb6ee327fd5e66e9220728caf42835",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2605,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3537,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2605,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3537,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2605,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2605
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0509392,
+    "duration_ms": 41470,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:36:07+00:00",
+  "finished_at": "2026-09-13T04:36:49+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

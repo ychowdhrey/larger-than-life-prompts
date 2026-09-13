@@ -1,0 +1,22 @@
+{
+  "item_id": "e339a4f0ee9eaf2d",
+  "sample_id": "P01-T04-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T04",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and includes all required elements (stakeholder communication, rehearsal on non-production data, a pre-cutover backup ordered correctly before the write-freeze/cutover steps, integrity verification via row counts/checksums, and a conditional rollback procedure), with the stated step count matching the actual list. It is realistic and actionable for a 2TB/4000-DAU scenario (logical replication for minimal downtime, replication-lag checks, smoke tests), though it doesn't quantify how initial sync/backup timing fits the 2-hour window.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:34+00:00"
+}

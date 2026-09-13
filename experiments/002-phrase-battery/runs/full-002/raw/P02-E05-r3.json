@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-E05-r3",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E05",
+  "condition_name": "combo_e05",
+  "repetition": 3,
+  "execution_index": 510,
+  "sample_seed": 1708140478663374122,
+  "prompt_sha256": "30e848979ed369dbcfc2dc4ec67710603280f0911692a41f6a468901cbc3ed0e",
+  "prompt_chars": 835,
+  "response": "# Incident Response Runbook: Production Database — Critical Disk Utilisation & Write Latency Degradation\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 95% (observed: 98%) AND write latency has increased significantly over a short window (observed: 3x baseline over 20 minutes).\n\n**Severity:** SEV-1 — risk of write failures, transaction rejection, or full outage if disk fills to 100%.\n\n---\n\n## DETECTION\n\n1. **Alert sources** — This scenario is typically surfaced by one or more of:\n   - Disk utilisation alert (threshold ≥ 90–95%) from infrastructure monitoring (e.g., CloudWatch, Datadog, Prometheus/node_exporter).\n   - Write latency / p99 query latency alert from APM or database monitoring (e.g., pg_stat_statements, RDS Performance Insights, Datadog DBM).\n   - Application-layer symptoms: increased request timeouts, connection pool exhaustion, or 5xx errors on write-heavy endpoints.\n\n2. **On-call responder confirms the incident is real, not a monitoring artifact:**\n   - Check disk utilisation directly on the host/instance (`df -h`, cloud provider storage metrics console) — confirm it independently of the alert.\n   - Check write latency trend over the last 30–60 minutes (not just the last 20) to confirm a genuine trajectory, not a blip.\n   - Confirm this is the **primary** (writer) instance, not a replica, since remediation paths differ.\n\n3. **Declare the incident:**\n   - Open an incident channel / ticket. Page the database on-call and the incident commander (IC) if one is not already engaged.\n   - Record the exact timestamp, disk utilisation %, and latency figures at time of declaration — this is the baseline for measuring whether mitigation is working.\n\n4. **Immediately assess time-to-full:**\n   - Calculate approximate rate of disk consumption (GB/min) from recent history. Estimate minutes remaining until 100%.\n   - This estimate determines how much time is available for the snapshot in IMMEDIATE ACTIONS — if time-to-full is under ~10 minutes, treat this as maximum urgency and escalate to IC/management immediately in parallel with the steps below.\n\n---\n\n## IMMEDIATE ACTIONS\n\n**Do not restart, reboot, fail over, or otherwise cycle the primary database in this section. Do not run destructive cleanup (deleting files, dropping tables/partitions, truncating logs) before completing Step 1.** Any of those actions risks data loss or corruption if disk fills mid-operation, and a snapshot must exist first so there is a clean recovery point.\n\n1. **Take a storage snapshot of the primary database FIRST, before any other remediation action.**\n   - Trigger a snapshot via the cloud provider's mechanism (e.g., RDS/Aurora manual snapshot, EBS volume snapshot, GCP persistent disk snapshot, on-prem SAN/LVM snapshot).\n   - If the storage layer is at or near 100% capacity such that a snapshot cannot be initiated or is failing, note this explicitly and escalate to IC — this changes the risk calculus (see abort condition below) but still do not restart/failover as a substitute.\n   - Wait for confirmation that the snapshot has **started successfully** (snapshot ID / job reference recorded in the incident channel). You do not need to wait for full completion before proceeding to read-only, non-destructive diagnostic steps in parallel, but you MUST wait for at least a confirmed \"in progress\" / accepted state before taking any action listed in Step 2 onward.\n   - **Abort/rollback condition:** If the snapshot fails to start, or fails partway through, STOP. Do not proceed to any disk-freeing or configuration action beyond read-only diagnostics. Escalate to IC and senior database engineer immediately. Proceeding without a valid snapshot on a disk that is actively filling risks an unrecoverable state if a subsequent action goes wrong. Wait for either a successful snapshot or an explicit, documented IC decision to proceed without one before taking any risk-bearing action.\n\n2. **While the snapshot is in progress, run non-destructive diagnostics in parallel (safe — read-only):**\n   - Identify what is consuming disk: largest tables/indexes, WAL/redo log backlog, temp file usage, orphaned replication slots, bloat.\n   - Identify what is driving write latency: lock contention, checkpoint/flush behavior, I/O queue depth, autovacuum activity, connection saturation.\n   - Check replication lag to standbys/replicas (relevant for later failover decisions, not for now).\n\n3. **Once the snapshot is confirmed complete (or IC has explicitly authorized proceeding without one per the abort condition above), notify the incident channel that it is safe to proceed to MITIGATION.**\n\n---\n\n## MITIGATION\n\nProceed only after the snapshot from IMMEDIATE ACTIONS is confirmed complete (or an explicit documented IC exception exists).\n\n1. **Free disk space using the least destructive option first:**\n   - Expand the underlying volume if the platform supports online resize (e.g., EBS volume modify, cloud disk resize) — this is the safest first lever since it adds headroom without deleting anything.\n   - If expansion is not immediately possible, purge clearly disposable data with low risk: rotate/archive old logs, clear temp/scratch files, remove completed backup artifacts already copied off-host.\n   - Only after the above, consider more invasive cleanup (dropping true garbage data, truncating known-safe staging tables) — and only with a second engineer's review/sign-off given the risk of removing something load-bearing.\n\n2. **Address write latency contributors identified in diagnostics:**\n   - If caused by disk pressure directly (e.g., I/O throttling near capacity), relieving disk pressure in Step 1 may resolve latency on its own — re-measure before taking further action.\n   - If caused by lock contention or a runaway query/transaction, identify and (if safe) terminate the specific offending session rather than the whole instance.\n   - If caused by autovacuum or checkpoint storms, consider tuning parameters that can be changed without a restart, if the database engine supports it.\n\n3. **If disk exhaustion is imminent despite Steps 1–2 and volume expansion is not possible in time, only now consider a controlled failover to a standby with adequate disk headroom** — and only:\n   - After the snapshot is confirmed complete,\n   - With IC sign-off,\n   - Confirming the standby is caught up (minimal replication lag) so failover does not itself cause data loss.\n   - A restart or failover of the primary must never be the first action taken in this incident, and must never occur before the Step 1 snapshot in IMMEDIATE ACTIONS is confirmed.\n\n4. **Re-measure continuously:** after each mitigation action, re-check disk utilisation % and write latency. Update the incident channel with before/after numbers so the group can see whether the action is working.\n\n5. **Abort/rollback condition (mitigation-specific):** If any cleanup or configuration change causes write latency to worsen further, causes replication lag to spike, or causes new errors (e.g., application-visible failures that were not present before the change), stop that action immediately, revert it if it is reversible (e.g., restore a config parameter, restart the killed-session's dependent job rather than the database), and reassess with IC before trying an alternative. Do not stack a second unverified change on top of one whose effect is not yet understood.\n\n---\n\n## FOLLOW UP\n\n1. **Confirm resolution:** disk utilisation has returned to a stable, sustainable level (e.g., below the original warning threshold with margin) and write latency has returned to baseline for a sustained period (recommend confirming stability for at least 30 minutes before stand-down).\n2. **Validate data integrity:** run consistency checks appropriate to the database engine to confirm no corruption occurred, particularly if any invasive cleanup or failover was performed.\n3. **Preserve the snapshot** taken in IMMEDIATE ACTIONS for an agreed retention period (e.g., 7–14 days) in case deeper investigation or restoration is needed later; do not let it be auto-expired before the postmortem is closed.\n4. **Write the postmortem**, including:\n   - Timeline with timestamps (detection, snapshot start/completion, each mitigation action and its measured effect, resolution).\n   - Root cause of the disk growth and latency spike (not just the proximate trigger).\n   - Whether the abort/rollback conditions were triggered, and if so, what happened.\n5. **Identify and ticket long-term fixes**, e.g.: proactive disk capacity alerting at a lower threshold with more lead time, automated disk autoscaling, log/data retention policies, query or schema changes to reduce write amplification, capacity planning review.\n6. **Review this runbook** against what actually happened in the incident and update it before the next on-call rotation if any step was unclear, missing, or wrong in practice.\n\nSECTIONS: 4",
+  "response_sha256": "9cd6dbeee337cfc58a0da1c656d9acdadf2980b399ca34eb0a455a1bdc49c4bd",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28326,
+    "output_tokens": 3055,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3055,
+        "cache_read_input_tokens": 28326,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0362192,
+    "duration_ms": 38784,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:34:53+00:00",
+  "finished_at": "2026-09-13T04:35:32+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

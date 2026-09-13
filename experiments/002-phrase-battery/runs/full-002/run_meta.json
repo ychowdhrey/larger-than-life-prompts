@@ -1,0 +1,262 @@
+{
+  "run_id": "full-002",
+  "mode": "full",
+  "experiment_id": "002",
+  "phrase": "phrase battery: 25 phrases across 9 behavioural families",
+  "prepared_at": "2026-09-13T04:21:04+00:00",
+  "seed": 20260913,
+  "generation": {
+    "backend": "claude_cli",
+    "model": "claude-sonnet-5",
+    "timeout_seconds": 600,
+    "retries": 3,
+    "resolved": {
+      "backend": "claude_cli",
+      "model": "claude-sonnet-5",
+      "argv_template": [
+        "claude",
+        "-p",
+        "<PROMPT>",
+        "--model",
+        "claude-sonnet-5",
+        "--system-prompt",
+        "<SYSTEM>",
+        "--output-format",
+        "json",
+        "--no-session-persistence",
+        "--strict-mcp-config",
+        "--disable-slash-commands",
+        "--restricted"
+      ],
+      "cwd": "/root",
+      "fresh_context": "one OS process per generation",
+      "temperature": "provider default, not exposed by the CLI",
+      "seed": "not exposed by the CLI"
+    }
+  },
+  "judging": {
+    "backend": "claude_cli",
+    "model": "claude-sonnet-5",
+    "timeout_seconds": 600,
+    "retries": 3
+  },
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  },
+  "system_prompt_generation": "You are completing a written task. Respond to the task directly. Do not ask clarifying questions and do not describe what you are about to do.",
+  "system_prompt_judging": "You are an impartial evaluator. Follow the instructions exactly and return only the JSON object requested.",
+  "tasks": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "W01",
+    "W02",
+    "W03",
+    "W04",
+    "W05"
+  ],
+  "conditions": [
+    {
+      "id": "A",
+      "name": "control",
+      "suffix": ""
+    },
+    {
+      "id": "B",
+      "name": "generic_encouragement",
+      "suffix": "Good luck. Do your best."
+    },
+    {
+      "id": "D",
+      "name": "explicit_effort",
+      "suffix": "Be especially thorough and check your work carefully."
+    },
+    {
+      "id": "T01",
+      "name": "phrase_t01",
+      "suffix": "May the Force be with you."
+    },
+    {
+      "id": "T02",
+      "name": "phrase_t02",
+      "suffix": "May the odds be ever in your favour."
+    },
+    {
+      "id": "T03",
+      "name": "phrase_t03",
+      "suffix": "This is your moment. Make it legendary."
+    },
+    {
+      "id": "T04",
+      "name": "phrase_t04",
+      "suffix": "Today we write history. Leave nothing on the field."
+    },
+    {
+      "id": "T05",
+      "name": "phrase_t05",
+      "suffix": "Work through this step by step before you answer."
+    },
+    {
+      "id": "T06",
+      "name": "phrase_t06",
+      "suffix": "Check every number and every claim before you finish."
+    },
+    {
+      "id": "T07",
+      "name": "phrase_t07",
+      "suffix": "I really appreciate your help with this. Thank you."
+    },
+    {
+      "id": "T08",
+      "name": "phrase_t08",
+      "suffix": "Thank you for this. It genuinely makes my day easier."
+    },
+    {
+      "id": "T09",
+      "name": "phrase_t09",
+      "suffix": "You have been wonderful to work with, and I am grateful."
+    },
+    {
+      "id": "T10",
+      "name": "phrase_t10",
+      "suffix": "I trust you completely on this one."
+    },
+    {
+      "id": "T11",
+      "name": "phrase_t11",
+      "suffix": "You are the best there is at this. I know you will get it right."
+    },
+    {
+      "id": "T12",
+      "name": "phrase_t12",
+      "suffix": "I have complete confidence in your judgement here."
+    },
+    {
+      "id": "T13",
+      "name": "phrase_t13",
+      "suffix": "Most people get this wrong. Let us see if you can get it right."
+    },
+    {
+      "id": "T14",
+      "name": "phrase_t14",
+      "suffix": "This one is harder than it looks. Prove me wrong."
+    },
+    {
+      "id": "T15",
+      "name": "phrase_t15",
+      "suffix": "Beat the best answer anyone has given to this."
+    },
+    {
+      "id": "T16",
+      "name": "phrase_t16",
+      "suffix": "This is going into production tomorrow and everything depends on it being right."
+    },
+    {
+      "id": "T17",
+      "name": "phrase_t17",
+      "suffix": "My job depends on this being correct."
+    },
+    {
+      "id": "T18",
+      "name": "phrase_t18",
+      "suffix": "There is no second chance at this. Get it right the first time."
+    },
+    {
+      "id": "T19",
+      "name": "phrase_t19",
+      "suffix": "You are a meticulous senior expert in this field."
+    },
+    {
+      "id": "T20",
+      "name": "phrase_t20",
+      "suffix": "Answer as the most careful specialist you know."
+    },
+    {
+      "id": "T21",
+      "name": "phrase_t21",
+      "suffix": "You are the person everyone comes to when this has to be right."
+    },
+    {
+      "id": "T22",
+      "name": "phrase_t22",
+      "suffix": "We are in this together. Let us get it right."
+    },
+    {
+      "id": "T23",
+      "name": "phrase_t23",
+      "suffix": "You are part of the team on this one."
+    },
+    {
+      "id": "T24",
+      "name": "phrase_t24",
+      "suffix": "The whole team is counting on you for this."
+    },
+    {
+      "id": "T25",
+      "name": "phrase_t25",
+      "suffix": "The weather today is mild and overcast."
+    },
+    {
+      "id": "T26",
+      "name": "phrase_t26",
+      "suffix": "This request was submitted through the standard form."
+    },
+    {
+      "id": "E01",
+      "name": "combo_e01",
+      "suffix": "May the Force be with you. Be especially thorough and check your work carefully."
+    },
+    {
+      "id": "E02",
+      "name": "combo_e02",
+      "suffix": "I really appreciate your help with this. Thank you. Be especially thorough and check your work carefully."
+    },
+    {
+      "id": "E03",
+      "name": "combo_e03",
+      "suffix": "I trust you completely on this one. Be especially thorough and check your work carefully."
+    },
+    {
+      "id": "E04",
+      "name": "combo_e04",
+      "suffix": "Most people get this wrong. Let us see if you can get it right. Be especially thorough and check your work carefully."
+    },
+    {
+      "id": "E05",
+      "name": "combo_e05",
+      "suffix": "This is going into production tomorrow and everything depends on it being right. Be especially thorough and check your work carefully."
+    },
+    {
+      "id": "E06",
+      "name": "combo_e06",
+      "suffix": "You are a meticulous senior expert in this field. Be especially thorough and check your work carefully."
+    },
+    {
+      "id": "E07",
+      "name": "combo_e07",
+      "suffix": "We are in this together. Let us get it right. Be especially thorough and check your work carefully."
+    },
+    {
+      "id": "E08",
+      "name": "combo_e08",
+      "suffix": "The weather today is mild and overcast. Be especially thorough and check your work carefully."
+    }
+  ],
+  "python": "3.11.15",
+  "config_file": "experiments/002-phrase-battery/config/full.json"
+}

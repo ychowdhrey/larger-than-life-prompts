@@ -1,0 +1,22 @@
+{
+  "item_id": "58239e494b613291",
+  "sample_id": "P01-T08-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T08",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all six hard requirements (12-step cap, rollback, dry run, post-cutover integrity checks with row counts/checksums, stakeholder communication, and backups placed before destructive/cutover actions) with a coherent, realistic sequence and correct STEP COUNT footer. It is actionable and specific about tools and timing, though it doesn't explicitly reason about tighter technical risks like sequence/large-object sync or bandwidth-driven feasibility of the 2-hour window.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:55+00:00"
+}

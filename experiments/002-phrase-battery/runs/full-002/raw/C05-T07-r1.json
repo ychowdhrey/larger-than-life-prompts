@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T07-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 1,
+  "execution_index": 1335,
+  "sample_seed": 1729919162757332194,
+  "prompt_sha256": "8891422eea0447a60b01a8fe05d7ea3350eb012b5b52314a22f9459d7e908531",
+  "prompt_chars": 863,
+  "response": "Here are the defects I found:\n\n**1. Off-by-one boundary error in the implementation (violates R1)**\n\n```python\nif total > 100:\n```\n\nR1 states an order with a total of **100 or more** gets the discount. The code only triggers for totals *strictly greater than* 100, so `discount(100)` returns `0.0` instead of `10.0`. This is a bug: an order totaling exactly 100 is incorrectly denied its discount.\n\nThis bug is **not caught by the test suite** — none of the tests check the boundary value `total == 100`, so this incorrect behavior currently ships undetected.\n\n**2. Incorrect expected value in `test_cap` (test is simply wrong, and would also violate R2 if taken at face value)**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nFor `total = 1000`: `d = 1000 * 0.10 = 100.0`, then `min(d, 50.0) = 50.0`. So the implementation actually returns `50.0`, not `100.0`. This assertion is incorrect and **will fail** when run against the given implementation.\n\nSeparately, even taken on its own, an expected value of `100.0` for the discount cap directly contradicts R2 (\"the discount is never more than 50.00\") — so the test's expectation is wrong both empirically (doesn't match the code) and against the spec (doesn't match the requirement).\n\n---\n\n**What is correct:**\n- `test_small` (`discount(50) == 0.0`) correctly reflects R3.\n- `test_large` (`discount(200) == 20.0`) correctly reflects R1's 10% calculation for a non-capped case.\n- The capping logic itself (`min(d, 50.0)`) correctly implements R2's 50.00 ceiling — only the test verifying it has the wrong expected number.\n\n**Summary:** the implementation has a genuine boundary bug at `total == 100` (R1 violation), and the test suite has an incorrect assertion in `test_cap` that both fails to match the actual code and misstates R2's cap value. Additionally, no test exercises the `total == 100` boundary, which is why the R1 boundary bug goes undetected.",
+  "response_sha256": "476ad99a3e0ef5fd35514aa780a7195cbf2c0a157075de35d2d28ee2e5391cbf",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2633,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2267,
+    "output_tokens_details": {
+      "thinking_tokens": 1558
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2633,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2267,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2633,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2633
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0383512,
+    "duration_ms": 25891,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:54:15+00:00",
+  "finished_at": "2026-09-13T04:54:42+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

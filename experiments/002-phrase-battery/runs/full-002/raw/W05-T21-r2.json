@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T21-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 2,
+  "execution_index": 946,
+  "sample_seed": 7042932592050412359,
+  "prompt_sha256": "96ff4697aeec6f664570455c5438e397fa6e496c9deb0bdaa68897aa337ddb0d",
+  "prompt_chars": 750,
+  "response": "**Subject: Moving to Trunk-Based Development**\n\n## The problem\n\nOur long-lived feature branches routinely live for two to three weeks before merging, and integration is where things go wrong. Merge conflicts have grown large enough that engineers block out half-days just to reconcile them, and by the time a branch lands, the assumptions it was built on have often shifted. Three of our last five production incidents traced back to integration surprises we couldn't have caught earlier because the code simply wasn't merged yet. We're a team of twelve; when six or seven branches are in flight simultaneously, nobody has a clear picture of what \"main\" will look like next week, and code review quality drops because reviewers face 2,000-line diffs instead of digestible changes.\n\n## The proposal\n\nI'm proposing we shift to trunk-based development: everyone commits small, frequent changes directly to main, gated by feature flags for anything incomplete. Concretely, this means:\n\n- Branches live no more than a day or two, ideally just hours\n- Every merge to main passes CI automatically, with no exceptions\n- Incomplete features ship behind flags rather than sitting unmerged\n- We invest in flag tooling and a short pairing session to onboard the team\n- We run a four-week trial on one workstream before rolling out fleet-wide\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development assumes strong CI and disciplined testing, and if our test suite has gaps, we'll merge broken code into main faster and more often, potentially making things worse rather than better. This isn't a hypothetical — our current CI has known flaky tests and coverage holes in the payments module. I don't think this objection can be waved away; it means our rollout must start with hardening CI, not with flipping the branching model first. If we can't trust green builds, small commits just mean frequent, fast-moving breakage instead of rare, slow-moving breakage.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "cea6e15d5167c0557c6f00833b9cdaa491fa92c2df361a95dbaadc436f76c816",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28298,
+    "output_tokens": 627,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 627,
+        "cache_read_input_tokens": 28298,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.011933599999999999,
+    "duration_ms": 11746,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:45:11+00:00",
+  "finished_at": "2026-09-13T04:45:24+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

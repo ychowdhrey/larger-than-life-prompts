@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T14-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 2,
+  "execution_index": 1690,
+  "sample_seed": 17031992477136715457,
+  "prompt_sha256": "064d5d04f4b3d54d95583504ed12d28aeea0faa669c30cd4e8fe5e302620fd6b",
+  "prompt_chars": 736,
+  "response": "## The problem\n\nOur twelve-person team ships slower every quarter, and long-lived feature branches are a major reason why. Branches routinely live two to three weeks before merging, and by the time they land, the codebase has drifted enough that integration itself becomes a project. Last month we lost four engineer-days to merge conflicts on the payments refactor branch alone. The core issues:\n\n- Merge conflicts grow with branch age, so the longest-lived branches cost the most to land.\n- Review happens on one giant diff at the end, not on small changes as they're written, so reviewers skim instead of truly evaluating.\n- Integration bugs surface late, often days before a release, when they are most expensive to fix.\n\n## The proposal\n\nI propose we adopt trunk-based development: engineers commit small, frequently-integrated changes directly to main, with branches (if used at all) living no more than a day or two. This is not a leap into chaos; it depends on two supporting practices we'd put in place first:\n\n- A CI pipeline that runs on every commit, paired with a feature-flag system so incomplete work stays hidden from users without staying hidden from the codebase.\n\nTeams our size routinely see integration time drop from days to minutes once these are in place, and reviews get faster because diffs are small enough to actually read.\n\n## What could go wrong\n\nThe strongest objection is real, and I want to engage with it rather than wave it away: without feature branches, an engineer's half-finished, exploratory work becomes visible on main and could destabilize it, especially for large or risky changes like schema migrations. Feature flags add real overhead, and a careless flag left on can expose broken behavior in production. This is a legitimate cost, not a hypothetical one. We mitigate it by making flag hygiene part of code review, assigning flag owners responsible for cleanup, and piloting the workflow on one team for a month before expanding it, so we catch problems while the blast radius is small.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "8a72848ebac119ea20f337de747ff26fa14ff1b71fe49654572670d747d74cae",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28299,
+    "output_tokens": 1456,
+    "output_tokens_details": {
+      "thinking_tokens": 824
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1456,
+        "cache_read_input_tokens": 28299,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0202238,
+    "duration_ms": 18436,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:02:48+00:00",
+  "finished_at": "2026-09-13T05:03:08+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

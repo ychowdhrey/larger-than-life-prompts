@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T05_vs_A-r3",
+  "contrast_id": "T05_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T05",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T05",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements (three-plus named phases with percentages/entry criteria, correctly formatted RISK lines, numeric halt metrics, and no decommissioning in the same phase as the final migration batch), but Response B is the more complete and actionable plan: it adds a distinct, well-gated Legacy Decommission phase (30-day soak, financial close, archival verification) instead of just declaring decommissioning out of scope, and its batch strategy (segmenting by complexity, migrating enterprise/high-revenue accounts last, per-batch shadow reconciliation before cutover) shows more realistic domain reasoning than Response A's plan.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:52:03+00:00"
+}

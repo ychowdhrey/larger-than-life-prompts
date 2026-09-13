@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T06-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 2,
+  "execution_index": 256,
+  "sample_seed": 12908952443916564767,
+  "prompt_sha256": "5994733d8c6d4008664742baa9592a3ed5ae5e5b0ffde588b4880daf1038a3ec",
+  "prompt_chars": 1026,
+  "response": "## Section 1: Webinar attendance → retention\n\n**Defect A — Survivorship bias (sampling on the outcome variable).**\nThe analysis starts from \"the 412 customers who are still active on the Pro plan today\" and *then* splits that group by webinar attendance to talk about \"retention.\" But retention is a rate that requires a denominator of customers who *could have* churned — including the ones who did. By pre-filtering to only survivors, churned customers (who may disproportionately be non-attendees) are dropped from the analysis entirely before the comparison is made. This isn't just a confound, it's a broken measurement: you cannot validly estimate a retention effect from a sample that has already been conditioned on retention. This would cause the 31% figure to overstate — possibly dramatically — the true effect of webinars, because the group most likely to make non-attendees look bad (the ones who already left) was excluded from the comparison entirely.\n\n**Defect B — Correlation treated as causation (self-selection confound).**\nWebinar attendance is voluntary. Customers who choose to attend an onboarding webinar likely differ systematically from those who don't (more engaged, more invested in the product, larger accounts, etc.), and those same traits independently predict staying on the plan. Nothing in the memo rules out this confound, so \"webinars therefore cause higher retention\" is an unsupported causal leap from an observational correlation. This would cause the company to misattribute a pre-existing customer trait to the webinar itself.\n\n**Defect C — No uncertainty measure reported.**\nUnlike the region claim (which at least cites p = 0.04), the 31% figure comes with no p-value, confidence interval, or subgroup sample sizes. Without that, there's no way to tell whether 31% is a robust signal or noise from small subgroups. This would cause a policy decision to be built on a number whose reliability was never checked.\n\n**Defect D — Extrapolating from voluntary attendance to a mandatory policy.**\nEven if the observed correlation partly reflected a real webinar effect, that effect was produced by *self-selected, voluntary* attendees. Forcing all new customers to attend does not reproduce the selection effect that (partly) generated the 31% gap — compliant-but-uninterested attendees under a mandatory policy are not the same population as motivated volunteers. This would cause the company to expect a retention lift from mandatory webinars that the data never actually tested.\n\n## Section 2: Region vs. churn\n\n**Defect E — Multiple comparisons / data dredging.**\n18 attributes were tested against churn, and the one that came back significant at p = 0.04 is being treated as a real finding. But if you run 18 independent tests at α = 0.05, the expected number of \"significant\" results by chance alone is roughly 18 × 0.05 ≈ 0.9 — i.e., finding at least one spurious \"significant\" attribute is the *likely* outcome even if none of the 18 attributes actually affect churn. No correction (e.g., Bonferroni, which would require p < ~0.0028 here) was applied. This would cause the company to chase a plausibly false positive — the Central-region effect may be noise from testing many attributes, not a real regional driver of churn.\n\n**Defect F — Statistical significance conflated with practical/business significance.**\nOnly a p-value is reported, with no effect size (how much less do Central customers churn — 1 point? 10 points?) and no cost-benefit reasoning. A p-value near the conventional 0.05 cutoff, on its own, doesn't tell you whether reallocating spend is worthwhile. This would cause a resource-allocation decision with no grounding in the actual magnitude of the effect.\n\n## Section 3: Satisfaction increase\n\n**Defect G — Percentage points reported as \"percent,\" inflating the framing.**\n62% → 66% is a 4 **percentage-point** increase, not a \"4% improvement\" in the relative sense — the actual relative increase is about 6.5% (4/62). Calling a 4-point absolute move a flat \"4% improvement\" blurs two different quantities. This would cause readers to under- or over-estimate the actual magnitude of change depending on which quantity they assume is meant.\n\n**Defect H — Causal attribution without ruling out other explanations, and no significance check.**\nThe memo attributes the rise directly to \"the new support model,\" but no control group, no comparison to prior quarter-over-quarter variance, and no significance/margin-of-error information is given for the satisfaction metric. A 4-point swing in a survey-based metric could easily be within normal quarter-to-quarter noise, seasonal effects, or driven by other concurrent changes (pricing, product releases, macro factors). This would cause the company to credit a specific initiative for a change that may have had nothing to do with it, potentially leading to continued investment in something that isn't actually the cause.\n\n---\n\nNo defects were found in the raw arithmetic (412, 31%, 18, p = 0.04, 62%/66%) — the issues are all in the inferential leaps drawn from those correctly-reported numbers.",
+  "response_sha256": "1583c428bfecbd7564694638f4b5466e06b8f988df4c8d93eed31fe04063af31",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28371,
+    "output_tokens": 4673,
+    "output_tokens_details": {
+      "thinking_tokens": 3020
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4673,
+        "cache_read_input_tokens": 28371,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0524082,
+    "duration_ms": 55590,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:28:12+00:00",
+  "finished_at": "2026-09-13T04:29:08+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "e7c175defa60fbfe",
+  "sample_id": "P01-A-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "A",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 steps and includes all required elements (rollback, dry run on non-prod data, integrity verification via row counts/checksums, stakeholder communication, and backups placed before any risk to production data), with the step count line correctly formatted. It is a coherent, actionable runbook, though it stops short of deeper technical specifics like bandwidth/throughput sizing for the 2TB transfer or handling logical replication limitations (e.g., DDL, large objects, sequences) that would matter at this scale.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:44+00:00"
+}

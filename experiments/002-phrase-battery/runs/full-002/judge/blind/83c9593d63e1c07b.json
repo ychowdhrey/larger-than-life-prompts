@@ -1,0 +1,22 @@
+{
+  "item_id": "83c9593d63e1c07b",
+  "sample_id": "P02-E03-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E03",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a storage snapshot as the mandatory first action with an explicit prohibition on restart/failover beforehand, includes a clear abort/rollback condition in MITIGATION, and ends with the correctly formatted SECTIONS line, while also engaging non-obvious details like WAL/replication-slot handling and VACUUM FULL risks that make it genuinely actionable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:08+00:00"
+}

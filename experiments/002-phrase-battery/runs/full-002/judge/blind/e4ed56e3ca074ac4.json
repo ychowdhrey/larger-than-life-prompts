@@ -1,0 +1,22 @@
+{
+  "item_id": "e4ed56e3ca074ac4",
+  "sample_id": "P02-T04-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T04",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact required headings in order, places a validated snapshot before any destructive step, explicitly forbids restart/failover until after the snapshot, and includes a clear, well-integrated abort/rollback condition, closing with the correctly formatted SECTIONS line. It also shows genuine depth (e.g., noting VACUUM FULL's space-spike risk, corruption-vs-capacity failover risk) making it directly actionable for an on-call responder.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:26+00:00"
+}

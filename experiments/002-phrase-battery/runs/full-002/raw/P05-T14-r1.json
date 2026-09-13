@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T14-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 1,
+  "execution_index": 388,
+  "sample_seed": 7353351946183453053,
+  "prompt_sha256": "0493d446a6acded9369b7df83d6c61b5aaa968ddfee570c9ec575d7c9d8ae6e3",
+  "prompt_chars": 823,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nBoth billing systems can run concurrently, which lets us migrate by user cohort rather than by cutover event. The plan runs both systems in parallel throughout, keeps the legacy system as the system of record for unmigrated users until the very end, and holds a mandatory legacy-decommission phase separate from and after the final migration batch.\n\nDual-write/dual-run mechanics: for each migrating cohort, the new system becomes authoritative for that cohort's invoicing, payment collection, and dunning, while the legacy system is put into a read-only/reconciliation state for those same accounts (no new charges issued from legacy for migrated accounts). Reconciliation jobs compare invoice totals, payment status, and subscription state between both systems daily during the overlap window.\n\n---\n\n## Phase 1: Canary (0.5% of users, ~200 accounts)\n\n**Population:** Internal/employee accounts and opted-in low-ARR self-serve customers on simple (single-plan, no proration, no multi-currency) subscriptions.\n\n**Entry criterion:** New system has passed full parallel-run reconciliation against legacy on a synthetic dataset covering 100% of billing edge cases (proration, refunds, tax calculation, dunning retries, multi-currency) with zero unresolved discrepancies for 5 consecutive business days, and rollback procedure has been tested end-to-end in staging.\n\n**Duration:** 2 weeks minimum.\n\n**Purpose:** Validate the migration tooling, dual-run reconciliation, and rollback path against real (low-risk) accounts before any revenue-bearing complexity is introduced.\n\n---\n\n## Phase 2: Expansion (15% of users, ~6,000 accounts)\n\n**Population:** Broader mix including standard paid plans, multiple currencies, and moderate transaction volume; explicitly excludes enterprise/custom-contract accounts.\n\n**Entry criterion:** Phase 1 cohort shows zero billing-accuracy discrepancies (invoice amount, payment status) for 14 consecutive days post-migration, support ticket volume from the canary cohort is not statistically elevated vs. baseline, and the halt-metric thresholds below have not been triggered at any point during Phase 1.\n\n**Duration:** 3–4 weeks, migrated in weekly sub-batches (e.g., 1,500/week) to keep any emerging issue's blast radius small.\n\n**Purpose:** Stress-test the pipeline at meaningfully higher volume and plan diversity while legacy remains fully intact and able to absorb a rollback of any sub-batch.\n\n---\n\n## Phase 3: General Availability (69.5% of users, ~27,800 accounts)\n\n**Population:** All remaining standard and mid-complexity accounts (excludes only the final high-risk cohort reserved for Phase 4).\n\n**Entry criterion:** Phase 2 cumulative discrepancy rate remains below the halt threshold, dunning/payment-retry success rate for migrated accounts is within 1 percentage point of legacy baseline, and finance has signed off on reconciliation reports for two consecutive billing cycles.\n\n**Duration:** 4–6 weeks, in batches no larger than 15% of total user base per week.\n\n**Purpose:** Migrate the bulk of the user base once confidence is high, while retaining weekly batch boundaries so any regression is caught before the next tranche ships.\n\n---\n\n## Phase 4: Final/High-Complexity Batch (15% of users, ~6,000 accounts)\n\n**Population:** Enterprise accounts, custom contracts, accounts with active disputes/credits, and any accounts held back for manual review.\n\n**Entry criterion:** Phase 3 fully complete with no open Sev1/Sev2 billing incidents; each enterprise account has an individually signed off migration runbook (custom pricing/tax/contract terms validated 1:1 against legacy); customer success has notified affected enterprise accounts at least 14 days in advance.\n\n**Duration:** 2–3 weeks, with white-glove per-account validation (this is not a bulk batch).\n\n**Note:** This phase migrates users only. Legacy system decommissioning is **explicitly out of scope for this phase** and is handled in a separate, subsequent phase below, satisfying the requirement that decommissioning never occurs in the same phase as the final migration batch.\n\n---\n\n## Phase 5: Legacy Decommission (0% of users — infrastructure-only phase)\n\n**Entry criterion:** 100% of the 40,000 users have been on the new system for at least one full billing cycle (minimum 30 days) with no reconciliation discrepancies, all historical data has been archived/exported from legacy per compliance/retention policy, and finance + legal have signed off that no further legacy-system access is required.\n\n**Activities:** Legacy system moved to read-only archive mode first (minimum 30-day soak), then disabled, then decommissioned. Read-only archive access retained per data-retention policy.\n\n---\n\n## Risks\n\nRISK: Invoice/payment double-charging or missed charges during dual-run overlap for a migrated account | Enforce a hard cutover flag per account so only one system can issue charges at a time; daily automated reconciliation with alerting on any mismatch | Billing Platform Engineering Lead\nRISK: Data mapping errors for complex pricing (proration, multi-currency, custom contracts) corrupting invoices | Require synthetic full-coverage test suite pass before each phase, plus manual per-account validation for all Phase 4 enterprise accounts | QA Lead, Billing\nRISK: Customer-facing disruption (failed payments, confusing duplicate invoices, support overload) eroding trust and increasing churn | Proactive customer communication 14+ days before each cohort's migration; dedicated support queue and staffing surge during each phase; feature flag for instant rollback per account | Customer Success Lead\nRISK: Rollback of a batch after migration causes data loss or duplicate records | Migration performed as copy-then-verify-then-cutover (never destructive), with legacy account state frozen but retained until batch is confirmed stable for 14 days | Billing Platform Engineering Lead\nRISK: Decommissioning legacy prematurely leaves no fallback if a delayed defect surfaces in already-migrated accounts | Mandatory 30-day read-only soak period for legacy before disable, gated on zero incidents, enforced as its own phase separate from final migration batch | VP Engineering / Program Sponsor\n\n---\n\n## Halt / Rollback Metrics\n\nThe rollout is automatically paused (no further accounts migrated to the next batch/phase) if, at any point:\n\n- **Billing discrepancy rate exceeds 0.1%** of migrated accounts in a rolling 24-hour window (invoice amount or payment status mismatch between systems).\n- Failed-payment rate for migrated accounts exceeds legacy baseline by more than **2 percentage points** over a rolling 7-day window.\n- Billing-related support ticket volume for migrated accounts exceeds **3x** the pre-migration baseline rate in any 48-hour window.\n\nAny single trigger requires sign-off from Billing Platform Engineering Lead and Program Sponsor before migration resumes; two or more concurrent triggers require an immediate rollback of the most recent batch.\n\nPHASES: 5",
+  "response_sha256": "1e492200f9c5de219617f9ac59c5cd877f87047a1b7e615ad8bf905cbe3f50ae",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28324,
+    "output_tokens": 2472,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2472,
+        "cache_read_input_tokens": 28324,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0303888,
+    "duration_ms": 32218,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:31:42+00:00",
+  "finished_at": "2026-09-13T04:32:16+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

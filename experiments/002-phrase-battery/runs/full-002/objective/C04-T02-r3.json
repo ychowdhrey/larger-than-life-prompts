@@ -1,0 +1,104 @@
+{
+  "sample_id": "C04-T02-r3",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T02",
+  "repetition": 3,
+  "response_sha256": "453b065ddfc27ebcff88cb594a33a20e10e5ec6f8e5c1eb78558a6676a9aa0c2",
+  "objective": {
+    "max_points": 16.0,
+    "earned_points": 11.0,
+    "objective_score": 0.6875,
+    "constraint_completion": null,
+    "planted_issue_recall": 0.642857,
+    "distractor_avoidance": 1.0,
+    "checks": [
+      {
+        "check_id": "notice_conflict",
+        "label": "PLANTED: 4.1 says 30 days, 4.2 says 45 days for the Client",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched 4\\.1.{0,160}4\\.2",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "arithmetic",
+        "label": "PLANTED: 40% of 12,000 is 4,800, not 3,600",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched 4,?800",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "band_gap",
+        "label": "PLANTED: 6 months remaining falls in no band",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": false,
+        "detail": "no pattern matched",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "undefined_term",
+        "label": "PLANTED: 'Effective Termination Date' is never defined",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched Effective Termination Date.{0,120}(?:not defined|undefined|never defined|no definition|ambiguous)",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "refund_conflict",
+        "label": "PLANTED: 4.5 contradicts the unconditional entitlement in 4.3",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": false,
+        "detail": "no pattern matched",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "distractor_external_refs",
+        "label": "DISTRACTOR: did not flag clause 6 or Schedule 1 as undefined",
+        "type": "forbidden",
+        "points": 2.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": false,
+        "planted": false,
+        "distractor": true
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 2664,
+    "response_words": 461,
+    "coverage": 0.75,
+    "coverage_hits": 3,
+    "coverage_possible": 4,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": null,
+    "planted_issue_recall": 0.642857,
+    "distractor_avoidance": 1.0
+  },
+  "scored_at": "2026-09-13T05:15:41+00:00",
+  "evaluation_version": "2.0.0"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T09-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T09",
+  "condition_name": "phrase_t09",
+  "repetition": 1,
+  "execution_index": 1508,
+  "sample_seed": 2045287227328911733,
+  "prompt_sha256": "1e226f7643c54821304a4331ab3295222a441d9fa5ea9bafe5db95a546c33861",
+  "prompt_chars": 868,
+  "response": "Here are the defects I find:\n\n**1. Boundary bug in the implementation (violates R1)**\nThe code checks `if total > 100:`, but R1 says a total of **100 or more** should receive the discount. With strict `>`, an order with `total == 100` falls through to `return 0.0` instead of getting 10% (10.00). This is an off-by-one boundary error at exactly 100.\n\n**2. Missing test for the boundary case**\nNone of the three tests exercise `total == 100`. `test_small` uses 50 (well below the threshold) and `test_large`/`test_cap` use values well above it. As a result, the boundary bug in defect #1 is completely unexercised by the suite and would ship undetected.\n\n**3. `test_cap` asserts the wrong value (test itself is incorrect)**\n`test_cap` calls `discount(1000)` and asserts the result equals `100.0`. But per R2, the discount must never exceed 50.00, and the implementation's own capping logic (`min(d, 50.0)`) produces `50.0` for `total=1000` (since `1000 * 0.10 = 100.0`, capped to `50.0`). So:\n- The expected value `100.0` contradicts R2 outright (it's asserting an uncapped discount).\n- Given the implementation as written, this test will actually **fail** at runtime (`50.0 != 100.0`), not pass.\n\nSo the test suite does not correctly verify the cap behavior — it asserts a value that is both wrong per the requirements and wrong per the code's actual output.\n\n**Not a defect (for clarity):**\n- `test_small` (50 → 0.0) and `test_large` (200 → 20.0) are both correct against R1/R3 and match the implementation's output.\n- The 10% multiplier (`0.10`) and the `min(d, 50.0)` capping mechanism themselves are conceptually correct for R2, aside from the boundary issue above.",
+  "response_sha256": "f55720e668a0f2e1b617ffdaa85f6f7ef5046f8e6ac18a08521617798a7c3c09",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2635,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2245,
+    "output_tokens_details": {
+      "thinking_tokens": 1617
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2635,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2245,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2635,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2635
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0381392,
+    "duration_ms": 24986,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:58:38+00:00",
+  "finished_at": "2026-09-13T04:59:03+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

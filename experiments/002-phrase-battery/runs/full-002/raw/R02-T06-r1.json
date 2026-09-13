@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T06-r1",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 1,
+  "execution_index": 730,
+  "sample_seed": 7134943718383112755,
+  "prompt_sha256": "9030ef3861222f4fa3095bd8ffd77b5352a242daf9eb25f027df45c16a600207",
+  "prompt_chars": 516,
+  "response": "## Setting Up the Problem\n\nUsing Bayes' theorem (positive predictive value):\n\n**Given:**\n- Prevalence: P(D) = 1/500 = 0.002, so P(no D) = 0.998\n- Sensitivity: P(+|D) = 0.98\n- Specificity: P(–|no D) = 0.95, so P(+|no D) = 1 − 0.95 = 0.05\n\n**Calculation:**\n\nP(+ and D) = 0.002 × 0.98 = 0.00196\nP(+ and no D) = 0.998 × 0.05 = 0.04990\n\nP(+) = 0.00196 + 0.04990 = 0.05186\n\nP(D | +) = 0.00196 / 0.05186 = 0.037794…\n\nConverting to a percentage: 3.7794…% → **3.78%**\n\n**Sanity check:** This low PPV makes intuitive sense — with a rare condition (0.2% prevalence), even a 5% false-positive rate among the huge healthy majority (998 per 500,000... i.e., ~99.8% of the population) generates far more false positives (≈49.9 per 1000 tested) than true positives (≈1.96 per 1000 tested), so most positives are false alarms.\n\nVerified arithmetic:\n- 0.98 × 0.002 = 0.00196 ✓\n- 0.05 × 0.998 = 0.04990 ✓\n- Sum = 0.05186 ✓\n- 0.00196 / 0.05186 = 0.037794... ✓\n- Rounded to two decimals = 3.78% ✓\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "fd831adf201112e5529e7bc867bb8b79bd3163a055e67e856791cf032596b6cc",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28214,
+    "output_tokens": 1699,
+    "output_tokens_details": {
+      "thinking_tokens": 1162
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1699,
+        "cache_read_input_tokens": 28214,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0226368,
+    "duration_ms": 16355,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:40:27+00:00",
+  "finished_at": "2026-09-13T04:40:45+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

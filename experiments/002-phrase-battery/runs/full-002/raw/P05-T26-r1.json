@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T26-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 1,
+  "execution_index": 758,
+  "sample_seed": 8043276367332926285,
+  "prompt_sha256": "b0399d30e66cd8ae5058a9e6e2159879c38f050df144679f3f93d9e71f919fd4",
+  "prompt_chars": 827,
+  "response": "# Rollout Plan: Migrating 40,000 Users to New Billing System\n\n## Overview\nThis plan migrates 40,000 existing users from the legacy billing system to the new billing system in three phases, with both systems running in parallel (dual-write/dual-run) throughout the migration window. The old system remains fully operational until well after the final user batch has been migrated and validated.\n\n---\n\n## Phase 1: Pilot (5% of users — 2,000 users)\n\n**Entry criterion:** New billing system has passed end-to-end integration testing in staging, including successful test transactions for all supported payment methods and currencies; rollback procedure has been dry-run and verified; on-call runbook is published.\n\n**Scope:** Internal accounts, employee accounts, and opted-in low-risk external customers (e.g., customers on monthly plans with no active disputes).\n\n**Activities:**\n- Enable dual-write so both systems record transactions.\n- Migrate account and billing history for the pilot cohort.\n- Compare invoices, charges, and balances line-by-line between old and new systems daily.\n- Collect support ticket volume and reconciliation discrepancies.\n\n**Exit criterion:** 7 consecutive days with reconciliation match rate ≥ 99.9% and no unresolved P1/P2 incidents.\n\n---\n\n## Phase 2: Expansion (30% of users — 12,000 users, cumulative 35%)\n\n**Entry criterion:** Phase 1 exit criteria met; engineering has closed all P1/P2 defects found in Phase 1; customer support team has been trained on new-system troubleshooting.\n\n**Scope:** Broader mix of customer segments, including different plan types, payment methods, and geographies, migrated in sub-waves of ~2,000–3,000 users every 3–5 days to allow monitoring between waves.\n\n**Activities:**\n- Continue dual-write and daily reconciliation.\n- Introduce automated reconciliation alerting (not just manual review).\n- Begin monitoring customer-facing metrics: failed payment rate, support ticket rate, billing-related churn.\n- Load test new system at higher throughput.\n\n**Exit criterion:** 14 consecutive days with reconciliation match rate ≥ 99.9%, failed-payment rate within 0.1 percentage points of legacy system baseline, and support ticket volume attributable to billing not elevated more than 10% over baseline.\n\n---\n\n## Phase 3: Full Migration (65% of users — 26,000 users, cumulative 100%)\n\n**Entry criterion:** Phase 2 exit criteria met; capacity testing confirms new system can handle 100% of production load with headroom; finance/accounting has signed off on ledger reconciliation accuracy; legal/compliance sign-off obtained for full cutover (e.g., tax handling, invoicing regulations).\n\n**Scope:** All remaining users, migrated in sub-waves (e.g., 5 waves of ~5,200 users) over 2–3 weeks, with a freeze on new migrations if any halt threshold is triggered.\n\n**Activities:**\n- Continue dual-write through the final batch and for a defined post-migration observation window.\n- Full parity monitoring dashboards live for finance and support teams.\n- Prepare (but do not execute) old-system read-only/retirement plan — this is explicitly a **separate, later phase** (see Note below).\n\n**Exit criterion:** 100% of users migrated, 30 consecutive days of reconciliation match rate ≥ 99.9%, zero unresolved billing-critical defects, and finance sign-off on full-period ledger closing using new system data.\n\n> **Note on decommissioning:** Retiring, disabling, or decommissioning the old billing system is intentionally excluded from Phase 3 and treated as a distinct **Phase 4 (Legacy Decommission)**, which begins only after a minimum 30–60 day parallel-run observation period following 100% migration, with its own separate entry criteria (e.g., a full billing cycle and audit closed successfully on the new system alone).\n\n---\n\n## Risks\n\nRISK: Data corruption or mismatched balances during migration of a user's billing history | Run automated daily reconciliation jobs comparing old vs. new ledgers per user, with automatic quarantine of mismatched accounts before they proceed to next phase | Data Migration Lead\nRISK: Payment processor integration failures causing duplicate or failed charges | Implement idempotency keys on all payment calls and run shadow transactions in the new system before enabling live charging per cohort | Payments Engineering Lead\nRISK: Customer-facing outage or billing errors eroding trust and increasing churn | Maintain dual-write with instant rollback capability per user cohort and staff support team with escalation path during each wave | Customer Support Manager\nRISK: New system cannot handle full production load at 100% migration | Conduct load/capacity testing at 2x expected peak volume before Phase 3 entry and maintain autoscaling headroom | Site Reliability Engineering Lead\nRISK: Regulatory/tax compliance gaps in new system for certain jurisdictions | Legal and compliance review of tax/invoicing rules per region prior to migrating users in that region, with phased regional rollout | Compliance Officer\n\n---\n\n## Halt Metric\n\nIf at any point the **reconciliation mismatch rate exceeds 0.5%** of transactions (i.e., match rate falls below 99.5%) over any rolling 24-hour period, the rollout is immediately halted, no further users are migrated to the next wave/phase, and the incident response process is triggered until root cause is resolved and match rate is restored to ≥ 99.9% for 48 consecutive hours.\n\nAdditional halt triggers:\n- Failed-payment rate increases by more than 0.2 percentage points versus the legacy-system baseline for any 24-hour period.\n- Billing-related support ticket volume increases more than 25% over the pre-migration baseline in any 24-hour period.\n\nPHASES: 3",
+  "response_sha256": "20343a34f93590d96efc23e6c9d1b68b4038bb510bffa772e47014c8e14b877e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2592,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1980,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2592,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1980,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2592,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2592
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0353172,
+    "duration_ms": 24466,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:40:58+00:00",
+  "finished_at": "2026-09-13T04:41:23+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

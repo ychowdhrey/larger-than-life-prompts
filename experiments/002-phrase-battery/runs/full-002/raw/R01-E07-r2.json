@@ -1,0 +1,68 @@
+{
+  "sample_id": "R01-E07-r2",
+  "run_id": "full-002",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "E07",
+  "condition_name": "combo_e07",
+  "repetition": 2,
+  "execution_index": 46,
+  "sample_seed": 14386624053111003046,
+  "prompt_sha256": "ca77a74bd9626f47e27eef75e9b1fa952ab1ec7a434633ad82edd20a2c31c4b2",
+  "prompt_chars": 503,
+  "response": "## Working through it\n\n**Step 1 – Convert departure time to UTC.**\nKuala Lumpur is UTC+8. Departure is 23:40 on 3 March 2027 local KL time.\n23:40 − 8:00 = 15:40 UTC on 3 March 2027.\n\n**Step 2 – Add the flight duration (13h 25m) in UTC.**\n15:40 + 13:25:\n- 15:40 + 13:00 = 28:40 (i.e., 04:40 the next day, carrying a day)\n- 28:40 + 0:25 = 29:05\n\n29:05 → subtract 24:00 → 05:05, with one day added.\n\nSo arrival time in UTC = 05:05 on 4 March 2027.\n\n**Step 3 – Convert to London local time.**\nLondon is UTC+0 on this date (confirmed: UK clocks don't move to BST until the last Sunday of March 2027, which is 28 March — well after 4 March). So local London time = UTC time.\n\nArrival: **05:05 on 4 March 2027**.\n\n**Sanity check:** Flight duration 13h25m starting 23:40 → adding 13h25m directly in the \"same clock frame\" gives 23:40+13:25 = 13:05 two \"hour-cycles\" later... let's instead verify via the time-zone-difference method: KL is 8 hours ahead of London. Departure local KL 23:40 corresponds to London local 15:40 same day (3 March) since we just subtract 8 hours from the local clock reading (same instant, different label) — matches Step 1. Then add flight time 13h25m to the London-labeled time: 15:40 + 13:25 = next day 05:05. Consistent with above. ✔️\n\nFINAL ANSWER: 2027-03-04 05:05",
+  "response_sha256": "592389478e1c5d9427e70556ae1a08a69a412477bfd163c2eedbc7d121ffd1ee",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28255,
+    "output_tokens": 907,
+    "output_tokens_details": {
+      "thinking_tokens": 320
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 907,
+        "cache_read_input_tokens": 28255,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.014725,
+    "duration_ms": 11200,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:23:21+00:00",
+  "finished_at": "2026-09-13T04:23:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "6f90b3c0b2bdc626",
+  "sample_id": "P01-T17-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T17",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan covers assessment, replication setup, backups before destructive steps, a rehearsal against non-production data, stakeholder communication, cutover, integrity verification via row counts/checksums, and a clear rollback path, all within 12 numbered steps and ending with the required STEP COUNT line matching the actual count. It is concrete and actionable but stops short of deeper verification like validating the rehearsal timing results or specifying checksum tooling limitations for 2TB scale.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:11+00:00"
+}

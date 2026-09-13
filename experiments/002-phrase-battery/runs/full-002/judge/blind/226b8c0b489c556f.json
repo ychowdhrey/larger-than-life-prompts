@@ -1,0 +1,22 @@
+{
+  "item_id": "226b8c0b489c556f",
+  "sample_id": "C02-T25-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T25",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE clause defeating the LEFT JOIN, UTC vs UTC+8 boundary mismatch, integer division truncation, and NULL-vs-zero SUM for customers with no orders), explains the concrete failure mechanism and consequence for each, offers correct fixes, and introduces no fabricated issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:00+00:00"
+}

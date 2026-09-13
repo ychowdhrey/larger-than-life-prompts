@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T23_vs_A-r1",
+  "contrast_id": "T23_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T23",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T23",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both identify the same five defects (mutable default, out-of-range index, division by zero, in-place mutation, and duplicate-skipping shortfall), but Response B substantiates the duplicate/shortfall defect with a concrete worked example (scores=[5,5,5,4,3], limit=3 → result=[5]) that makes the bug verifiable and clear, whereas Response A only describes it abstractly. B also notes the unbounded growth/memory-leak consequence of the mutable default, adding useful detail without any inaccuracy.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:49:51+00:00"
+}

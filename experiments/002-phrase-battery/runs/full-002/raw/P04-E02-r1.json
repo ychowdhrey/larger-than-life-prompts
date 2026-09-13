@@ -1,0 +1,68 @@
+{
+  "sample_id": "P04-E02-r1",
+  "run_id": "full-002",
+  "task_id": "P04",
+  "family": "planning",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 1,
+  "execution_index": 1929,
+  "sample_seed": 8073189442095330899,
+  "prompt_sha256": "d50a0e9c92be04033ed568cb9603822b990d146820bc8b339830d949becdd84c",
+  "prompt_chars": 848,
+  "response": "ITEM: Conference sponsorship | 12000\nITEM: Contractor/freelance writing | 10500\nITEM: Travel (flights, lodging, per diem) | 6000\nITEM: Tooling and software subscriptions | 3000\nITEM: Meetup and local event sponsorships | 2000\nITEM: Swag and event giveaways | 2500\nITEM: Video and podcast production | 2500\nITEM: Community platform and hosting | 1500\nITEM: Contingency | 5000\nTOTAL: 45000\n\n**Verification:**\n- Line items: 9 (≥8 required) ✔️\n- Required categories present: conference sponsorship (12000), contractor/freelance writing (10500), travel (6000), tooling/software (3000) ✔️\n- Contingency: 5000 = 11.1% of total (≥5% required, i.e. ≥2250) ✔️\n- Sum check: 12000 + 10500 + 6000 + 3000 + 2000 + 2500 + 2500 + 1500 + 5000 = 45000, matching TOTAL and not exceeding 45000 ✔️",
+  "response_sha256": "aedfd232d0685614dd164a7c9f7ca2918630fb5c642197b39d92fcc1a976f174",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28344,
+    "output_tokens": 1281,
+    "output_tokens_details": {
+      "thinking_tokens": 901
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1281,
+        "cache_read_input_tokens": 28344,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0184828,
+    "duration_ms": 13423,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:08:02+00:00",
+  "finished_at": "2026-09-13T05:08:16+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

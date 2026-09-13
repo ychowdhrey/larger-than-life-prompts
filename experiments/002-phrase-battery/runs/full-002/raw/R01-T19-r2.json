@@ -1,0 +1,68 @@
+{
+  "sample_id": "R01-T19-r2",
+  "run_id": "full-002",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 2,
+  "execution_index": 1423,
+  "sample_seed": 16694439342537049029,
+  "prompt_sha256": "803f914b831751ef1e535dc7641ebebcd37b8127a1d12c06fbf84e464da7aad7",
+  "prompt_chars": 453,
+  "response": "**Working:**\n\n- Departure: 23:40 on 3 March 2027, Kuala Lumpur time (UTC+8)\n- Convert to UTC: 23:40 − 8:00 = 15:40 UTC on 3 March 2027\n- Add flight duration of 13h 25m:\n 15:40 + 13:25 = 29:05 → i.e., 05:05 the next day (24:00 rollover)\n- So arrival UTC = 05:05 on 4 March 2027\n- London (Heathrow) is on UTC+0 on this date (still on GMT, before the UK's clocks spring forward for BST), so local London time = UTC time.\n\n**Arrival: 05:05 on 4 March 2027, London local time.**\n\nFINAL ANSWER: 2027-03-04 05:05",
+  "response_sha256": "680b82468c886bbcb930ddd3114d11f542b6c5fcd27afb630af61630975afbda",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28242,
+    "output_tokens": 388,
+    "output_tokens_details": {
+      "thinking_tokens": 124
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 388,
+        "cache_read_input_tokens": 28242,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0095324,
+    "duration_ms": 5939,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:56:22+00:00",
+  "finished_at": "2026-09-13T04:56:30+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

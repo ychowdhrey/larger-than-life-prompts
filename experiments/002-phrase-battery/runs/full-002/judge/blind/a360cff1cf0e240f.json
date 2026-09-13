@@ -1,0 +1,22 @@
+{
+  "item_id": "a360cff1cf0e240f",
+  "sample_id": "C02-T12-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T12",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all the real defects (WHERE clause negating the LEFT JOIN, UTC/UTC+8 boundary mismatch, integer division truncation, NULL total_spent for zero-order customers, and the GROUP BY portability issue) with accurate causal explanations and correct fixes, and explicitly confirms COUNT and ORDER BY usage are fine rather than inventing false issues; its only flaw is an inaccurate aside claiming MySQL performs integer truncation on '/' between integers, which it does not.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:53+00:00"
+}

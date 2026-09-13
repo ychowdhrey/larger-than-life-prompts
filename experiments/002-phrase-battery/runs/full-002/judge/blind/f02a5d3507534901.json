@@ -1,0 +1,22 @@
+{
+  "item_id": "f02a5d3507534901",
+  "sample_id": "P01-T10-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T10",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all hard requirements (12-step cap honored exactly, rollback, rehearsal on non-production data, post-cutover integrity checks, stakeholder communication, and backups placed before any destructive/modifying steps) in a logically ordered, technically sound sequence using logical replication to shrink the downtime window; the only minor slip is citing pg_checksums as a cross-database integrity tool rather than its actual page-checksum purpose.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:00+00:00"
+}

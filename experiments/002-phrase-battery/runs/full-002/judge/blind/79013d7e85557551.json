@@ -1,0 +1,22 @@
+{
+  "item_id": "79013d7e85557551",
+  "sample_id": "P01-T16-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T16",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and includes all required elements (dry run/rehearsal, rollback, post-cutover integrity checks via row counts/checksums, multiple stakeholder communications) while correctly sequencing backups before any step that could modify or destroy production data. It is specific and actionable (named tools, timing windows, concrete verification methods) though it lacks any explicit self-check that the constraints were satisfied beyond the final step-count line.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:25+00:00"
+}

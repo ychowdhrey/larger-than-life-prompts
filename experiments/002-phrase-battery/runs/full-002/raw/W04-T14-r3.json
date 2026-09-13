@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T14-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 3,
+  "execution_index": 1184,
+  "sample_seed": 15133795279318065836,
+  "prompt_sha256": "1d21dfd5ba81818768244130d5a6a0b90f4a7bc36bbd7d7cf0fe18f4bf46e222",
+  "prompt_chars": 648,
+  "response": "A content delivery network is a system that helps websites load quickly no matter where a visitor is located. Every website's files—photos, videos, text—live somewhere on a computer called an origin server, which is the original home of all that content. If every single person on the planet had to fetch files from that one distant computer, pages would load slowly, especially for people far away. To solve this problem, copies of the content get stored on many smaller computers scattered around the world, placed in cities close to where people actually live; each of these nearby computers is called an edge location, since it sits at the \"edge\" of the network, closer to the audience than the origin server. When someone requests a webpage, the network checks whether a nearby edge location already has a saved copy of what's needed; if it does, that's called a cache hit, and the content gets delivered almost instantly from nearby instead of traveling across an ocean. Think of it like a chain of neighborhood libraries that each keep popular books in stock, so readers do not have to travel to one enormous central library every time they want to read something. Only when no nearby library has the book does someone go fetch it from the main branch, then keep a copy for next time. This whole arrangement makes websites feel faster, reduces strain on the original source, and keeps things running smoothly even during huge surges in demand.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The original computer where a website's content is stored | It is the ultimate source, but relying on it alone would be slow for distant visitors |\n| Edge location | A smaller computer placed near a group of visitors, holding copies of content | It shortens the distance content has to travel, speeding things up |\n| Cache hit | A situation where a nearby edge location already has the requested content saved | It means content arrives almost instantly, without a long trip back to the origin |\n| Cache miss | A situation where the nearby location does not have a saved copy yet | It causes a brief delay while the content is fetched and then stored for next time |",
+  "response_sha256": "92b231676ba15d4b54b41ad0cdab607afeda7d31bcc04cd8bc39982a8c1146f4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28275,
+    "output_tokens": 1137,
+    "output_tokens_details": {
+      "thinking_tokens": 511
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1137,
+        "cache_read_input_tokens": 28275,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.017029000000000002,
+    "duration_ms": 14534,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:50:59+00:00",
+  "finished_at": "2026-09-13T04:51:14+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

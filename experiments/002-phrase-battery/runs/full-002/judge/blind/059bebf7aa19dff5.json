@@ -1,0 +1,22 @@
+{
+  "item_id": "059bebf7aa19dff5",
+  "sample_id": "P02-T10-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T10",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact required headings in order, gates all destructive/space-freeing/failover actions behind a completed snapshot, explicitly forbids restart/failover before the snapshot, includes a clear abort/rollback condition, and ends with the correct SECTIONS line, while remaining detailed and operationally actionable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:39+00:00"
+}

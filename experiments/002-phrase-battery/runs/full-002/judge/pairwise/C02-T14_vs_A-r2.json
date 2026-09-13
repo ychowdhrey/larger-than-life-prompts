@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T14_vs_A-r2",
+  "contrast_id": "T14_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T14",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T14",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly identify the join/WHERE bug, the UTC/UTC+8 mismatch, integer division truncation, and NULL-vs-zero total, but Response B additionally and correctly flags that once the join is fixed, NULL total_spent values will sort unpredictably (e.g., first in Postgres DESC ordering) unless NULLS LAST or COALESCE is used — a real, non-obvious defect that Response A misses, while B's other points remain equally accurate.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:29:28+00:00"
+}

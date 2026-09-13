@@ -1,0 +1,68 @@
+{
+  "sample_id": "R03-T25-r2",
+  "run_id": "full-002",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "T25",
+  "condition_name": "phrase_t25",
+  "repetition": 2,
+  "execution_index": 1369,
+  "sample_seed": 14956311589363560891,
+  "prompt_sha256": "69dc9a2fbc0e46344e7a178217b2c39d2bd404ad51ac190cffa063e03660ecf8",
+  "prompt_chars": 673,
+  "response": "**Reasoning:**\n\nFrom clue 6, Ben-Ana form an adjacent pair (Ben, then Ana immediately right). Testing possible placements with clue 3 (Dev and Eli exactly 3 apart) and clue 5 (Eli right of Ana):\n\n- Ben=2, Ana=3 works: remaining seats {1,4,5} go to Chi, Dev, Eli. Since Eli must be right of Ana (seat 3), Eli=4, and Dev-Eli must differ by 3, so Dev=1. Chi takes the last seat, 5.\n\nCheck all clues:\n1. Ben(2) < Chi(5) ✓\n2. Ana(3) not in 1 or 5 ✓\n3. Dev(1) and Eli(4): two seats (2,3) between them ✓\n4. Chi(5) not adjacent to Dev(1) ✓\n5. Eli(4) right of Ana(3) ✓\n6. Ana(3) immediately right of Ben(2) ✓\n\nSeat 1: Dev\nSeat 2: Ben\nSeat 3: Ana\nSeat 4: Eli\nSeat 5: Chi\n\nFINAL ANSWER: Dev, Ben, Ana, Eli, Chi",
+  "response_sha256": "dfaedc822bd1d90737723c87dcfd14fb61066df9b7e9167a78d454bf7d72531f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28338,
+    "output_tokens": 1558,
+    "output_tokens_details": {
+      "thinking_tokens": 1140
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1558,
+        "cache_read_input_tokens": 28338,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.021251600000000002,
+    "duration_ms": 14477,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:55:09+00:00",
+  "finished_at": "2026-09-13T04:55:25+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "6610ef700f6a60a3",
+  "sample_id": "C02-A-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "A",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies every real defect (WHERE-clause nullification of the LEFT JOIN, UTC vs UTC+8 boundary mismatch, NULL total_spent for zero-order customers, integer division truncation, and non-aggregated SELECT columns), explains the causal mechanism and concrete impact for each, appropriately hedges engine-dependent claims (integer division, GROUP BY strictness), and explicitly confirms which parts of the query are not defective without inventing false issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:39+00:00"
+}

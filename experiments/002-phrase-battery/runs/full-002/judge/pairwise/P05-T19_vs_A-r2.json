@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T19_vs_A-r2",
+  "contrast_id": "T19_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T19",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T19",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements (phases with percentages/entry criteria, correctly formatted RISK lines, decommissioning kept in a separate phase from the final migration batch, and numeric halt thresholds), but Response A is marginally more rigorous: it starts with a much safer, near-zero-risk canary (0.25%/~100 users) before scaling up, progressively tightens quantitative entry criteria across phases (e.g., discrepancy rate 0.1%→0.05%), and adds more concrete safeguards (staged decommissioning with soak periods, explicit rollback dependency gate) appropriate for a financial system migration.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:13+00:00"
+}

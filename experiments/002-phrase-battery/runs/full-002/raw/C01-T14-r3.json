@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T14-r3",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 3,
+  "execution_index": 539,
+  "sample_seed": 11677907768233097621,
+  "prompt_sha256": "f55a3b2ba4337f0b22e098738e12f3539c227822bfadf24a67a21d9516d9440f",
+  "prompt_chars": 620,
+  "response": "Here's the full defect list. I traced through concrete inputs for each one rather than eyeballing it, since a few of these look benign until you actually run them.\n\n## 1. Mutable default argument: `seen=[]`\n**What's wrong:** Default argument values are evaluated once, at function-definition time, and the same list object is reused on every call where `seen` isn't explicitly passed.\n\n**What it causes:** Silent, cross-call state leakage — a later call's output depends on the history of earlier, unrelated calls to the same function.\n\nProof:\n```python\ntop_scores([1,2,3,4,5,6], limit=3)          # -> ([6,5,4], 3.5)   seen is now [6,5,4]\ntop_scores([6,5,4,3,2,1], limit=3)          # -> ([], 3.5)  !!\n```\nThe second call has 6, 5, 4 as its legitimate top three, but they're all already in `seen` from the *previous, unrelated* call, so `result` comes back empty. This also means `seen` grows without bound for the life of the process (a memory leak) and the function is not idempotent/pure even for identical inputs called twice in a row.\n\n## 2. `scores.sort(reverse=True)` mutates the caller's list in place\n**What's wrong:** Sorting is done via `.sort()`, not `sorted()`, so the list object passed in by the caller is reordered as a side effect.\n\n**What it causes:** Any code that holds a reference to the original `scores` list and expects it to keep its original order will silently see it reordered after the call:\n```python\nmy_scores = [3, 1, 2]\ntop_scores(my_scores, limit=2)\n# my_scores is now [3, 2, 1] — caller never asked for that\n```\nThis is an aliasing bug: the function has an undocumented, surprising side effect on data it doesn't own.\n\n## 3. No bounds check on `limit` vs. `len(scores)` → `IndexError`\n**What's wrong:** The loop does `for i in range(0, limit): ... scores[i] ...` with no check that `scores` actually has `limit` elements.\n\n**What it causes:** A crash whenever `len(scores) < limit`. Since `limit` defaults to 5, this happens for *any* call with fewer than 5 scores and no explicit `limit`:\n```python\ntop_scores([3, 1, 2])   # IndexError: list index out of range\n```\n\n## 4. Empty `scores` → crash (two different ways)\n**What's wrong:** No guard for `scores == []`.\n**What it causes:**\n- With the default `limit=5` (or any `limit > 0`), the loop hits `scores[0]` immediately → `IndexError`.\n- With `limit=0`, the loop body never runs, but then `average = sum(scores) / len(scores)` divides by zero → `ZeroDivisionError`.\n\nEither way, an empty input list always crashes, never returns something like `([], 0)`.\n\n## 5. Deduplication only scans the first `limit` sorted positions, not the top `limit` *unique* values\n**What's wrong:** The obvious intent of `top_scores`/`seen` is \"give me the top `limit` distinct scores.\" But the loop only ever looks at indices `0..limit-1` of the sorted list. If a duplicate falls inside that window, it's dropped from `result` and the scan does **not** continue further into the list to find a replacement unique value — even though one may exist right after the scanned window.\n\n**What it causes:** `result` silently comes back shorter than `limit`, even when enough unique values exist in `scores`:\n```python\ntop_scores([5,5,5,5,5,4,3,2,1], limit=5)\n```\nSorted: `[5,5,5,5,5,4,3,2,1]`. The loop only ever inspects indices 0–4 (all `5`s). Four of those five get skipped as duplicates, and the scan never reaches `4, 3, 2, 1` at indices 5–8.\nResult: `(([5]), 3.888...)` — one element, even though `5, 4, 3, 2, 1` are five perfectly good unique scores sitting right there in the list. This is independent of defect #1 — it happens even on a fresh, never-reused `seen` list.\n\n## 6. (Minor) `seen` membership test is O(n) per lookup\n**What's wrong:** `seen` is a list, and `scores[i] not in seen` does a linear scan each time.\n**What it causes:** No incorrect behavior, just unnecessary O(limit × len(seen)) work instead of O(1) per lookup with a set — worth flagging as an efficiency defect, not a correctness one, and much less serious than the others.\n\n---\n\n### Not defects (confirmed intended, not reporting them)\n- Descending sort — intended.\n- `average` computed over *all* of `scores`, not just `result` or the top `limit` — intended, and it's computed correctly (sorting doesn't change the sum).\n\nSo: two crash bugs (#3, #4), one silent-corruption/logic bug that undermines the function's whole purpose (#5), one classic Python footgun with cross-call contamination (#1), one unwanted mutation of caller data (#2), and one minor efficiency nit (#6).",
+  "response_sha256": "03dfbdea4bcfec8abc8a3126f00f4f41e3907ef98e0b5eae3baf014d8d51c689",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28268,
+    "output_tokens": 7481,
+    "output_tokens_details": {
+      "thinking_tokens": 5774
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 7481,
+        "cache_read_input_tokens": 28268,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0804676,
+    "duration_ms": 82352,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:35:36+00:00",
+  "finished_at": "2026-09-13T04:37:00+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

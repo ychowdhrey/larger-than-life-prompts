@@ -1,0 +1,104 @@
+{
+  "sample_id": "W05-A-r3",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "A",
+  "repetition": 3,
+  "response_sha256": "f1419965ec285b4c5a3be9b933a452188a65910d4e38fad5af8036f947a7f997",
+  "objective": {
+    "max_points": 15.0,
+    "earned_points": 15.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "headings",
+        "label": "All three headings present",
+        "type": "regex_all",
+        "points": 3.0,
+        "passed": true,
+        "detail": "all matched",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "heading_order_1",
+        "label": "The problem precedes The proposal",
+        "type": "ordering",
+        "points": 1.0,
+        "passed": true,
+        "detail": "first at 0, second at 534",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "heading_order_2",
+        "label": "The proposal precedes What could go wrong",
+        "type": "ordering",
+        "points": 1.0,
+        "passed": true,
+        "detail": "first at 534, second at 1152",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "bullets",
+        "label": "Exactly 5 bullet points",
+        "type": "count_matches",
+        "points": 4.0,
+        "passed": true,
+        "detail": "found 5 (allowed 5..5)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "word_count",
+        "label": "250 to 350 words",
+        "type": "word_count",
+        "points": 3.0,
+        "passed": true,
+        "detail": "332 words (allowed 250..350)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "closing",
+        "label": "Ends with the exact required sentence",
+        "type": "ends_with",
+        "points": 3.0,
+        "passed": true,
+        "detail": "final sentence was 'i would like a decision by the end of next week'",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 2050,
+    "response_words": 332,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 1,
+    "caveats_marker_total": 1,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:49+00:00",
+  "evaluation_version": "2.0.0"
+}

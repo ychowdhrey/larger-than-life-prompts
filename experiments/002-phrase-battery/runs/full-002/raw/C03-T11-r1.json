@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T11-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T11",
+  "condition_name": "phrase_t11",
+  "repetition": 1,
+  "execution_index": 2185,
+  "sample_seed": 14235106698575228914,
+  "prompt_sha256": "55cf08d3bc4ed633670d8bbd814a79704aa8f28cd60f831f8cbe173523053cae",
+  "prompt_chars": 1037,
+  "response": "## Defect list\n\n### Paragraph 1 — Webinar attendance and retention\n\n**1. Survivorship bias in the sample.** The analysis only looks at the 412 customers who are *still active* today. Anyone who churned — whether or not they attended a webinar — has already been excluded before the comparison is made. Comparing \"retention\" within a population that was pre-filtered for being retained doesn't tell you what webinars do to the odds of churning; it only describes a pattern among survivors.\n→ *Effect:* The 31% figure could be an artifact of the selection method rather than a real effect of webinars, so the mandate could be built on a number that would shrink or vanish if churned customers were included.\n\n**2. Correlation treated as causation (self-selection confound).** Customers who voluntarily sign up for and attend an onboarding webinar are probably already more engaged, more organized, or more invested in the product than those who skip it. That same underlying engagement — not the webinar itself — could be driving both attendance and retention.\n→ *Effect:* Making attendance mandatory could fail to replicate the 31% gap, because forcing disengaged customers into a webinar doesn't give them the engagement that voluntary attendees already had.\n\n**3. No subgroup sizes or confidence interval given.** We're told 412 customers total and a 31% relative difference, but not how many fell into each group (attended vs. not) or the uncertainty around that estimate.\n→ *Effect:* If one group is small, the 31% gap could be noisy and unstable rather than a reliable planning number.\n\n### Paragraph 2 — Region and churn\n\n**4. Multiple-comparisons problem (data dredging).** Eighteen attributes were tested against churn, and the one that happened to cross p < 0.05 is being reported as the finding. With 18 independent tests at α = 0.05, the chance of getting at least one \"significant\" result purely by chance is roughly 1 − 0.95¹⁸ ≈ 60%, not 5%. A single p = 0.04 out of 18 tries is close to what you'd expect from noise alone, with no correction (e.g., Bonferroni) applied and no mention of out-of-sample replication.\n→ *Effect:* The Central-region effect may well be a false positive; reallocating budget on this basis risks spending against a pattern that doesn't actually exist.\n\n**5. Correlation-to-action leap without a causal mechanism.** Even if the regional churn difference is real, the memo jumps straight to \"concentrate spend in Central\" — but no spend variable was tested at all. Low churn in Central could stem from unrelated factors (industry mix, contract terms, account age, competitive landscape) that have nothing to do with how much is spent there, and might not respond to added spend at all.\n→ *Effect:* Money could be funneled into a region that doesn't need it or won't respond to it, rather than into regions with actual churn problems that spend could fix.\n\n### Paragraph 3 — Satisfaction score\n\n**6. No test of statistical/practical significance.** A move from 62% to 66% is reported as if it's self-evidently meaningful, with no indication of survey sample size, margin of error, or whether this is inside normal quarter-to-quarter variation.\n→ *Effect:* A swing that's within normal noise could be mistaken for a genuine trend, leading to false confidence that an intervention \"worked.\"\n\n**7. Causal attribution without ruling out other explanations.** The memo credits \"the new support model\" for the entire change, but no other candidate causes (seasonality, product changes, pricing changes, a shifting customer mix, the same webinar/regional initiatives discussed above) are considered or excluded, and there's no comparison to a baseline/control period or cohort.\n→ *Effect:* Continued investment or scaling of the support model could be justified by a change it didn't actually cause, while the real driver goes unaddressed.",
+  "response_sha256": "a19e1d039acd11fb477a125ca2401d174b94df9d5f592f895e33a33f2cc0eaf1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28375,
+    "output_tokens": 2959,
+    "output_tokens_details": {
+      "thinking_tokens": 1691
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2959,
+        "cache_read_input_tokens": 28375,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.035269,
+    "duration_ms": 37687,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:53+00:00",
+  "finished_at": "2026-09-13T05:14:32+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

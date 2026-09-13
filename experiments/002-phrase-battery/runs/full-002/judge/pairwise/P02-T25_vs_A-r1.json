@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T25_vs_A-r1",
+  "contrast_id": "T25_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T25",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements, but Response B is more operationally robust: it addresses the edge case where snapshot capacity is itself constrained by the near-full disk (snapshotting to a separate target), proposes throttling write traffic instead of touching the DB if disk nears 100% before the snapshot finishes, and its abort/rollback condition specifies concrete reversal actions (restore from snapshot, resume only-if-safe) rather than just escalation. It also separates WAL/temp volume checks and requires verified replica disk headroom before failover, closing gaps Response A leaves more implicit.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:25+00:00"
+}

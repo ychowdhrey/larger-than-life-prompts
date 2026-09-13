@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-T07-r2",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 2,
+  "execution_index": 641,
+  "sample_seed": 17136449237707681459,
+  "prompt_sha256": "98646ef2e530b7a10455a77d8e5d3648307620a7c6da0dae233ba2b9ba868968",
+  "prompt_chars": 1100,
+  "response": "**Reasoning**\n\nDependency chain analysis:\n- T1 has no prerequisites → must go first (2 days).\n- T2 and T3 both only need T1 → can run in parallel on the two engineers once T1 finishes.\n- T4 needs T2; T5 needs T3 → can also run in parallel (on different engineers) once their respective predecessors finish.\n- T6 needs both T4 and T5 finished → starts after the later of the two.\n\nCritical path: T1(2) → T2(2) → T4(3) → T6(3) = 10 days total, so T6 must start immediately after T4 finishes, with T5 finishing no later than that point.\n\nAssignment:\n- E1: T1 (days 1-2) → T2 (days 3-4) → T4 (days 5-7) → T6 (days 8-10)\n- E2: idle (days 1-2) → T3 (days 3-4) → T5 (days 5-6) → idle (days 7-10)\n\nCheck: T6 requires T4 (done end of day 7) and T5 (done end of day 6) — both satisfied before Day 8 start. All tasks fit within Day 1–10, each engineer works on at most one task per day, and all tasks are on consecutive days.\n\n**Schedule**\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "39d458e629c66c125b623d0d523acfde3e87ebd1b2eea69b1ec39b41ad762725",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28476,
+    "output_tokens": 1371,
+    "output_tokens_details": {
+      "thinking_tokens": 758
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1371,
+        "cache_read_input_tokens": 28476,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0194092,
+    "duration_ms": 14100,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:38:03+00:00",
+  "finished_at": "2026-09-13T04:38:18+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

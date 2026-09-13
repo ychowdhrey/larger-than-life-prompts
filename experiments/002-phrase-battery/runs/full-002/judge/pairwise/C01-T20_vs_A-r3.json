@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T20_vs_A-r3",
+  "contrast_id": "T20_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T20",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T20",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly identify the same five defects with no factual errors, but Response B substantiates its claims more rigorously: it works a concrete example ([100,100,90,80,70,60] with limit=5) that verifiably shows result shrinking to 4 items, and it pinpoints a more precise reachable path for the ZeroDivisionError (limit<=0 bypasses the IndexError entirely), giving slightly more useful and verifiable analysis than Response A's equivalent but less concrete explanations.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:19+00:00"
+}

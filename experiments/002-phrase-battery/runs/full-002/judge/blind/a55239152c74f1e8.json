@@ -1,0 +1,22 @@
+{
+  "item_id": "a55239152c74f1e8",
+  "sample_id": "C02-T18-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T18",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all major defects (WHERE-clause neutralizing the LEFT JOIN, UTC/local timezone mismatch, integer division truncation, NULL total for zero-order customers, NULL sort placement, and GROUP BY portability) with accurate causal explanations, though it inaccurately cites MySQL as an engine affected by integer-division truncation when MySQL's `/` operator actually returns a decimal result.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:29+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "P04-T05-r1",
+  "run_id": "full-002",
+  "task_id": "P04",
+  "family": "planning",
+  "condition_id": "T05",
+  "condition_name": "phrase_t05",
+  "repetition": 1,
+  "execution_index": 1606,
+  "sample_seed": 874680090841162977,
+  "prompt_sha256": "336a135516adb0234949272b9786a85972a15a79ab6c8f3b60897e347577bc52",
+  "prompt_chars": 792,
+  "response": "Step-by-step reasoning:\n\n1. Total budget: 45,000 over 6 months.\n2. Required categories to cover: conference sponsorship, contractor/freelance writing, travel, tooling/software — each gets its own line.\n3. Added supporting DevRel line items (swag, community events, video production, paid promotion) to round out a realistic program and reach 8+ items.\n4. Contingency set at 4,500 = 10% of total, satisfying the ≥5% requirement.\n5. Verified sum equals exactly 45,000 (10000+8000+7000+4000+3000+3500+3000+2000+4500 = 45000).\n\nITEM: Conference sponsorship | 10000\nITEM: Contractor/freelance writing | 8000\nITEM: Travel (flights, hotels, per diem) | 7000\nITEM: Tooling and software subscriptions | 4000\nITEM: Swag and giveaways | 3000\nITEM: Community meetup and event hosting | 3500\nITEM: Video production and editing | 3000\nITEM: Paid social/content promotion | 2000\nITEM: Contingency | 4500\nTOTAL: 45000",
+  "response_sha256": "1ebe28ef18123bd353574c83b816cb695cab4bd9e08becdaa474a5d2306b6bf7",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28325,
+    "output_tokens": 758,
+    "output_tokens_details": {
+      "thinking_tokens": 367
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 758,
+        "cache_read_input_tokens": 28325,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.013249,
+    "duration_ms": 9300,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:01:03+00:00",
+  "finished_at": "2026-09-13T05:01:13+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

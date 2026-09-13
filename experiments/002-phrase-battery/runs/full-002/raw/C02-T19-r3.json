@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T19-r3",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 3,
+  "execution_index": 1559,
+  "sample_seed": 14400955103228672402,
+  "prompt_sha256": "6bbfab53a9bde5d28c4ae7034c4ade539d1d735a6df5061b0b908b161be1c37a",
+  "prompt_chars": 845,
+  "response": "## Defects found\n\n**1. The date filter is in `WHERE`, not the `JOIN` condition — this defeats the `LEFT JOIN`.**\n`WHERE o.created_at >= '2026-01-01'` is evaluated *after* the join. For a customer with no orders at all, the join produces a row with `o.created_at = NULL`, and `NULL >= '2026-01-01'` evaluates to `NULL` (not true), so that row is dropped by the `WHERE` clause. The same happens for a customer whose only orders fall before the cutoff. The net effect is that the `LEFT JOIN` behaves like an `INNER JOIN`.\n**Consequence:** customers with zero orders (or zero orders in the filtered range) disappear from the report entirely, directly violating the stated requirement that every customer must appear, with count zero. The date predicate needs to move into the `ON` clause (`LEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= ...`) so it filters which orders are joined rather than which customer rows survive.\n\n**2. The date boundary is compared in UTC but is meant to represent a local (UTC+8) calendar day.**\n`created_at` is stored in UTC, but the literal `'2026-01-01'` is compared to it as-is, i.e. as UTC midnight. The team wants the boundary to be local midnight UTC+8, which is `2025-12-31 16:00:00` UTC.\n**Consequence:** every order placed locally between 00:00 and 08:00 on Jan 1 (UTC+8) has a UTC timestamp still on Dec 31, so it fails the `>= '2026-01-01'` check and is wrongly excluded from \"2026\" even though, in the report's own local calendar, it belongs to that period. Any calendar-day bucketing done this way will be off by 8 hours across the board, not just at this one boundary. The comparison needs to either convert the boundary to UTC before comparing (`'2025-12-31 16:00:00'`) or convert `created_at` to UTC+8 before comparing to local calendar boundaries.\n\n**3. `SUM(o.total_cents) / 100` will lose the cents on many engines (integer division).**\nBoth `SUM(o.total_cents)` and `100` are integers. On databases where int/int division truncates (e.g. PostgreSQL), this discards the fractional dollar amount instead of rounding — e.g. a customer whose orders sum to 1099 cents ($10.99) is reported as `10`, not `10.99`.\n**Consequence:** `total_spent` is systematically truncated downward, understating every customer's spend and also potentially producing wrong `ORDER BY total_spent DESC` ordering when truncation creates ties that shouldn't exist. Should be `SUM(o.total_cents) / 100.0` (or cast to `numeric`/`decimal`).\n\n**4. No `COALESCE` on the sum for customers with no orders.**\nOnce the join is fixed (per defect 1) so that no-order customers actually appear, `SUM(o.total_cents)` for those customers will be `NULL` (SUM over zero rows), not `0`, even though `COUNT(o.order_id)` will correctly show `0`.\n**Consequence:** `total_spent` displays as `NULL` instead of `0` for those customers, and — because Postgres and most engines sort `NULL` first in a `DESC` ordering by default — these zero-spend customers would float to the *top* of the \"highest spenders\" report rather than the bottom, which is almost certainly not intended. Needs `COALESCE(SUM(o.total_cents), 0) / 100.0`.\n\n**5. `GROUP BY c.customer_id` with ungrouped `c.name` and `c.signup_date` in the `SELECT` list is not portable.**\nThis relies on the database recognizing that `customer_id` functionally determines `name` and `signup_date` (true if `customer_id` is the primary key). PostgreSQL, SQLite, and MySQL (5.7+) allow this; SQL Server and MySQL in strict `ONLY_FULL_GROUP_BY` mode do not.\n**Consequence:** on a strict engine this query fails outright with a \"column must appear in GROUP BY or be used in an aggregate function\" error. Not a logic bug on every engine, but a portability/robustness gap worth flagging — safest fix is to add `name` and `signup_date` to the `GROUP BY` (or aggregate them with `MIN`/`MAX`).",
+  "response_sha256": "ad7433c46c6aa0983aea36afdb2ad3532ff0982755b632aae5b05ff681a46d1c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28389,
+    "output_tokens": 5392,
+    "output_tokens_details": {
+      "thinking_tokens": 3891
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5392,
+        "cache_read_input_tokens": 28389,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.059601799999999996,
+    "duration_ms": 56062,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:59:50+00:00",
+  "finished_at": "2026-09-13T05:00:47+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

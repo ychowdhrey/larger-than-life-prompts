@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T05_vs_A-r2",
+  "contrast_id": "T05_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T05",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both identify the same five defects, but Response A's illustrative example for the mutable-default bug (top_scores([90,80,70]) then top_scores([90,60,50])) is actually wrong: with the default limit=5 and only 3 elements, the first call would raise IndexError before ever returning a result, so it doesn't demonstrate what A claims. Response B's examples (e.g., the duplicate-score case) are all correct and it avoids this factual slip while covering identical ground.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:30:31+00:00"
+}

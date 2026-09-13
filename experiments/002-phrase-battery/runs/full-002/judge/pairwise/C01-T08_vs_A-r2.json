@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T08_vs_A-r2",
+  "contrast_id": "T08_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T08",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T08",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses identify the same five defects with accurate explanations, but Response A's example for the duplicate-skipping defect (scores=[10,10,9,8,7,6], limit=5) correctly demonstrates that a value (6) exists beyond the scanned range that could have backfilled the missing slot, whereas Response B's example (scores=[90,90,80,70,60], limit=5) uses a list with no elements beyond the scanned range and only 4 distinct values total, so its claim that the function 'never looks beyond' to find a replacement isn't actually illustrated by that example.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:32+00:00"
+}

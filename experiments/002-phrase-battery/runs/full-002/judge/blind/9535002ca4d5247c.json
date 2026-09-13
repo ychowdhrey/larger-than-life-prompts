@@ -1,0 +1,22 @@
+{
+  "item_id": "9535002ca4d5247c",
+  "sample_id": "C02-T09-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T09",
+  "repetition": 1,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the four real defects (WHERE-nullifies-LEFT-JOIN, UTC/local timezone boundary, integer division truncation, NULL vs zero for total_spent) with correct fixes and appropriately notes what is NOT a problem, but its explanation of the timezone defect contains a factually muddled/incorrect sub-claim about which UTC hours map to which local calendar day, undermining confidence in its own verification even though the stated fix is still correct.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:38+00:00"
+}

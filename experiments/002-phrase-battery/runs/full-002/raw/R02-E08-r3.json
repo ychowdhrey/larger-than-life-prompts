@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-E08-r3",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "E08",
+  "condition_name": "combo_e08",
+  "repetition": 3,
+  "execution_index": 1903,
+  "sample_seed": 1368574935659031325,
+  "prompt_sha256": "45972d576fe957e5a301ad4e35a5e92e8ab00388f8f27af374401fd3f8896f2d",
+  "prompt_chars": 556,
+  "response": "**Setup (Bayes' theorem):**\n\n- Prevalence: P(D) = 1/500 = 0.002, so P(¬D) = 0.998\n- Sensitivity: P(+|D) = 0.98\n- Specificity: P(−|¬D) = 0.95, so P(+|¬D) = 0.05 (false positive rate)\n\n**Total probability of testing positive:**\n\nP(+) = P(+|D)·P(D) + P(+|¬D)·P(¬D)\nP(+) = (0.98 × 0.002) + (0.05 × 0.998)\nP(+) = 0.00196 + 0.0499\nP(+) = 0.05186\n\n**Applying Bayes' theorem:**\n\nP(D|+) = P(+|D)·P(D) / P(+) = 0.00196 / 0.05186 ≈ 0.0377941\n\n**Sanity check:** Out of 500,000 people — 1,000 have the disease (982 test positive), 499,000 don't (24,950 false positives). Positive total = 982 + 24,950 = 25,932. True positives/total positives = 982/25,932 ≈ 0.037882... \n\nLet me redo this check precisely with exact fractions to make sure rounding didn't creep in: using 500 as denominator directly — per 500 people, 1 has disease (0.98 expected positive), 499 don't (499×0.05 = 24.95 expected false positives). Positive total = 0.98 + 24.95 = 25.93. Ratio = 0.98/25.93 = 0.0377941...\n\nThis matches the earlier calculation: 0.00196/0.05186 = 0.0377941... → **3.78%**\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "c2d853c9927e385a0e3447c18306efea697899a22de666fc227ac9abf4627a5e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28228,
+    "output_tokens": 1006,
+    "output_tokens_details": {
+      "thinking_tokens": 442
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1006,
+        "cache_read_input_tokens": 28228,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0157096,
+    "duration_ms": 10952,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:20+00:00",
+  "finished_at": "2026-09-13T05:07:32+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

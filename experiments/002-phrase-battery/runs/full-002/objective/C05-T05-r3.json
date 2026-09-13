@@ -1,0 +1,93 @@
+{
+  "sample_id": "C05-T05-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T05",
+  "repetition": 3,
+  "response_sha256": "328179827742d8285baeed63f305f2056e60d16c34b4629d907268bac18496c6",
+  "objective": {
+    "max_points": 15.0,
+    "earned_points": 13.0,
+    "objective_score": 0.866667,
+    "constraint_completion": null,
+    "planted_issue_recall": 0.846154,
+    "distractor_avoidance": 1.0,
+    "checks": [
+      {
+        "check_id": "boundary_bug",
+        "label": "PLANTED: total > 100 should be >= 100, so exactly 100 gets no discount",
+        "type": "regex_any",
+        "points": 4.0,
+        "passed": true,
+        "detail": "matched >\\s*100.{0,120}>=",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "wrong_assertion",
+        "label": "PLANTED: test_cap asserts 100.0 but the cap is 50.00",
+        "type": "regex_any",
+        "points": 4.0,
+        "passed": true,
+        "detail": "matched test_cap.{0,160}(?:50|wrong|incorrect|fail)",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "uncovered_boundary",
+        "label": "PLANTED: no test covers the R1 boundary at exactly 100",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched no test.{0,120}(?:100|boundary)",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "cap_untested",
+        "label": "PLANTED: the 50.00 cap is never correctly exercised",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": false,
+        "detail": "no pattern matched",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "distractor_float_return",
+        "label": "DISTRACTOR: did not claim the float return type is a defect",
+        "type": "forbidden",
+        "points": 2.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": false,
+        "planted": false,
+        "distractor": true
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 1946,
+    "response_words": 319,
+    "coverage": 1.0,
+    "coverage_hits": 4,
+    "coverage_possible": 4,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 1,
+    "alternatives_marker_total": 1,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": null,
+    "planted_issue_recall": 0.846154,
+    "distractor_avoidance": 1.0
+  },
+  "scored_at": "2026-09-13T05:15:42+00:00",
+  "evaluation_version": "2.0.0"
+}

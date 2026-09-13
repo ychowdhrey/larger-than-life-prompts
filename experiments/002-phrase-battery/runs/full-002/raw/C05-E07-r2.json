@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-E07-r2",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E07",
+  "condition_name": "combo_e07",
+  "repetition": 2,
+  "execution_index": 1765,
+  "sample_seed": 11706329785557793284,
+  "prompt_sha256": "57fa7ac21c049d80760570fe23f9036688c9f6ab221cef13d7ff5d4c0ce5aba2",
+  "prompt_chars": 911,
+  "response": "## Defects Found\n\n**1. Boundary condition bug in `discount()` (violates R1)**\nThe implementation uses `total > 100`, but R1 says an order with a total **of 100 or more** gets the discount. This means `discount(100)` returns `0.0` instead of the required `10.0`. Any order totaling exactly 100 is incorrectly denied its discount.\n\n**2. `test_cap` asserts the wrong expected value**\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\nFor `total=1000`, the raw 10% discount would be `100.0`, but R2 caps the discount at `50.00`. The implementation correctly computes `min(100.0, 50.0) == 50.0`. So the test's expected value of `100.0` is wrong — this assertion will **fail** against the given (otherwise cap-correct) implementation. As written, this test does not pass, and it does not actually verify R2 correctly (it asserts the uncapped value rather than the capped one).\n\n**3. Missing test for the R1/R3 boundary (total = 100)**\nThere is no test exercising `total == 100`. Such a test would have caught defect #1 (the `>` vs `>=` off-by-one error). Given R1 and R3 explicitly define behavior on either side of the 100 boundary, a boundary test is necessary and is absent.\n\n## Not defects (checked, found correct)\n- `test_small` (`discount(50) == 0.0`) correctly reflects R3.\n- `test_large` (`discount(200) == 20.0`) correctly reflects R1 with no capping needed, and matches implementation output.\n- The capping mechanism itself (`min(d, 50.0)`) is logically correct for R2, even though the test checking it has the wrong expected number.",
+  "response_sha256": "4c3121d5a06a25b8fadb553b2129653e2cf97f83429eea4f478a02e359ff22f8",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28371,
+    "output_tokens": 1576,
+    "output_tokens_details": {
+      "thinking_tokens": 996
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1576,
+        "cache_read_input_tokens": 28371,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0214382,
+    "duration_ms": 18500,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:04:33+00:00",
+  "finished_at": "2026-09-13T05:04:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

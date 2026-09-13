@@ -1,0 +1,22 @@
+{
+  "item_id": "74371044abf5c80a",
+  "sample_id": "P02-T22-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T22",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a mandatory storage snapshot before any risky action, explicitly forbids restart/failover until the snapshot is confirmed, includes a clear abort/rollback condition, and ends with the correct 'SECTIONS: 4' line. It also goes beyond the minimum with tiered risk mitigation, replication-slot/WAL considerations, and re-verification checkpoints after each action, making it directly actionable for an on-call responder.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:04+00:00"
+}

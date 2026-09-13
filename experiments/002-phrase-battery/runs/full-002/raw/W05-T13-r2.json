@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T13-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 2,
+  "execution_index": 261,
+  "sample_seed": 18335038236786340166,
+  "prompt_sha256": "70b828ce430a91c7ae256274cc503b02b627cb51cf1a6196f235fa37ebb17c55",
+  "prompt_chars": 750,
+  "response": "## The problem\n\nOur team of twelve is spending more time merging than building. Feature branches routinely live two to four weeks before integration, and by the time they land, the diffs are large, conflicts are painful, and nobody remembers the original context well enough to review carefully. Three concrete symptoms:\n\n- Merge conflicts now regularly take half a day or more to resolve, and integration bugs surface only after code has already been \"done\" for weeks.\n- Code review has degraded into rubber-stamping thousand-line diffs because reviewers can't hold that much context in their heads.\n- We've had two production incidents this quarter traced to behavior that only appeared once two long-lived branches combined — behavior neither branch's author could have anticipated alone.\n\nThe root cause is the same in all three cases: we defer integration, and integration is where risk actually lives.\n\n## The proposal\n\nMove to trunk-based development. Everyone commits small, working increments directly to main at least once a day, guarded by feature flags for anything incomplete or risky. This isn't a tooling change so much as a discipline change: smaller diffs, faster review, and continuous integration instead of periodic, high-stakes merges. Teams that adopt this pattern consistently report shorter cycle times and fewer integration surprises, for the simple reason that conflicts are caught in hours, not weeks.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development requires feature flag discipline and a fast, reliable CI pipeline, and we don't fully have either yet. If flags proliferate uncleaned or CI is flaky, we could end up merging broken or half-finished code straight into main, which is arguably worse than our current problem. I take this seriously — it means our rollout plan must include flag hygiene rules and CI investment before, not after, the switch, or we risk trading one dysfunction for another.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "d2e994b53d6053c980a5151012e4a8ef1d55f26d64128f7399dab57fa3bf1ed3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28301,
+    "output_tokens": 609,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 609,
+        "cache_read_input_tokens": 28301,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0117542,
+    "duration_ms": 10752,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:28:22+00:00",
+  "finished_at": "2026-09-13T04:28:34+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

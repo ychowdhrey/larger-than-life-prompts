@@ -1,0 +1,22 @@
+{
+  "item_id": "f2ee322f0b489881",
+  "sample_id": "P01-T14-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T14",
+  "repetition": 3,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 4,
+    "constraint_adherence": 3,
+    "error_checking": 2,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "The plan is well-engineered and hits most hard requirements (12 steps, dry run, backup before write-blocking, rollback, stakeholder comms), but the data integrity verification (step 8) is sequenced before the actual cutover (step 9), not after it as explicitly required, and the closing claim that the plan 'satisfies every hard requirement' is therefore inaccurate.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:19+00:00"
+}

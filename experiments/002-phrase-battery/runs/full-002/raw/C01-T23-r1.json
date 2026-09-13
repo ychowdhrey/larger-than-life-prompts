@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T23-r1",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T23",
+  "condition_name": "phrase_t23",
+  "repetition": 1,
+  "execution_index": 1732,
+  "sample_seed": 16060961198323793019,
+  "prompt_sha256": "80e87f899e3f6e2dabd6ff4e62dd2bf4eec342d04acb13f075295fbde98866d9",
+  "prompt_chars": 608,
+  "response": "Here are the defects I found, in order of severity:\n\n**1. Mutable default argument (`seen=[]`) — state leaks across calls**\nDefault arguments are evaluated once, at function-definition time, and the same list object is reused on every call where the caller doesn't pass `seen` explicitly. Consequences:\n- Scores from an earlier call stay in `seen` forever and silently suppress legitimate scores in later, unrelated calls (they get treated as \"already seen\" duplicates even though they're valid top scores for the *new* input).\n- `seen` grows without bound across the life of the program — a slow memory leak.\n\n**2. `IndexError` when `limit > len(scores)`**\nThe loop does `for i in range(0, limit): scores[i]`, indexing unconditionally up to `limit - 1`. If `scores` has fewer elements than `limit` (e.g. `scores=[10, 20]`, `limit=5`), it will try `scores[2]`, `scores[3]`, `scores[4]` and raise `IndexError`, crashing instead of just returning whatever scores are available.\n\n**3. `ZeroDivisionError` on empty input**\n`average = sum(scores) / len(scores)` divides by `len(scores)`. If `scores == []`, this raises `ZeroDivisionError`.\n\n**4. Skipped duplicates aren't replaced, so `result` can come up short of `limit`**\nThe loop only ever looks at the first `limit` positions of the sorted list (`range(0, limit)`). When `scores[i]` is already in `seen` (a duplicate value in the input, or — combined with defect #1 — a value left over from a previous call), it's skipped with nothing put in its place; the loop does not extend further into the list to find another distinct candidate. So `result` can end up much shorter than `limit` even though enough distinct scores exist further down the list.\nExample: `scores=[5,5,5,4,3]`, `limit=3` → sorted is `[5,5,5,4,3]`; the loop yields `result=[5]` only, instead of the three highest distinct scores `[5,4,3]`.\n\n**5. `scores.sort(reverse=True)` mutates the caller's list in place**\nSorting descending is intended, but doing it via `scores.sort()` reorders the original list object the caller passed in, as a side effect, rather than sorting a copy (e.g. `sorted(scores, reverse=True)`). Any caller still holding a reference to that list will find it silently reordered — this can break other code that relied on the original ordering (e.g. a parallel list of names indexed against the original score order).",
+  "response_sha256": "d1044c636e900bf29584a79567f0115ba13adfd4180cd047e7fd4529bbbf94a6",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28260,
+    "output_tokens": 3228,
+    "output_tokens_details": {
+      "thinking_tokens": 2378
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3228,
+        "cache_read_input_tokens": 28260,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.037936,
+    "duration_ms": 36330,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:03:48+00:00",
+  "finished_at": "2026-09-13T05:04:26+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

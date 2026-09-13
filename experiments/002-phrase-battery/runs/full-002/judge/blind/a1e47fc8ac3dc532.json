@@ -1,0 +1,22 @@
+{
+  "item_id": "a1e47fc8ac3dc532",
+  "sample_id": "P02-T15-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T15",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four headings in the required order, hard-gates any destructor action behind a confirmed snapshot, never instructs a restart/failover before that snapshot, includes multiple explicit abort/rollback conditions, and correctly reports SECTIONS: 4; it also addresses realistic root causes (WAL bloat, orphaned replication slots, stuck transactions) and includes verification steps like confirming snapshot completion status and monitoring after mitigation, making it directly actionable for an on-call responder.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:52+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E02-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 1,
+  "execution_index": 422,
+  "sample_seed": 8550628140478024964,
+  "prompt_sha256": "ebbd64ede9d6fc8384b12f2b6ae3b78debf0eaaff9a3bf64698e8cea946f6860",
+  "prompt_chars": 879,
+  "response": "# Billing System Migration Rollout Plan\n**Scope:** Migrate 40,000 existing users from the legacy billing system to the new billing system, with both systems running concurrently (dual-run) throughout the migration window.\n\n---\n\n## Guiding Principles\n\n- Both systems remain live and able to process billing events for the duration of the rollout — no user is ever in a state where neither system can bill them.\n- Each phase gates on objective, measurable entry criteria from the prior phase, not on a calendar date alone.\n- The legacy system is only powered down after a separate post-migration decommissioning phase, never bundled with the final migration batch.\n- Rollback path (route a migrated user back to legacy billing) is validated before any customer-facing traffic moves.\n\n---\n\n## Phase 0: Pre-Flight & Internal Validation (0% of users — internal/synthetic only)\n\n**Percentage of users:** 0% (no real customers; internal test accounts and synthetic data only)\n\n**Entry criterion to start Phase 0:**\n- New billing system has passed a full functional test suite (invoicing, proration, refunds, tax calculation, dunning) in a staging environment with 100% parity against legacy outputs on a replayed sample of 90 days of historical transactions.\n\n**Activities:**\n- Stand up dual-write/dual-read reconciliation tooling between old and new systems.\n- Run shadow billing (new system computes invoices in parallel, does not charge) against 100 internal test accounts.\n- Build and test the rollback mechanism (revert a user's billing-of-record flag to \"legacy\").\n- Define and instrument the kill-switch metrics used in later phases.\n\n**Exit criterion:** Reconciliation diff between old and new system outputs is 0% on all internal test accounts for 2 consecutive weeks.\n\n---\n\n## Phase 1: Canary (2% of users ≈ 800 users)\n\n**Percentage of users:** 2% (~800 users)\n\n**Entry criterion to start Phase 1:**\n- Phase 0 exit criterion met, rollback mechanism has been tested end-to-end at least 5 times successfully, and support/on-call teams have been briefed with a runbook.\n\n**Cohort selection:** Low-risk internal/beta-opt-in users and employees first, then a random sample of low-ARPU, month-to-month (non-contract) customers. Explicitly exclude enterprise accounts, accounts with custom pricing, and accounts currently in a billing dispute.\n\n**Activities:**\n- Migrate billing-of-record for cohort to the new system; legacy system kept in warm standby per-user (can be flipped back within minutes).\n- Daily reconciliation reports comparing charges, invoice totals, and payment method tokenization success between systems.\n- 24/7 on-call coverage for the first 72 hours of this phase.\n\n**Exit criterion:** ≥99.5% invoice accuracy, <0.1% payment failure rate attributable to migration, zero P1 incidents, for 7 consecutive days.\n\n---\n\n## Phase 2: Expansion (25% of users ≈ 10,000 users)\n\n**Percentage of users:** 25% (~10,000 users, cumulative including Phase 1 cohort)\n\n**Entry criterion to start Phase 2:**\n- Phase 1 exit criterion met AND no unresolved P1/P2 billing defects open for more than 48 hours AND finance team has signed off on reconciliation accuracy from Phase 1.\n\n**Cohort selection:** Broaden to mid-tier accounts across all major plan types and payment methods (credit card, ACH, invoiced), still excluding enterprise/custom-contract accounts.\n\n**Activities:**\n- Migrate in sub-batches of ~2,500 users per week rather than a single cutover, to keep blast radius small and allow reconciliation between batches.\n- Continue dual-run reconciliation; expand automated anomaly detection (e.g., flag any invoice delta >$1 or >1% vs. legacy shadow calculation).\n- Publish weekly migration status to stakeholders (support volume, error rates, financial reconciliation).\n\n**Exit criterion:** Metrics remain within thresholds (see Rollout Halt Metric below) across all sub-batches for 2 consecutive weeks, with no rollback events triggered in the final week of the phase.\n\n---\n\n## Phase 3: General Availability / Full Migration (100% of users — final ~30,000 users, all remaining including enterprise)\n\n**Percentage of users:** 100% (remaining ~30,000 users, including enterprise and custom-contract accounts, migrated last)\n\n**Entry criterion to start Phase 3:**\n- Phase 2 exit criterion met AND enterprise/custom-contract billing rules (custom pricing, multi-entity invoicing, negotiated payment terms) have been separately validated in staging with 100% parity AND account managers for enterprise customers have completed customer-specific migration notifications.\n\n**Activities:**\n- Migrate remaining users in sub-batches of ~5,000–7,500 per week, enterprise accounts migrated last within this phase and individually verified by an account manager plus finance before cutover.\n- Maintain full dual-run capability for every user for a minimum 30-day soak period after their individual migration, before that user's legacy billing record is marked read-only.\n- Legacy system remains fully operational (able to process billing for any user still flagged as legacy-of-record, and available as a rollback target for any recently migrated user) for the entire duration of this phase.\n\n**Exit criterion (end of migration, not decommissioning):** 100% of users migrated, 30-day soak period completed with no reconciliation discrepancies, and all rollback flags cleared.\n\n**Note on decommissioning:** Retiring, disabling, or decommissioning the legacy billing system is explicitly out of scope for Phase 3 and is handled in a separate, subsequent **Phase 4: Legacy Decommissioning**, which only begins after the Phase 3 soak period is fully complete and finance/compliance have signed off on final legacy data archival. This separation is intentional so the last batch of users is never migrated in the same phase that removes their fallback system.\n\n---\n\n## Rollout Halt Metric\n\nThe rollout is **immediately paused** (no further users migrated to the new system, cohort re-evaluated) if any of the following are breached, measured on a rolling 24-hour window:\n\n- **Payment failure rate attributable to migration exceeds 0.5%** (baseline legacy failure rate + 0.5 percentage points), OR\n- Invoice/reconciliation discrepancy rate exceeds **1% of migrated accounts** in a given batch, OR\n- More than **3 P1 billing incidents** occur in a single 24-hour period.\n\nAny halt triggers automatic notification to the billing migration incident channel and requires sign-off from Engineering + Finance leads before resuming.\n\n---\n\n## Risks\n\nRISK: Duplicate or double billing occurs during dual-run if both systems attempt to charge the same user for the same cycle | Implement an idempotency key and single source-of-truth \"billing-of-record\" flag per user, enforced at the payment gateway layer, with automated duplicate-charge detection and same-day refund workflow | Payments Engineering Lead\nRISK: Data mapping errors (e.g., proration, tax jurisdiction, or discount codes) cause silent invoice inaccuracies that aren't caught until customers complain | Run automated reconciliation comparing every migrated invoice against a shadow calculation from the legacy system for the full soak period, with alerting on any variance above threshold | Data Migration QA Lead\nRISK: Enterprise customers with custom contracts are migrated with incorrect negotiated terms, causing revenue leakage or customer disputes | Migrate enterprise accounts last, require manual account-manager and finance verification per account before cutover, and keep a 30-day rollback window | Enterprise Account Management Lead\nRISK: Customer support is overwhelmed by billing-related tickets during a migration batch, delaying resolution and harming customer trust | Stagger batch sizes, pre-brief support with a runbook and FAQ, and staff additional on-call support capacity during each migration window | Customer Support Manager\nRISK: Rollback mechanism fails or is untested when needed, leaving a user unbillable or double-billed during an incident | Test rollback end-to-end before each phase begins and require a passing rollback drill as an explicit phase entry criterion | Site Reliability Engineering Lead\n\nPHASES: 4",
+  "response_sha256": "1f497a636a7bd190727d28645b9f024a3736451c230fe38c9a6cc9aa94fcf9c3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28337,
+    "output_tokens": 2829,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2829,
+        "cache_read_input_tokens": 28337,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0339614,
+    "duration_ms": 34860,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:20+00:00",
+  "finished_at": "2026-09-13T04:32:56+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

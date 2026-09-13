@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T16-r3",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T16",
+  "condition_name": "phrase_t16",
+  "repetition": 3,
+  "execution_index": 1339,
+  "sample_seed": 937651349679802798,
+  "prompt_sha256": "0d10c6ae52be0c1f497aef378c14043e083ee5ceca2a3ff3a9f0b8d053240ee2",
+  "prompt_chars": 543,
+  "response": "**Setup (Bayes' theorem):**\n\n- Prevalence: P(D) = 1/500 = 0.002, so P(¬D) = 0.998\n- Sensitivity: P(+|D) = 0.98\n- Specificity: P(−|¬D) = 0.95, so P(+|¬D) = 0.05 (false positive rate)\n\n**Calculation:**\n\nP(+) = P(+|D)·P(D) + P(+|¬D)·P(¬D)\nP(+) = (0.98 × 0.002) + (0.05 × 0.998)\nP(+) = 0.00196 + 0.0499\nP(+) = 0.05186\n\nP(D|+) = [P(+|D)·P(D)] / P(+) = 0.00196 / 0.05186 ≈ 0.037794\n\n**Result:** ≈ 3.78%\n\nSo even with a positive test, there's roughly a 96.2% chance the person does **not** have the condition — because the disease is rare, false positives from the 99.8% healthy population (5% of whom test positive) heavily outnumber true positives from the 0.2% who are actually sick.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "65747c40e0375d5a9f98a3d4e5637f4a6d9d990d41e8aa2d9547b99b1934d285",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28221,
+    "output_tokens": 880,
+    "output_tokens_details": {
+      "thinking_tokens": 497
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 880,
+        "cache_read_input_tokens": 28221,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.014448200000000001,
+    "duration_ms": 10136,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:54:19+00:00",
+  "finished_at": "2026-09-13T04:54:30+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

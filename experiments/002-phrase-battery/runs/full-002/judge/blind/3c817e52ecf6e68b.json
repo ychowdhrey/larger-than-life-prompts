@@ -1,0 +1,22 @@
+{
+  "item_id": "3c817e52ecf6e68b",
+  "sample_id": "C05-T05-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T05",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one boundary bug (>100 vs R1's 'more or equal to 100'), correctly computes that test_cap's expected value (100.0) both fails against the actual code output (50.0) and violates R2's cap, and correctly flags the missing boundary test at total==100, all while accurately confirming the other tests and the capping logic are correct without inventing false issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:16+00:00"
+}

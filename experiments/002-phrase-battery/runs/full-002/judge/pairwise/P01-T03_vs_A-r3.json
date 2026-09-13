@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T03_vs_A-r3",
+  "contrast_id": "T03_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T03",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T03",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans meet all hard requirements, but Response B sequences the cutover more soundly: it promotes the target and completes integrity verification (step 9) before repointing application traffic (step 10), so a failed check is caught before any user writes hit the new database. Response A instead repoints connections and brings the app back online read-write (step 9) before running verification (step 10), meaning writes can already be flowing to the new instance if problems are found, which its own rollback step has to awkwardly account for ('restore any writes accepted post-cutover'). B's ordering makes rollback simpler and safer, which is the more practically important difference here.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:25+00:00"
+}

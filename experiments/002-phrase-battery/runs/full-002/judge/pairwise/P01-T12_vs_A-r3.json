@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T12_vs_A-r3",
+  "contrast_id": "T12_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T12",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy every hard requirement, but Response A's step 3 backup justification ('before any load or replication setup touches production') is logically inconsistent with its own ordering, since replication was already established in step 2. Response B's sequencing is more internally consistent (backup explicitly precedes any production-modifying action) and adds practical rigor missing from A, such as rehearsing the rollback procedure itself, freezing schema changes before the window, and post-cutover monitoring/decommission guidance.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:27:33+00:00"
+}

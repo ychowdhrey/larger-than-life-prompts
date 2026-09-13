@@ -1,0 +1,68 @@
+{
+  "sample_id": "R05-T25-r1",
+  "run_id": "full-002",
+  "task_id": "R05",
+  "family": "reasoning",
+  "condition_id": "T25",
+  "condition_name": "phrase_t25",
+  "repetition": 1,
+  "execution_index": 1030,
+  "sample_seed": 9483184967494768158,
+  "prompt_sha256": "1b4bd4d367a7f9d53a4a298c89cb365ac1a2081e5e5f695de8305c31b7bdc289",
+  "prompt_chars": 240,
+  "response": "**401**\n\nCalculation: Numbers divisible by 3 or 5 in [1,1000] = 333+200−66 = 467 (using floor(1000/3)+floor(1000/5)−floor(1000/15)).\n\nAmong these, those also divisible by 7 (i.e., divisible by 21 or 35) = 47+28−9 = 66 (using floor(1000/21)+floor(1000/35)−floor(1000/105)).\n\n467 − 66 = 401.\n\nFINAL ANSWER: 401",
+  "response_sha256": "5798dda823a74c4b5183e1f2a29948518b4e0698d8155896be46403eb81663a5",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28150,
+    "output_tokens": 408,
+    "output_tokens_details": {
+      "thinking_tokens": 239
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 408,
+        "cache_read_input_tokens": 28150,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.009714,
+    "duration_ms": 6023,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:47:13+00:00",
+  "finished_at": "2026-09-13T04:47:21+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

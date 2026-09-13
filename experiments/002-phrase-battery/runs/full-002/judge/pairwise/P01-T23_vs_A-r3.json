@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T23_vs_A-r3",
+  "contrast_id": "T23_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T23",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T23",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy the hard requirements, but B sequences the work more soundly: it backs up production and notifies stakeholders before any production-side replication setup begins, whereas A configures logical replication/CDC on the production primary (step 2) before either the stakeholder notification (step 3) or the verified backup (step 4) — a real risk since enabling logical replication often requires a wal_level change and restart, i.e. an unannounced production-impacting change. B's dry run also validates the full procedure on a clone before touching production replication, giving a cleaner validate-then-execute flow.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:29:44+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "db88beefd68a2e60",
+  "sample_id": "C02-T22-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T22",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all major defects (WHERE clause nullifying the LEFT JOIN, the UTC/local timezone boundary error with correct 8-hour math, integer division truncation, missing COALESCE causing NULL vs 0 inconsistency, and a fairly-caveated GROUP BY portability note) with accurate causal explanations and concrete fixes, without inventing spurious issues; the only blemish is one awkwardly worded sentence in the timezone explanation that doesn't undermine its correctness.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:50+00:00"
+}

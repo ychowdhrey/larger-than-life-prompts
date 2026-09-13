@@ -1,0 +1,22 @@
+{
+  "item_id": "aac1280038ecc360",
+  "sample_id": "C05-T16-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T16",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the boundary bug (total > 100 vs >= 100) and the incorrect test_cap assertion (100.0 instead of the actual capped value 50.0), verifies both by tracing through the arithmetic, notes the missing boundary test, and reports no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:54+00:00"
+}

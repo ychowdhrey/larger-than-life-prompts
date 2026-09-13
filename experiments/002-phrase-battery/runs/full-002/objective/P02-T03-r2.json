@@ -1,0 +1,126 @@
+{
+  "sample_id": "P02-T03-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T03",
+  "repetition": 2,
+  "response_sha256": "2c6f90d41e0c0e8e6a4602e9d48e175699c14b420f0b16605adacbf1c80bec4a",
+  "objective": {
+    "max_points": 15.0,
+    "earned_points": 11.0,
+    "objective_score": 0.733333,
+    "constraint_completion": 0.733333,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "sections_line",
+        "label": "SECTIONS line present",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched SECTIONS\\s*:\\s*\\d+",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "headings",
+        "label": "All four required headings present",
+        "type": "regex_all",
+        "points": 3.0,
+        "passed": true,
+        "detail": "all matched",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "heading_order_1",
+        "label": "DETECTION precedes IMMEDIATE ACTIONS",
+        "type": "ordering",
+        "points": 1.0,
+        "passed": true,
+        "detail": "first at 271, second at 1297",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "heading_order_2",
+        "label": "IMMEDIATE ACTIONS precedes MITIGATION",
+        "type": "ordering",
+        "points": 1.0,
+        "passed": true,
+        "detail": "first at 1297, second at 3021",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "heading_order_3",
+        "label": "MITIGATION precedes FOLLOW UP",
+        "type": "ordering",
+        "points": 1.0,
+        "passed": true,
+        "detail": "first at 3021, second at 5478",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "snapshot_present",
+        "label": "Includes taking a snapshot",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched snapshot",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "snapshot_before_restart",
+        "label": "Snapshot ordered before any restart or failover",
+        "type": "ordering",
+        "points": 4.0,
+        "passed": false,
+        "detail": "first at 1484, second at 1328",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "abort_condition",
+        "label": "States an explicit abort or rollback condition",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched if .{0,60}(?:fails|worsens|does not|degrades).{0,60}(?:stop|abort|roll ?back|escalate)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 6955,
+    "response_words": 1009,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 1,
+    "verification_marker_total": 1,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 1,
+    "caveats_marker_total": 1,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 0.733333,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:44+00:00",
+  "evaluation_version": "2.0.0"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "82c55d636d9af0d2",
+  "sample_id": "C01-T25-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T25",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default arg, IndexError from unchecked limit, ZeroDivisionError on empty input, in-place mutation of caller's list, and flawed duplicate-skip logic that under-fills results) with accurate causes, concrete triggering examples, and no false positives, while explicitly confirming the intended behaviors are correctly implemented.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:19+00:00"
+}

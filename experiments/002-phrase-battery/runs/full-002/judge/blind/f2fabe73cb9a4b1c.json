@@ -1,0 +1,22 @@
+{
+  "item_id": "f2fabe73cb9a4b1c",
+  "sample_id": "C05-T01-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T01",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (>100 vs R1's 100-or-more), correctly recomputes that discount(1000) actually returns 50.0 so test_cap's assertion of 100.0 is wrong and doubly violates R2, and flags the missing boundary test at total==100, while correctly validating the two passing tests and the cap logic as non-defects without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:09+00:00"
+}

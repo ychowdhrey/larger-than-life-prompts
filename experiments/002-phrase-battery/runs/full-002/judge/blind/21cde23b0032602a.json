@@ -1,0 +1,22 @@
+{
+  "item_id": "21cde23b0032602a",
+  "sample_id": "P02-T19-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T19",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, explicitly sequences snapshot-before-risky-action (and never instructs restart/failover before snapshot completion, even flagging failover as a last resort requiring a verified snapshot), includes multiple clear abort/rollback conditions, and ends with the correct SECTIONS: 4 line, making it fully actionable for an on-call responder.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:55+00:00"
+}

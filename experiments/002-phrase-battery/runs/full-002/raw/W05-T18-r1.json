@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T18-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T18",
+  "condition_name": "phrase_t18",
+  "repetition": 1,
+  "execution_index": 629,
+  "sample_seed": 97622478775842554,
+  "prompt_sha256": "984102d40bd88f5bf8cf28aa582e93d26f5a376092a6a3ea5544eb991e655479",
+  "prompt_chars": 750,
+  "response": "## The problem\n\nOur twelve-person team has drifted into weeks-long feature branches, and the cost is now visible in almost every release. Merges routinely take a full day or more of conflict resolution, and the longer a branch lives, the more its assumptions diverge from what everyone else has shipped in the meantime. Two specific symptoms stand out:\n\n- Integration is now discovered at merge time instead of at commit time, so bugs surface only after several days of divergent work have piled on top of them.\n- Release dates slip because \"almost done\" branches need an unplanned week of rebasing before they're mergeable at all.\n\n## The proposal\n\nI propose we adopt trunk-based development: everyone commits small, working changes directly to main at least daily, behind feature flags when a change isn't ready for users. Concretely, this means:\n\n- Feature branches live no more than one to two days before merging back to main.\n- Incomplete or risky work ships dark behind a flag rather than sitting isolated on a branch.\n- CI runs on every commit to main, so integration problems are caught within minutes, not weeks.\n\nThis shrinks the gap between \"written\" and \"integrated,\" which is where most of our current pain lives.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development assumes solid CI and reviewable, small commits, and if our test suite has gaps, we'll be merging broken code into main far more often than we do today, potentially making things worse, not better. This is a fair concern, and it means we should invest in CI coverage and code review turnaround before or alongside the switch, not treat it as automatic. There's also a legitimate worry about half-finished features being visible in main; feature flags address this but add their own management overhead, and we should agree on a lightweight convention for retiring stale flags so they don't accumulate as clutter.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "9c7895ea3cc98b47689598c298b67602da047c612ca3d587b5151bafb263d1ac",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2572,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 903,
+    "output_tokens_details": {
+      "thinking_tokens": 311
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2572,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 903,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2572,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2572
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0244672,
+    "duration_ms": 16852,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:37:40+00:00",
+  "finished_at": "2026-09-13T04:37:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

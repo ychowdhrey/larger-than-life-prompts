@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T06-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 1,
+  "execution_index": 707,
+  "sample_seed": 7933373763270299441,
+  "prompt_sha256": "f97e4d868b7bf7356e6d0585c57d870fa5462b21fe2dc37f457e986bf8dd5ef5",
+  "prompt_chars": 865,
+  "response": "## Defects Found\n\n**1. Off-by-one boundary error in the implementation (violates R1)**\n\nThe code uses `if total > 100:` instead of `if total >= 100:`. R1 requires a discount for a total of \"100 or more,\" but with strict `>`, an order with `total == 100` falls through to `return 0.0`.\n\n- Concretely: `discount(100)` returns `0.0`, but per R1 it should return `10.0` (10% of 100).\n- This is a real, reachable bug — any order totaling exactly 100 is denied the discount it's entitled to.\n\n**2. No test covers the boundary case (test-coverage gap)**\n\nNone of the three tests call `discount(100)`. Since that's exactly the boundary R1 describes (\"100 or more\"), and it's exactly where the implementation is wrong, the test suite fails to catch defect #1. All three tests (50, 200, 1000) sit strictly away from the boundary.\n\n**3. `test_cap` has the wrong expected value**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nTracing the implementation: `total = 1000` → `d = 1000 * 0.10 = 100.0` → `min(100.0, 50.0) = 50.0`. So `discount(1000)` actually returns `50.0`, not `100.0`. This assertion is simply incorrect and will fail when the suite is run.\n\n- Additionally, note that `100.0` is not even a value the function should ever legitimately produce, since R2 caps every discount at 50.00 — so the expected value in this test contradicts R2 on its face, independent of the implementation.\n\n## What checks out fine\n\n- R2 (cap at 50.00) is correctly implemented via `min(d, 50.0)`.\n- R3 (below 100 → no discount) is correctly implemented and correctly tested by `test_small` (`discount(50) == 0.0`).\n- `test_large`: `discount(200)` → `200 * 0.10 = 20.0` (verified this is exact in binary floating point, no rounding artifact) → `min(20.0, 50.0) = 20.0`, matching the asserted `20.0`. This test is correct.\n\n## Summary\n\n| # | Defect | Type | Effect |\n|---|--------|------|--------|\n| 1 | `total > 100` should be `total >= 100` | Implementation bug | `discount(100)` wrongly returns 0.0 instead of 10.0, violating R1 |\n| 2 | No test for `total == 100` | Test gap | Boundary bug (#1) goes undetected |\n| 3 | `test_cap` asserts `discount(1000) == 100.0` | Test bug | Wrong expected value — actual/correct result is `50.0`; test fails as written and also implicitly contradicts the R2 cap |",
+  "response_sha256": "3d0b154bc5a606173181733c0cc223e9b676cf44976b1179281725f1e5ec1ced",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2630,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3866,
+    "output_tokens_details": {
+      "thinking_tokens": 2948
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2630,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3866,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2630,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2630
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0543292,
+    "duration_ms": 38155,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:39:58+00:00",
+  "finished_at": "2026-09-13T04:40:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

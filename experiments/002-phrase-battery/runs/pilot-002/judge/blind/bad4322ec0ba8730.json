@@ -1,0 +1,22 @@
+{
+  "item_id": "bad4322ec0ba8730",
+  "sample_id": "P03-T06-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T06",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The schedule is fully valid: all prerequisite, duration, and single-task-per-day constraints are satisfied, it correctly identifies and exploits the critical path (T1→T2→T4→T6=10 days) while packing T3/T5 into E2's slack, and it verifies both prerequisites and durations explicitly before presenting a correctly formatted schedule ending in the required LAST DAY line.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T04:19:00+00:00"
+}

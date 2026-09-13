@@ -1,0 +1,22 @@
+{
+  "item_id": "ae1b9fb76f44b69d",
+  "sample_id": "P01-T25-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T25",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and includes all required elements (rehearsal on non-prod data, pre-cutover full backup, post-cutover row-count/checksum verification, stakeholder communication, and a rollback procedure) in a logically ordered, technically credible sequence using logical replication to fit the 2-hour window. It is directly actionable with named tools and commands, though it doesn't explicitly discuss risks like replication lag under 2TB load or verify its own step count within the text.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:49+00:00"
+}

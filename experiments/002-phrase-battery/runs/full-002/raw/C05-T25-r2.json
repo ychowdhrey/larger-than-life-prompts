@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T25-r2",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T25",
+  "condition_name": "phrase_t25",
+  "repetition": 2,
+  "execution_index": 2053,
+  "sample_seed": 3004355715489330951,
+  "prompt_sha256": "d6eda64535b8f80a4218ef9b61b63ad02607df12a735306cef58609b9c5c46ca",
+  "prompt_chars": 851,
+  "response": "## Defects Found\n\n**1. Boundary bug in the implementation — violates R1**\nThe code uses `total > 100` instead of `total >= 100`. R1 says a total of *100 or more* should get a 10% discount, i.e. total == 100 should qualify. With strict `>`, `discount(100)` falls through to the `return 0.0` branch and gives **0.0** instead of the required **10.0**. This is an off-by-one error at the exact threshold.\n\n**2. Wrong expected value in `test_cap` — the test itself is incorrect**\n`test_cap` asserts `discount(1000) == 100.0`. But per R2 (discount capped at 50.00) and the implementation's own logic: `d = 1000 * 0.10 = 100`, then `min(100, 50.0) = 50.0`. So the implementation actually returns `50.0` for this input, not `100.0`. This assertion would **fail** when run — it doesn't reflect either the requirement or the code's real behavior. It fails to actually verify the cap (R2) at all, since the value it checks for isn't the capped value.\n\n**3. No test covers the R1 boundary, so the off-by-one bug goes undetected**\nNone of the three tests use `total = 100`. `test_small` (50) and `test_large` (200) are both far from the threshold, so the `>` vs `>=` defect described in (1) is never exercised. A correct test suite needs a case at exactly 100 asserting a discount of 10.0 to catch this.\n\n## Not defects (confirmed correct)\n- `test_small` (50 → 0.0) correctly reflects R3.\n- `test_large` (200 → 20.0) is correct (200 × 0.10 = 20, below the cap).\n- The capping logic (`min(d, 50.0)`) itself is correctly implemented and satisfies R2 for values that actually need capping (e.g., total > 500) — only the test's expected number for the cap case is wrong, not the cap mechanism.",
+  "response_sha256": "3c9eee745c8e719483b754fa6001688f98f02a7559c8e9d5992e350e6e28b0ef",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28355,
+    "output_tokens": 2374,
+    "output_tokens_details": {
+      "thinking_tokens": 1728
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2374,
+        "cache_read_input_tokens": 28355,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.029414999999999997,
+    "duration_ms": 26993,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:10:48+00:00",
+  "finished_at": "2026-09-13T05:11:16+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

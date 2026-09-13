@@ -1,0 +1,22 @@
+{
+  "item_id": "58eccc489b77117b",
+  "sample_id": "P03-T07-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T07",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The schedule correctly identifies the zero-slack critical path (T1-T2-T4-T6 = 10 days) and places T3/T5 on the second engineer without conflict, satisfying all prerequisite, consecutive-day, and single-task-per-day constraints while finishing exactly at day 10; the format and closing line match the spec exactly, though the verification is only asserted in prose rather than explicitly re-checked line by line.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:08+00:00"
+}

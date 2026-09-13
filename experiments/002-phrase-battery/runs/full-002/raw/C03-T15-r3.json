@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T15-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 3,
+  "execution_index": 665,
+  "sample_seed": 12591233854033021635,
+  "prompt_sha256": "3026a0dff96fc4c81b88fa7e0753f68af49992dd83d313c49b92837c58a2054a",
+  "prompt_chars": 1019,
+  "response": "## Paragraph 1 — Webinars and retention\n\n**1. Survivorship bias in the sample itself.**\nThe analysis starts from \"412 customers who are still active on the Pro plan today\" — i.e., it conditions on the outcome (retention) before measuring the outcome. Anyone who already churned is excluded from the dataset entirely. You cannot validly compute a \"retention\" comparison using a population that is, by construction, 100% retained. At best this measures something like tenure or engagement *among survivors*, not the effect of webinars on whether someone survives. The correct design would start from all customers who *began* as Pro customers (churned + retained) and compare webinar-attendance rates against churn/retention outcomes.\n→ *Causes*: the entire 31% figure may not measure what it claims to measure, independent of any causal question — the study could be replicated with the opposite true effect and still produce this number.\n\n**2. Correlation treated as causation (self-selection).**\nEven ignoring #1, customers who voluntarily sign up for and attend an onboarding webinar are already more engaged/motivated than those who don't. That underlying motivation — not the webinar — plausibly drives both attendance and retention.\n→ *Causes*: attributing an effect to webinars that actually belongs to pre-existing customer engagement.\n\n**3. Policy extrapolation beyond what the data supports.**\nEven if webinars *did* help voluntary attendees, the memo recommends making attendance *mandatory*. The people who would newly be captured by a mandatory policy are exactly the population *not* represented in the \"attended\" group studied (self-selected volunteers). There's no basis for assuming the effect transfers to people who wouldn't otherwise attend.\n→ *Causes*: a costly, mandatory program that may show no benefit (or even backfire, e.g., via added friction/annoyance) despite the observational data looking favorable.\n\n## Paragraph 2 — Region and churn\n\n**4. Multiple-comparisons problem (the \"significant\" result is expected by chance).**\nEighteen attributes were tested at what is implicitly a 5% significance threshold with no correction (e.g., Bonferroni/FDR). Under the null hypothesis that none of the 18 attributes actually matter, the expected number of \"significant\" (p<0.05) findings by pure chance is ~0.9, and the probability of getting *at least one* false positive across 18 independent tests is roughly 1−0.95¹⁸ ≈ 60%. Finding exactly one \"significant\" result out of 18 is indistinguishable from noise.\n→ *Causes*: chasing a statistical artifact — reallocating real budget based on a pattern that likely doesn't exist.\n\n**5. No effect size reported, only a p-value.**\np=0.04 speaks to whether an effect is distinguishable from zero given sample size, not to how large or commercially meaningful it is. A tiny, statistically detectable difference in churn could be irrelevant to the business.\n→ *Causes*: over-investing based on a result that may be statistically real but practically trivial.\n\n**6. Association misread as a causal, actionable lever.**\n\"Region\" is almost certainly a proxy for other things (industry mix, account age, account-manager assignment, company size) rather than a direct cause of churn. Spending money \"on a region\" doesn't map to any identified mechanism.\n→ *Causes*: spend that targets a correlate rather than a cause, with no reason to expect it changes churn at all.\n\n**7. The recommendation doesn't even follow from the premise on its own terms.**\nThe finding is that Central *already* churns less than other regions. The memo concludes you should *concentrate spend there* — i.e., invest more where the problem is already smallest, rather than in the higher-churn regions where intervention has more room to produce value. Taking the finding completely at face value, it argues at least as strongly for investigating/fixing the *worse* regions as for reinforcing the best one.\n→ *Causes*: misallocated resources toward the segment least in need of intervention, while the regions actually losing customers get no additional attention.\n\n## Paragraph 3 — Satisfaction increase\n\n**8. Post hoc ergo propter hoc (temporal coincidence treated as causation).**\nSatisfaction rose in the same quarter the new support model was introduced, but nothing rules out other simultaneous causes (seasonality, pricing/product changes, macro conditions, a different mix of survey respondents).\n→ *Causes*: crediting a program that may have had nothing to do with the change, potentially continuing or scaling an ineffective initiative while missing the actual driver.\n\n**9. No test of whether the change is distinguishable from noise.**\nUnlike paragraph 2 (which at least ran a significance test, however flawed), this paragraph runs *no* statistical test at all. There's no sample size, confidence interval, or historical variance given for the satisfaction metric, so a 4-point move quarter-over-quarter could easily be within normal fluctuation.\n→ *Causes*: treating routine variance as a meaningful signal.\n\n**10. Possible non-comparability of the two measurements.**\nIf the respondent pool for the satisfaction survey differed between quarters (different customers responding, different response rates), the \"increase\" could reflect a change in *who answered*, not a change in *how satisfied any given customer is*.\n→ *Causes*: an apparent improvement that doesn't reflect any real change in customer experience.\n\n---\n\n### Not defects (for completeness)\nThe instruction says the numbers are correct, and indeed I'm not disputing 412, 31%, 18 attributes, p=0.04, or 62%→66% — every issue above is about what conclusion is licensed by those correctly-reported numbers, not about the numbers themselves.",
+  "response_sha256": "d966a17e73e3a17a5f40732db31462f632e2f1bdaed219e8e1c58e46a31edcbe",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28373,
+    "output_tokens": 4987,
+    "output_tokens_details": {
+      "thinking_tokens": 3102
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4987,
+        "cache_read_input_tokens": 28373,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0555486,
+    "duration_ms": 62132,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:38:38+00:00",
+  "finished_at": "2026-09-13T04:39:41+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

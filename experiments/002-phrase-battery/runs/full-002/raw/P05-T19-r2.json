@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T19-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 2,
+  "execution_index": 2109,
+  "sample_seed": 2082558196092639379,
+  "prompt_sha256": "ced26a2342e18db946a8d3f9ac40002d46976044c95a17008c66a6500bfb87e0",
+  "prompt_chars": 823,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nBoth billing systems (legacy \"Old-BMS\" and new \"New-BMS\") will run concurrently throughout the migration, with a dual-write/dual-read reconciliation layer active until full cutover. Total population: 40,000 users. Migration proceeds in five named phases, moving from near-zero-risk canary cohorts to the full user base, with the decommissioning of Old-BMS deliberately separated from the final migration batch by at least one full validation phase.\n\n---\n\n## Phase 1 — Canary (0.25% of users, ~100 users)\n\n**Entry criterion:** New-BMS has passed a full end-to-end billing cycle (invoice generation, payment capture, tax calculation, refund/credit flow, and dunning) in a staging environment against synthetic data matching production distribution (currency mix, plan types, payment methods). Dual-write reconciliation tooling is deployed and generating diffs on 100% of transactions. Rollback procedure for a single user has been tested and takes under 5 minutes.\n\n**Cohort selection:** Internal employees and consenting design-partner accounts only, spanning at least 3 plan tiers and 2 payment methods, to surface edge cases without customer-facing risk.\n\n**Duration:** Minimum 2 full billing cycles (e.g., 2 monthly cycles, or equivalent for annual/usage-based plans) before advancing.\n\n---\n\n## Phase 2 — Early Adopters (5% of users, ~2,000 users)\n\n**Entry criterion:** Phase 1 completed with zero critical (Sev-1/Sev-2) billing defects open, invoice-amount discrepancy rate between Old-BMS and New-BMS below 0.1% across the canary cohort, and support ticket volume attributable to billing within the canary group at or below baseline. Reconciliation dashboards and automated alerting are live for finance and support teams.\n\n**Cohort selection:** Random sample stratified by plan tier, geography, and payment method to increase coverage of tax jurisdictions, currencies, and payment processors, while excluding enterprise accounts with custom contract terms.\n\n**Duration:** Minimum 1 full billing cycle plus a 5-business-day monitoring buffer.\n\n---\n\n## Phase 3 — General Rollout (40% of users, ~16,000 users)\n\n**Entry criterion:** Phase 2 completed with discrepancy rate below 0.05%, failed-payment rate on New-BMS no higher than Old-BMS baseline +0.2 percentage points, customer support escalation rate for billing issues below 1.5% of migrated users, and finance sign-off on reconciliation reports for two consecutive cycles.\n\n**Cohort selection:** Broad self-serve and mid-market segments, excluding high-value enterprise accounts and any accounts flagged with active disputes, delinquency, or custom billing arrangements (these move to Phase 4).\n\n**Duration:** Minimum 1 full billing cycle plus 10-business-day monitoring window; migration batches released in daily waves of ~10% of the phase cohort to preserve the ability to pause mid-phase.\n\n---\n\n## Phase 4 — Complex & Remaining Accounts (54.75% of users, ~21,900 users — final migration batch)\n\n**Entry criterion:** Phase 3 completed with all halt-metric thresholds (see below) remaining green for the full monitoring window, a documented remediation playbook exists for every defect class seen in Phases 1–3, and dedicated white-glove support coverage is staffed for enterprise/custom-contract accounts during migration.\n\n**Cohort selection:** All remaining users, including enterprise accounts, custom-contract accounts, accounts with active disputes/credits, and any deferred edge cases. This is the final batch of user migration; Old-BMS remains fully operational in read/fallback mode throughout and after this phase.\n\n**Duration:** Minimum 2 full billing cycles plus 15-business-day monitoring window before proceeding to Phase 5.\n\n---\n\n## Phase 5 — Old-BMS Decommissioning (0% of users — infrastructure-only phase, no user migration occurs)\n\n**Entry criterion:** 100% of users have been on New-BMS for at least 2 consecutive full billing cycles with no reopened billing discrepancies, all historical billing data has been archived/migrated from Old-BMS with independently verified checksums, finance and audit/compliance teams have formally signed off, and no active support cases reference Old-BMS data. This phase begins only after Phase 4's full monitoring window has closed clean — it is never bundled with the final migration batch.\n\n**Activities:** Old-BMS moved to read-only archival mode, then decommissioned in stages (API access disabled → write access removed → infrastructure decommissioned), each stage gated by a 2-week soak period with rollback capability retained until final infrastructure teardown.\n\n---\n\n## Halt / Rollback Metric\n\n**Automatic rollout halt trigger:** If invoice-amount discrepancy rate between Old-BMS and New-BMS for any active phase cohort exceeds **0.5%** over a rolling 24-hour window, or the New-BMS payment failure rate exceeds Old-BMS baseline by more than **1.0 percentage point** over a rolling 24-hour window, the rollout is automatically paused, no further users are migrated into the current phase, and the on-call billing lead is paged for immediate triage. Resumption requires root-cause identification and sign-off from Engineering and Finance leads.\n\n---\n\n## Risks\n\nRISK: Duplicate or missed charges caused by both systems processing the same billing event during dual-write | Implement idempotency keys and a single source-of-truth ledger with reconciliation checks before any charge is finalized | Engineering Lead (Billing Platform)\nRISK: Currency and tax miscalculation for international accounts migrated to New-BMS | Run parallel tax/currency calculations in shadow mode for all cohorts before cutover and require finance sign-off on sampled invoices each phase | Finance Systems Owner\nRISK: Customer support volume spike overwhelms support team during large-cohort phases (3 and 4) | Stagger migrations in daily waves, pre-train support staff on New-BMS issue playbooks, and staff additional on-call support capacity during Phase 3–4 windows | Customer Support Manager\nRISK: Data integrity loss or corruption during account/payment-method migration for enterprise custom-contract accounts | Perform dry-run migrations with byte-level diffing against source records and require manual QA sign-off per enterprise account before Phase 4 cutover | Data Migration Lead\nRISK: Rollback becomes infeasible after Phase 4 due to premature Old-BMS decommissioning | Enforce hard dependency gate preventing any Old-BMS decommissioning work from starting until Phase 4 monitoring window closes with all metrics green | Program/Release Manager\n\nPHASES: 5",
+  "response_sha256": "66da592f8dec7fc7c6f14c6879b109bd7648dc63f22b746bed7ff37948402878",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28321,
+    "output_tokens": 2346,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2346,
+        "cache_read_input_tokens": 28321,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.029128200000000003,
+    "duration_ms": 29670,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:12:03+00:00",
+  "finished_at": "2026-09-13T05:12:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

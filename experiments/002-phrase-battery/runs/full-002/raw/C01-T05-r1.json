@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T05-r1",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T05",
+  "condition_name": "phrase_t05",
+  "repetition": 1,
+  "execution_index": 606,
+  "sample_seed": 3564562167683761312,
+  "prompt_sha256": "230776713beb44b6816c0d1fecd7e7d16ec8d59905ddea3fdbf1b1d96e4795b1",
+  "prompt_chars": 620,
+  "response": "Here are the defects I find, from most to least likely to bite:\n\n**1. Mutable default argument (`seen=[]`)**\nDefault arguments are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't pass `seen` explicitly. Since the function `.append()`s to it, the list persists and grows across unrelated calls.\n- Effect: a score that was returned in an earlier call will silently be excluded from `result` in a later call (even for a completely different `scores` list), because it's already \"seen.\" Callers get incorrect/inconsistent output depending on call history, and the list grows without bound for the life of the program (a slow memory leak).\n\n**2. No bounds check between `limit` and `len(scores)`**\nThe loop does `for i in range(0, limit): scores[i]`, but nothing constrains `limit` to `len(scores)`.\n- Effect: if `limit` exceeds the number of scores (e.g., `limit=5` on a 3-element list), this raises `IndexError: list index out of range`.\n\n**3. Duplicate-skipping shrinks the result instead of extending the scan**\nThe loop only ever looks at the first `limit` positions of the sorted list (`range(0, limit)`). When a value in that window is a duplicate (already in `seen`), it's skipped but the loop does not compensate by looking further down the list for another distinct value to fill its place.\n- Effect: `result` can end up with fewer than `limit` entries even though the input contains `limit` or more *distinct* scores. Example: `scores=[100,100,90,80,70,60]`, `limit=5` → sorted is `[100,100,90,80,70,60]`; index 1's `100` is skipped as a duplicate, so `result = [100,90,80,70]` (length 4), even though `60` is a perfectly good 5th distinct value that was never considered.\n\n**4. In-place mutation of the caller's list**\n`scores.sort(reverse=True)` sorts `scores` in place rather than sorting a copy.\n- Effect: the caller's original list is silently reordered as a side effect of calling this function, which can surprise callers who still hold a reference to that list and expect it to retain its original order.\n\n**5. Division by zero on empty input**\n`average = sum(scores) / len(scores)` assumes `scores` is non-empty.\n- Effect: if `scores` is `[]`, this raises `ZeroDivisionError` (in practice, with a non-zero `limit`, defect #2's `IndexError` at `scores[0]` would actually trigger first — but the zero-division bug is still latent and would surface directly if `limit` were 0).\n\nNot defects: sorting descending and computing the mean over *all* scores are stated as intended, so I haven't flagged them.",
+  "response_sha256": "347b832dd0d34dcdf5403d50ac48e3865f8219a4f293a0b2fdf4703df85fc821",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28262,
+    "output_tokens": 2733,
+    "output_tokens_details": {
+      "thinking_tokens": 1834
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2733,
+        "cache_read_input_tokens": 28262,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0329864,
+    "duration_ms": 30842,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:37:08+00:00",
+  "finished_at": "2026-09-13T04:37:40+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-T23-r1",
+  "run_id": "full-002",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T23",
+  "condition_name": "phrase_t23",
+  "repetition": 1,
+  "execution_index": 992,
+  "sample_seed": 7719280535849020290,
+  "prompt_sha256": "8a3bf1034f446b0ffad0a9e13655f0767bfee3a8322aca785df065e43e8495ec",
+  "prompt_chars": 1242,
+  "response": "Here are the internal inconsistencies in this extract:\n\n**1. Conflicting notice periods for Client-initiated termination (4.1 vs 4.2)**\n4.1 states \"**either party** may terminate... by giving 30 days written notice,\" which by its plain terms includes the Client. 4.2 then requires the Client specifically to give \"not less than 45 days\" notice. These two provisions directly contradict each other for the case of Client-initiated termination — is 30 days sufficient (per 4.1) or is 45 days the minimum (per 4.2)? As drafted, neither clause is stated to be subject to or override the other. This would cause a real dispute: a Client giving 30 days' notice could argue termination is valid under 4.1, while the counterparty could argue the notice was invalid and too short under 4.2, potentially bearing on when the \"Effective Termination Date\" occurs and thus the refund amount under Table 4A.\n\n**2. Gap in the refund table for exactly 6 months remaining**\nTable 4A's bands are \"9 or more,\" \"7 to 8,\" \"3 to 5,\" and \"fewer than 3\" months remaining. There is no band covering exactly **6 months** remaining. A termination with 6 months left on the term falls into no row, leaving the refund rate for that case entirely undefined and unenforceable as written.\n\n**3. Refund amount inconsistent with stated rate for the \"3 to 5 months\" band**\nThe table states a 40% refund rate for \"3 to 5\" months, but the illustrative figure given is 3,600 on a 12,000 annual prepayment. 40% of 12,000 is 4,800, not 3,600 (3,600 is actually 30% of 12,000). This is inconsistent with the other two rows, where the dollar figures do correctly match the stated percentages (80% → 9,600; 60% → 7,200; 0% → 0). This creates ambiguity as to whether the intended rate for that band is 40% or 30%, and any refund calculated in this band is disputable regardless of which figure is used.\n\n**4. \"Effective Termination Date\" is used but never defined or otherwise anchored**\n4.4 bases the 14-day refund payment deadline on the \"Effective Termination Date,\" but nothing in 4.1–4.3 defines this term or explains how it relates to the notice periods given (e.g., is it the date notice is given, the date notice expires, or some other date?). Unlike the clause 6 and Schedule 1 references — which are stated to exist elsewhere in the agreement — there is no indication this term is defined elsewhere, and combined with the notice-period conflict in point 1, it leaves the trigger date for the refund clock uncertain.",
+  "response_sha256": "b06f2e2412f3fab8cfeb0e04caddd93a62fd943b5f971110c0c20a81987a235a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28526,
+    "output_tokens": 3259,
+    "output_tokens_details": {
+      "thinking_tokens": 2387
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3259,
+        "cache_read_input_tokens": 28526,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0382992,
+    "duration_ms": 37528,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:46:21+00:00",
+  "finished_at": "2026-09-13T04:46:59+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

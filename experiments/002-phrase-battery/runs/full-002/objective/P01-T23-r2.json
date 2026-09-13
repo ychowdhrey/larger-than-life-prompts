@@ -1,0 +1,115 @@
+{
+  "sample_id": "P01-T23-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T23",
+  "repetition": 2,
+  "response_sha256": "9704dee3242156ef7d5ca7975e0122c2ef50c8d5f59612e97d208a320ccf5f3e",
+  "objective": {
+    "max_points": 15.0,
+    "earned_points": 15.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "step_count_line",
+        "label": "STEP COUNT line present",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched STEP\\s*COUNT\\s*:\\s*\\d+",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "step_cap",
+        "label": "No more than 12 numbered steps",
+        "type": "count_matches",
+        "points": 3.0,
+        "passed": true,
+        "detail": "found 12 (allowed 1..12)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "rollback",
+        "label": "Includes a rollback procedure",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched roll ?back",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "dry_run",
+        "label": "Includes a dry run or rehearsal",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched dry ?run",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "integrity",
+        "label": "Includes a post-cutover integrity verification",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched row count",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "comms",
+        "label": "Includes a stakeholder communication step",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched stakeholder",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "backup_before_destructive",
+        "label": "Backup ordered before the destructive cutover step",
+        "type": "ordering",
+        "points": 3.0,
+        "passed": true,
+        "detail": "first at 783, second at 1533",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 3107,
+    "response_words": 443,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 2,
+    "verification_marker_total": 4,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:43+00:00",
+  "evaluation_version": "2.0.0"
+}

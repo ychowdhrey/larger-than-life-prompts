@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T10_vs_A-r1",
+  "contrast_id": "T10_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T10",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T10",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both satisfy all hard requirements, but Response B adds operationally important detail Response A lacks, such as explicit handling of a failed/incomplete snapshot (stop and escalate rather than proceed) and a more complete abort condition that also covers the case where a post-failover replica shows the same symptoms, indicating a systemic write issue rather than just a disk problem.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:01+00:00"
+}

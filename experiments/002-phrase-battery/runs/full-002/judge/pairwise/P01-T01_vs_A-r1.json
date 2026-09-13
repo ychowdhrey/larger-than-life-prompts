@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T01_vs_A-r1",
+  "contrast_id": "T01_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T01",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T01",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans meet all hard requirements, but B places the full production backup before setting up replication/CDC (which requires modifying the source), whereas A configures the replication pipeline against production in step 3 before the backup in step 4. B also gives rollback its own dedicated step rather than folding it into a combined 'go-live or rollback' decision, and includes clearer, separately-staged stakeholder communications (advance notice, start-of-window, and closure) rather than a single main notice.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:20+00:00"
+}

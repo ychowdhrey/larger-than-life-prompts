@@ -1,0 +1,22 @@
+{
+  "item_id": "9d6e306ff737b17e",
+  "sample_id": "P01-T05-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T05",
+  "repetition": 2,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 3,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "The plan is well-structured and hits nearly every requirement (12-step cap, rollback, dry run, stakeholder comms, pre-modification backups), but the integrity verification (step 9) occurs before cutover (step 10) rather than after, failing to literally satisfy the explicit 'verification step after the cutover' requirement — post-cutover only gets generic smoke tests, not row counts/checksums.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:47+00:00"
+}

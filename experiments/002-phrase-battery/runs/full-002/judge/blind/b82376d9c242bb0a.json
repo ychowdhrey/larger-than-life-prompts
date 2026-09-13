@@ -1,0 +1,22 @@
+{
+  "item_id": "b82376d9c242bb0a",
+  "sample_id": "C02-T15-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T15",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all six real defects (LEFT JOIN degraded to INNER JOIN via WHERE, missing UTC+8 offset for the local-day boundary, integer division truncation, NULL vs 0 for SUM on empty groups, the resulting NULLS-FIRST ordering bug, and the GROUP BY functional-dependency portability issue), each with accurate technical reasoning, concrete consequences, and correct fixes, while explicitly and correctly ruling out non-issues (COUNT usage, join predicate, missing upper date bound) as instructed.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:56+00:00"
+}

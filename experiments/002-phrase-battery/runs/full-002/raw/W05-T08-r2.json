@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T08-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 2,
+  "execution_index": 1595,
+  "sample_seed": 13418576533953361215,
+  "prompt_sha256": "7df87991517ea21279255d6df091c2eb7207ea74dc2709e9d8f2ef3f98f92481",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur team of twelve ships slower every quarter, and long-lived feature branches are the biggest reason why. Branches routinely live for two to three weeks before merging, and by the time they're ready, they've drifted so far from main that integration itself becomes a multi-day project. Merge conflicts have gotten large enough that people schedule dedicated \"merge days,\" which is a symptom, not a solution. Worse, our CI only tests the real product state on main, so integration bugs surface late, after the context that would make them easy to fix has evaporated. We're also duplicating effort: two engineers this month independently touched the same module on separate branches without knowing it, because branch isolation hides work instead of surfacing it.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: everyone commits small, frequent changes directly to main (or through branches lasting under a day), gated by feature flags for anything incomplete.\n\n- Adopt feature flags so unfinished work can merge safely without being user-visible\n- Require CI to pass on every commit to main, not just at merge time\n- Break work into smaller, independently mergeable increments\n- Pair or mob on riskier changes instead of isolating them on a branch\n- Run a 30-day pilot with two sub-teams before rolling out to everyone\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands stronger discipline and better test coverage than we currently have, and without it, main becomes unstable rather than integrated. If a broken commit lands and CI doesn't catch it, everyone is blocked, not just one branch owner. This is a legitimate risk, not a hypothetical one — our test suite has gaps today. I don't think the answer is to avoid trunk-based development because of this; it's to fix the gaps first. The 30-day pilot exists specifically to surface this problem in a contained way before we bet the whole team on it, and we should be honest that if coverage doesn't improve, we delay the full rollout rather than push through anyway.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "458f893592cdb9497c92c86fef25e0e2bb2aded2c6d8b01cf68c9bcf2f9dbc5c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28300,
+    "output_tokens": 658,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 658,
+        "cache_read_input_tokens": 28300,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012243999999999998,
+    "duration_ms": 12549,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:00:47+00:00",
+  "finished_at": "2026-09-13T05:01:01+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "5d7e5aea0381da9d",
+  "sample_id": "P02-B-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "B",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four headings in order, places a verified snapshot before any risky action, explicitly forbids restart/failover until that snapshot completes, includes a clearly labeled abort/rollback condition, and ends with the correctly formatted SECTIONS line, while also addressing non-obvious causes (WAL bloat, stalled autovacuum, replication lag) and building in mid-execution verification steps.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:55+00:00"
+}

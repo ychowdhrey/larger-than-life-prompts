@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-T15-r1",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 1,
+  "execution_index": 367,
+  "sample_seed": 11192502774006528684,
+  "prompt_sha256": "bad657c761b03a1128b81583d0108b58cbe0f691d72ac0789ed8adb7ecdd1b23",
+  "prompt_chars": 822,
+  "response": "## Migration Plan: 2 TB On-Prem PostgreSQL → Managed Cloud Database\n\n1. **Discovery & migration design.** Inventory the 2 TB database (schema, extensions, custom types, cron/triggers, peak connection count for ~4,000 DAU). Select the managed target (e.g., RDS/Aurora, Cloud SQL, Azure Flexible Server) matching PostgreSQL major version and extensions. Choose a CDC-based approach (native logical replication or AWS DMS/pglogical) so the bulk copy can run without long locks on production. Define rollback trigger criteria and name the go/no-go decision owner.\n\n2. **Provision & harden the target.** Create the managed instance sized for current load, restore schema/roles/extensions, configure networking (VPN/PrivateLink), security groups, parameter groups, and monitoring/alerting mirroring on-prem.\n\n3. **Stakeholder & user communication (T-7 days).** Notify engineering, support, and all 4,000 users via email/in-app banner/status page of the Sunday 2-hour maintenance window and possible rollback contingency. Repeat reminders at T-24h and T-1h, with a designated channel for live updates during the window.\n\n4. **Full rehearsal/dry run.** Restore a recent backup into a staging environment mirroring the target service and execute the entire runbook — replication setup, cutover scripts, verification, and rollback — against this non-production copy. Time each phase to confirm the whole procedure fits inside 2 hours.\n\n5. **Pre-migration full backup.** Take a verified full base backup (`pg_basebackup`) plus WAL archive of the on-prem primary and confirm it restores cleanly. This backup precedes any step that touches or modifies production and is the fallback source of truth.\n\n6. **Establish CDC replication & background bulk load.** Enable logical replication (or a DMS task) from on-prem to the cloud target and let the 2 TB initial copy stream over the days before the window — read-only against production, non-blocking. Monitor lag and error logs continuously.\n\n7. **Pre-cutover validation.** Once lag is near zero, diff schemas/sequences/indexes between source and target, spot-check row counts/checksums on the largest tables, and confirm app configs, secrets, and DNS/TTL are staged for the switch.\n\n8. **Open maintenance window & freeze writes.** At the scheduled Sunday start, put the app into maintenance mode (banner/503), stop writes on-prem (revoke write role or set read-only), and let replication drain to zero lag.\n\n9. **Cutover.** Promote the cloud target as primary: repoint connection strings/DNS, rotate credentials, reset sequences/identities, and bring the application out of maintenance mode against the new database.\n\n10. **Post-cutover integrity verification.** Compare per-table row counts and checksums (e.g., hash aggregates or `pg_dump --schema-only` diff plus `SELECT count(*)`) between the frozen source snapshot and the target, run automated smoke tests and key user transactions, and watch error/latency dashboards before declaring success.\n\n11. **Rollback procedure (execute only if step 10 fails or errors spike).** Re-enable writes on the untouched on-prem primary (kept intact, not deleted, as fallback), revert DNS/connection strings, return the app to its pre-migration state, notify stakeholders of the rollback immediately, and capture logs for root-cause analysis before rescheduling.\n\n12. **Close-out.** Monitor the new production database for 24–48 hours, send a final status communication to stakeholders and users, and only after confirmed stability, take one last archival backup and decommission the on-prem server.\n\nSTEP COUNT: 12",
+  "response_sha256": "60da5b583dd27dfe022e1e70186c857c0f5d3ab8e1a0e4aec6a630a4717ba5c8",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2594,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3731,
+    "output_tokens_details": {
+      "thinking_tokens": 2483
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2594,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3731,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2594,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2594
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0528352,
+    "duration_ms": 40813,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:31:07+00:00",
+  "finished_at": "2026-09-13T04:31:49+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

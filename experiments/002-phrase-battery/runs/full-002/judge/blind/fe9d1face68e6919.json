@@ -1,0 +1,22 @@
+{
+  "item_id": "fe9d1face68e6919",
+  "sample_id": "P02-E06-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E06",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four headings in order, places the snapshot before any destructive step with an explicit hard-rule guard, defers restart/failover until after a confirmed snapshot, includes a well-specified abort/rollback subsection, and ends with the correct 'SECTIONS: 4' line, while adding realistic, actionable technical detail (WAL/binlog handling, replica lag checks, VACUUM vs VACUUM FULL) that a real on-call responder could follow.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:19+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E04-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E04",
+  "condition_name": "combo_e04",
+  "repetition": 2,
+  "execution_index": 1993,
+  "sample_seed": 14710806716946433376,
+  "prompt_sha256": "fb3d9bd0dcbca56883eb08251c7793c510d948cfcabfc546b13b00121bc468df",
+  "prompt_chars": 891,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nBoth the old and new billing systems will run in parallel throughout the migration (dual-run architecture). Users are migrated in batches by phase; each phase gates on objective entry criteria measured from the previous phase's results, not on calendar time alone. The old billing system remains fully operational for non-migrated users and as a rollback path through every phase described below — its retirement is explicitly out of scope for this plan and must be a separate, subsequent initiative (see Decommissioning Note at the end).\n\n---\n\n## Phase 1: Canary (0.5% of users, ~200 users)\n\n**Entry criterion:** New billing system has passed a full parallel-run reconciliation test against a shadow copy of production billing data for 14 consecutive days with zero unexplained discrepancies, and rollback tooling has been tested end-to-end in staging.\n\n**Population:** Internal test accounts plus opted-in volunteer customers (e.g., employees, design partners, low-revenue accounts) who have explicitly consented to early access.\n\n**Activities:**\n- Migrate accounts one batch at a time (e.g., 50 users/day) with manual review of each batch's invoices before the next batch starts.\n- Run both systems in shadow mode for migrated users for at least 2 full billing cycles: new system is authoritative for charging, old system continues to compute in parallel for comparison only.\n- Daily reconciliation report comparing invoice totals, tax calculations, proration, and payment method charges between systems.\n\n**Exit criterion:** 200 users complete at least one full billing cycle on the new system with invoice-level discrepancy rate below the halt threshold (see Metrics below), zero payment failures attributable to migration, and support ticket volume from this cohort is not statistically elevated versus baseline.\n\n---\n\n## Phase 2: Early Adopter Expansion (10% of users, ~4,000 users)\n\n**Entry criterion:** Phase 1 exit criteria met and signed off by Billing Engineering, Finance, and Customer Support leads; a documented rollback runbook exists and has been rehearsed (not just written).\n\n**Population:** A randomly sampled, demographically representative slice of the user base (mix of plan tiers, geographies, and payment methods), excluding highest-revenue enterprise accounts.\n\n**Activities:**\n- Migrate in weekly waves of ~1,000 users rather than all at once.\n- Continue dual-run shadow comparison for the first billing cycle per user, then cut over to new-system-only for that cohort once reconciled.\n- Expand monitoring to cover dunning/retry logic, refunds, credits, and plan changes/upgrades mid-cycle — not just steady-state invoicing.\n- Weekly go/no-go review meeting before releasing the next wave.\n\n**Exit criterion:** Cumulative discrepancy rate across Phase 2 cohort stays below halt threshold across all waves, refund/credit processing matches expected values in 100% of manually audited sample invoices (minimum 200 audited), and no wave triggered a rollback.\n\n---\n\n## Phase 3: General Availability Rollout (remaining ~89.5% of users, ~35,800 users)\n\n**Entry criterion:** Phase 2 exit criteria met; support team is fully trained and staffed for the projected ticket volume increase; finance has reconciled Phase 2 revenue recognition against the old system with no material variance.\n\n**Population:** All remaining users, migrated in progressively larger batches (e.g., 5%, 10%, 15%, 20%, ... of total base) to keep blast radius bounded and support load manageable, rather than a single big-bang cutover.\n\n**Activities:**\n- Segment batches by risk: migrate lower-complexity accounts (single payment method, monthly billing) before high-complexity accounts (multiple subscriptions, enterprise invoicing, custom contracts, annual pre-pay).\n- Maintain dual-run shadow verification for the first cycle of each batch throughout this phase — do not skip verification even as batches grow.\n- Explicitly hold enterprise/high-revenue and legally complex accounts (e.g., regulated regions, custom tax arrangements) for a final, separately reviewed sub-batch at the end of Phase 3, with its own manual sign-off before migration.\n\n**Exit criterion:** All 40,000 users successfully migrated and reconciled for at least one full billing cycle each on the new system, with cumulative discrepancy and support-ticket metrics within threshold. This exit criterion marks the end of user migration — it does not itself authorize any change to the old system's status.\n\n---\n\n## Risks\n\nRISK: Invoice calculation discrepancies (tax, proration, discounts) between old and new systems cause customers to be over- or under-billed | Run mandatory parallel shadow-billing reconciliation for at least one full cycle before any user is cut over to new-system-only billing, with automated diffing and a documented dollar-variance threshold that blocks cutover | Billing Engineering Lead\nRISK: Payment method tokenization or gateway integration differences cause failed or duplicate charges during migration | Migrate payment tokens through a tested, idempotent migration script with dry-run mode against a sandboxed payment gateway, and reconcile token counts before and after each batch | Payments Platform Lead\nRISK: Customer support is overwhelmed by a spike in billing-related tickets after a large batch migrates, delaying issue resolution and eroding trust | Stagger batch sizes, pre-brief support with known migration-related issue patterns and canned responses, and pause the next batch if ticket volume or backlog exceeds staffing capacity | Customer Support Manager\nRISK: Data mapping errors during account migration (e.g., wrong plan tier, incorrect billing cycle anchor date) silently corrupt customer records | Require automated field-by-field validation of migrated account records against source-of-truth data before activation, with a manual audit sample per batch | Data Migration Lead\nRISK: Rollback from new system back to old system is attempted late in a batch and proves incomplete or lossy, stranding customers in an inconsistent billing state | Test and rehearse the rollback runbook before each phase begins, cap batch sizes so a rollback is operationally feasible within one business day, and keep the old system fully warm (not paused) throughout all phases | Site Reliability Engineering Lead\nRISK: Regulatory or tax-compliance mismatches in specific jurisdictions cause incorrect tax collection or reporting after migration | Hold all accounts in regulated or non-standard tax jurisdictions until a compliance sign-off is obtained, and migrate them only in a dedicated final sub-batch with legal/finance review | Finance & Compliance Lead\n\n---\n\n## Metrics with Halt Thresholds\n\n- **Invoice discrepancy rate:** If more than **0.5%** of migrated invoices in any rolling 24-hour window show a dollar-value mismatch greater than $1.00 between old and new system shadow calculations, **halt the rollout** (stop migrating new users into the current phase) and freeze the current batch pending root-cause investigation.\n- **Payment failure rate:** If the payment failure/decline rate for migrated users exceeds the pre-migration baseline failure rate by more than **20% relative** over any 24-hour period, halt the rollout.\n- **Support ticket surge:** If billing-related support ticket volume from a migrated cohort exceeds **3x** the pre-migration baseline rate (tickets per 1,000 users per day) for more than 48 hours, halt the rollout and pause the next batch.\n\nAny single breach triggers an automatic pause of further migrations (not a rollback of already-migrated users, unless the specific metric indicates active customer harm), a root-cause review, and an explicit go/no-go decision before resuming.\n\n---\n\n## Decommissioning Note (Explicitly Out of Scope for This Plan)\n\nThe old billing system must remain active, running, and untouched (no deletion, disabling, or decommissioning) through the entirety of Phases 1–3, including the final batch of Phase 3. Any decision to disable or decommission the old system must occur only after: (a) all users have been on the new system for a minimum soak period (e.g., 2–3 full billing cycles) post-migration, (b) a full audit/reconciliation confirms no outstanding data dependencies (historical reporting, tax filings, audits) on the old system, and (c) a separate decommissioning plan with its own risk assessment and sign-off is approved. That decommissioning work is not part of, and must not be scheduled within, the same phase as the final user migration batch.\n\nPHASES: 3",
+  "response_sha256": "323b13c21b8c3f4c2b216c285b5cec88c0f4bdd9120504021d46c717df82d815",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28341,
+    "output_tokens": 2893,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2893,
+        "cache_read_input_tokens": 28341,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0346022,
+    "duration_ms": 37775,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:09:22+00:00",
+  "finished_at": "2026-09-13T05:10:01+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

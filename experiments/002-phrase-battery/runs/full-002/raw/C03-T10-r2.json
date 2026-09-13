@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T10-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T10",
+  "condition_name": "phrase_t10",
+  "repetition": 2,
+  "execution_index": 978,
+  "sample_seed": 10069084657524179543,
+  "prompt_sha256": "9b8e66e1d8aeda03b68e82ddf3f4d430f0adec52c0d00f997ed5ee3d5760eaa4",
+  "prompt_chars": 1008,
+  "response": "Going through each of the three arguments in turn — the numbers can be accurate and the conclusions still not follow. Here's where the reasoning breaks down.\n\n## 1. Webinar attendance → retention\n\n**Defect: Correlation treated as causation (self-selection confound).**\nWhat's wrong: Customers who voluntarily sign up for and attend an onboarding webinar are already different from those who don't — more engaged, more invested in the product, possibly larger accounts with dedicated onboarding support. That same engagement is plausibly what drives both webinar attendance *and* retention. Nothing in a simple attended-vs-not comparison rules this out.\nWhat it causes: You'd be crediting the webinar for a difference that's actually driven by the type of customer who chooses to attend. The stated causal claim (\"webinars therefore cause higher retention\") is not supported by this comparison.\n\n**Defect: The policy recommendation doesn't follow even if the correlation is real.**\nWhat's wrong: \"Make it mandatory\" assumes that forcing attendance on customers who currently *wouldn't* choose to attend will produce the same lift. But the observed 31% gap comes from self-selected attendees; compelling disengaged customers to sit through a webinar is a different intervention on a different population, and there's no evidence it transfers.\nWhat it causes: A policy change built on a treatment effect that may not exist for the population it's being applied to — likely disappointing results and wasted onboarding-ops effort.\n\n**Defect: Possible survivorship framing.**\nWhat's wrong: The analysis population is described as \"customers who are still active today\" — i.e., survivors. Computing a \"retention\" comparison inside a survivor-only sample is either circular or hides how churned customers' webinar attendance was accounted for. If churned customers weren't part of the base used to compute attendance-vs-retention rates, the comparison is biased by construction.\nWhat it causes: An inflated or otherwise distorted estimate of the attendance/retention relationship, in either direction.\n\n**Defect: No significance/uncertainty reported for this claim.**\nWhat's wrong: Unlike the regional finding, no p-value, confidence interval, or group sizes are given for the 31% figure.\nWhat it causes: No way to know if this is a stable pattern or noise from small subgroups — yet it's treated as solid enough to justify a mandatory policy.\n\n## 2. Central region churn (p = 0.04 out of 18 attributes tested)\n\n**Defect: Multiple-comparisons problem (data dredging).**\nWhat's wrong: Testing 18 attributes and highlighting the one that clears p < 0.05 is exactly the setup where false positives are expected by chance. With 18 independent tests at α = 0.05, the chance of at least one \"significant\" result purely by luck is roughly 1 − 0.95¹⁸ ≈ 60%. An uncorrected p = 0.04 on the *best of 18* is weak evidence — under a Bonferroni-style correction it would need to be below roughly 0.0028 to reach the same confidence level.\nWhat it causes: A high probability that \"Central region churns less\" is a statistical artifact rather than a real effect, leading to a budget reallocation that produces no actual retention gain when it fails to replicate next quarter.\n\n**Defect: Statistical significance conflated with a causal, actionable lever.**\nWhat's wrong: Even if the regional gap is real, \"region\" isn't necessarily itself the cause — it could be a proxy for industry mix, account size, pricing tier, or something else that happens to cluster in that region. The memo jumps straight from \"associated with\" to \"spend money here.\"\nWhat it causes: Spend directed at the region rather than at whatever the real underlying driver is, likely producing no effect since the true cause isn't being addressed.\n\n**Defect: No effect size given.**\nWhat's wrong: Only a p-value is reported, not the actual magnitude of the churn difference.\nWhat it causes: Impossible to judge whether, even if real, the effect is large enough to be worth \"concentrating next quarter's spend\" — statistical significance says nothing about business significance.\n\n## 3. Satisfaction 62% → 66%\n\n**Defect: Post hoc attribution without a counterfactual.**\nWhat's wrong: A single before/after comparison, with one thing (the new support model) named as the cause, ignores every other thing that could have changed that quarter — seasonality, pricing/product changes, survey composition or response-rate shifts, or simply normal quarter-to-quarter variation. There's no control group and no baseline volatility shown.\nWhat it causes: Confidence that \"the new support model is working\" when the true cause could be unrelated — leading to continued investment in something that isn't actually responsible for the change, while masking or ignoring the real driver.\n\n**Defect: No test of whether the 4-point move is distinguishable from noise.**\nWhat's wrong: No historical variance, confidence interval, or significance test is offered for this one, in contrast to (and inconsistent with) the rigor applied to the regional finding.\nWhat it causes: A routine fluctuation could be read as a validated program success.\n\n**Defect: Percentage points described as \"%\".**\nWhat's wrong: 62% → 66% is a 4 *percentage-point* increase, not a 4% increase (the relative increase is about 6.5%). Calling it \"that 4% improvement\" mislabels the metric.\nWhat it causes: Understated or ambiguous magnitude when this figure is compared against other percentage-based metrics elsewhere (e.g., the 31% retention figure), inviting apples-to-oranges comparisons.\n\n## Cross-cutting issue\n\nAll three sections make the same jump: pattern-in-observational-data → firm causal claim → immediate operational commitment (mandatory webinars, reallocated spend, credit to a program), with no proposed way to check the claim before committing (e.g., an A/B test of mandatory webinars on new cohorts, holding out a control region, or comparing satisfaction trend against a pre-existing baseline). That jump, repeated three times, is the memo's central defect — the individual statistical slips just decide which specific claim breaks and how.",
+  "response_sha256": "7dceb4469d7b0c779ca57488c8cb2feb26c658f3c9d42ab74348fe3410cfd21c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28368,
+    "output_tokens": 5414,
+    "output_tokens_details": {
+      "thinking_tokens": 3417
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5414,
+        "cache_read_input_tokens": 28368,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.059817600000000005,
+    "duration_ms": 63566,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:45:59+00:00",
+  "finished_at": "2026-09-13T04:47:03+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

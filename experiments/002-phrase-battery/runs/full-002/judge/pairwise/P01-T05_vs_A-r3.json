@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T05_vs_A-r3",
+  "contrast_id": "T05_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T05",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements, but Response B is slightly more rigorous: it verifies the pre-migration backup actually restores, freezes writes before taking the final backup (yielding a truly consistent snapshot) rather than after, and its rollback step accounts for writes accepted post-cutover and altered on-prem state, which is a more complete contingency plan.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:30:56+00:00"
+}

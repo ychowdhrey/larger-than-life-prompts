@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T07_vs_A-r1",
+  "contrast_id": "T07_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T07",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the R1 boundary bug (> vs >=) and the wrong expected value in test_cap, but Response A also flags the missing test coverage at the R2 cap boundary (total=500, where the discount first reaches 50.00), a real gap that Response B omits entirely, making A's defect list more complete without introducing any incorrect claims.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:32:54+00:00"
+}

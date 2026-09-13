@@ -1,0 +1,22 @@
+{
+  "item_id": "e850fdcee49b73bd",
+  "sample_id": "C05-T06-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T06",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (>100 vs >=100), the missing boundary test at total==100, and the genuinely incorrect expected value in test_cap (actual result is 50.0, not 100.0), all verified with accurate manual tracing including floating-point precision checks, while correctly affirming the parts that are fine without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:23+00:00"
+}

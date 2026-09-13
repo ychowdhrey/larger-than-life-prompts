@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T20-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 3,
+  "execution_index": 1986,
+  "sample_seed": 6926253439775607917,
+  "prompt_sha256": "6ddfe73bb1b214aff497a6c212f531ee7fe9a7b38d5667c27c00c5ef8c519904",
+  "prompt_chars": 646,
+  "response": "A content delivery network, or CDN, is a system of computers spread across many cities that all keep copies of the same website content, so a request for that content does not have to travel far to be answered. Without one, every visitor pulls files from a single origin server, the main computer where a website's original files live. That works fine for a handful of visitors nearby, but grows slow for anyone far away, and shaky if that one computer gets overloaded. A CDN solves this by storing copies of the content at many edge locations, smaller computers positioned close to where people actually are, in different countries and regions. When someone requests a page, the network checks the nearest edge location first. If a copy already sits there, that is called a cache hit, and the content loads almost instantly, without ever bothering the origin server. If no copy exists yet, the edge location fetches one from the origin, delivers it, and keeps a copy for the next request. Think of it like a chain of local bakeries stocking bread baked at one central factory, so nearby customers get a fresh loaf instantly instead of waiting for a delivery truck from across the country. This is why videos, images, and websites tend to load quickly no matter where a person is browsing from.\n\n| Term | Plain meaning | Why it matters |\n|------|---------------|-----------------|\n| Origin server | The original computer storing a website's real files | It is the ultimate source, but slow or risky to rely on alone |\n| Edge location | A nearby computer holding copies of content | It shortens the distance data has to travel |\n| Cache hit | A successful request answered from a stored copy | It means near-instant loading with no extra work |\n| Latency | The delay between asking for content and receiving it | Lower delay makes browsing feel smooth and responsive |",
+  "response_sha256": "0f565e821e523aea6fd5da522dab6794ce2966babc5a0fe9b16eca874645ff09",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28271,
+    "output_tokens": 549,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 549,
+        "cache_read_input_tokens": 28271,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0111482,
+    "duration_ms": 10206,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:09:13+00:00",
+  "finished_at": "2026-09-13T05:09:24+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

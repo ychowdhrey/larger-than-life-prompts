@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T02-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T02",
+  "condition_name": "phrase_t02",
+  "repetition": 2,
+  "execution_index": 766,
+  "sample_seed": 14790139999835954829,
+  "prompt_sha256": "d7bda96d22c62e9478db01c477e7270409ae0e6487f34e980e703539d63a33a5",
+  "prompt_chars": 1009,
+  "response": "## Defect 1 — Webinar \"cause\" claim rests on self-selection, not an experiment\n\n**What's wrong:** Customers chose whether to attend the onboarding webinar; they weren't randomly assigned. Attendance is almost certainly correlated with a confound — engagement, motivation, technical sophistication, budget for the Pro plan — that independently drives retention. The memo treats an observed association as proof of causation with no control group, no randomization, and no attempt to rule out the obvious confound.\n\n**What it causes:** Making webinars mandatory could easily fail to move retention at all, because the effect you measured may belong to *the kind of customer who opts in*, not to the webinar content itself. Worse, forcing attendance on customers who wouldn't otherwise choose it changes the population being treated — the \"voluntary attendee\" effect may not transfer to \"compelled attendee,\" so the intervention could underperform the number used to justify it. Money and process changes get committed on the strength of a correlation that may vanish once compliance is forced.\n\n## Defect 2 — The comparison is built on survivors only (selection on the outcome)\n\n**What's wrong:** The base population is \"412 customers who are still active on the Pro plan today\" — i.e., churned customers are excluded from the analysis *before* the webinar/retention comparison is even run. Computing a \"retention\" contrast within a sample that has already been filtered down to survivors is a form of survivorship/selection bias: the churned customers who might have attended (or not attended) the webinar are invisible to this comparison.\n\n**What it causes:** The 31% figure can be distorted in either direction relative to the true effect on the full cohort (including everyone who ever signed up for Pro), because the analysis never observes how webinar attendance related to churn among the customers who actually left. Any decision based on this number is really a decision based on an incomplete, outcome-filtered slice of the data.\n\n## Defect 3 — Multiple comparisons / data dredging on the region finding\n\n**What's wrong:** 18 attributes were tested against churn, and one came back at p = 0.04. With 18 independent tests at α = 0.05, the chance of at least one false positive by chance alone is roughly 1 − 0.95¹⁸ ≈ 60%. No correction (Bonferroni, Benjamini-Hochberg, etc.) was applied, and p = 0.04 is not even close to the ~0.0028 threshold a Bonferroni correction would require for 18 comparisons. This is a textbook \"test enough things and something will look significant\" scenario.\n\n**What it causes:** The \"Central region churns less\" finding is quite plausibly noise. Redirecting next quarter's spend based on it risks pouring resources into a pattern that won't replicate next quarter, while under-resourcing regions that were never meaningfully different. Even setting aside multiple-testing, correlation between region and churn doesn't establish that *spending more* in Central will produce or reinforce lower churn — region could be a proxy for industry mix, contract size, or account-management assignment rather than a lever that responds to marketing/sales spend.\n\n## Defect 4 — Satisfaction change attributed to one cause with no comparison or significance check\n\n**What's wrong:** Satisfaction moving from 62% to 66% quarter-over-quarter is presented as evidence the new support model \"is working,\" but this is a single before/after data point with no control group, no significance testing (sample size and variance aren't given, so we can't tell if 4 points is distinguishable from noise), and no ruling-out of other things that changed that quarter (pricing, product releases, seasonality, macro conditions, or regression to the mean if the prior quarter was unusually low). A pre/post comparison with no counterfactual cannot isolate the support model as the cause.\n\n**What it causes:** Credit (and future investment) may be assigned to the support model when the real driver was something else entirely — or nothing but ordinary quarter-to-quarter variance — leading to continued spend on a change that isn't actually responsible for the improvement, while the true driver goes unrecognized.\n\n## Minor note — percentage points vs. percent\n\nCalling a move from 62% to 66% a \"4% improvement\" conflates percentage points (the correct description of a 4-point increase) with a percent change (which would be ~6.5%). This doesn't affect the causal problem above but is a units imprecision worth fixing in the writeup so the magnitude isn't misread.",
+  "response_sha256": "51485b2d989fb8aca9cd1fe5e139fd4eba9ac411491cc284bdfcfa4a5cc0aad0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28370,
+    "output_tokens": 3424,
+    "output_tokens_details": {
+      "thinking_tokens": 1981
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3424,
+        "cache_read_input_tokens": 28370,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.039917999999999995,
+    "duration_ms": 43952,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:41:06+00:00",
+  "finished_at": "2026-09-13T04:41:51+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

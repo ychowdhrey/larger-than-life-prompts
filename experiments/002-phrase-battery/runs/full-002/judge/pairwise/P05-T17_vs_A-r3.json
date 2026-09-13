@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T17_vs_A-r3",
+  "contrast_id": "T17_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet the hard requirements, but A's phase percentages are stated as clean per-phase slices summing to 100% (avoiding the cumulative-vs-incremental ambiguity in B's phase 2-4 percentages), and its halt-metric section is more rigorous, combining business metrics (payment failure, discrepancy rate) with technical health metrics (API error rate, P95 latency) that matter for a live billing cutover, whereas B's halt metrics cover only business-facing signals.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:37:02+00:00"
+}

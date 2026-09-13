@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T09-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T09",
+  "condition_name": "phrase_t09",
+  "repetition": 2,
+  "execution_index": 851,
+  "sample_seed": 6102170322234281913,
+  "prompt_sha256": "29fa1e364c7f0cfcb29fa2ca6a1dfdac0d19a06370f80a215a9a83400d43c960",
+  "prompt_chars": 743,
+  "response": "## The problem\n\nOur team of twelve ships on long-lived feature branches, and the cost is showing up everywhere. Branches routinely live for one to three weeks before merging, and every extra day widens the gap between what's on a branch and what's on main. Merge day has become dreaded rather than routine: conflicts sprawl across files nobody remembers touching, and integration bugs surface only after two engineers' independent assumptions collide. Meanwhile, CI on any given branch tells us less and less, because it's testing code against a version of main that no longer exists. We are effectively doing integration testing in giant, infrequent batches — which is exactly backwards from what a fast-moving team needs.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: everyone commits directly (or via short-lived branches under a day) to main, gated by feature flags for anything unfinished, with CI enforced on every commit. Concretely:\n\n- All branches merge within 24 hours of creation, no exceptions without a documented reason.\n- Incomplete features ship behind flags rather than staying unmerged.\n- Every commit to main triggers the full test suite, and a red build blocks further merges until fixed.\n- We invest in flag tooling and a rollback runbook before flipping the switch, not after.\n- We run a two-week pilot with one squad before rolling out team-wide.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands mature test automation and discipline that we don't fully have today. If our test suite has gaps, we won't catch integration problems earlier — we'll just ship them straight to main, faster and with less scrutiny. This is a legitimate risk, not a strawman, and it's why the proposal includes hardening CI and flag infrastructure as a prerequisite, not an afterthought, and why we pilot before committing fully.\n\nThere's also a cultural risk: engineers may feel pressure to commit half-finished work, or feature flags could multiply into unmanageable complexity if we don't retire them promptly.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "81c2b160f4e67e3214da8b961750200197c5be9219f86be3b0211670ce300bd8",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2573,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 665,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2573,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 665,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2573,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2573
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0220912,
+    "duration_ms": 11573,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:43:07+00:00",
+  "finished_at": "2026-09-13T04:43:19+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

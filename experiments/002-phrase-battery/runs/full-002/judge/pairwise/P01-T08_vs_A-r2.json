@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T08_vs_A-r2",
+  "contrast_id": "T08_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T08",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T08",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Response B sequences the backup correctly before any production-touching replication setup (tooling is only planned in step 3, then actually configured after the pre-work backup in step 4), whereas Response A sets up replication against production in step 2 before its backup in step 3, contradicting its own backup step's claim; B also adds a baseline/inventory step capturing pre-migration checksums and a safer read-only cutover phase, giving a more internally consistent and thorough runbook.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:08+00:00"
+}

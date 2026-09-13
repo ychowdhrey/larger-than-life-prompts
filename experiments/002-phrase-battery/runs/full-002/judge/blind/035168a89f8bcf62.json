@@ -1,0 +1,22 @@
+{
+  "item_id": "035168a89f8bcf62",
+  "sample_id": "P03-T24-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T24",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule is fully correct and optimal (all prerequisite, consecutive-day, one-task-per-engineer-per-day, and 10-day-window constraints are satisfied), and the output format matches the spec exactly, but the response never explicitly re-checks the finished schedule against each rule, and the reasoning's claim that the critical chain must sit on a single engineer is imprecise even though it doesn't break the final answer.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:39:02+00:00"
+}

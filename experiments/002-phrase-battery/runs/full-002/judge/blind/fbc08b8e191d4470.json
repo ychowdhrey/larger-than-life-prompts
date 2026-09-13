@@ -1,0 +1,22 @@
+{
+  "item_id": "fbc08b8e191d4470",
+  "sample_id": "P02-E07-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E07",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, mandates a confirmed storage snapshot before any risky/destructive action, explicitly forbids restart or failover before that snapshot succeeds, and includes multiple clear abort/rollback conditions (snapshot failure, worsening latency/utilisation, accidental deletion of needed data). It is thorough and actionable across detection, mitigation ordering by risk, and follow-up/RCA steps, ending correctly with 'SECTIONS: 4'.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:05+00:00"
+}

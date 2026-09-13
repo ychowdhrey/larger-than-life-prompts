@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T15-r2",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 2,
+  "execution_index": 1028,
+  "sample_seed": 14898519978661049686,
+  "prompt_sha256": "8fb9029e99ab084704561997bcfbc7a3981597c0c34d8988c2dc3ca9a0d92742",
+  "prompt_chars": 617,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`) — the most severe bug**\nDefault argument values are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't pass `seen` explicitly. Consequences:\n- State leaks across unrelated calls. Example:\n  ```python\n  top_scores([100, 90, 80, 70, 60])          # -> ([100,90,80,70,60], 80.0); seen now holds those 5 values\n  top_scores([100, 95, 85, 75, 65])          # 100 is already \"seen\" from the PREVIOUS call\n                                              # -> ([95, 85, 75, 65], 84.0)  <-- top score 100 wrongly dropped\n  ```\n  The second call has nothing to do with the first, yet its result is silently corrupted.\n- `seen` grows without bound as the function is called repeatedly, a slow memory leak.\n- It is not safe under concurrent/threaded use — two calls interleaving will corrupt each other's `seen` list (lost updates / race condition).\n- Even when a caller *does* pass their own list for `seen`, the function appends to that list in place, silently mutating an object the caller owns (a second aliasing side effect, distinct from the one below).\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\nSorting descending is intended, but doing it via `.sort()` reorders the caller's original object rather than a copy. Any code that holds a reference to the list passed in will see its order changed after the call, which is a surprising, hard-to-trace side effect (e.g. if the caller later relies on insertion order, or passes the same list object elsewhere). `sorted(scores, reverse=True)` would achieve the same \"intended\" sorted-descending behavior without this side effect.\n\n**3. `IndexError` when `limit` exceeds the number of scores**\nThe loop does `for i in range(0, limit): ... scores[i] ...` without ever checking `len(scores)`. With the default `limit=5`, any call with fewer than 5 scores (e.g. `top_scores([87, 42])`) raises `IndexError: list index out of range` instead of just returning what's available.\n\n**4. `ZeroDivisionError` on an empty `scores` list**\n`average = sum(scores) / len(scores)` divides by `len(scores)`, which is 0 for an empty input, raising `ZeroDivisionError`. (This also means an empty list fails before even reaching the average line only because index 3 would fire first — but for `limit=0` with empty `scores`, the loop is skipped entirely and this line alone crashes.)\n\n**5. Value-based deduplication collapses legitimate tied scores, even on a single fresh call**\n`seen` is used to filter out any score value the loop has already recorded — including ties *within the same call*. If two of the top `limit` scores are equal (e.g. `scores = [100, 100, 90, 80, 70]`, `limit=5`), the second `100` is treated as a duplicate of the first and dropped:\n```python\ntop_scores([100, 100, 90, 80, 70], seen=[])   # -> ([100, 90, 80, 70], 88.0) — only 4 results, not 5\n```\nThis has nothing to do with the mutable-default bug (it happens even with a guaranteed-fresh `seen`); it's a logic error that conflates \"same value\" with \"already returned,\" so ties are undercounted.\n\n**6. No backfill when entries are skipped, so `result` can silently be shorter than `limit`**\nBecause the loop only ever inspects indices `0..limit-1` of the sorted list, any score dropped by the `seen` check (from defect 1 or defect 5) is never replaced by the next-best candidate at index `limit`, `limit+1`, etc. A function named `top_scores` with a `limit` parameter implies it should return up to `limit` results whenever at least `limit` distinct scores exist, but it can return fewer with no indication anything was skipped.",
+  "response_sha256": "2718d39d54d603530a9881ce3506f843427251a9fab4c3f36e5d6964a2d39312",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28265,
+    "output_tokens": 4730,
+    "output_tokens_details": {
+      "thinking_tokens": 3417
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4730,
+        "cache_read_input_tokens": 28265,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.05295699999999999,
+    "duration_ms": 51907,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:47:12+00:00",
+  "finished_at": "2026-09-13T04:48:05+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

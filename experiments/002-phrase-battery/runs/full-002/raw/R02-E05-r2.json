@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-E05-r2",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "E05",
+  "condition_name": "combo_e05",
+  "repetition": 2,
+  "execution_index": 861,
+  "sample_seed": 16512674761801891959,
+  "prompt_sha256": "db259ce4a812d05094f46dd2f2feb7c97e5016ba3b6b3355a744c71f734f5f0d",
+  "prompt_chars": 597,
+  "response": "## Setting up the calculation (Bayes' theorem)\n\n**Given:**\n- Prevalence: P(D) = 1/500 = 0.002, so P(¬D) = 0.998\n- Sensitivity: P(+|D) = 0.98\n- Specificity: P(−|¬D) = 0.95, so false positive rate P(+|¬D) = 0.05\n\n**Bayes' theorem:**\n\n$$P(D|+) = \\frac{P(+|D)\\,P(D)}{P(+|D)\\,P(D) + P(+|\\neg D)\\,P(\\neg D)}$$\n\n**Plug in numbers:**\n\n- Numerator: 0.98 × 0.002 = 0.00196\n- False positive term: 0.05 × 0.998 = 0.04990\n- Denominator: 0.00196 + 0.04990 = 0.05186\n\n$$P(D|+) = \\frac{0.00196}{0.05186} = 0.0377941...$$\n\n**Check via natural frequencies (out of 500,000 people, for clean numbers):**\n- True condition: 500,000/500 = 1,000 people\n  - True positives: 1,000 × 0.98 = 980\n- No condition: 499,000 people\n  - False positives: 499,000 × 0.05 = 24,950\n- Total positives: 980 + 24,950 = 25,930\n- P(D|+) = 980/25,930 = 0.0377941...\n\nBoth methods agree exactly: 0.0377941... = 3.77941...%\n\nRounded to two decimal places: **3.78%**\n\nThis illustrates the classic base-rate effect: even with a fairly good test (98% sensitivity, 95% specificity), because the condition is rare (0.2% prevalence), most positive results are still false positives — only about 1 in 26 people who test positive actually have the condition.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "93fc08e2d370b29c76bd8e8af81ff7e7c958c642a165dfefd9b1941052e925b5",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28236,
+    "output_tokens": 1064,
+    "output_tokens_details": {
+      "thinking_tokens": 450
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1064,
+        "cache_read_input_tokens": 28236,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.016291200000000002,
+    "duration_ms": 11669,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:43:14+00:00",
+  "finished_at": "2026-09-13T04:43:27+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T10_vs_A-r3",
+  "contrast_id": "T10_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T10",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T10",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses identify the same five defects (mutable default, IndexError, ZeroDivisionError, in-place mutation, and duplicate/seen values causing short results), but Response A backs the duplicate-filtering defect with a concrete worked example (top_scores([5,5,5,3,2], limit=3) → [5]) that verifiably demonstrates the bug, and also notes the independent limit=0/empty-scores path that triggers ZeroDivisionError without being masked by the IndexError, showing slightly more rigorous analysis.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:47+00:00"
+}

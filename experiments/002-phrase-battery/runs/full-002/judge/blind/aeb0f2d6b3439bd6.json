@@ -1,0 +1,22 @@
+{
+  "item_id": "aeb0f2d6b3439bd6",
+  "sample_id": "P01-T07-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T07",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all six hard requirements (12-step numbered list, rollback, non-prod rehearsal, post-cutover integrity check, stakeholder communication, and backups placed before any production-modifying step) while remaining concrete and actionable with specifics like replication lag draining, sequence sync, and checksum comparison. Minor depth gaps remain (e.g., no explicit rollback rehearsal or extension-version compatibility checks), but it is a coherent, executable migration plan.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:48+00:00"
+}

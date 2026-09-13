@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T08-r1",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 1,
+  "execution_index": 650,
+  "sample_seed": 15674460684890318301,
+  "prompt_sha256": "81a27133cc5ec69e634697595df76e90cf0b93d91580c11f148b9cada45eb4aa",
+  "prompt_chars": 624,
+  "response": "Here are the defects I found:\n\n1. **Mutable default argument (`seen=[]`)** — Default arguments are evaluated once, at function definition time, and the same list object is reused across *every* call that doesn't explicitly pass `seen`. This means scores seen in one call persist and silently contaminate later, unrelated calls (even with a completely different `scores` list): a value that appeared in an earlier call's top results will be treated as \"already seen\" and excluded from a later call's results, shrinking the result list for no reason visible to the caller.\n\n2. **`scores.sort(reverse=True)` mutates the caller's original list** — Sorting in place is a side effect on an object the caller owns. Any code that holds a reference to the original `scores` list (e.g., for display in original entry order) will find it silently reordered after calling `top_scores`, which is a surprising and easy-to-miss side effect.\n\n3. **`IndexError` when `limit > len(scores)`** — The loop does `for i in range(0, limit): ... scores[i] ...` with no bound check against the length of `scores`. If there are fewer scores than `limit` (e.g., 3 scores but `limit=5`), indexing `scores[3]`/`scores[4]` raises an `IndexError` and crashes the function.\n\n4. **`ZeroDivisionError` on empty input** — If `scores` is `[]`, `sum(scores) / len(scores)` divides by zero and raises an exception (this also compounds with #3, since the loop would already fail first for any `limit > 0`).\n\n5. **Duplicate values within a single call cause fewer than `limit` results, without backfilling** — The `seen` check is meant to skip duplicates, but when it skips one, the loop does not compensate by pulling in another score to replace it — it just moves on to the next index. For example, with `scores = [100, 90, 90, 80, 70]` and `limit=5`, the second `90` is skipped, so `result` ends up as `[100, 90, 80, 70]` — only 4 items — even though 5 distinct-enough scores exist to fill the requested limit if the search continued past index `limit-1`. Callers expecting exactly `limit` results (when enough distinct scores exist) will get a short list instead.\n\nYou're welcome — glad it helps!",
+  "response_sha256": "73bb7053706a10f217fa4d15615be3ce23666fc929ed84166b040707d2f3453c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28269,
+    "output_tokens": 2558,
+    "output_tokens_details": {
+      "thinking_tokens": 1815
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2558,
+        "cache_read_input_tokens": 28269,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0312378,
+    "duration_ms": 28494,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:38:20+00:00",
+  "finished_at": "2026-09-13T04:38:50+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

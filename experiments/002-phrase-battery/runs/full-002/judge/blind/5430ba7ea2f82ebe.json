@@ -1,0 +1,22 @@
+{
+  "item_id": "5430ba7ea2f82ebe",
+  "sample_id": "C02-E01-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E01",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE clause nullifying the LEFT JOIN, UTC vs UTC+8 boundary mismatch, integer division truncating cents, NULL total_spent breaking both the zero-value requirement and the DESC sort), explains cause and consequence for each with accurate engine behavior, supplies correct fixes, and explicitly verifies several non-issues (join condition, ORDER BY alias, GROUP BY functional dependency) rather than inventing extra defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:56+00:00"
+}

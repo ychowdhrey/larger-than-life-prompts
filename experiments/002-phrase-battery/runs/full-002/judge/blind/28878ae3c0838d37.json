@@ -1,0 +1,22 @@
+{
+  "item_id": "28878ae3c0838d37",
+  "sample_id": "P03-T03-r2",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T03",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule correctly identifies the critical path (T1-T2-T4-T6, 10 days) and fits the parallel path (T1-T3-T5-T6) around it without violating any prerequisite, single-task-per-day, or consecutive-day constraints, finishing exactly on day 10 in the required output format; the reasoning derives the plan well but lacks an explicit post-hoc verification pass confirming each constraint against the final schedule.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:01+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T19-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 3,
+  "execution_index": 1400,
+  "sample_seed": 4117053099501101192,
+  "prompt_sha256": "c88979e6cde9aa1a814136367c747d6e8cc216b5d5051fe629f0457ab9a08bf7",
+  "prompt_chars": 1022,
+  "response": "## Claim 1 — Webinar attendance → causes retention → mandate attendance\n\n**Defect A: Survivorship bias in the sample itself.**\nThe analysis only includes the 412 customers who are *still active* today. Churned customers — the very group whose behavior would tell you whether webinars affect retention — are excluded entirely. Comparing \"attended\" vs. \"didn't attend\" *within a population that has already survived* cannot support any claim about what drives survival, because there's no churned comparison group in the data. This would cause the company to draw a retention conclusion from a dataset structurally incapable of measuring churn.\n\n**Defect B: Correlation treated as causation (self-selection confound).**\nWebinar attendance is voluntary. Customers who choose to attend are plausibly more engaged, curious, or invested than those who don't — and that underlying engagement, not the webinar content itself, could be what drives both attendance and retention. The memo asserts \"webinars therefore cause higher retention\" from a purely observational association, with no control for this confound. This would cause the company to credit a mechanism (webinars) that may just be a marker of an unmeasured trait (engagement).\n\n**Defect C: The recommendation doesn't generalize from the data that produced it.**\nBecause the observed lift comes from *self-selected* attendees, mandating attendance for *all* new customers changes the composition of who attends (now including disengaged customers who wouldn't have opted in). There's no basis for assuming the 31% figure carries over to a forced-attendance population — the mechanism that produced the correlation (self-selection) is removed by the policy itself. This would cause the company to expect a 31% retention gain from a mandate that may deliver little or nothing.\n\n**Defect D: No uncertainty reported.**\nNo p-value, confidence interval, or subgroup sizes are given for the 31% figure (unlike the churn-attribute test below, which does report significance). If the attendee subgroup is small, \"31% higher\" could be noise. This would cause overconfidence in an estimate of unknown reliability.\n\n## Claim 2 — Central region churns less (p=0.04) → concentrate spend there\n\n**Defect E: Multiple-comparisons / data-dredging problem.**\nEighteen attributes were tested against churn, and the one that happened to cross p<0.05 is highlighted. With 18 independent tests at α=0.05, the chance that *at least one* comes back \"significant\" by pure luck is about 1−0.95¹⁸ ≈ 60%. Applying even a simple Bonferroni correction (0.05/18 ≈ 0.0028) means p=0.04 would not be considered significant at all. This would cause the company to act on what is most likely statistical noise from an exploratory scan, not a real regional effect.\n\n**Defect F: Post-hoc finding presented as a confirmatory result.**\nThe Central-region result wasn't a single pre-specified hypothesis test — it was the \"winner\" pulled out of a search across 18 attributes (the Texas-sharpshooter pattern: draw the target around wherever the bullet landed). Reporting it with a clean p-value implies a rigor the discovery process didn't have. This would cause false confidence that a fresh dataset would replicate the same finding.\n\n**Defect G: Correlation-causation leap plus a non-actionable lever.**\nEven if the regional churn difference were real, \"being in the Central region\" correlating with lower churn does not imply that *spending more* there will causally reduce churn further, since region isn't itself a lever — some unidentified factor (demographics, local competition, account mix, etc.) is presumably doing the work. Additionally, if the actual goal is reducing overall churn, pouring more spend into the region that already churns least (likely diminishing returns) may be a worse allocation than addressing regions where churn is highest. This would cause budget to be misallocated with no guaranteed — or even counterproductive — effect on total churn.\n\n## Claim 3 — Satisfaction 62%→66% → \"the new support model is working\"\n\n**Defect H: Uncontrolled before/after comparison attributed to a single cause.**\nA quarter-over-quarter change is credited entirely to the new support model with no control group, no ruling out of other things that changed that quarter (seasonality, pricing, product changes, marketing), and no test of whether a 4-point move is distinguishable from ordinary quarter-to-quarter variation. It's also consistent with regression to the mean if 62% was itself an unusually low starting point. This would cause the company to attribute an effect (and continue investing in a program) based on a change that could be noise or driven by something else entirely.\n\n## Overarching pattern\n\nAll three sections repeat the same underlying error: each takes a single observational number and jumps straight to a costly action (mandatory policy, budget reallocation, crediting a program) without any experimental validation (e.g., an A/B test or holdout group) or consideration of confounds. The individual defects above (B/C, G, H) are specific instances of this same gap.",
+  "response_sha256": "81a5ef7d5eae1b40247fea56995f1d59e7ffb01b56a0a7a77032424cd747b5d5",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28373,
+    "output_tokens": 6459,
+    "output_tokens_details": {
+      "thinking_tokens": 4827
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 6459,
+        "cache_read_input_tokens": 28373,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.07026860000000001,
+    "duration_ms": 76775,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:55:41+00:00",
+  "finished_at": "2026-09-13T04:56:59+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

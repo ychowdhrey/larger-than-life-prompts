@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T13-r2",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 2,
+  "execution_index": 664,
+  "sample_seed": 6412661075414093573,
+  "prompt_sha256": "8bad28cc3be21fb3545ce3065fcbf9292d8ad0d52078f1d770024c4435038878",
+  "prompt_chars": 875,
+  "response": "## Defects Found\n\n**1. Implementation violates R1 at the boundary (off-by-one error)**\n\n```python\nif total > 100:\n```\n\nR1 says a total of **100 or more** gets the discount. Using strict `>` excludes `total == 100`. For `total = 100`, the function falls through to `return 0.0`, giving no discount when 10.0 is required. This is a direct violation of R1.\n\n**2. `test_cap` asserts the wrong value**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nTracing the implementation: `d = 1000 * 0.10 = 100.0`, then `min(100.0, 50.0) = 50.0`. The function actually returns `50.0`, not `100.0`. So this assertion is simply false and the test will **fail** when run against the given implementation. Worse, the expected value it encodes (100.0) directly contradicts R2 (\"never more than 50.00\") — a correct test for this case should assert `discount(1000) == 50.0`.\n\n**3. No test covers the R1/R3 boundary (total == 100)**\n\nNone of the three tests exercise `total = 100` exactly. This is the exact value where the implementation's off-by-one bug (defect #1) manifests, so the test suite as written cannot catch that bug. Given R1 and R3 are defined by where 100 falls (\"100 or more\" vs. \"below 100\"), a boundary test is necessary to actually verify the dividing line is implemented correctly, and it's missing.\n\n## Not defects (for clarity)\n\n- `test_small` (`discount(50) == 0.0`) is correct per R3.\n- `test_large` (`discount(200) == 20.0`) is correct: `200 * 0.10 = 20.0`, under the cap.\n- The capping logic itself (`min(d, 50.0)`) correctly satisfies R2 — the bug is only in the test's expected value, not in the cap mechanism.",
+  "response_sha256": "c536ab7d96b84d8f0ee31dad5c7b7b353e8c2563f314954d816853dbf133191f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2637,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2152,
+    "output_tokens_details": {
+      "thinking_tokens": 1519
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2637,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2152,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2637,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2637
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0372172,
+    "duration_ms": 24632,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:38:37+00:00",
+  "finished_at": "2026-09-13T04:39:03+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

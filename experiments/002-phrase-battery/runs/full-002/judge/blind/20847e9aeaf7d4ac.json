@@ -1,0 +1,22 @@
+{
+  "item_id": "20847e9aeaf7d4ac",
+  "sample_id": "P01-T24-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T24",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (≤12 numbered steps, rollback, rehearsal, post-cutover integrity check, stakeholder communication, backup before any destructive step) with a technically sensible design (logical replication to shrink the cutover window, intact on-prem primary for rollback), though the pg_checksums reference for cross-database comparison is technically off and the plan doesn't explicitly budget the backup/sync steps against the 2-hour window.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:53+00:00"
+}

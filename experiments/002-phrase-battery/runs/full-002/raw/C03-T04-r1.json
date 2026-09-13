@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T04-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T04",
+  "condition_name": "phrase_t04",
+  "repetition": 1,
+  "execution_index": 695,
+  "sample_seed": 6400377258298937289,
+  "prompt_sha256": "a9142b9925f033317b6cbeeeb07f25df78215a906b7760801c30fdcf7aceaa97",
+  "prompt_chars": 1024,
+  "response": "Here is every defect I find in the memo's reasoning, organized by paragraph.\n\n## Paragraph 1: Webinars and retention\n\n**1. Survivorship bias in the sample itself**\nThe analysis is run only on the 412 customers \"still active on the Pro plan today\" — i.e., the sample already conditions on *not having churned*. Customers who churned (whether or not they attended a webinar) are excluded entirely. You cannot validly estimate an effect on retention/churn using a population that has already been filtered down to survivors — the churned webinar-attendees and churned non-attendees, who are the whole point of comparison, are missing. This would cause the estimated 31% gap to be biased in an unknown direction and unreliable as a basis for any decision.\n\n**2. Correlation treated as causation**\n\"Webinars therefore cause higher retention\" does not follow from an observed association. No randomization or control group is described, and no confounders are ruled out. The obvious confound: customers who are more engaged, better-fit, or already intending to stay are simultaneously more likely to *choose* to attend a voluntary webinar and more likely to renew — the webinar could be a marker of engagement rather than a cause of retention. This would cause the company to credit the webinar for an effect actually driven by pre-existing customer engagement/intent.\n\n**3. Extrapolating from a voluntary treatment to a mandatory one**\nEven if attending a webinar were causally linked to retention, that finding describes customers who *chose* to attend. Making attendance mandatory changes the intervention itself (compliance vs. self-selected motivation), so the observed lift has no guaranteed relationship to what would happen under a mandatory policy. This would cause the company to invest in a mandate that may not reproduce — or could even undermine — the effect it's based on.\n\n## Paragraph 2: Central region and churn\n\n**4. Multiple-comparisons / data-dredging fallacy**\nEighteen attributes were tested against churn at (implicitly) the conventional p<0.05 threshold. With 18 independent tests, roughly 0.9 false positives are expected by chance alone even if none of the attributes truly matter. A single p=0.04 result surviving out of 18 attempts is exactly what pure noise looks like, and it would not survive a standard multiple-testing correction (e.g., Bonferroni would require p<0.0028). Treating this as a real finding is p-hacking. This would cause the company to reallocate quarterly spend based on statistical noise rather than a genuine effect.\n\n**5. No effect size, and region isn't necessarily an actionable lever**\nThe memo reports only a p-value, not the magnitude of the churn difference, so there's no way to judge whether it's business-relevant even if real. Separately, \"region\" is a fixed customer attribute, not something spend directly changes — even a genuine correlation doesn't establish that concentrating spend in Central will produce or reinforce the lower churn (it could be driven by an unmeasured factor like industry mix or account size that happens to cluster in that region). This would cause budget to be misallocated toward a variable that may not respond to spend at all.\n\n## Paragraph 3: Satisfaction increase\n\n**6. Unsupported causal attribution with no significance check**\nThe 62%→66% move is called proof the \"new support model is working,\" but no sample size, confidence interval, or significance test is given, and no alternative explanations (seasonality, survey timing/methodology changes, other concurrent initiatives, response bias) are ruled out. A 4-point quarter-over-quarter swing in a satisfaction metric is easily within normal noise for many survey sizes. This would cause the team to attribute a possibly random or multiply-caused fluctuation to one specific program, potentially over-investing in it or failing to look for the real driver.",
+  "response_sha256": "ddd27ca49e0b29ed298cbf3e5e8a51159997dcae40178adc7dab736460e6f74f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28374,
+    "output_tokens": 4319,
+    "output_tokens_details": {
+      "thinking_tokens": 3083
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4319,
+        "cache_read_input_tokens": 28374,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0488688,
+    "duration_ms": 51247,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:39:46+00:00",
+  "finished_at": "2026-09-13T04:40:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

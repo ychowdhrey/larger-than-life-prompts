@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T15-r1",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 1,
+  "execution_index": 1721,
+  "sample_seed": 15104193692937697676,
+  "prompt_sha256": "2d838087ddeb752a15ad2894a90d0c090a0caf6053c41f8a64f97ddd39061527",
+  "prompt_chars": 509,
+  "response": "## Bayesian calculation\n\n**Given:**\n- Prevalence: P(D) = 1/500 = 0.002\n- Sensitivity: P(T+|D) = 0.98\n- Specificity: P(T–|D̄) = 0.95 → false positive rate P(T+|D̄) = 0.05\n\n**Bayes' theorem:**\n\n$$P(D|T+) = \\frac{P(T+|D)P(D)}{P(T+|D)P(D) + P(T+|\\bar D)P(\\bar D)}$$\n\n$$= \\frac{0.98 \\times 0.002}{0.98 \\times 0.002 + 0.05 \\times 0.998}$$\n\n$$= \\frac{0.00196}{0.00196 + 0.0499} = \\frac{0.00196}{0.05186} = \\frac{98}{2593} \\approx 0.0377941$$\n\n**Result:** ≈ 3.7794% → **3.78%**\n\nIntuition check: among 500,000 people, ~1,000 have the condition and ~980 test positive (98% sensitivity). Among the 499,000 without it, 5% false-positive → ~24,950 false positives. So P(D|T+) = 980/(980+24,950) = 980/25,930 ≈ 3.78%. ✓ Matches.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "d89799010a1a1ae32ced8fe3eb32cd6213ca2c00ca6b93ec1b934a079ed6e5d0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28216,
+    "output_tokens": 1270,
+    "output_tokens_details": {
+      "thinking_tokens": 832
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1270,
+        "cache_read_input_tokens": 28216,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0183472,
+    "duration_ms": 12930,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:03:33+00:00",
+  "finished_at": "2026-09-13T05:03:47+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "f534c44642706ab8",
+  "sample_id": "P02-T16-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T16",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a mandatory snapshot-before-any-risky-action rule before all remediation steps, explicitly forbids restarting or failing over the primary before a verified snapshot, and includes a clear, well-specified abort/rollback condition with concrete thresholds; it closes with the required 'SECTIONS: 4' line and is operationally actionable throughout.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:46+00:00"
+}

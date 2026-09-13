@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T10-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T10",
+  "condition_name": "phrase_t10",
+  "repetition": 1,
+  "execution_index": 352,
+  "sample_seed": 5195941925537162223,
+  "prompt_sha256": "9b8e66e1d8aeda03b68e82ddf3f4d430f0adec52c0d00f997ed5ee3d5760eaa4",
+  "prompt_chars": 1008,
+  "response": "Here is the defect list, organized by claim.\n\n## Claim 1 — Webinar attendance causes retention, so make it mandatory\n\n**Defect 1: Survivorship bias in the sample.**\nThe analysis is run only on the 412 customers \"still active on the Pro plan today\" — i.e., the sample is already filtered down to survivors. Retention can only be meaningfully measured by comparing outcomes across a cohort that includes people who churned, not by looking inside the surviving population and asking who among them saw more of something. As stated, it's unclear what \"31% higher retention\" is even measuring within a group that's 100% retained by construction. This would cause the headline number to be uninterpretable or misleading — it doesn't tell you what fraction of webinar-attendees vs. non-attendees survived, because everyone in the sample survived.\n\n**Defect 2: Correlation treated as causation, with an obvious confound.**\nCustomers who voluntarily sign up for and attend an onboarding webinar are self-selected — they're likely more engaged, more invested, or better-resourced than customers who skip it. That underlying engagement, not the webinar itself, could be driving both attendance and retention. Nothing in the memo controls for this (no comparison of similar customers, no randomized assignment). This would cause a mandatory-webinar policy to be pushed on the assumption of a causal effect that may not exist, wasting the investment if the true driver is customer type rather than the webinar.\n\n**Defect 3: Even if causal, the effect may not generalize from voluntary to mandatory attendance.**\nThe observed customers *chose* to attend. Forcing all new customers to attend (including ones who wouldn't have opted in) is a different intervention on a different population, and there's no evidence the effect holds for reluctant/compelled attendees. This would cause the policy to underperform the 31% figure used to justify it, since the number was never measured on the population it's now being applied to.\n\n## Claim 2 — Central region churns less (p = 0.04), so concentrate spend there\n\n**Defect 4: Multiple-comparisons problem (the headline statistical flaw).**\nEighteen attributes were tested against churn, and one came back significant at p = 0.04. With 18 independent tests at the conventional 0.05 threshold, the chance of getting at least one \"significant\" result purely by chance is roughly 1 − 0.95¹⁸ ≈ 60%, not 5%. No correction (Bonferroni, FDR, etc.) is mentioned. This is classic p-hacking/data-dredging: testing many variables and reporting the one that cleared an arbitrary threshold. This would cause the company to bet next quarter's spend on what is likely a false positive, with a real chance the \"Central region effect\" disappears on retest.\n\n**Defect 5: Correlation-causation confound on top of that.**\nEven taking the regional result at face value, \"Central region customers churn less\" doesn't mean spending more in Central region *causes* lower churn — region could be a proxy for industry mix, company size, contract type, or account-manager assignment. This would cause misallocated spend if the real driver isn't geographic at all.\n\n## Claim 3 — Satisfaction rose 4 points, so the new support model is working\n\n**Defect 6: No test of whether the change is distinguishable from normal variation.**\nA move from 62% to 66% is reported as if it's self-evidently meaningful, but no significance test, confidence interval, or historical quarter-to-quarter volatility is given. A 4-point swing in a satisfaction metric can easily be within normal noise. This would cause the team to credit the support model for what might just be routine fluctuation.\n\n**Defect 7: Causal attribution without ruling out other explanations.**\nEven if the increase is real, nothing ties it specifically to the new support model rather than to other things that could have changed in the same quarter (seasonality, product changes, pricing, a shift in which customers responded to the survey, etc.). No before/after comparison isolating support interactions is presented. This would cause the company to over-credit (or continue investing in) the support model when the actual cause is something else entirely.",
+  "response_sha256": "9ca9d22fdc522f84570dd9319fa972e8b80c493b0b4e24428834fa1d06f95ec6",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2642,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3682,
+    "output_tokens_details": {
+      "thinking_tokens": 2341
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2642,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3682,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2642,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2642
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0525372,
+    "duration_ms": 45648,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:30:46+00:00",
+  "finished_at": "2026-09-13T04:31:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

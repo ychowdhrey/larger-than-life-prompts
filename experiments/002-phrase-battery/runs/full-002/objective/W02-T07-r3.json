@@ -1,0 +1,82 @@
+{
+  "sample_id": "W02-T07-r3",
+  "task_id": "W02",
+  "family": "writing",
+  "condition_id": "T07",
+  "repetition": 3,
+  "response_sha256": "9508080e570585655a7f4c87f311a27a0dc1489aeaf0f845d7993eb115dfc156",
+  "objective": {
+    "max_points": 14.0,
+    "earned_points": 10.0,
+    "objective_score": 0.714286,
+    "constraint_completion": 0.714286,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "word_count",
+        "label": "90 to 120 words",
+        "type": "word_count",
+        "points": 3.0,
+        "passed": true,
+        "detail": "112 words (allowed 90..120)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "sentence_len",
+        "label": "No sentence longer than 20 words",
+        "type": "max_sentence_words",
+        "points": 4.0,
+        "passed": false,
+        "detail": "longest sentence 25 words (max 20)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "no_semicolons",
+        "label": "No semicolons",
+        "type": "forbidden",
+        "points": 2.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "facts",
+        "label": "Retains all five facts",
+        "type": "regex_all",
+        "points": 5.0,
+        "passed": true,
+        "detail": "all matched",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 611,
+    "response_words": 112,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 0.714286,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:48+00:00",
+  "evaluation_version": "2.0.0"
+}

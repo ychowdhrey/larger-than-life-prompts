@@ -1,0 +1,22 @@
+{
+  "item_id": "e479c8e8342813d4",
+  "sample_id": "R01-T21-r3",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T21",
+  "repetition": 3,
+  "scores": {
+    "task_success": 1,
+    "thoroughness": 2,
+    "constraint_adherence": 4,
+    "error_checking": 1,
+    "depth": 2,
+    "usefulness": 1
+  },
+  "reason": "The response miscalculates the date rollover: 15:40 UTC + 13:25 = 29:05, which is 05:05 one day after departure (4 March 2027), not two days after (5 March 2027) as stated; the correct arrival is 2027-03-04 05:05, so the final answer is wrong despite a clean presentation and correct format.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:44:32+00:00"
+}

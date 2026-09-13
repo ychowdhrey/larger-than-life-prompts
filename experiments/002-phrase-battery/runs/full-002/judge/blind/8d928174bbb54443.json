@@ -1,0 +1,22 @@
+{
+  "item_id": "8d928174bbb54443",
+  "sample_id": "C05-T21-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T21",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all three real defects (the `>` vs `>=` boundary bug violating R1, the wrong expected value in test_cap given the actual min(100.0,50.0)=50.0 computation, and the missing boundary test at total==100), verifies each by recomputing the arithmetic, avoids inventing spurious defects, and adds the non-obvious observation that naively 'fixing' test_cap without understanding the spec would reintroduce an R2 violation.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:19+00:00"
+}

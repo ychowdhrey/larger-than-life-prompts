@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-E07-r1",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "E07",
+  "condition_name": "combo_e07",
+  "repetition": 1,
+  "execution_index": 55,
+  "sample_seed": 14614398426604703164,
+  "prompt_sha256": "33d5bf65d6b2f1a3bd5262b919e85d9e1708c78f0eaac75bfbf542dde57f63d8",
+  "prompt_chars": 562,
+  "response": "**Setup**\n\n- Prior: P(D) = 1/500 = 0.002, P(¬D) = 0.998\n- Sensitivity: P(+|D) = 0.98\n- Specificity: P(−|¬D) = 0.95 → P(+|¬D) = 0.05\n\n**Bayes' theorem**\n\nP(+) = P(+|D)P(D) + P(+|¬D)P(¬D)\n= (0.98)(0.002) + (0.05)(0.998)\n= 0.00196 + 0.0499\n= 0.05186\n\nP(D|+) = P(+|D)P(D) / P(+) = 0.00196 / 0.05186 ≈ 0.0377938\n\n**Result**\n\n≈ 3.78%\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "11f7dec3e078e2c192239a9e07c71232e85a5ae94da44f5c9abe0f3b0e6ad7ba",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2503,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 570,
+    "output_tokens_details": {
+      "thinking_tokens": 313
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2503,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 570,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2503,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2503
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0208612,
+    "duration_ms": 7406,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:23:34+00:00",
+  "finished_at": "2026-09-13T04:23:42+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

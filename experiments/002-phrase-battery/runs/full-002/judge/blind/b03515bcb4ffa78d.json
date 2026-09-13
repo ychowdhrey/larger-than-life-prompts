@@ -1,0 +1,22 @@
+{
+  "item_id": "b03515bcb4ffa78d",
+  "sample_id": "C01-T05-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T05",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (mutable default argument, in-place mutation of caller's list, IndexError when limit exceeds length, ZeroDivisionError on empty input, and unintended de-duplication of tied scores) are genuine and correctly explained with concrete consequences, and no false positives are reported; the response also correctly distinguishes the intended sort direction from the unintended side-effect of in-place mutation and notes the interaction between the IndexError and ZeroDivisionError cases, showing careful internal verification.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:22+00:00"
+}

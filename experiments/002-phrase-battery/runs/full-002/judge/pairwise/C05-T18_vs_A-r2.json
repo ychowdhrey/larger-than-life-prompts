@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T18_vs_A-r2",
+  "contrast_id": "T18_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T18",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T18",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly identify the same three defects (R1 boundary bug, test_cap's wrong expected value, and missing boundary-case coverage), but Response B adds a genuinely useful extra observation that test_cap's expected value of 100.0 independently violates R2's 50.00 cap regardless of the implementation's actual output, and it presents the coverage gap as a full defect rather than a secondary note.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:26+00:00"
+}

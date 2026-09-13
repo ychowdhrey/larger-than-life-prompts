@@ -1,0 +1,22 @@
+{
+  "item_id": "9de7e500f9352cb2",
+  "sample_id": "P01-T01-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T01",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and satisfies every hard requirement (rehearsal on non-production data, post-cutover row-count/checksum verification, stakeholder communication, and a full backup immediately preceding the maintenance-window steps that quiesce/modify production), while also being realistic and actionable with sizing, replication, go/no-go, and monitoring details; the only minor gap is that rollback handling for writes made to the new instance between cutover and a delayed rollback decision is left somewhat vague.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:29+00:00"
+}

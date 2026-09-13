@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T05-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T05",
+  "condition_name": "phrase_t05",
+  "repetition": 2,
+  "execution_index": 810,
+  "sample_seed": 14105558956127774787,
+  "prompt_sha256": "33adc2cfe4069a1e4094232df41479d441e6e0bae1802d544bed4acbedf87ce3",
+  "prompt_chars": 736,
+  "response": "## The problem\n\nOur team of twelve has drifted into long lived feature branches that often stay open for two to three weeks. Merges have become dreaded events: integration conflicts pile up, code review happens on giant diffs nobody can meaningfully evaluate, and QA discovers cross-feature bugs only after several branches land in the same week. Last quarter we shipped two hotfixes specifically to undo integration regressions that trunk-based development would have surfaced within a day. The root cause is architectural, not a discipline problem: branches isolate work from each other precisely as long as they isolate it from reality.\n\n## The proposal\n\nI propose we adopt trunk-based development over the next month, with these changes:\n\n- All engineers commit directly to main at least once per day, behind feature flags where work is incomplete.\n- We retire long lived feature branches in favor of short lived branches that live under 24 hours.\n- CI must run on every commit to main, with a strict \"fix it or revert it\" rule for breakages.\n- We adopt feature flags as the standard mechanism for hiding unfinished work in production code.\n- We run a two week pilot with one squad before rolling out team-wide, so we can adjust based on real friction.\n\nThis mirrors practices at Google and other high-velocity engineering organizations, and it directly attacks the integration-pain root cause described above rather than treating its symptoms.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands mature CI, comprehensive test coverage, and feature-flag discipline we don't fully have today. If our test suite has gaps, committing incomplete work to main more frequently could destabilize it for everyone rather than one branch owner. I take this seriously — it's why the proposal includes a pilot and an explicit CI investment, not just a policy change. We should be honest that if our test coverage doesn't improve in parallel, this transition will hurt before it helps.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "3609f4003c26de6f9f68f28487f430110b38b0f3802d303df7ad5600bcbb9664",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28293,
+    "output_tokens": 681,
+    "output_tokens_details": {
+      "thinking_tokens": 56
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 681,
+        "cache_read_input_tokens": 28293,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0124726,
+    "duration_ms": 11923,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:42:14+00:00",
+  "finished_at": "2026-09-13T04:42:27+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

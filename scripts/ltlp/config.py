@@ -24,6 +24,13 @@ SPEC_FILES = [
     "preregistration",
 ]
 
+# Spec files an experiment may additionally declare. They are hashed exactly like the
+# required ones when present, and ignored when absent, so an experiment that does not have
+# one (Experiment 001 has no phrase registry) produces the same lock it always did.
+OPTIONAL_SPEC_FILES = [
+    "phrases",
+]
+
 
 class SpecLockError(RuntimeError):
     """Raised when a spec file changed after raw outputs were produced."""
@@ -51,6 +58,16 @@ class Config:
         missing = [k for k in SPEC_FILES if k not in self.spec_paths]
         if missing:
             raise ValueError("config is missing spec entries: %s" % ", ".join(missing))
+        unknown = [k for k in self.spec_paths
+                   if k not in SPEC_FILES and k not in OPTIONAL_SPEC_FILES]
+        if unknown:
+            raise ValueError(
+                "config declares spec entries this runner does not know how to hash: %s. "
+                "Add them to OPTIONAL_SPEC_FILES or remove them; a spec file that is not "
+                "hashed is not locked." % ", ".join(sorted(unknown)))
+        # The list this run actually locks: required, plus whichever optional ones it declares.
+        self.locked_spec_files = list(SPEC_FILES) + [
+            k for k in OPTIONAL_SPEC_FILES if k in self.spec_paths]
 
         self.tasks_doc = util.read_json(self.spec_paths["tasks"])
         self.conditions_doc = util.read_json(self.spec_paths["conditions"])
@@ -71,6 +88,12 @@ class Config:
         self.join = self.conditions_doc.get("join", "\n\n")
         self.primary_contrasts = self.conditions_doc["primary_contrasts"]
         self.secondary_contrasts = self.conditions_doc.get("secondary_contrasts", [])
+        # Which contrasts get head-to-head pairwise judging. Defaults to every primary
+        # contrast, which is what Experiment 001 did. A battery declares a narrower set
+        # BEFORE any run, because pairwise is a secondary outcome and one comparison per
+        # (task, repetition, contrast) over 78 contrasts is 4,680 judgments.
+        self.pairwise_contrasts = self.conditions_doc.get(
+            "pairwise_contrasts", self.primary_contrasts)
 
     # ---- derived paths -------------------------------------------------
 
@@ -100,14 +123,15 @@ class Config:
     # ---- spec lock -----------------------------------------------------
 
     def spec_hashes(self) -> Dict[str, str]:
-        return {name: util.sha256_file(self.spec_paths[name]) for name in SPEC_FILES}
+        return {name: util.sha256_file(self.spec_paths[name])
+                for name in self.locked_spec_files}
 
     def spec_lock_document(self) -> Dict[str, Any]:
         return {
             "note": ("sha256 of every file that defines this experiment, recorded at prepare "
                      "time. Later stages refuse to run if any hash changed."),
             "files": {name: os.path.relpath(self.spec_paths[name], REPO_ROOT)
-                      for name in SPEC_FILES},
+                      for name in self.locked_spec_files},
             "hashes": self.spec_hashes(),
             "versions": {
                 "tasks": self.tasks_doc.get("version"),
@@ -126,7 +150,10 @@ class Config:
                 "no spec.lock.json in %s - run the prepare stage first" % self.run_dir)
         locked = util.read_json(lock_path)["hashes"]
         current = self.spec_hashes()
-        drifted = [n for n in SPEC_FILES if locked.get(n) != current.get(n)]
+        # Union, so that dropping a spec file from the config after a run was prepared is
+        # caught as drift rather than silently unlocking it.
+        names = sorted(set(locked) | set(current))
+        drifted = [n for n in names if locked.get(n) != current.get(n)]
         if drifted:
             raise SpecLockError(
                 "spec files changed after this run was prepared: %s\n"

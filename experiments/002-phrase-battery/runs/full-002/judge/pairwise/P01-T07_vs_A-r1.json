@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T07_vs_A-r1",
+  "contrast_id": "T07_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T07",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T07",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Response A places the full backup immediately after inventory/provisioning and only starts touching production again (via logical replication/CDC setup) after that backup exists, cleanly satisfying the 'backup before any step that modifies production data' rule. Response B configures the logical replication/CDC pipeline against on-prem (step 3) before taking the full backup (step 4), which itself creates replication slots/publications on production—a modification to production preceding the backup, contradicting the hard requirement and creating an internal inconsistency with its own step 4 wording.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:26+00:00"
+}

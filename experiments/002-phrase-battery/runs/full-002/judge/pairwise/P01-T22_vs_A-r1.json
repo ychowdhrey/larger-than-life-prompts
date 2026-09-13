@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T22_vs_A-r1",
+  "contrast_id": "T22_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T22",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T22",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans are structurally equivalent and satisfy every hard requirement, but Response B is more operationally rigorous: it explicitly rehearses the rollback procedure during the dry run, adds a dedicated go/no-go criteria step derived from rehearsal results, and its rollback step accounts for reconciling any transactions accepted during a failed cutover — details Response A omits or leaves vaguer.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:29+00:00"
+}

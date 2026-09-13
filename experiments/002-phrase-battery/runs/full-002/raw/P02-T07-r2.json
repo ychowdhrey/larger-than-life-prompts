@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T07-r2",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 2,
+  "execution_index": 423,
+  "sample_seed": 2347915207598615007,
+  "prompt_sha256": "fbee52d47e3fb6a80d832caf1c3168543f27e05b5d7afc0ea96fae5bb3ae8c2b",
+  "prompt_chars": 752,
+  "response": "# Incident Response Runbook: Production Database — Critical Disk Utilisation & Write Latency Degradation\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 95% AND/OR write latency increase ≥ 2x baseline within a 30-minute window.\n\n---\n\n## DETECTION\n\n1. Alert fires from monitoring (e.g., disk utilisation ≥ 95%, write latency p99 ≥ 2x rolling 1-hour baseline).\n2. On-call responder acknowledges the page within 5 minutes.\n3. Confirm the alert is real, not a monitoring artifact:\n   - Check disk utilisation metric on the primary node directly (`df -h`, cloud provider volume metrics console, or DB-native storage dashboard).\n   - Check write latency graphs (p50/p95/p99) over the last 30–60 minutes to confirm the reported trend (tripled in 20 minutes).\n   - Confirm this is the **primary** instance, not a replica.\n4. Open an incident ticket/channel and record: current disk %, current write latency, time trend started, and responder name.\n5. Notify the incident channel and page a second responder (database on-call or SRE lead) for a two-person check before any destructive or state-changing action.\n\n---\n\n## IMMEDIATE ACTIONS\n\n> **Rule: No restart, failover, or destructive remediation may occur until Step 1 (snapshot) has completed successfully and been verified.**\n\n1. **Take a storage snapshot of the primary database volume immediately.**\n   - Trigger via cloud provider (EBS/PD/Azure Disk snapshot) or storage-layer snapshot tool.\n   - Do this even if it takes several minutes — it is the highest-priority action and blocks everything below.\n   - Verify the snapshot reaches a completed/available state (not just \"initiated\") before proceeding. Record the snapshot ID in the incident ticket.\n   - If the snapshot tool itself reports errors or the volume is too degraded to snapshot, escalate immediately to storage/infra on-call rather than attempting workarounds — do not proceed to any data-modifying action without a confirmed snapshot.\n\n2. **While the snapshot is in progress**, gather read-only diagnostic data (non-destructive, does not touch DB state):\n   - Identify top disk consumers: largest tables/indexes, temp files, WAL/binlog/redo log backlog, orphaned dump files.\n   - Check for a runaway transaction, long-running query, or replication lag causing log/WAL accumulation.\n   - Check autovacuum/compaction status (Postgres) or equivalent (bloat, uncollected garbage).\n   - Confirm whether disk growth is from data growth, log growth, or a temp/spill file explosion.\n\n3. **Once the snapshot is confirmed complete**, proceed to space-reclamation and stabilization actions in MITIGATION. Do not restart, reboot, or fail over the primary before this point.\n\n---\n\n## MITIGATION\n\nPerform actions in order of increasing risk. Re-check disk % and write latency after each step.\n\n1. **Low-risk reclamation first:**\n   - Delete confirmed-safe, non-critical files consuming disk (old log files already shipped to log storage, stale temp/dump files, expired local backups already replicated offsite).\n   - Truncate/rotate application logs if they are stored on the same volume as the database.\n\n2. **Address the root cause identified in diagnostics:**\n   - If WAL/binlog backlog is the cause: check and, if safe, resume/repair replication or log shipping so logs can be recycled. Do not manually delete WAL/binlog files that have not been confirmed as shipped/applied downstream — this can break replicas or point-in-time recovery.\n   - If a runaway/long-running transaction is the cause: identify it and coordinate with the engineering owner before terminating it (an uncommitted transaction rollback can itself be heavy and slow, and terminating it blind could affect an in-flight critical write).\n   - If bloat/uncollected garbage is the cause: trigger manual vacuum/compaction only if disk headroom is sufficient to support the operation's temporary space needs.\n\n3. **If disk is still critically full after low-risk reclamation:**\n   - Expand the volume online (cloud provider live resize) if supported — this is preferred over any restart-based remedy.\n   - Only if online expansion is not supported and space cannot be reclaimed, escalate to database lead/SRE lead to jointly authorize a maintenance-window restart or failover to a replica — and only after confirming the replica is healthy, caught up (minimal replication lag), and a snapshot of the primary exists.\n\n4. **Failover, if authorized:**\n   - Confirm target replica lag is near-zero and replica disk headroom is healthy before promoting.\n   - Follow standard failover procedure with two-person authorization.\n\n**Abort / Rollback condition:**\n- If, at any point, disk utilisation continues climbing toward 100% *while the snapshot is still in progress*, or the snapshot fails/times out, **stop all further mitigation actions**, do not delete any files or restart any process, and escalate immediately to infra/storage on-call and the incident commander. Taking an uninformed action without a valid snapshot risks unrecoverable data loss and is worse than temporary unavailability.\n- If any reclamation or vacuum/compaction action causes write latency or error rates to worsen rather than improve within 5 minutes of being applied, halt that action, roll back where possible (e.g., cancel an in-progress vacuum, restore any deleted-but-recoverable files from the snapshot), and reassess before trying an alternative fix.\n- If failover is initiated and the promoted replica shows data inconsistency, unexpectedly high lag, or fails health checks post-promotion, abort the failover, do not redirect production traffic, and fall back to the original primary while investigating from the snapshot.\n\n---\n\n## FOLLOW UP\n\n1. Confirm disk utilisation has dropped to a safe operating threshold (e.g., < 80%) and write latency has returned to baseline for at least 30 sustained minutes before declaring the incident resolved.\n2. Retain the storage snapshot per data-retention policy until root cause analysis is complete and signed off.\n3. Write a post-incident review covering: root cause of disk growth, why alerting/thresholds did or didn't give earlier warning, and timeline of actions taken.\n4. Action items to prevent recurrence, e.g.:\n   - Lower the disk utilisation alert threshold (e.g., alert at 80–85% instead of only at critical levels).\n   - Add automated WAL/log rotation or retention limits.\n   - Add capacity planning/forecasting for storage growth trends.\n   - Review autovacuum/compaction tuning.\n5. Update this runbook with any gaps discovered during the incident (e.g., missing diagnostic queries, unclear escalation paths).\n6. Share findings with the wider engineering org and close out the incident ticket.\n\nSECTIONS: 4",
+  "response_sha256": "3d7649c2854b588b098a8fe855c39fdd34295956739f94132981646b54e31f08",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28307,
+    "output_tokens": 2344,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2344,
+        "cache_read_input_tokens": 28307,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.029105400000000003,
+    "duration_ms": 30532,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:23+00:00",
+  "finished_at": "2026-09-13T04:32:55+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

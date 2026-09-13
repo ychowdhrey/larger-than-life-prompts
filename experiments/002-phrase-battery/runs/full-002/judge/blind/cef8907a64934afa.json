@@ -1,0 +1,22 @@
+{
+  "item_id": "cef8907a64934afa",
+  "sample_id": "C01-T22-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T22",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default arg, in-place mutation of caller's list, out-of-range indexing, empty-list crash, and the subtler intra-call tie-based dedup that can shrink the result below limit) with accurate causal explanations, and reports no false positives while correctly leaving the intended sort/average behavior alone.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:02+00:00"
+}

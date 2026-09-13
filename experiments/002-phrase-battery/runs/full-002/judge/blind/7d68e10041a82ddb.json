@@ -1,0 +1,22 @@
+{
+  "item_id": "7d68e10041a82ddb",
+  "sample_id": "C01-T09-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T09",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 4,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all major defects (mutable default arg, in-place sort mutation, out-of-bounds indexing, empty-list crash, and the non-obvious dedup/limit interaction) with accurate cause-and-effect explanations and no false positives, though it omits the related aliasing issue when a caller-provided `seen` list is passed, and it appends an odd, unrequested closing pleasantry that has no basis in the task.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:14+00:00"
+}

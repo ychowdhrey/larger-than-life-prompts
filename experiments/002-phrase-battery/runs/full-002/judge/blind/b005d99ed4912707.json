@@ -1,0 +1,22 @@
+{
+  "item_id": "b005d99ed4912707",
+  "sample_id": "P01-E02-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E02",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 steps, rollback, staging dry run, post-cutover integrity checks via row counts/checksums/sequences, stakeholder communication at multiple points, backup before any destructive production step) and ends with the exact required format, while showing non-obvious engineering awareness (replication lag draining, sequence/constraint checks, using replication instead of dump/restore for a 2TB dataset in a 2-hour window).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:02+00:00"
+}

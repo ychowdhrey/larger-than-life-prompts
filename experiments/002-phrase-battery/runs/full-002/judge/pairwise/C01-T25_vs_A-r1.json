@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T25_vs_A-r1",
+  "contrast_id": "T25_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T25",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Response A finds a genuine additional defect that Response B misses entirely: duplicate score values within a single call get incorrectly collapsed by the seen-check, causing fewer than `limit` results even when enough scores exist. This is a real, functionally significant bug beyond the four defects both responses share. Response A's claim about ZeroDivisionError firing on `top_scores([])` is imprecise (IndexError actually fires first at the default limit), while B correctly notes this interaction, but B's added precision on an already-identified defect doesn't outweigh A's discovery of a wholly separate, valid defect.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:45+00:00"
+}

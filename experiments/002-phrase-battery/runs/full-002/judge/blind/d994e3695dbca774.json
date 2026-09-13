@@ -1,0 +1,22 @@
+{
+  "item_id": "d994e3695dbca774",
+  "sample_id": "P02-T15-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T15",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, explicitly gates any data-risking action (including failover) behind a verified snapshot, includes clear abort/rollback conditions, and ends with the correct SECTIONS line, while also addressing non-obvious operational nuances like growth-rate alerting, crash- vs application-consistent snapshots, and replication lag/RPO risk on failover. It reads as genuinely actionable for an on-call responder, with only minor self-verification of the deliverable itself (e.g., no explicit checklist confirming each hard requirement was met) keeping error_checking slightly below top marks.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:53+00:00"
+}

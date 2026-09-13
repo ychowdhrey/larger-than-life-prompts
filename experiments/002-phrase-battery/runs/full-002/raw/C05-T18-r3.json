@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T18-r3",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T18",
+  "condition_name": "phrase_t18",
+  "repetition": 3,
+  "execution_index": 704,
+  "sample_seed": 11160533359603394173,
+  "prompt_sha256": "f6ed78d80e57a136d50ccb49e318c06edea146e0514eac7a4bd5a9eb9f398738",
+  "prompt_chars": 875,
+  "response": "## Defects Found\n\n**1. Boundary/off-by-one error in the implementation (violates R1)**\n\n```python\nif total > 100:\n```\n\nR1 says a total of **100 or more** gets the discount, meaning `total == 100` must qualify. The code uses strict `>`, so `discount(100)` falls through to the `return 0.0` branch and yields **0.0** instead of the required **10.0** (10% of 100). This is a real bug in the implementation, not just a test gap.\n\n**2. `test_cap` asserts a value that violates R2 and doesn't match the implementation's actual output**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nFor `total=1000`: `d = 1000 * 0.10 = 100.0`, then `min(100.0, 50.0) = 50.0`. So the implementation actually returns **50.0**, not 100.0 — this assertion will fail (`AssertionError`) when run. Additionally, even independent of the implementation, expecting `100.0` here directly contradicts R2 (\"discount is never more than 50.00\"). The test is wrong on both counts: it doesn't reflect the requirement, and it doesn't reflect what the code under test does.\n\n**3. Missing test coverage for the R1 boundary (total == 100)**\n\nNone of the three tests exercise `discount(100)`. This is exactly the value where the off-by-one bug (defect #1) manifests, so the suite as written would pass despite the implementation violating R1. (Related: there's also no test near the cap boundary, e.g. `total=500`, to confirm the discount transitions to the cap correctly — though this is a minor coverage gap rather than an incorrect assertion like #2.)\n\n## Not defects (confirmed correct)\n- `test_small` (`discount(50) == 0.0`) — correct per R3.\n- `test_large` (`discount(200) == 20.0`) — correct: `200*0.10=20.0`, under the cap.\n- The capping logic itself (`min(d, 50.0)`) correctly enforces R2 for values that do reach the discount branch.",
+  "response_sha256": "a51b0056177b0101cd16862b94e80942dc087439ce98e1762e7a48fe28a225d3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2634,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1812,
+    "output_tokens_details": {
+      "thinking_tokens": 1127
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2634,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1812,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2634,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2634
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0338052,
+    "duration_ms": 20146,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:39:56+00:00",
+  "finished_at": "2026-09-13T04:40:17+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

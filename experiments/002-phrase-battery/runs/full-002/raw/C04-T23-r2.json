@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-T23-r2",
+  "run_id": "full-002",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T23",
+  "condition_name": "phrase_t23",
+  "repetition": 2,
+  "execution_index": 513,
+  "sample_seed": 9210501157480881302,
+  "prompt_sha256": "8a3bf1034f446b0ffad0a9e13655f0767bfee3a8322aca785df065e43e8495ec",
+  "prompt_chars": 1242,
+  "response": "I found four defects in this extract:\n\n**1. Conflicting notice periods for Client-initiated termination (4.1 vs. 4.2)**\n4.1 states either party may terminate on 30 days' notice. 4.2 then requires the Client specifically to give \"not less than 45 days\" notice. These cannot both be true: 4.1 says 30 days is sufficient for either party (including the Client), while 4.2 says the Client must give at least 45 days. As written, it's impossible to determine whether a Client's 30-day notice is valid (per 4.1) or invalic (per 4.2, which demands 45). This would cause disputes over whether a given termination notice was effective, and downstream effects on refund calculations (see defect below) since the refund depends on timing tied to termination.\n\n**2. Gap in Table 4A's \"months remaining\" bands**\nThe bands are \"9 or more,\" \"7 to 8,\" \"3 to 5,\" and \"fewer than 3.\" A client with exactly **6 months remaining** falls into no band at all — there is no applicable refund rate. This would leave the refund amount for that scenario undefined/uncalculable, likely producing a dispute or requiring an ad hoc interpretation not supported by the table.\n\n**3. Arithmetic error in Table 4A's \"3 to 5 months\" row**\nThe stated refund rate is 40%, but 40% of a 12,000 annual prepayment is 4,800, not 3,600 (which is actually 30% of 12,000). Either the rate (40%) or the dollar figure (3,600) is wrong. This internal inconsistency means the clause doesn't reliably tell a client what refund they're entitled to — the rate and the worked example contradict each other.\n\n**4. \"Effective Termination Date\" is used but never established, and is ambiguous given the 4.1/4.2 conflict**\n4.4 bases the 14-day refund payment deadline on the \"Effective Termination Date,\" but this extract never defines what that date is (e.g., the date notice is given vs. the date the notice period expires). This ambiguity is compounded by defect #1: since it's unclear whether the Client's notice period is 30 or 45 days, it's also unclear when the notice period — and hence the \"Effective Termination Date\" — actually ends. This could cause disputes over whether a refund was paid late.",
+  "response_sha256": "30ebe07f02ec527a2bd0b8273afbdc15a1246d11ca5312e05d3cba48534156d8",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2800,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2879,
+    "output_tokens_details": {
+      "thinking_tokens": 2129
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2800,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2879,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2800,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2800
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.045139200000000004,
+    "duration_ms": 32263,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:34:54+00:00",
+  "finished_at": "2026-09-13T04:35:27+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

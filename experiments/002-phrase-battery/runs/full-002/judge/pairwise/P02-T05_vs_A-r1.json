@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T05_vs_A-r1",
+  "contrast_id": "T05_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T05",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response B adds more technically grounded safeguards: it directs snapshotting to a separate target when the disk is too full for a local snapshot, gates any primary restart behind IC authorization after the snapshot, requires replica-lag/headroom checks before failover, and adds post-mitigation data-integrity/checksum validation in FOLLOW UP, making it marginally more operationally sound and safer than Response A's otherwise comparable structure.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:29:04+00:00"
+}

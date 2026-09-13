@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T08-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 3,
+  "execution_index": 757,
+  "sample_seed": 1890480748804941239,
+  "prompt_sha256": "bdf999345cba5b7da261b9bbfd6e1a9f06e93412f98daacf820c12881b72b2f2",
+  "prompt_chars": 652,
+  "response": "A content delivery network exists to make websites load quickly no matter where a visitor is located. Every website has one main storage location, called the origin server, where all the original files live. If every single visitor had to fetch files from that one distant location, pages would load slowly, especially for people far away. So a content delivery network places copies of those files on servers scattered around the world, called edge locations, positioned closer to where people actually are. When someone requests a page, the network checks whether a nearby edge location already has a saved copy; if it does, that's called a cache hit, and the page loads almost instantly from that nearby copy instead of the far-off origin. Think of it like a chain of neighborhood libraries stocking popular books so nobody has to travel to the one national archive every time they want to read something. Only when a nearby location lacks the file does the request travel back to the origin server, fetch it, and store a copy nearby for next time. This system reduces waiting, eases strain on the origin server, and keeps things running smoothly even during traffic surges.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The original home of a website's files | It's the ultimate source everything else copies from |\n| Edge location | A nearby server holding copies of content | It shortens the distance data has to travel |\n| Cache hit | A successful find of a saved nearby copy | It means near-instant loading instead of a long trip |\n| Content delivery network | The whole system linking origin and edge locations | It keeps websites fast and reliable worldwide |",
+  "response_sha256": "b93302b35f1bb37971e519c8abc2eb1d3991ccddbfc916abd63cb99e80e5d77c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2550,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 487,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2550,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 487,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2550,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2550
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0202192,
+    "duration_ms": 8414,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:40:57+00:00",
+  "finished_at": "2026-09-13T04:41:06+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

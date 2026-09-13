@@ -1,0 +1,22 @@
+{
+  "item_id": "57ec974e69206a8a",
+  "sample_id": "C01-T01-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T01",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default, in-place sort side effect, IndexError from limit exceeding list length, ZeroDivisionError on empty input, and the subtler duplicate-value truncation of results) with accurate causal explanations and no false positives, including a worked trace for the non-obvious duplicate-value case.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:08+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "0bd1f68584436a7d",
+  "sample_id": "P05-T16-r1",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T16",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan delivers three percentage-based phases with clear entry criteria, five correctly formatted RISK lines, a numeric halt threshold (0.5% mismatch rate), explicitly avoids decommissioning the old system alongside the final migration batch, and ends with the required PHASES line, satisfying every hard requirement. It shows solid depth (dual-write reconciliation, idempotency, tax edge cases, rollback runbooks) but includes no explicit self-verification step confirming its own constraint compliance.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:25+00:00"
+}

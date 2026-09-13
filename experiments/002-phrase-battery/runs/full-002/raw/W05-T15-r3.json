@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T15-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 3,
+  "execution_index": 956,
+  "sample_seed": 5852068946717331388,
+  "prompt_sha256": "0e2637ee5a92933402146b21fd8fac59be2ea4530a3a1ef58d40b59fe2bce9f0",
+  "prompt_chars": 733,
+  "response": "## The problem\n\nOur twelve-person team routinely runs feature branches for two to four weeks before merging. By the time a branch lands, it has drifted so far from main that integration itself becomes the hard part of the work, not the feature. Last quarter alone we lost real time to merge conflicts, \"worked on my branch\" regressions, and release-week scrambles to reconcile five branches that had never been tested together. The cost isn't visible in any single sprint; it shows up as a tax on every release, paid in full right when we can least afford it.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: everyone commits small, working changes directly to main at least once a day, hiding incomplete work behind feature flags rather than behind a branch. Concretely:\n\n- Cap any branch's lifetime at one working day; anything larger gets sliced into smaller, mergeable steps.\n- Gate unfinished or risky work behind feature flags instead of a separate long-lived branch.\n- Require CI to pass and a fast peer review (under 30 minutes) before every merge to main.\n- Keep main always deployable, so any commit can ship without a separate \"stabilization\" phase.\n- Retire the old branching workflow once a four-week pilot succeeds, rather than running both in parallel indefinitely.\n\nThis isn't process for its own sake: it's how we stop paying integration costs in one lump sum at the end of the cycle and start paying them, in small amounts, every day.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands stronger discipline and better testing infrastructure than we have today. A team without solid CI, decent coverage, and a working feature-flag system can genuinely break main more often, not less — and a broken main blocks all twelve of us at once, instead of just one branch owner. That's a legitimate risk, not a reason to dismiss the idea. It argues for sequencing: shore up CI reliability and flag tooling first, then pilot on one squad before rolling out team-wide.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "cfb14e4de457376aa026d26763251c32d71fd4cb55ec5e4ab218bd3a706e1313",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28296,
+    "output_tokens": 1603,
+    "output_tokens_details": {
+      "thinking_tokens": 946
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1603,
+        "cache_read_input_tokens": 28296,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0216932,
+    "duration_ms": 19484,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:45:34+00:00",
+  "finished_at": "2026-09-13T04:45:54+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

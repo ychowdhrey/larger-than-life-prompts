@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T21_vs_A-r3",
+  "contrast_id": "T21_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T21",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T21",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the same five real defects with essentially identical fixes, but Response B is more complete on defect #1: it explicitly notes that customers whose only orders predate 2026-01-01 also get silently dropped (not just zero-order customers), which is a real consequence of the same bug that Response A misses. B also explicitly confirms COUNT(o.order_id) and GROUP BY are correct, showing it checked for spurious issues rather than assuming.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:13+00:00"
+}

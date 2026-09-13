@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-D-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 3,
+  "execution_index": 382,
+  "sample_seed": 14317776697243332039,
+  "prompt_sha256": "14067dae325c643d814f9d9e1ac82a805e1feef3a8ecdea7036b110e853ee8d0",
+  "prompt_chars": 740,
+  "response": "Memo: Adopting Trunk-Based Development\n\n## The problem\n\nOur twelve-person team is spending more time managing branches than shipping features. Feature branches routinely live for two to three weeks, and by the time they're ready to merge, they've drifted far enough from main that integration becomes its own project. Last month alone we lost four engineering-days to merge conflicts on the payments refactor branch. Bugs surface only at merge time, when they're hardest to diagnose, and code review happens on enormous diffs that reviewers rubber-stamp rather than actually read. We are optimizing for the comfort of working in isolation at the cost of the whole team's velocity.\n\n## The proposal\n\nI propose we move to trunk-based development: every engineer merges small, reviewed changes directly into main at least once a day, guarded by feature flags for anything not ready for users.\n\n- Branches live no more than one day before merging back to main\n- Incomplete features ship behind feature flags rather than staying unmerged\n- CI must pass on every commit to main, with no exceptions\n- Code review focuses on diffs small enough to read in ten minutes\n- We run a two-week pilot with one squad before rolling out team-wide\n\n## What could go wrong\n\nThe strongest objection is that merging unfinished work into main daily risks destabilizing production, especially for larger architectural changes that can't be meaningfully decomposed into small flagged increments. This is a real risk, not a hypothetical one: some database migrations and cross-service contract changes genuinely resist small-batch delivery, and a rushed flag can leak incomplete functionality to users. We should address this directly by allowing documented exceptions for such work, reviewed case by case, rather than pretending every change fits the model. We'll also need investment in flag management and CI reliability before this pays off.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "af19ee5e6381d80ce6152725cbc8a930391559cbcc2330c7a1f6f9207ae29156",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2570,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 5450,
+    "output_tokens_details": {
+      "thinking_tokens": 4856
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2570,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5450,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2570,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2570
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0699292,
+    "duration_ms": 45510,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:31:33+00:00",
+  "finished_at": "2026-09-13T04:32:20+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

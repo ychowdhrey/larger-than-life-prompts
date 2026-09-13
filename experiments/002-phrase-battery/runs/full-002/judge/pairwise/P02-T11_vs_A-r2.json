@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T11_vs_A-r2",
+  "contrast_id": "T11_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T11",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the hard constraints (correct headings, snapshot-first gating, no pre-snapshot restart/failover, SECTIONS: 4), but Response B's abort/rollback conditions are more concrete and actionable, each tied to a specific phase with explicit timeouts and reversal steps (e.g., stand down if uncorroborated within 10 minutes, halt and restore purged logs if latency doesn't improve within 15 minutes), whereas Response A's single abort condition is vaguer about what gets reversed and how the DBA should be aware of it.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:51:42+00:00"
+}

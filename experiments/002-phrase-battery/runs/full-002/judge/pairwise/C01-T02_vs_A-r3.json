@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T02_vs_A-r3",
+  "contrast_id": "T02_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T02",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both cover the mutable default, IndexError, ZeroDivisionError, and in-place mutation defects equally well, but Response B correctly identifies a distinct additional bug: because 'seen' also filters duplicates within a single call, legitimate tied scores get dropped even on a fresh first call, whereas Response A misattributes this symptom purely to cross-call state accumulation and misses that it occurs within a single invocation too.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:19+00:00"
+}

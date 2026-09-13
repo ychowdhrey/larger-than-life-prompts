@@ -1,0 +1,22 @@
+{
+  "item_id": "a2811e110b49e44a",
+  "sample_id": "C02-T19-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T19",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies every real defect (WHERE-clause join nullification, missing UTC+8 offset conversion, integer division truncation, NULL-vs-zero sort corruption once the join is fixed, and the GROUP BY portability caveat) with accurate causal explanations and fixes, without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:21+00:00"
+}

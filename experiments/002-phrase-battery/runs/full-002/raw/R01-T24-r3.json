@@ -1,0 +1,68 @@
+{
+  "sample_id": "R01-T24-r3",
+  "run_id": "full-002",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T24",
+  "condition_name": "phrase_t24",
+  "repetition": 3,
+  "execution_index": 1122,
+  "sample_seed": 5522349076720520217,
+  "prompt_sha256": "be784d00371b309540744eaa9ae3949ead809ee04c3ec944f355b31dedd136ab",
+  "prompt_chars": 447,
+  "response": "**Working:**\n\n- Departure: 23:40 on 3 March 2027, Kuala Lumpur time (UTC+8)\n- Convert to UTC: 23:40 − 8:00 = 15:40 UTC on 3 March 2027\n- Add flight time of 13h 25m: 15:40 + 13:25 = 29:05 → 05:05 on 4 March... \n\nLet me redo the carry carefully: 15:40 + 13:25\n- Minutes: 40 + 25 = 65 → 1 hour 05 minutes\n- Hours: 15 + 13 + 1 (carried) = 29 → 29 − 24 = 5, plus 1 day\n\nSo arrival time in UTC = 05:05, and the date rolls over by one day from 3 March → 4 March, then the 29-hour figure rolls over one more day (since 29 ≥ 24) → 5 March 2027.\n\n- Since London is UTC+0 on that date, local arrival time = 05:05 on 5 March 2027.\n\nFINAL ANSWER: 2027-03-05 05:05",
+  "response_sha256": "ef7d586fcb4dfaeb783aaffe9579301e8c34f3aa2ad9a3405fbc0cf3378ae599",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28239,
+    "output_tokens": 556,
+    "output_tokens_details": {
+      "thinking_tokens": 200
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 556,
+        "cache_read_input_tokens": 28239,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.011211800000000001,
+    "duration_ms": 7810,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:49:35+00:00",
+  "finished_at": "2026-09-13T04:49:44+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

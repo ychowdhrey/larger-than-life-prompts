@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T23_vs_A-r3",
+  "contrast_id": "T23_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T23",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy every hard requirement (three phases with percentages/entry criteria, correctly formatted RISK lines, no decommissioning bundled with the final migration batch, and numeric halt thresholds, ending with 'PHASES: 3'), but Response B's monitoring section is more rigorous and complete, quantifying payment-failure delta, discrepancy rate, API error rate, and P95 latency regression rather than just three metrics, and it pairs each phase with both an entry and an explicit exit criterion, giving tighter, more actionable go/no-go governance for actually running the rollout.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:45:56+00:00"
+}

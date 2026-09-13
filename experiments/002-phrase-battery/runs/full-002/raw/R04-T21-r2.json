@@ -1,0 +1,68 @@
+{
+  "sample_id": "R04-T21-r2",
+  "run_id": "full-002",
+  "task_id": "R04",
+  "family": "reasoning",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 2,
+  "execution_index": 1989,
+  "sample_seed": 13898244304827747675,
+  "prompt_sha256": "51daae2130ad07d2f7c5c1e96ff547e75fa0d23aeb871c728fca173dee9ae672",
+  "prompt_chars": 529,
+  "response": "**Balance at end of Year 3: 10,081.14**\n\nStep-by-step:\n- Start: 10,000.00\n- Year 1: 10,000.00 × 1.12 = 11,200.00 → minus fee 90.00 = **11,110.00**\n- Year 2: 11,110.00 × 0.88 = 9,776.80 → minus fee 90.00 = **9,686.80**\n- Year 3: 9,686.80 × 1.05 = 10,171.14 → minus fee 90.00 = **10,081.14**\n\nFINAL ANSWER: 10081.14",
+  "response_sha256": "83632ca275a69a9326ea20e34f724422ca292603d5fa526eab456584114a6d75",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28247,
+    "output_tokens": 375,
+    "output_tokens_details": {
+      "thinking_tokens": 181
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 375,
+        "cache_read_input_tokens": 28247,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.009403400000000001,
+    "duration_ms": 5158,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:09:16+00:00",
+  "finished_at": "2026-09-13T05:09:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

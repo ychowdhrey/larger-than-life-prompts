@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T08-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 2,
+  "execution_index": 2065,
+  "sample_seed": 12149562653735574053,
+  "prompt_sha256": "58ee5b1d03c85077c189e8a5853afdaf37481cd92943badc5d2e8a1eda285b8c",
+  "prompt_chars": 1026,
+  "response": "Here are the defects I found, one per claim plus a cross‑cutting one.\n\n**1. Webinar attendance → retention: correlation treated as causation**\nThe memo observes an association (webinar attendees retain 31% better) and concludes webinars \"therefore cause\" retention. This is an observational comparison, not an experiment — attendance wasn't randomized. The obvious confound is self-selection: customers who are more engaged, more invested in the product, or already planning to stick around are simultaneously more likely to *choose* to attend an onboarding webinar and more likely to stay. The webinar could be a symptom of engagement rather than a cause of retention.\n*What it would cause:* Making webinars mandatory could produce zero retention lift (or even hurt retention by forcing time-pressed customers through an unwanted step) while the memo's \"cause\" framing sets an expectation of a 31% improvement that won't materialize — a costly, unvalidated policy change and a false success metric to measure against later.\n\n**2. Survivorship bias in the sample**\nThe analysis is restricted to \"the 412 customers who are still active on the Pro plan today\" — i.e., it excludes everyone who already churned. Any comparison of retention-related behavior computed only on survivors is filtered on the outcome itself, which can distort or even reverse the true relationship between webinar attendance and churn across the full customer base (churned webinar-attendees and churned non-attendees are both invisible to this analysis).\n*What it would cause:* The 31% figure may not generalize to the population that actually matters for a retention intervention (i.e., customers at risk of churning), making the estimated benefit unreliable in either direction.\n\n**3. Multiple comparisons problem (data dredging) on the region finding**\nEighteen attributes were tested against churn, and one (Central region) came back significant at p = 0.04. With 18 independent tests at α = 0.05, the expected number of \"significant\" results by chance alone is about 1, and the probability of at least one false positive across 18 tests is roughly 1 − 0.95¹⁸ ≈ 60%. No correction (Bonferroni, FDR, etc.) is mentioned, and a single result just under the conventional 0.05 threshold out of 18 attempts is exactly what pure noise would produce.\n*What it would cause:* Following this finding risks concentrating next quarter's spend based on a statistical fluke, misallocating budget away from regions where a real effect might exist.\n\n**4. Statistical significance conflated with a spend decision, with no effect size or mechanism**\nEven granting that the Central-region effect is real, p = 0.04 only says a difference is unlikely to be pure noise — it says nothing about the size of the effect or why it exists (it could reflect market maturity, competitor presence, account mix, etc., not anything actionable by \"spend\"). The memo jumps straight from \"statistically significant\" to a specific budget action without any stated effect size, cost-benefit estimate, or causal mechanism connecting spend to churn in that region.\n*What it would cause:* Money could be funneled into a region where churn is already structurally low for unrelated reasons, yielding little marginal return, while regions with an actual fixable churn problem get deprioritized.\n\n**5. Satisfaction increase attributed to the new support model without ruling out alternatives**\nThe 62%→66% change is a single before/after comparison with no control group, no confidence interval, and no discussion of quarter-to-quarter variance — so it's unclear whether 4 points is even distinguishable from normal fluctuation. More importantly, many other things could have changed that quarter (pricing, product releases, seasonality, macro conditions, staffing changes), and the memo attributes the entire movement to the support model without evidence isolating that cause. This is a textbook post hoc ergo propter hoc inference.\n*What it would cause:* Continued investment in or expansion of the \"new support model\" based on credit it may not deserve, while the real driver of the improvement (if any) goes unidentified and unaddressed.",
+  "response_sha256": "b9c9a05c2a0da74849087c4a68b116f8fc08e684d6212c8ece3aab4be6c4bb17",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28377,
+    "output_tokens": 4125,
+    "output_tokens_details": {
+      "thinking_tokens": 2815
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4125,
+        "cache_read_input_tokens": 28377,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.046929399999999996,
+    "duration_ms": 51879,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:10:59+00:00",
+  "finished_at": "2026-09-13T05:11:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

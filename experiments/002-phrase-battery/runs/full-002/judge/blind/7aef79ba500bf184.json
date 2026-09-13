@@ -1,0 +1,22 @@
+{
+  "item_id": "7aef79ba500bf184",
+  "sample_id": "P01-T14-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T14",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan correctly reframes the 2TB/2-hour constraint by using logical replication to pre-sync data and reserving the window only for cutover, includes all required elements (backup before any production-altering step, rehearsal with integrity checks, post-cutover verification via row counts/checksums/sequences, dual stakeholder communications, and a two-branch rollback), fits exactly 12 numbered steps, and ends with the correct STEP COUNT line.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:11+00:00"
+}

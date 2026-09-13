@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T14_vs_A-r3",
+  "contrast_id": "T14_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T14",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Response A satisfies the 'verification after cutover' requirement literally—row-count/checksum checks happen in step 10 only after connection strings are switched in step 9—whereas Response B runs its integrity verification (step 8) before repointing the application in step 9, meaning the mandated post-cutover check is not clearly present; A also more thoroughly ties a full backup to each production-affecting step (initial backup before rehearsal, second backup right before writes are cut).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:30+00:00"
+}

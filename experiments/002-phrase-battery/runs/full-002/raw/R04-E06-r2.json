@@ -1,0 +1,68 @@
+{
+  "sample_id": "R04-E06-r2",
+  "run_id": "full-002",
+  "task_id": "R04",
+  "family": "reasoning",
+  "condition_id": "E06",
+  "condition_name": "combo_e06",
+  "repetition": 2,
+  "execution_index": 38,
+  "sample_seed": 14524932025918498902,
+  "prompt_sha256": "72c6e3bdaea9b4a2d46d8cb51a661fba52d13f87e62aa48d355bf45a2cd352c2",
+  "prompt_chars": 569,
+  "response": "Let me work through this step by step, applying each year's return then subtracting the flat fee.\n\n**Year 1:**\n- Start: 10,000.00\n- Return: 10,000.00 × 1.12 = 11,200.00\n- After fee: 11,200.00 − 90.00 = **11,110.00**\n\n**Year 2:**\n- Return: 11,110.00 × 0.88 = 9,776.80\n- After fee: 9,776.80 − 90.00 = **9,686.80**\n\n**Year 3:**\n- Return: 9,686.80 × 1.05 = 10,171.14\n- After fee: 10,171.14 − 90.00 = **10,081.14**\n\n**Verification (recomputing each multiplication independently):**\n- 10,000.00 × 1.12 = 11,200.00 ✓; − 90 = 11,110.00\n- 11,110.00 × 0.88: 11,110 × 0.88 = 11,110 − 11,110×0.12 = 11,110 − 1,333.20 = 9,776.80 ✓; − 90 = 9,686.80\n- 9,686.80 × 1.05 = 9,686.80 + 9,686.80×0.05 = 9,686.80 + 484.34 = 10,171.14 ✓; − 90 = 10,081.14\n\nBoth pass-throughs agree, and each intermediate value already lands exactly on the cent (no rounding ambiguity was needed along the way).\n\nFINAL ANSWER: 10081.14",
+  "response_sha256": "e6f24fb5937a56d24f3f46a8c277e0b81727695655310f5a02b4793ba579b8b5",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2534,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 646,
+    "output_tokens_details": {
+      "thinking_tokens": 156
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2534,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 646,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2534,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2534
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0217452,
+    "duration_ms": 8512,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:23:11+00:00",
+  "finished_at": "2026-09-13T04:23:23+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

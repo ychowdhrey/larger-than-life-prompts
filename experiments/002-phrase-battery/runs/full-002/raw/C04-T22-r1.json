@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-T22-r1",
+  "run_id": "full-002",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T22",
+  "condition_name": "phrase_t22",
+  "repetition": 1,
+  "execution_index": 13,
+  "sample_seed": 8477509557760455701,
+  "prompt_sha256": "f9ebe501d71fc34e0aa4db742b1f99bb15c9f64b782d08c37a6b4de67ad04e09",
+  "prompt_chars": 1250,
+  "response": "Here are the defects in this extract:\n\n**1. Clause 4.1 vs. 4.2 — conflicting notice periods**\n4.1 says either party may terminate on 30 days' notice; 4.2 says a Client-initiated termination requires *not less than* 45 days' notice. These directly conflict for the Client's case: 4.1 permits 30 days, 4.2 forbids anything less than 45. A Client relying on 4.1 and giving 30 days would be in breach under 4.2, and it's unclear which notice period actually governs a Client termination. This needs to be reconciled (e.g., \"except as provided in 4.2\").\n\n**2. Table 4A — missing \"6 months remaining\" band**\nThe bands go 9+, 7–8, then 3–5, skipping 6 months entirely. A client terminating with exactly 6 months remaining falls into no listed category, so the refund rate is undefined for that case.\n\n**3. Table 4A — internal arithmetic error (7–8 months row)**\n60% of a $12,000 annual prepayment should be $7,200 — that part is actually consistent. However, check the 9+ months row: 80% of $12,000 = $9,600, which is also consistent. The real error is in the 3–5 months row: 40% of $12,000 = $4,800, not $3,600 as stated. This understates the refund owed at that tier and contradicts the stated 40% rate.\n\n**4. Clause 4.3 vs. 4.5 — undefined trigger point for refund calculation**\n4.3 bases the refund on \"months remaining,\" but no clause defines remaining from what date (the original contract term's end? the notice date? the Effective Termination Date used in 4.4?). This is an ambiguity that could cause disputes about which figure to plug into Table 4A.\n\n**5. Clause 4.4 references an undefined term**\n\"Effective Termination Date\" is used in 4.4 but is never defined in this extract (and isn't one of the terms flagged as intentionally external, unlike Clause 6 and Schedule 1). If it isn't defined elsewhere in the full agreement, there is no way to calculate the 14-day payment deadline or the \"months remaining\" figure in Table 4A. If it *is* defined elsewhere, this is fine — but as presented it's a dangling term worth flagging.\n\n**6. Clause 4.5 — breach timing/scope not addressed**\n4.5 denies refunds for \"breach of clause 6\" with no materiality threshold, no requirement that the breach relate to the termination, and no timeframe (e.g., a trivial or long-past breach unrelated to termination could technically void an otherwise-earned refund). This is a drafting looseness rather than a cross-reference problem (cross-references to Clause 6 are expected and not a defect per the prompt), but the unqualified scope could cause disputes over whether any breach, however minor, forfeits the entire refund.",
+  "response_sha256": "5e9c679fe4a554c5ff2295bfa7be88dd22a1a2b8f49ffc6043506241c87dca94",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2803,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 947,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2803,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 947,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2803,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2803
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.025831200000000002,
+    "duration_ms": 14926,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:21:23+00:00",
+  "finished_at": "2026-09-13T04:21:39+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

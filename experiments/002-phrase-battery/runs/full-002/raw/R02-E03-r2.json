@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-E03-r2",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "E03",
+  "condition_name": "combo_e03",
+  "repetition": 2,
+  "execution_index": 1664,
+  "sample_seed": 417164794086491768,
+  "prompt_sha256": "a9a7971a2af320e202088c7b962593179ab701c91aa4f76feacff7f439bc207c",
+  "prompt_chars": 552,
+  "response": "**Setup:**\n- Prevalence: P(D) = 1/500 = 0.002, P(¬D) = 0.998\n- Sensitivity: P(+|D) = 0.98\n- Specificity: P(–|¬D) = 0.95 → P(+|¬D) = 0.05\n\n**Bayes' theorem:**\n\nP(+) = P(+|D)P(D) + P(+|¬D)P(¬D)\nP(+) = (0.98)(0.002) + (0.05)(0.998)\nP(+) = 0.00196 + 0.0499\nP(+) = 0.05186\n\nP(D|+) = P(+|D)P(D) / P(+) = 0.00196 / 0.05186 = 0.0377941...\n\nConverting to a percentage: **3.7794...%**, which rounds to **3.78%**.\n\n**Sanity check:** Out of 500,000 people, ~1,000 have the disease (of whom 980 test positive) and 499,000 don't (of whom 5% = 24,950 test positive). Total positives = 980 + 24,950 = 25,930. Fraction actually diseased = 980/25,930 = 0.037795 → 3.78%. Matches.\n\nSo despite a fairly accurate test, because the condition is rare, most positive results are false positives, and the true probability of having the condition given a positive test is only about 3.78%.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "6fd567fc00e52dafbd56b229f6b77a644a9801e3d4837e15810809d4a88dcedc",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28226,
+    "output_tokens": 889,
+    "output_tokens_details": {
+      "thinking_tokens": 427
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 889,
+        "cache_read_input_tokens": 28226,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.014539200000000002,
+    "duration_ms": 9691,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:02:18+00:00",
+  "finished_at": "2026-09-13T05:02:28+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

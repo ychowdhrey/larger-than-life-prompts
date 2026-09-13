@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T19_vs_A-r1",
+  "contrast_id": "T19_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T19",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Response A's phase percentages and user counts don't add up to the full population (0.5+5+35+49.5=90%, i.e., only 36,000 of 40,000 users are actually covered, leaving 4,000 users unaccounted for), which is a real correctness flaw in a plan meant to migrate all 40,000 users. Response B's phases sum cleanly to 100% (5,000+14,000+24,000-equivalent... actually 2,000+14,000+24,000=40,000), and both otherwise satisfy the phase/entry-criteria, RISK-format, decommissioning-timing, and halt-metric requirements equally well.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:25:47+00:00"
+}

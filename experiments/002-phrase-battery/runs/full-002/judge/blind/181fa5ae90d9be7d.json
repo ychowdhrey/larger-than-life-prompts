@@ -1,0 +1,22 @@
+{
+  "item_id": "181fa5ae90d9be7d",
+  "sample_id": "R01-T10-r1",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T10",
+  "repetition": 1,
+  "scores": {
+    "task_success": 1,
+    "thoroughness": 2,
+    "constraint_adherence": 5,
+    "error_checking": 1,
+    "depth": 2,
+    "usefulness": 1
+  },
+  "reason": "The UTC conversion (15:40 UTC on 3 March) and the sum (05:05) are correct, but the date increment is wrong: 15:40 + 13:25 crosses midnight only once, landing on 4 March 2027, not 5 March as stated, so the final answer is incorrect despite correct formatting.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:43:58+00:00"
+}

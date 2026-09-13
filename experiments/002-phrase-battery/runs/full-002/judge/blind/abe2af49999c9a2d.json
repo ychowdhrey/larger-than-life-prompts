@@ -1,0 +1,22 @@
+{
+  "item_id": "abe2af49999c9a2d",
+  "sample_id": "C01-D-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "D",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (mutable default arg, IndexError on short lists, duplicate-window shrinkage, zero-division edge case, and in-place mutation of caller's list) are real and correctly explained with concrete failure scenarios, including a well-chosen example for the subtler duplicate-window bug, with no fabricated issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:16:22+00:00"
+}

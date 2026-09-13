@@ -1,0 +1,22 @@
+{
+  "item_id": "b23633e539882b05",
+  "sample_id": "C05-T11-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T11",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (total > 100 vs >= 100 violating R1), correctly recomputes test_cap's expected value (50.0, not 100.0) and flags its arithmetic/logic error, and correctly notes the missing boundary test at total==100 that would have caught the bug, while accurately confirming the other two tests and the capping logic are correct without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:34+00:00"
+}

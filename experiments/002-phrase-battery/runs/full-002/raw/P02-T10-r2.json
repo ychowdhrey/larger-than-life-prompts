@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T10-r2",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T10",
+  "condition_name": "phrase_t10",
+  "repetition": 2,
+  "execution_index": 1219,
+  "sample_seed": 6301693675125616553,
+  "prompt_sha256": "fe34fce0c61635e5c7ec648f44120110e0d8bd14a05ecdac2e0e626afd618c76",
+  "prompt_chars": 736,
+  "response": "# Incident Response Runbook: Primary Production Database — Critical Disk Utilisation & Write Latency Degradation\n\n**Trigger condition:** Primary production database disk utilisation ≥ 98% AND write latency has increased ~3x within a 20-minute window.\n\n**Severity:** SEV-1 (imminent risk of write failure / outage)\n\n---\n\n## DETECTION\n\n1. Confirm the alert is real, not a monitoring artifact:\n   - Check disk utilisation on the primary via at least two sources (e.g., cloud provider metrics + `df -h` / `node_exporter` on the host) to rule out a stale or duplicated metric.\n   - Confirm write latency trend over the last 20–30 minutes using the database's native metrics (e.g., commit latency, WAL flush latency) and the application-side p95/p99 write latency dashboard.\n2. Correlate the two signals — confirm latency increase is concurrent with (and plausibly caused by) disk pressure, not an unrelated issue (e.g., lock contention, network partition, upstream dependency).\n3. Check for active large operations that could explain rapid disk growth: bulk imports, long-running transactions, unarchived WAL/binlog buildup, runaway temp tables, or a stuck vacuum/compaction job.\n4. Declare the incident: page the on-call DBA/SRE, open an incident channel, and record the start time and initial metrics snapshot (screenshots or exported metrics) for the postmortem.\n5. Identify the current primary and its replica(s)/standby topology before touching anything — record their replication lag as of right now.\n\n**Abort/stand-down condition:** If disk utilisation and write latency both return to baseline on their own during detection (e.g., a transient batch job completed and freed space), stand down from active remediation, but still open a low-severity follow-up ticket to investigate root cause — do not silently close it.\n\n---\n\n## IMMEDIATE ACTIONS\n\n1. **Freeze risky changes:** Halt any in-flight schema migrations, bulk loads, or deploys that write to the primary. Do not run manual `DELETE`/`VACUUM FULL`/compaction commands yet.\n2. **Take a storage snapshot of the primary before any remediation step that could alter or delete data.** This is mandatory and blocking — no cleanup, failover, restart, or destructive command proceeds until the snapshot is confirmed complete and verified (check snapshot status = \"completed\", not just \"initiated\").\n   - If the storage layer does not support online snapshots without I/O impact, take the most consistent snapshot available (e.g., filesystem-level or volume-level snapshot) and note any brief I/O pause in the incident log.\n3. Once the snapshot is confirmed:\n   - Identify what is consuming disk: check largest tables/indexes, WAL/binlog retention, temp/spill files, and orphaned replication slots holding WAL.\n   - If a replication slot or archiving process is blocking WAL cleanup, that is the likely root cause — note it, but do not drop/disable it yet without understanding downstream impact (a dependent consumer, e.g. CDC, may break).\n4. Do **not** restart or fail over the primary database at this stage. Restarting or failing over before the snapshot is captured risks losing the most recent writes and destroys forensic state needed to diagnose the cause. This step is explicitly deferred to MITIGATION, and only after the snapshot exists.\n5. Notify stakeholders (incident channel, status page if customer-facing impact is confirmed) with current status: \"investigating disk pressure on primary DB, snapshot in progress/complete, no data loss expected.\"\n\n---\n\n## MITIGATION\n\n1. **Free disk space (safe, additive-first approach), only after the snapshot from IMMEDIATE ACTIONS is verified complete:**\n   - Prefer non-destructive space recovery first: expand the volume/disk online if the platform supports live resizing (cloud block storage typically does) — this is the fastest, lowest-risk path.\n   - If expansion isn't possible or fast enough: purge rotated logs, old WAL/binlog segments that are already safely archived and replicated, and temp/spill files that are not part of live data.\n   - Only after safe cleanup, consider dropping unused indexes, truncating clearly disposable tables (e.g., stale audit/log tables), or archiving cold data — each such destructive action must be individually approved by the incident commander and logged, since the earlier snapshot only protects against catastrophic loss, not against deleting the wrong table.\n2. **If disk expansion and cleanup are insufficient to relieve pressure, and write latency continues to degrade toward write failure:**\n   - Only now consider failover to a healthy, low-replication-lag replica. Before failing over, confirm: (a) the snapshot exists and is verified, (b) the target replica's replication lag is near-zero and its own disk headroom is healthy, (c) the application can tolerate a brief connection blip during failover.\n   - Execute failover via the standard controlled procedure (not a raw restart), monitor replica promotion, and redirect traffic.\n3. **Restarting the primary process** (if needed to clear connection storms or apply an emergency config change such as increasing WAL retention limits) is permitted only after the snapshot is verified and only if failover is not chosen or not yet ready — never as the first response to disk pressure itself, since a restart does not free disk space and adds unnecessary risk.\n4. Continuously monitor disk utilisation and write latency after each action; do not proceed to the next mitigation step until you've confirmed the previous one had the intended effect.\n\n**Explicit abort/rollback condition:** If, after taking the snapshot and beginning cleanup, disk utilisation continues climbing toward 100% faster than space is being freed, or write latency spikes further (indicating an active runaway process rather than steady-state pressure) — **stop the cleanup approach immediately**, do not attempt further ad-hoc deletions, and escalate directly to the failover path in step 2 rather than continuing to fight disk space on the current primary. Similarly, if a failover is initiated and the target replica's replication lag turns out to be non-trivial (risking data loss beyond what's in the snapshot) or the promotion fails/hangs, abort the failover, keep traffic on the original primary (throttled if necessary), and reassess with the incident commander rather than forcing a second failover attempt.\n\n---\n\n## FOLLOW UP\n\n1. Confirm resolution: disk utilisation back under a safe threshold (e.g., <80%) and write latency back to baseline for a sustained period (e.g., 30+ minutes).\n2. Verify data integrity post-incident: compare row counts/checksums on critical tables if any destructive cleanup or failover occurred; confirm no application errors correlate with the incident window.\n3. Retain the storage snapshot for a defined period (e.g., 7–14 days) in case deeper forensic review or point-in-time restore is needed; document its location and expiry in the incident record.\n4. Root cause analysis: determine what drove disk growth (data growth rate, WAL retention misconfiguration, missing log rotation, orphaned replication slot, runaway job) and write it up.\n5. Preventive actions: set proactive disk utilisation alerting at lower thresholds (e.g., 70%/85% warnings before 98% critical), implement automated log/WAL rotation and retention policies, add capacity planning/autoscaling for storage, and review replication slot hygiene.\n6. Conduct a blameless postmortem within the standard SLA (e.g., 3–5 business days), including a timeline built from the incident channel and monitoring exports, and track preventive action items to completion.\n7. If failover occurred, schedule and execute failback (or confirm the new primary is the permanent primary) during a low-traffic maintenance window, following the standard planned-failover procedure — not as an emergency action.\n\nSECTIONS: 4",
+  "response_sha256": "5c4f4d6443a1e0e9d5b703b800015715884dd1962c73eb49fcc5904da5000012",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28301,
+    "output_tokens": 2636,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2636,
+        "cache_read_input_tokens": 28301,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0320242,
+    "duration_ms": 35146,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:51:45+00:00",
+  "finished_at": "2026-09-13T04:52:21+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

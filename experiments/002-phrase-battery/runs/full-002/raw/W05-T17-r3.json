@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T17-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T17",
+  "condition_name": "phrase_t17",
+  "repetition": 3,
+  "execution_index": 1212,
+  "sample_seed": 5805490217960817535,
+  "prompt_sha256": "ac14623eb3d44fa38e0ab5a73a319ada7ac1a4fb57609e369475fbcf9804f9a7",
+  "prompt_chars": 724,
+  "response": "## The problem\n\nOur team of twelve currently develops on long-lived feature branches, often living two to four weeks before merge. This has caused three recurring failures: integration pain that turns merge day into merge week, stale branches that silently diverge from main until conflicts consume entire sprints, and a testing gap where CI only validates isolated branches, so we don't discover incompatibilities until code lands on main. Last quarter, two release delays were directly attributable to merge conflicts discovered only after a branch had been open for over three weeks.\n\n## The proposal\n\nI propose we adopt trunk-based development: all engineers commit small, frequent changes directly to main (or through short-lived branches merged within a day), guarded by feature flags for incomplete work. Concretely, this means:\n\n- Feature branches live no longer than one business day before merging to main\n- Incomplete features ship behind flags rather than staying unmerged\n- CI runs on every commit to main, not just on branch tips\n- We invest in a lightweight code review SLA (under four hours) to keep merges fast\n- We run a two-week pilot with one squad before rolling out team-wide\n\nThis reduces integration risk by making each change small enough to reason about, surfaces conflicts within hours instead of weeks, and gives us a continuously releasable main branch.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands fast, disciplined code review and mature feature-flag infrastructure. If reviews stay slow or flags proliferate uncontrolled, we risk merging half-finished, poorly reviewed code straight into main, which could be worse than our current problem. This is a legitimate concern, not a strawman — teams that adopt trunk-based development without first tightening review SLAs and flag hygiene often see main branch stability degrade rather than improve. That's precisely why the pilot phase matters: we test with one squad, measure review turnaround and defect rates, and only expand if those metrics hold. If they don't, we adjust before committing the whole team.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "f48e3f7e698f6d1868067ba539e1f0b6ff03a79e93e60537f3916036f220aa8a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2565,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 691,
+    "output_tokens_details": {
+      "thinking_tokens": 32
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2565,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 691,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2565,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2565
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.022319199999999997,
+    "duration_ms": 11825,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:51:35+00:00",
+  "finished_at": "2026-09-13T04:51:48+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

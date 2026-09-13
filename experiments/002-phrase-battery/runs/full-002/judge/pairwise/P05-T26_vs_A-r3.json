@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T26_vs_A-r3",
+  "contrast_id": "T26_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T26",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements (three phases summing to 100%, correctly formatted RISK lines, deferred decommissioning, numeric halt thresholds, and the PHASES line), but Response B is more operationally complete: it adds explicit exit criteria alongside entry criteria for every phase, specifies four distinct halt metrics with rolling-window thresholds (failure rate, discrepancy rate, API error rate, P95 latency) versus Response A's single primary threshold plus two looser supporting ones, and covers an extra practical risk (support ticket surge and rollback failure) with a load-testing gate before full rollout.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:34:12+00:00"
+}

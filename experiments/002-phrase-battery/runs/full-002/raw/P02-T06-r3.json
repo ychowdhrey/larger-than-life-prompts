@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T06-r3",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 3,
+  "execution_index": 1912,
+  "sample_seed": 13043605385187024476,
+  "prompt_sha256": "7fa74ea205ebe4353015337545039c99bed17dfb28b9c2130b585a3362f21a4f",
+  "prompt_chars": 754,
+  "response": "# Incident Response Runbook: Production Database — Critical Disk Utilisation with Elevated Write Latency\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 98%; write latency has increased ~3x within a 20-minute window.\n\n**Severity:** SEV-1 (imminent risk of write failures / outage)\n\n---\n\n## DETECTION\n\n1. Alert fires from disk utilisation monitoring (threshold ≥ 95–98%) or from write latency monitoring (≥ 3x rolling baseline).\n2. On-call responder acknowledges the page in the alerting system within the standard response SLA.\n3. Confirm the alert is not a false positive:\n   - Check the disk utilisation graph for the primary DB host/volume over the last 30–60 minutes to confirm sustained (not transient/spiky) growth.\n   - Check write latency dashboards (p50/p95/p99) to confirm the tripling is real and correlated with the disk metric, not an unrelated network or application issue.\n4. Open an incident channel/ticket and declare a SEV-1. Note the exact timestamp, current disk % free, and current latency figures — this becomes the incident timeline's starting entry.\n5. Identify the responder-in-charge (incident commander) if this is not already the on-call engineer, and notify the database/platform team lead.\n\n---\n\n## IMMEDIATE ACTIONS\n\n**Do not restart, reboot, or fail over the primary database at this stage. Do not run any destructive cleanup (deleting data/log files, dropping tables, truncating WAL/binlogs) before a snapshot exists.**\n\n1. **Take a storage snapshot of the primary database volume(s) first, before any other remediation step.**\n   - Use the cloud provider's or storage layer's native snapshot mechanism (e.g., block-storage snapshot, LVM snapshot, or filesystem-consistent snapshot).\n   - Confirm the snapshot job has started and record its ID/timestamp in the incident channel.\n   - If the snapshot mechanism itself requires significant free disk space and none is available, take a snapshot of the underlying storage volume (not a database-level dump) — this typically does not require additional space on the source volume. If even that is not possible, escalate immediately to the database/storage team lead before proceeding — do not skip the snapshot requirement.\n2. Once the snapshot has been confirmed as started (does not need to be 100% complete, but must be confirmed in progress/started) proceed to identify the cause of disk growth:\n   - Check for the largest consumers: data files, WAL/redo/binlog volume, temp files, core dumps, orphaned replication slots holding WAL, or a runaway log file.\n   - Check for a stuck or lagging replica/replication slot that is preventing WAL/log recycling — this is one of the most common causes of sudden disk pressure with no corresponding data growth.\n3. Notify stakeholders (application on-call, customer support liaison) that a SEV-1 database incident is in progress and that write failures may occur imminently.\n4. If disk utilisation reaches 100% before mitigation is complete, expect writes to fail outright; ensure the incident channel is updated the moment this occurs so downstream teams can activate degraded-mode handling.\n\n---\n\n## MITIGATION\n\nPerform these only after the snapshot from IMMEDIATE ACTIONS is confirmed in progress or complete.\n\n1. **If a stuck replication slot or lagging replica is holding WAL/log files:** resolve the replication lag or drop the offending stale slot (only after confirming it is not in use by a required replica/consumer) to allow log recycling. This is usually the fastest safe win.\n2. **If temp files, core dumps, or old log files are consuming space:** remove only files confirmed to be non-essential (rotated logs already shipped to long-term storage, temp files from completed jobs, old core dumps). Do not delete active WAL/binlog files that have not yet been applied/shipped to replicas or backups.\n3. **If space cannot be freed quickly enough:** expand the underlying storage volume online if the platform supports live resize (most cloud block storage does). This is preferred over failover because it does not risk data loss and does not require downtime.\n4. **Only if the above steps do not relieve pressure in time, and disk is at imminent risk of hitting 100%:** fail over to a healthy, fully-synced standby/replica, and only after the primary's snapshot is confirmed complete (not merely started). Verify replica lag is at or near zero before failover to avoid data loss. Do not fail over to a replica with unknown or significant lag.\n5. Once mitigated, monitor disk utilisation and write latency for at least 15 minutes to confirm the trend has reversed and stabilised (target: disk utilisation trending down or stable below the alert threshold, latency back within ~1.2x of baseline).\n\n**Abort / rollback condition:** If, after expanding storage or clearing files, disk utilisation continues to climb, or write latency continues to worsen, or any data corruption/inconsistency is observed on the primary — **stop all further mitigation actions immediately, do not attempt failover, and escalate to the database team lead / vendor support.** In this case, preserve the current state (do not delete anything further) and restore from the snapshot taken in IMMEDIATE ACTIONS onto a separate isolated instance for investigation, rather than continuing to operate on the live primary.\n\n---\n\n## FOLLOW UP\n\n1. Confirm incident resolution: disk utilisation stable below threshold and write latency back to baseline for at least 30 minutes.\n2. Write a post-incident review within 3 business days, covering: root cause of disk growth, why alerting/capacity planning did not catch it earlier, and the full action timeline.\n3. Verify the snapshot taken during IMMEDIATE ACTIONS completed successfully and is retained per policy; do not delete it until the post-incident review is closed.\n4. File follow-up tickets for: automated disk-space alerting at an earlier threshold (e.g., 80%/90% warning tiers), automated WAL/replication-slot monitoring, and a review of storage auto-scaling policy for the primary database.\n5. Update this runbook with any gaps identified during the incident (e.g., missing tooling, unclear ownership, snapshot delays).\n\n---\n\nSECTIONS: 4",
+  "response_sha256": "9245924e99e428e71f3cc4e74d98e095f357d7ae5d986003bd35d5090cfbb4b1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28304,
+    "output_tokens": 2106,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2106,
+        "cache_read_input_tokens": 28304,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0267248,
+    "duration_ms": 28309,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:32+00:00",
+  "finished_at": "2026-09-13T05:08:02+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

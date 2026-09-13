@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T20-r2",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 2,
+  "execution_index": 929,
+  "sample_seed": 6948180820791538070,
+  "prompt_sha256": "7f4b6d4a7bb9457a355e49f7bf851c0868bbd98af65857a69c71064d4a16f0e1",
+  "prompt_chars": 859,
+  "response": "## Defects found\n\n**1. Implementation: off‑by‑one boundary error (violates R1)**\nThe condition is `if total > 100:` instead of `if total >= 100:`. R1 says a total of **100 or more** must get the 10% discount, but with strict `>`, `discount(100)` falls through to `return 0.0`. A customer with a total of exactly 100 gets no discount instead of the required 10.0. This is a real bug in the code, not just a style nit.\n\n**2. Test suite: missing boundary test lets the R1 bug go undetected**\nNone of the three tests exercise `total == 100`. Since the implementation's bug is specifically at that boundary, the test suite as given cannot catch it — all three tests pass despite the R1 violation. This is a coverage gap, and it's the reason defect #1 wasn't caught.\n\n**3. Test: `test_cap` asserts the wrong value, contradicting R2**\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\nFor `total=1000`, `d = 1000 * 0.10 = 100.0`, and R2 requires the discount be capped at 50.00, so the correct expected result is `50.0` — which is exactly what the given implementation returns via `min(d, 50.0)`. The test's expected value of `100.0` is itself a violation of R2 and will make this test **fail** when actually run against the implementation. Either the test's assertion is wrong (should be `50.0`), or it reflects a misunderstanding that the cap doesn't apply — either way it's a defect in the test, not the implementation.\n\n## Not defects (checked and found correct)\n- `test_small` (`discount(50) == 0.0`) correctly reflects R3 and matches the implementation.\n- `test_large` (`discount(200) == 20.0`) correctly reflects R1 (10% of 200, under the cap) and matches the implementation; no floating-point rounding issue affects this value (200*0.1 rounds to exactly 20.0 in IEEE double).\n- The cap logic itself, `min(d, 50.0)`, is correctly implemented and satisfies R2 for all totals above the threshold.\n- No floating-point rounding artifacts actually affect any of the three test values (100*0.1, 200*0.1, 1000*0.1 all land exactly on 10.0/20.0/100.0 in IEEE double arithmetic), so that is not a real concern here.",
+  "response_sha256": "5b7d80bb7007ec0d4cc44664e6414ff21d96528e9cdaf90257c905a5e6b0daa8",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2631,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 5178,
+    "output_tokens_details": {
+      "thinking_tokens": 4384
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2631,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5178,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2631,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2631
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0674532,
+    "duration_ms": 51480,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:44:40+00:00",
+  "finished_at": "2026-09-13T04:45:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

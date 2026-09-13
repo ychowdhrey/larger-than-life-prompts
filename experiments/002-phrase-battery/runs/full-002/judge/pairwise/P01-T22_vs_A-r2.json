@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T22_vs_A-r2",
+  "contrast_id": "T22_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T22",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T22",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements, but Response A sequences the pre-cutover backup after write-freeze (step 6 then 7), producing a truly consistent checkpoint with no post-backup writes to reconcile, whereas Response B takes its final backup (step 8) before actually blocking writes (step 9), leaving a gap where writes could occur between the checkpoint and freeze. Response A's rollback step also more carefully addresses reconciling any writes that landed on the new cloud database during a failed cutover, making it the more robust and safer runbook to execute.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:51+00:00"
+}

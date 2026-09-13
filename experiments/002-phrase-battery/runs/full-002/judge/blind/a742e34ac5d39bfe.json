@@ -1,0 +1,22 @@
+{
+  "item_id": "a742e34ac5d39bfe",
+  "sample_id": "P01-E01-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E01",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all hard requirements exactly (12 numbered steps, stakeholder communication, rehearsal on non-production data, post-cutover integrity verification, explicit rollback, backups preceding both the pre-migration and pre-cutover data-altering steps) and ends with the correct STEP COUNT line, while giving concrete, technically credible detail (pg_basebackup, logical replication/CDC, schema freeze, checksum/row-count/sequence verification, decommission retention) that a team could actually execute.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:57+00:00"
+}

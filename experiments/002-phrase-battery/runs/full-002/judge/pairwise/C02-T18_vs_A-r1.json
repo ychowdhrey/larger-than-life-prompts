@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T18_vs_A-r1",
+  "contrast_id": "T18_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T18",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the same core defects (LEFT JOIN neutralized by WHERE, UTC vs UTC+8 boundary, integer division truncation, NULL-vs-zero total with resulting sort-order distortion), but Response A pads its list by splitting the join/WHERE issue into two nearly identical points (1 and 2) that Response B already covers in one, and A's extra GROUP BY portability note is speculative since no target engine was specified. Response B is equally thorough on the genuine defects, explains the timezone bug with more precise concrete detail, and pairs every defect with a specific corrective fix, making it more directly usable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:50+00:00"
+}

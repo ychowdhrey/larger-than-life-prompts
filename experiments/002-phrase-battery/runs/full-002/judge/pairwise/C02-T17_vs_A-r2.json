@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T17_vs_A-r2",
+  "contrast_id": "T17_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both responses correctly identify the same five core defects (LEFT JOIN turned into INNER JOIN, UTC/UTC+8 boundary mismatch, integer division truncation, NULL vs. 0 for zero-order customers, and the ungrouped SELECT columns), but Response A's explanation of the timezone defect visibly contradicts itself mid-sentence ('...should count — wait, actually it's the opposite...') before arriving at the correct conclusion, which undermines confidence in a report meant to be handed to a team. Response B states the same correct conclusion cleanly and without the false start. Response A's extra point about NULL sort ordering is only a secondary consequence of an incomplete fix rather than a defect in the submitted query, so it doesn't meaningfully outweigh B's clearer, equally thorough writeup.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:51:00+00:00"
+}

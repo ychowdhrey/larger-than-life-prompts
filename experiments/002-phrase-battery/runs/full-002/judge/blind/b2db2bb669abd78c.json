@@ -1,0 +1,22 @@
+{
+  "item_id": "b2db2bb669abd78c",
+  "sample_id": "P01-T09-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T09",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 4,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (12 numbered steps, rollback, non-prod rehearsal, post-cutover row-count/checksum verification, stakeholder communication) and ends with the exact required STEP COUNT line, but step 3 installs replication tooling on the production source before the full backup in step 4, slightly undercutting the 'backup before any step that modifies production data' rule. Otherwise the sequence is realistic and actionable for a 2TB low-downtime cutover with logical replication.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:58+00:00"
+}

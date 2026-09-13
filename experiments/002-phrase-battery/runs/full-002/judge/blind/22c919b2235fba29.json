@@ -1,0 +1,22 @@
+{
+  "item_id": "22c919b2235fba29",
+  "sample_id": "C05-T04-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T04",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one boundary bug (total==100 falls through to no discount, violating R1), correctly recomputes discount(1000) to show test_cap's expected value of 100.0 is wrong (actual is 50.0, capped per R2), and flags the missing boundary test at total==100 that would have caught the implementation bug — all defects are real and no false positives are introduced.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:19+00:00"
+}

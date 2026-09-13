@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T16-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T16",
+  "condition_name": "phrase_t16",
+  "repetition": 3,
+  "execution_index": 1725,
+  "sample_seed": 10177418927810615241,
+  "prompt_sha256": "c69a260add86e53807953b4026137e8028b78658570dd2568837c25a457288fb",
+  "prompt_chars": 854,
+  "response": "# Billing System Migration Rollout Plan\n**Scope:** Migrate 40,000 existing users from legacy billing system (\"Old\") to new billing system (\"New\"). Both systems run in parallel throughout the rollout.\n\n## Overview\n\nThe migration moves users in three increasing-size batches, validating financial correctness and system stability at each step before proceeding. Old and New run concurrently for the entire rollout; Old is kept fully operational as a fallback until well after 100% of users are migrated and a separate post-migration stabilization period has passed.\n\n---\n\n## Phase 1: Canary\n**Users:** 1% (~400 users)\n**Entry criterion:** New system has passed a full end-to-end billing cycle (invoice generation, payment capture, refund, and dunning) in staging with zero data-integrity errors, and rollback tooling to revert a user to Old has been tested successfully at least once.\n\n**Cohort selection:** Internal/employee accounts and opted-in low-risk test customers (non-enterprise, monthly plans, no active disputes).\n\n**Duration:** Minimum 5 business days, spanning at least one full billing cycle for the cohort.\n\n**Actions:**\n- Enable dual-write shadow mode (New processes transactions; Old remains system of record) for 48 hours before cutting any user's system-of-record over.\n- Cut over the 1% cohort to New as system of record.\n- Reconcile every transaction between Old and New daily.\n\n---\n\n## Phase 2: Early Adopters\n**Users:** 15% (~6,000 users)\n**Entry criterion:** Phase 1 completed its full duration with the halt metric (below) never breached, invoice/payment discrepancy rate ≤0.1% for the Phase 1 cohort, zero P1/P2 incidents attributed to New, and support ticket volume for migrated users within 1.2x of the baseline rate for non-migrated users.\n\n**Cohort selection:** Broader mix of plan types and geographies, but excluding enterprise accounts with custom contracts and any account with an active billing dispute.\n\n**Duration:** Minimum 7 business days.\n\n**Actions:**\n- Migrate in 3 sub-batches of 5% each, 48 hours apart, re-checking the halt metric before each sub-batch.\n- Continue daily reconciliation; add automated variance alerting.\n\n---\n\n## Phase 3: General Availability (Full Migration)\n**Users:** 84% (~33,600 users), including enterprise/custom-contract accounts last\n**Entry criterion:** Phase 2 completed in full with the halt metric never breached, discrepancy rate ≤0.05%, finance team has signed off on reconciliation reports for Phases 1–2, and a dedicated incident-response rotation is staffed for the duration of Phase 3.\n\n**Cohort selection:** All remaining users, migrated in waves by segment (SMB → mid-market → enterprise), enterprise accounts migrated last and individually validated with their assigned account manager before cutover.\n\n**Duration:** Minimum 10 business days, with enterprise accounts migrated no faster than 1 wave every 2 business days.\n\n**Actions:**\n- Migrate remaining users in waves of no more than 10% of total user base per day.\n- Enterprise/custom-contract accounts get a manual pre-migration billing reconciliation review before cutover.\n- Old system remains fully operational, receiving no new signups but able to process/service any user rolled back to it.\n\n**Note:** Decommissioning, disabling, or deleting the Old system is explicitly **out of scope for Phase 3** and for the final migration batch. It is handled in a separate, subsequent Phase 4 (Old System Retirement) that begins only after a minimum 30-day parallel-run stabilization period post-100%-migration, a final audit reconciliation, and explicit sign-off from Finance and Legal/Compliance (for record retention requirements).\n\n---\n\n## Halt / Rollback Metrics\n\nAny of the following automatically pauses the rollout (no further users migrated) and triggers incident review before resuming:\n\n- **Billing discrepancy rate > 0.5%** of transactions in any 24-hour window for migrated users (transaction amount, currency, or status mismatch between Old and New reconciliation).\n- **Payment failure rate for migrated users exceeds baseline (Old system) failure rate by more than 25% relative**, measured over a rolling 6-hour window.\n- **P1 incident** (customer-facing billing outage, duplicate charges, or failed charge capture affecting >50 users) attributed to New at any point.\n- **Support ticket volume from migrated users exceeds 2x the pre-migration baseline** for that cohort over any 24-hour window.\n\n---\n\n## Risks\n\nRISK: Duplicate or double charges occur when both systems briefly consider themselves system of record for the same user | Enforce a single-writer flag per user account gated by a distributed lock; run dual-write in shadow (read-only compare) mode for 48 hours before any cutover | Payments Engineering Lead\nRISK: Data mapping errors (e.g., tax rules, currency, proration logic) cause silent under- or over-billing that isn't caught until customer complaints arrive | Automated daily reconciliation job comparing Old vs. New computed amounts per invoice, with alerting on any variance above threshold | Billing Data/QA Lead\nRISK: Rollback of a migrated user back to Old is incomplete, leaving orphaned payment methods or subscription state in New | Build and test an automated rollback script per migration phase; require a successful rollback dry-run as an entry criterion for Phase 2 | Site Reliability Engineering Lead\nRISK: Enterprise customers with custom contract terms are migrated with incorrect pricing, damaging a high-value relationship | Migrate enterprise accounts last, individually, with manual reconciliation review and account manager sign-off before cutover | Enterprise Account Management Lead\nRISK: Migration coincides with a customer's billing cycle boundary, causing missed or duplicate invoice generation | Freeze migrations for any account within 48 hours of its scheduled invoice date; reschedule to the next available window | Billing Operations Lead\n\nPHASES: 3",
+  "response_sha256": "8102f088c115397291e90e9eb66df0781b652b90adc8c3581190d6e847296cb7",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28326,
+    "output_tokens": 2061,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2061,
+        "cache_read_input_tokens": 28326,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026279200000000003,
+    "duration_ms": 26799,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:03:36+00:00",
+  "finished_at": "2026-09-13T05:04:04+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

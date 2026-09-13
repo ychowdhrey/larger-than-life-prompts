@@ -1,0 +1,22 @@
+{
+  "item_id": "be0088b2e7ddefb5",
+  "sample_id": "P01-E05-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E05",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan fits the 12-step cap, includes rollback, a rehearsal on non-production data, an explicit post-cutover integrity check, stakeholder communication, and backups placed before any production-modifying action, while correctly recognizing that 2 TB cannot be dumped within a 2-hour window and instead using pre-window logical replication with the window reserved for final sync/cutover/verification.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:17+00:00"
+}

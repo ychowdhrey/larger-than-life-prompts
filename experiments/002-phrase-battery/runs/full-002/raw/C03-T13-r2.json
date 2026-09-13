@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T13-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 2,
+  "execution_index": 1415,
+  "sample_seed": 3607365001254926249,
+  "prompt_sha256": "ae33c6085f8b5f7189a66100954a5d06b992476bb2bc62f59dbf98912c1d98f2",
+  "prompt_chars": 1036,
+  "response": "## Section 1 — Webinars and retention\n\n**Defect 1: Correlation treated as causation.**\nThe memo observes an association (webinar attendees retain better) and jumps straight to \"webinars therefore cause higher retention.\" No confounders are ruled out — e.g., more engaged, more satisfied, or more resourced customers are plausibly *both* more likely to attend a voluntary webinar *and* more likely to stick around, regardless of the webinar's content. This would cause the company to attribute a retention effect to webinars that actually belongs to whatever trait makes a customer engaged in the first place.\n\n**Defect 2: Immortal-time / opportunity bias baked into the metric itself.**\n\"Attended at least one webinar\" is a cumulative, ever-occurring event, and the population studied is customers who are *still active today*. A customer who churned early simply had less calendar time to ever attend a webinar, so early churners are mechanically over-represented among \"non-attendees\" — independent of any real effect of webinars. This alone can manufacture the appearance of a retention benefit even if webinars do nothing.\n\n**Defect 3: Selection on the outcome variable.**\nThe whole sample (412) is drawn from customers who are *already* still active — i.e., already \"retained.\" Churned customers, who might disproportionately be the ones who never attended a webinar, are excluded from the comparison entirely. Studying only survivors to infer what drives survival is a biased design; it can distort (inflate or deflate) the estimated relationship in either direction.\n\n**Defect 4: Extrapolating from voluntary attendance to a mandatory policy.**\nEven if the correlation were causal for people who *chose* to attend, that says nothing about what happens when attendance is compelled. Motivated self-selection is plausibly part of the mechanism; forcing unmotivated customers into a webinar may not reproduce the same effect. The policy recommendation doesn't follow even if the causal claim were granted.\n\n## Section 2 — Region and churn\n\n**Defect 5: Multiple-comparisons problem (p-hacking by search, not intent).**\n18 attributes were tested against churn, and one came back \"significant\" at p = 0.04. With 18 independent tests at α = 0.05, the expected number of false positives by chance alone is about 0.9, and the probability that *at least one* test shows p < 0.05 purely by chance is roughly 1 − 0.95¹⁸ ≈ 60%. An uncorrected p = 0.04 out of 18 tests is weak evidence at best — nowhere near what a Bonferroni or FDR-corrected threshold (~0.0028 for Bonferroni) would require. This would cause the company to chase a statistical artifact rather than a real regional effect.\n\n**Defect 6: No causal link between region and *spend*, only between region and churn.**\nNothing in the data connects marketing/support spend to the Central region's low churn — the low churn could be due to industry mix, contract size, tenure, or anything else about who lives there. \"Concentrate spend where churn is already low\" doesn't follow from \"churn is low here\"; if anything, a region that already retains well is where additional spend has the least room to improve outcomes (diminishing returns), while high-churn regions are where marginal spend is more likely to move the needle. The recommendation inverts the more defensible resource-allocation logic without justification.\n\n## Section 3 — Satisfaction and the support model\n\n**Defect 7: Post hoc ergo propter hoc — no counterfactual or control.**\nA single before/after number (62% → 66%) with no control group and no ruling-out of other concurrent changes (seasonality, pricing, product releases, macro conditions, even the earlier-mentioned webinar/CS initiatives) cannot isolate the new support model as the cause. Any number of other things could explain the shift.\n\n**Defect 8: No test of whether the change is even statistically or practically meaningful.**\nThere's no sample size, confidence interval, or historical quarter-to-quarter variance given, so it's impossible to tell whether a 4-point move is a real signal or ordinary noise (or regression to the mean if last quarter was an unusually low reading). Declaring \"the new support model is working\" from this alone risks reinforcing a program that may have had no effect.\n\n## What's *not* a defect here\nThe internal arithmetic/percentages themselves aren't in question (per the prompt), and I haven't flagged anything about the numbers being miscalculated — only the inferential leaps from correct numbers to causal and strategic conclusions.",
+  "response_sha256": "852777d2591715ef8ba1e801818109f44029f1edc4c6c1add04ac28676ceb00f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28378,
+    "output_tokens": 6024,
+    "output_tokens_details": {
+      "thinking_tokens": 4543
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 6024,
+        "cache_read_input_tokens": 28378,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0659196,
+    "duration_ms": 73427,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:56:11+00:00",
+  "finished_at": "2026-09-13T04:57:25+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

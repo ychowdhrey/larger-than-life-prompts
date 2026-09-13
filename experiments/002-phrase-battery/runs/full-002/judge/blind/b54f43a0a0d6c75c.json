@@ -1,0 +1,22 @@
+{
+  "item_id": "b54f43a0a0d6c75c",
+  "sample_id": "P01-T19-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T19",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and satisfies every hard requirement (backup before destructive steps, rehearsal on non-production data, post-cutover integrity verification via row counts/checksums, stakeholder communication, and a rollback procedure) in a logically ordered, production-realistic sequence. It also addresses non-obvious details like sequence ownership, replication lag, and retaining the on-prem server as a rollback safety net, making it directly actionable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:33+00:00"
+}

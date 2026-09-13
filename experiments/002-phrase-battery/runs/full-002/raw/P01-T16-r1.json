@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-T16-r1",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T16",
+  "condition_name": "phrase_t16",
+  "repetition": 1,
+  "execution_index": 1123,
+  "sample_seed": 4030108805589636466,
+  "prompt_sha256": "6a347200ea21cb6abaa07620582d76832bc8c7821eb8c438ae4fc1812a149d5b",
+  "prompt_chars": 856,
+  "response": "# Migration Plan: 2 TB On-Prem PostgreSQL → Managed Cloud Database\n\n1. **Assessment & tooling decision** — Inventory schema, extensions, roles, cron jobs, and app connection strings. Given 2 TB and a 2-hour window, select a **logical replication / CDC tool** (e.g., AWS DMS, pglogical, or native logical replication) for near-zero-downtime sync, rather than relying on dump/restore alone within the window.\n\n2. **Provision target environment** — Stand up the managed cloud PostgreSQL instance with matching major version, required extensions, parameter/config parity, sizing, VPC/networking, and security groups. Validate connectivity from app servers.\n\n3. **Stakeholder communication (initial)** — Notify all stakeholders and the 4,000 DAU user base (status page, email/in-app banner) of the scheduled Sunday maintenance window, expected impact, and duration, at least 3–5 days in advance.\n\n4. **Baseline full backup (pre-rehearsal)** — Take a full verified backup of production (pg_basebackup or snapshot) before touching anything. Restore this backup into a non-production/staging copy for rehearsal — production itself is not modified.\n\n5. **Dry run / rehearsal** — On the staging copy, execute the entire migration runbook end-to-end: initial load, replication setup, cutover script, DNS/connection-string switch, verification queries, and rollback steps. Record timings; confirm the cutover portion fits well inside the 2-hour window.\n\n6. **Establish live replication** — Using a fresh full backup as the initial snapshot, configure logical replication/CDC from on-prem to the cloud target so it streams and catches up **before** the maintenance window opens, minimizing in-window work to just the final cutover.\n\n7. **Go/no-go communication** — Send a final reminder to stakeholders and users 24 hours and 1 hour before the window, including the rollback contingency and a designated incident channel/on-call contact.\n\n8. **Pre-cutover final backup & write freeze** — At the start of the maintenance window, take one last full backup/snapshot of production, then put the application into read-only/maintenance mode to stop new writes. This is the mandatory backup checkpoint immediately before any production-modifying action.\n\n9. **Final sync & cutover** — Let replication reach zero lag, then repoint application connection strings/DNS to the cloud database, and run smoke tests (connect, basic reads/writes on a test table).\n\n10. **Data integrity verification** — Before reopening to users, compare source vs. target: table-by-table row counts, checksums (e.g., `pg_checksums`/hash aggregates per table), max/sequence values, and index/constraint counts. Only proceed if all match within tolerance.\n\n11. **Resume traffic & close out** — Take the application out of maintenance mode, monitor error rates/latency/replication lag closely for the remainder of the window and following hours, then send final stakeholder/user communication confirming success and closure of the window.\n\n12. **Rollback procedure** — If verification fails or critical errors appear at any point after step 8: re-enable maintenance mode, repoint connection strings/DNS back to the (still-live, unmodified) on-prem database, restore from the pre-cutover backup (step 8) if on-prem was altered, notify stakeholders of the postponement, and retain the cloud instance for root-cause analysis before re-attempting.\n\nSTEP COUNT: 12",
+  "response_sha256": "0d9da1b110c39bc27ab7f301663b93e832583fe7eeeddbd52c7e397f42456e85",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28325,
+    "output_tokens": 2008,
+    "output_tokens_details": {
+      "thinking_tokens": 854
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2008,
+        "cache_read_input_tokens": 28325,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.025748999999999998,
+    "duration_ms": 24915,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:49:35+00:00",
+  "finished_at": "2026-09-13T04:50:01+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

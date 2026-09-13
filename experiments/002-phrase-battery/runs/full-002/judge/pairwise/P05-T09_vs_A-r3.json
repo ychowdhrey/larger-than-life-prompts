@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T09_vs_A-r3",
+  "contrast_id": "T09_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T09",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements equally well (three phased percentages summing to 100%, properly formatted risk lines, explicit exclusion of decommissioning from the final migration phase, and a PHASES line), but Response A ties its halt logic more tightly to the requirement by defining four distinct, quantified halt thresholds (payment failure rate, discrepancy rate, API error rate, P95 latency) each explicitly wired to an automatic freeze/rollback action, whereas Response B defines only one true halt metric and relegates its other numeric thresholds to non-halting 'escalation' guardrails, making its operational safety net comparatively thinner.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:30:00+00:00"
+}

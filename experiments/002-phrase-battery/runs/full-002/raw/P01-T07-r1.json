@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-T07-r1",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 1,
+  "execution_index": 1740,
+  "sample_seed": 14906514303132462230,
+  "prompt_sha256": "3f129389749c3fc9fa381f059950f09f7864287ac4d81dc6f65619078d919c91",
+  "prompt_chars": 827,
+  "response": "1. **Assess & design**: Inventory schema, extensions, roles, and dependent apps; choose migration tooling (e.g., AWS DMS/pg_dump-restore/logical replication) and target managed service sized for 2 TB + peak load from 4,000 DAUs.\n2. **Provision target**: Create the managed PostgreSQL instance (matching version/extensions), configure networking, security groups, IAM, and parameter settings to mirror production.\n3. **Full baseline backup**: Take a full verified backup (and confirm restorability) of the on-prem production database before any subsequent step touches it.\n4. **Build a staging/non-production copy**: Restore the baseline backup into a non-production environment to use as rehearsal data, isolated from real users.\n5. **Dry run migration rehearsal**: Execute the entire migration procedure (schema migration, data load/replication, cutover scripts, verification) against the staging copy, timing each phase against the 2-hour window and fixing any issues found.\n6. **Stakeholder communication**: Announce the scheduled Sunday maintenance window to users/stakeholders in advance (email, status page, in-app banner), including expected downtime and rollback contact plan; send a reminder shortly before the window.\n7. **Pre-cutover replication setup**: Ahead of the window, start continuous logical replication/CDC from on-prem to the managed target to pre-load the bulk of the 2 TB and minimize final sync time.\n8. **Take final pre-cutover backup**: Immediately before the maintenance window begins, take a fresh full backup/snapshot of production (and snapshot the target's empty/pre-sync state) as the rollback baseline.\n9. **Execute cutover in the maintenance window**: Put the app in maintenance mode, stop writes, let replication drain to zero lag, run final schema/sequence sync, repoint application connection strings/DNS to the managed service.\n10. **Verify data integrity**: Compare row counts, checksums (e.g., pg_checksums or table hashes), and key aggregate values between source and target for all critical tables before reopening traffic.\n11. **Go-live or rollback decision**: If verification passes, resume application traffic against the new managed database and monitor closely; if verification fails or critical errors appear, execute rollback by repointing the application back to the original on-prem database (restoring from the pre-cutover backup if the on-prem instance was altered) and notify stakeholders of the postponement.\n12. **Post-migration wrap-up**: Monitor performance/logs for 24–48 hours, communicate successful completion to stakeholders, and decommission or archive the on-prem database only after a defined retention period.\n\nSTEP COUNT: 12",
+  "response_sha256": "e9a8b840a46ef8ab7b8f63d691b741b6e6ba86fb4973b7728b4450f2bd3e29d4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28321,
+    "output_tokens": 893,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 893,
+        "cache_read_input_tokens": 28321,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.014598200000000002,
+    "duration_ms": 13370,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:03:59+00:00",
+  "finished_at": "2026-09-13T05:04:14+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

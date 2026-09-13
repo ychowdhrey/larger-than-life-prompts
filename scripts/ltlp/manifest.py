@@ -59,9 +59,13 @@ def build_samples(cfg) -> List[Dict[str, Any]]:
 
 
 def build_pairs(cfg) -> List[Dict[str, Any]]:
-    """One comparison per (task, repetition, contrast), with slots drawn from the seed."""
+    """One comparison per (task, repetition, contrast), with slots drawn from the seed.
+
+    The contrast list is `cfg.pairwise_contrasts`, which defaults to every primary contrast.
+    An experiment with many arms declares a narrower set in conditions.json before any run.
+    """
     pairs = []
-    for contrast in cfg.primary_contrasts:
+    for contrast in cfg.pairwise_contrasts:
         for task in cfg.tasks:
             for rep in range(1, cfg.repetitions + 1):
                 pid = pair_id(task["id"], contrast["id"], rep)

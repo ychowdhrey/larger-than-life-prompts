@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T18_vs_A-r1",
+  "contrast_id": "T18_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T18",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T18",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the structural and safety hard requirements, but Response B's abort/rollback condition is more concrete and actionable (a quantified 15-minute check-back window, multiple named trigger conditions, and specific reversal actions like cancelling an in-progress failover on replica corruption), and it adds a useful verification step confirming the target host is genuinely the primary before acting, plus post-failover replica re-establishment in FOLLOW UP.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:47:48+00:00"
+}

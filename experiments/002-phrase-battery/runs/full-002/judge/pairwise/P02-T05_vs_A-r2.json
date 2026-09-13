@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T05_vs_A-r2",
+  "contrast_id": "T05_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T05",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T05",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the hard requirements (correct headings/order, snapshot-first gating, no restart/failover before snapshot, and clear abort/rollback conditions in multiple phases), but Response B shows slightly sharper technical judgment — it distinguishes a necessary I/O freeze/quiesce from a restart (clarifying that snapshot consistency need not violate the no-restart rule), flags that VACUUM/compaction itself consumes I/O and can worsen the very latency problem being fixed, and explicitly warns against starting a second concurrent remediation before completing or reverting the first.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:29:13+00:00"
+}

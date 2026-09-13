@@ -1,0 +1,22 @@
+{
+  "item_id": "b429dea57b951885",
+  "sample_id": "P02-E05-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E05",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses exactly the four required headings in order, gates all risky actions behind a verified snapshot, explicitly forbids restart/failover before the snapshot, and provides multiple clear abort/rollback conditions, closing with the correctly formatted SECTIONS line. It is also detailed and operationally realistic (root-cause triage, risk-ordered remediation, post-incident review), though it does not explicitly self-verify against the stated constraints beyond satisfying them structurally.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:10+00:00"
+}

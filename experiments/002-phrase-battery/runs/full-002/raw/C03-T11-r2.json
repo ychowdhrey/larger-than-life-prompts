@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T11-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T11",
+  "condition_name": "phrase_t11",
+  "repetition": 2,
+  "execution_index": 1210,
+  "sample_seed": 12586600963361765198,
+  "prompt_sha256": "55cf08d3bc4ed633670d8bbd814a79704aa8f28cd60f831f8cbe173523053cae",
+  "prompt_chars": 1037,
+  "response": "## Defects in the memo's reasoning\n\n**1. Webinar/retention: correlation treated as causation (confounding)**\nAttending a webinar is self-selected, not randomly assigned. Customers who bother to sign up for and attend an onboarding webinar are plausibly more engaged, more committed, or already better-fit customers — any of which could independently drive higher retention. The memo asserts \"webinars therefore cause higher retention\" from an observed association alone, with no attempt to rule out this common-cause explanation. This would cause the company to expect a retention lift from forcing attendance that may not materialize, because the lift may belong to the *kind of customer* who attends, not the webinar itself.\n\n**2. Webinar/retention: survivorship bias in the sample**\nThe population analyzed is \"the 412 customers who are still active on the Pro plan today\" — i.e., already-surviving customers. Churned customers are excluded from the comparison entirely. Conditioning the analysis on the outcome (still being retained) before measuring a retention difference is a form of survivorship bias and can distort or manufacture the very association being reported. This undermines the 31% figure as evidence of anything about the general Pro population, including customers who already churned.\n\n**3. Webinar/retention: mandatory rollout extrapolates beyond what was tested**\nEven setting aside causation, the effect (if real) was produced by *voluntary* attendance. Making attendance mandatory changes the population being studied (it now includes people who would never have opted in) and changes the intervention itself (compulsion vs. choice). Nothing in the data speaks to how that different group, under a different condition, would respond. This would cause the company to invest in mandatory webinars expecting a 31% effect that the data never actually tested.\n\n**4. Region/churn: multiple-comparisons problem (p-hacking by search)**\nEighteen attributes were tested against churn, and one came in at p = 0.04. With 18 independent tests at α = 0.05, the chance of finding at least one \"significant\" result by chance alone is roughly 1 − 0.95¹⁸ ≈ 60%, not 5%. A single nominally significant result out of 18 tested, with no multiple-testing correction (e.g., Bonferroni/Holm) or independent replication, is weak evidence and quite possibly noise. This would cause the company to redirect spend based on what may be a false positive.\n\n**5. Region/churn: recommendation doesn't follow even if the effect is real**\nEven granting that Central genuinely churns less, the memo jumps from \"Central churns less\" to \"concentrate spend there\" without any causal story for *why* Central churns less or evidence that additional spend there would improve (or is even needed to sustain) that outcome. A region that already retains well is arguably the region with the *least* marginal need for extra investment; the alternative recommendation — that resources are better spent shoring up high-churn regions — is at least equally consistent with the same finding. This would cause misallocation of budget based on an unexamined leap from correlation to a specific resource decision.\n\n**6. Satisfaction increase: causal attribution without ruling out alternatives**\nThe rise from 62% to 66% coincides with the rollout of a new support model, but coincidence in time is not evidence of causation. No comparison group, no controls for seasonality, other concurrent initiatives, changes in survey population/methodology, or general trend are presented. This would cause the company to credit the support model (and potentially continue/expand it) when the true driver could be unrelated.\n\n**7. Satisfaction increase: no assessment of whether the change is meaningful/significant**\nA 4-percentage-point change is reported as self-evidently a real improvement, but there's no indication of sample size, confidence interval, or statistical/practical significance testing. If satisfaction is measured via survey on a subset of customers, a 4-point swing quarter-to-quarter could plausibly be within normal sampling noise. This would cause the company to treat routine fluctuation as a confirmed program success.",
+  "response_sha256": "01690fc5e817838822cb8a2d0ef0f515af617695562091928f40dc6a25258a79",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28375,
+    "output_tokens": 3002,
+    "output_tokens_details": {
+      "thinking_tokens": 1701
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3002,
+        "cache_read_input_tokens": 28375,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.035699,
+    "duration_ms": 37924,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:51:34+00:00",
+  "finished_at": "2026-09-13T04:52:13+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

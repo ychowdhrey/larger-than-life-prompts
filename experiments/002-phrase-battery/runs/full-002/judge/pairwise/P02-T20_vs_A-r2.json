@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T20_vs_A-r2",
+  "contrast_id": "T20_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T20",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T20",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response B is operationally tighter: it requires the snapshot to reach a confirmed 'completed' status before any remediation (rather than allowing an in-progress snapshot to suffice as in A), explicitly distinguishes acceptable write-quiescing from prohibited restart/failover, assigns clear incident-command roles to prevent concurrent risky actions, and enforces a measure-after-each-step discipline that makes the mitigation sequence safer and more auditable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:31:24+00:00"
+}

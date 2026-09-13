@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T10_vs_A-r3",
+  "contrast_id": "T10_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T10",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements, but Response A sequences the rollback step logically right after verification and before the final success/monitoring step, whereas Response B places rollback after a 'monitor and send all-clear' step, which is internally inconsistent (implying rollback could still be needed after an all-clear was already sent). Response A also explicitly verifies that the initial backup restores successfully and confirms the rollback procedure itself was rehearsed, giving it slightly more rigor.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:49:20+00:00"
+}

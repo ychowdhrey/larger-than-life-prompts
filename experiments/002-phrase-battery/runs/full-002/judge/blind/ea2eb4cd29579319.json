@@ -1,0 +1,22 @@
+{
+  "item_id": "ea2eb4cd29579319",
+  "sample_id": "P01-T04-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T04",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all six hard requirements (rollback, rehearsal, post-cutover integrity check, stakeholder communication, pre-destructive-step backup, and a numbered list at exactly 12 steps with a correct STEP COUNT line), and its use of continuous logical replication before cutover is a technically sound way to handle 2TB within a 2-hour window. It is detailed and actionable, though the backup requirement is satisfied somewhat trivially since the plan never actually modifies production data before cutover.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:45+00:00"
+}

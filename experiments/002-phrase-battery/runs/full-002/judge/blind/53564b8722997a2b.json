@@ -1,0 +1,22 @@
+{
+  "item_id": "53564b8722997a2b",
+  "sample_id": "C01-A-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "A",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default argument, unguarded IndexError, ZeroDivisionError, in-place mutation of caller's list, and the subtler intra-call duplicate-suppression bug), explains cause and effect for each, and reports nothing false, though it doesn't explicitly trace through a worked example to verify its claims.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:16:31+00:00"
+}

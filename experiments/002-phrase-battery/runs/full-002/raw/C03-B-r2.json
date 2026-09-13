@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-B-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 1896,
+  "sample_seed": 4770048111213866969,
+  "prompt_sha256": "348c9cc0c2bb0899aedb6111742e38784e6b3d08e583979f59e4bc20c65c720f",
+  "prompt_chars": 997,
+  "response": "Here are the defects in the memo's reasoning, organized by claim.\n\n## 1. Webinar attendance → retention\n\n**Defect A: Correlation treated as causation (self-selection confound).**\nAttending a voluntary webinar and staying subscribed are both plausibly driven by a third factor — engagement, satisfaction, or commitment to the product. More invested customers are simply more likely to both show up to a webinar *and* renew. Nothing in the data rules this out.\n*Causes:* Mandating webinars for all new customers assumes the mechanism is \"webinar → retention,\" but if the real mechanism is \"engagement → both,\" forcing disengaged customers to attend won't replicate the 31% gap. The company would spend on a mandatory program that may have no effect on the customers who actually need retaining.\n\n**Defect B: Survivorship bias in the sample.**\nThe analysis starts from \"412 customers who are still active\" and then compares retention *within* that already-survived group. Customers who churned — including any who attended webinars and churned anyway — are excluded before the comparison is even made. This isn't a clean comparison of \"all webinar attendees\" vs. \"all non-attendees\"; it's a comparison computed only among people who didn't leave, which can distort or even manufacture the apparent gap.\n*Causes:* The 31% figure may not reflect the true effect of webinars on churn at all, since the churned population (where the effect would actually show up) has been dropped from the analysis.\n\n**Defect C: No significance/robustness check reported.**\nUnlike the region finding (which has a p-value), the webinar comparison is given with no test of statistical significance and no subgroup sizes. A 31% gap could easily be noise if the attending or non-attending subgroup is small.\n*Causes:* Overconfidence in a difference that hasn't been shown to be distinguishable from chance — a policy (mandatory webinars) is being justified more rigorously in tone than in evidence.\n\n## 2. Region and churn\n\n**Defect D: Multiple comparisons without correction.**\nEighteen attributes were tested against churn, and one came back significant at p = 0.04. With 18 independent tests at α = 0.05, the probability of finding at least one \"significant\" result purely by chance is roughly 1 − 0.95¹⁸ ≈ 60%. No correction (Bonferroni, FDR, etc.) was applied, and the memo treats the single hit as if it were the only test run.\n*Causes:* A high chance that \"Central region churns less\" is a false positive from data dredging. Concentrating next quarter's spend there could pour resources into a region with no real advantage while starving regions that might actually respond to investment.\n\n**Defect E: Statistical significance conflated with a causal, actionable driver.**\nEven taking p = 0.04 at face value, this shows an association, not that being in the Central region *causes* lower churn, and no effect size or plausible mechanism is given. Region could be a proxy for something else (customer size, industry mix, account age, sales rep) that's the real driver.\n*Causes:* Spend directed at \"the Central region\" as a lever may do nothing if the true cause is a confound that doesn't travel with geography — the money would be spent on the wrong variable.\n\n## 3. Satisfaction increase\n\n**Defect F: Post hoc attribution without a counterfactual.**\nSatisfaction moving from 62% to 66% is attributed entirely to \"the new support model,\" but no control group, prior trend line, or other concurrent changes are considered. A single before/after data point can't distinguish the support model's effect from seasonality, other initiatives, or normal quarter-to-quarter drift.\n*Causes:* False confidence that a specific program is \"working,\" which could lead to over-investing in or expanding the support model when the real driver (if any) lies elsewhere — and no course-correction if the model is actually neutral or harmful.\n\n**Defect G: No significance test on the 4-point change.**\nThere's no indication of sample size, survey methodology consistency, or confidence interval for the 62%→66% move, so it's unclear whether 4 points is distinguishable from ordinary sampling/measurement noise in a satisfaction survey.\n*Causes:* Risk of treating routine noise as a meaningful signal, again supporting a causal claim (\"the new support model is working\") that the data don't actually establish.",
+  "response_sha256": "2d0f8dace317a8a842f79df4fd0fcb4c2712a706b13cc1e75d59ba058ccd3fda",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28368,
+    "output_tokens": 4177,
+    "output_tokens_details": {
+      "thinking_tokens": 2765
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4177,
+        "cache_read_input_tokens": 28368,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0474476,
+    "duration_ms": 52605,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:15+00:00",
+  "finished_at": "2026-09-13T05:08:09+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

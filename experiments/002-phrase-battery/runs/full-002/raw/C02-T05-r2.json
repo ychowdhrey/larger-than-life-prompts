@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T05-r2",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T05",
+  "condition_name": "phrase_t05",
+  "repetition": 2,
+  "execution_index": 685,
+  "sample_seed": 10538348828599251197,
+  "prompt_sha256": "0e7c4d73098ad7992f60116b91aee9e46728ff14134c8c4a9a575c7c704c818f",
+  "prompt_chars": 845,
+  "response": "## Step-by-step review\n\n**Filtering logic:** The `WHERE o.created_at >= '2026-01-01'` clause runs *after* the `LEFT JOIN`. For a customer with no orders at all, every `o.*` column (including `o.created_at`) is `NULL` in the joined row. `NULL >= '2026-01-01'` evaluates to `NULL`/false, so `WHERE` discards that row. The same happens for a customer whose orders all fall before the cutoff. This converts the `LEFT JOIN` into the equivalent of an `INNER JOIN`.\n\n**Timezone handling:** `created_at` is UTC, but the literal `'2026-01-01'` has no timezone info, so it's compared as `2026-01-01 00:00:00` in the *stored* (UTC) timezone — i.e., midnight UTC, not midnight UTC+8. Local midnight in UTC+8 is `2025-12-31 16:00:00` UTC.\n\n**Arithmetic:** `total_cents` is declared `INTEGER`. `SUM(o.total_cents)` is therefore an integer, and dividing an integer by the integer literal `100` performs integer (truncating) division in engines such as PostgreSQL or SQL Server.\n\n**Zero-order customers, post-fix:** Even once the join is fixed, `SUM()` over zero matched rows returns `NULL`, not `0`.\n\n**Sort order:** `ORDER BY total_spent DESC` interacts with the `NULL`s produced above.\n\n## Defects found\n\n1. **`WHERE` on the outer-joined table defeats the `LEFT JOIN`.** Because the date filter references `o.created_at` in `WHERE` rather than in the `ON` clause, rows from `customers` that have no matching order (`o.created_at IS NULL`) are dropped by the filter. This directly violates the stated requirement that customers with zero orders must still appear with a count of zero — they will be silently missing from the report entirely. The filter needs to be moved into the `ON` clause (e.g., `ON o.customer_id = c.customer_id AND o.created_at >= ...`) so it only restricts which orders are joined, not which customers survive.\n\n2. **UTC/local timezone mismatch in the date boundary.** `created_at` is stored in UTC, but `'2026-01-01'` is compared as if it were UTC-midnight rather than UTC+8-midnight. This shifts the effective cutoff by 8 hours: orders placed between `2025-12-31 16:00:00` UTC and `2026-01-01 00:00:00` UTC are actually `2026-01-01` in the team's local calendar day but will be excluded, while orders from `2026-01-01 00:00:00`–`07:59:59` UTC (which are still `2026-01-01` local, fine) are included correctly only by coincidence. More generally, any day-boundary comparison done this way is off by 8 hours from the \"calendar day in UTC+8\" the team actually wants, misclassifying orders near midnight into the wrong day/period.\n\n3. **Integer division truncates the monetary total.** `total_cents` is an `INTEGER`, so `SUM(o.total_cents)` is an integer, and `SUM(o.total_cents) / 100` performs integer division in engines that truncate on integer/integer (e.g., PostgreSQL, SQL Server). This truncates the result down to whole dollars and discards the cents remainder (e.g., 12,345 cents → 123, not 123.45), producing an incorrect `total_spent` for essentially every customer. It should be `SUM(o.total_cents) / 100.0` (or cast to `numeric`/`decimal`).\n\n4. **`total_spent` is `NULL`, not `0`, for customers with no orders.** Once defect #1 is fixed so zero-order customers are retained by the `LEFT JOIN`, `SUM(o.total_cents)` over zero rows evaluates to `NULL` rather than `0`. The requirement is that such customers appear with \"a count of zero\" — `order_count` will correctly be `0` (since `COUNT` of no rows is `0`), but `total_spent` will render as `NULL`/blank instead of `0`, which is inconsistent and can confuse downstream consumers (e.g., a report cell showing blank rather than $0.00). This needs `COALESCE(SUM(o.total_cents), 0) / 100.0`.\n\n5. **Sort order puts zero-spend customers in the wrong place.** As a consequence of defect #4, once `total_spent` can be `NULL`, `ORDER BY total_spent DESC` is affected by the engine's default `NULL` ordering. In PostgreSQL, for example, `DESC` sorts `NULL`s *first* by default, so customers with zero orders/spend would appear at the very top of what's meant to be a highest-spenders-first report, ahead of actual paying customers. This should use an explicit `NULLS LAST` (or rely on the `COALESCE` fix in #4, which removes the `NULL`s and this problem along with it).",
+  "response_sha256": "d3cd6857d1d1293a832d74922ba7d4dbd7630d4b19896d6d9a55b114472072e7",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2660,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 5198,
+    "output_tokens_details": {
+      "thinking_tokens": 3514
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2660,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5198,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2660,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2660
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0677692,
+    "duration_ms": 55675,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:39:20+00:00",
+  "finished_at": "2026-09-13T04:40:17+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

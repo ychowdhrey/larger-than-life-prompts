@@ -1,0 +1,22 @@
+{
+  "item_id": "4fb7a5cc508d8f84",
+  "sample_id": "P02-T01-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T01",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All hard requirements are met precisely: the four headings appear in the exact required order, the snapshot is clearly sequenced before any destructive or restart/failover action, an explicit abort/rollback section is present, and the response ends with the correctly-formatted SECTIONS line; the content is also detailed and operationally realistic (replica lag checks, WAL/snapshot consistency caveats, live volume expansion).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:22+00:00"
+}

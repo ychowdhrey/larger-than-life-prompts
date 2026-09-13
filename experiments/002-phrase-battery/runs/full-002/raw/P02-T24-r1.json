@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T24-r1",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T24",
+  "condition_name": "phrase_t24",
+  "repetition": 1,
+  "execution_index": 1799,
+  "sample_seed": 17339818100262094308,
+  "prompt_sha256": "56b231663fec11c6ff675d602ceb2794d663760b8b2263403c42487b63430798",
+  "prompt_chars": 744,
+  "response": "# Incident Response Runbook: Primary Production Database — High Disk Utilisation & Write Latency Spike\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 95% AND/OR write latency ≥ 3x baseline sustained over a 20-minute window.\n\n---\n\n## DETECTION\n\n1. Alert fires from disk utilisation monitor (threshold: 90% warning, 95% critical) and/or write latency monitor (threshold: 2x baseline warning, 3x baseline critical).\n2. On-call engineer acknowledges the page within the SLA window (target: 5 minutes).\n3. Confirm the alert is not a false positive:\n   - Check disk utilisation graph for the affected volume(s) over the last 60 minutes.\n   - Check write latency (p50/p95/p99) against the 7-day baseline.\n   - Confirm current values against the source metrics dashboard, not just the alert payload.\n4. Declare an incident (open incident channel, page secondary if needed) once confirmed. Do not proceed past this point on unconfirmed/stale data.\n5. Identify current disk usage percentage, growth rate (GB/hour over the last 20–60 minutes), and estimated time-to-full at current rate.\n\n---\n\n## IMMEDIATE ACTIONS\n\n1. **Freeze the blast radius before touching anything else.** Do not restart, reboot, fail over, or run destructive/repair operations on the primary database at this stage.\n2. **Take a storage snapshot of the primary database volume immediately.** This must complete (or be confirmed in-progress and durable) before any subsequent action in this runbook that could modify, delete, truncate, compact, or fail over data.\n   - Use the provider/orchestration snapshot tool (e.g., EBS snapshot, cloud disk snapshot, LVM snapshot, storage-array snapshot).\n   - Record the snapshot ID/timestamp in the incident channel.\n   - If the snapshot tool itself requires significant free disk space and none is available, escalate to the database/storage lead before proceeding — do not skip the snapshot silently.\n3. While the snapshot is running, gather read-only diagnostics in parallel (these do not risk data and may run concurrently with the snapshot):\n   - Top disk consumers: largest tables/indexes, WAL/redo log size, temp file usage, orphaned replication slots.\n   - Current active queries, lock waits, and long-running transactions contributing to write latency.\n   - Recent schema changes, bulk loads, or batch jobs that may correlate with the growth spike.\n4. Notify stakeholders (incident channel, status page if customer-facing impact is confirmed) with current status: disk %, latency multiple, time-to-full estimate, snapshot status.\n5. **Confirm the snapshot has completed successfully** (verify snapshot status = complete/available, not just \"initiated\") before moving to MITIGATION.\n\n---\n\n## MITIGATION\n\nProceed only after the snapshot from IMMEDIATE ACTIONS is confirmed complete.\n\n1. **Reclaim space with the lowest-risk options first:**\n   - Purge/rotate expendable data: old logs, expired temp tables, stale replication slots holding WAL, completed job artifacts.\n   - Vacuum/compact only if the engine's vacuum operation is non-blocking for the current load; check for lock contention risk first.\n   - Clear application-level caches or staging tables known to be safely disposable.\n2. **If space reclaimed is insufficient or growth rate outpaces cleanup:**\n   - Expand the storage volume online (if the platform supports live disk expansion) rather than taking the database offline.\n   - If live expansion is not supported, plan a brief maintenance window for offline expansion — this still occurs only after the confirmed snapshot.\n3. **If write latency remains critical despite disk headroom improving:**\n   - Identify and throttle/kill specific runaway write transactions or batch jobs identified in diagnostics (targeted kill, not a full restart).\n   - Consider temporarily shedding non-critical write traffic (feature flags, queueing) rather than restarting the database.\n4. **Failover, restart, or engine-level repair operations are permitted only after:**\n   - The snapshot is confirmed complete, AND\n   - Lower-risk mitigations (cleanup, live expansion, traffic shedding) have been attempted or explicitly ruled out as insufficient, AND\n   - A second engineer/incident commander has approved the action.\n5. **Abort/Rollback condition:** If, after taking the snapshot, disk utilisation continues climbing toward 100% within the next 10 minutes despite cleanup actions, OR any cleanup/expansion step causes replication lag to spike, additional errors, or further latency degradation — **stop all in-progress mitigation actions immediately**, do not attempt failover as an improvised next step, and escalate to the database lead/incident commander for a coordinated decision (e.g., emergency read-only mode, controlled failover from the verified snapshot, or engaging the storage vendor). Do not chain additional untested remediation steps on top of a worsening situation.\n\n---\n\n## FOLLOW UP\n\n1. Confirm disk utilisation has stabilised below 80% and write latency has returned to within 1.2x baseline for at least 30 consecutive minutes before declaring the incident resolved.\n2. Verify the snapshot taken during this incident is retained per policy (not auto-expired) until root cause is confirmed and reviewed.\n3. Root cause analysis: identify what drove disk growth/latency (bulk write job, missing retention policy, index bloat, replication slot leak, etc.).\n4. File follow-up tickets: automated disk-growth alerting at lower thresholds, retention/cleanup automation, capacity planning review, and any autoscaling/storage-expansion improvements identified during MITIGATION.\n5. Conduct a blameless post-incident review within 5 business days; document timeline, snapshot ID(s) used, decisions made, and update this runbook with any gaps found.\n6. Close out incident communications and status page updates.\n\nSECTIONS: 4",
+  "response_sha256": "aeab51aaf740a596a7bbeb465ae956d59d3b5b08a88a4f5e1e414a493f530a62",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28303,
+    "output_tokens": 2042,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2042,
+        "cache_read_input_tokens": 28303,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0260846,
+    "duration_ms": 27410,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:05:05+00:00",
+  "finished_at": "2026-09-13T05:05:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

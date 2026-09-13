@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T21_vs_A-r3",
+  "contrast_id": "T21_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T21",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy every hard requirement, but B places the snapshot unambiguously as the very first IMMEDIATE ACTION (deferring even job-pausing until after confirmation), whereas A pauses jobs before the snapshot step, muddying the snapshot-first sequencing; B also gives a more concrete, testable abort condition (explicit 5-minute failover threshold) and adds a post-incident data-integrity check (row count/checksum comparison against the snapshot) that A omits.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:27+00:00"
+}

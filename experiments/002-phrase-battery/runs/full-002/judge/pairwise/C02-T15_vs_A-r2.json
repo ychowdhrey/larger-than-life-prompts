@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T15_vs_A-r2",
+  "contrast_id": "T15_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T15",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T15",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly diagnose the LEFT JOIN/WHERE bug, the UTC vs UTC+8 boundary error, integer division truncation, NULL total_spent for zero-order customers, and the GROUP BY portability issue, but Response B additionally catches a genuine downstream defect—that once NULLs are coalesced/fixed, PostgreSQL's default NULLS FIRST behavior on ORDER BY ... DESC would otherwise push zero-order customers to the top of a 'top spenders' report—which Response A misses entirely. This gives B a materially more complete and useful defect list without introducing any incorrect claims.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:26:57+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "da3cfddcead9bcbd",
+  "sample_id": "P03-T23-r3",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T23",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule is valid: it respects all prerequisite, single-engineer-per-day, and consecutive-day constraints, correctly parallelizes T2/T3 and T4/T5, and finishes exactly at the day-10 limit (which is the minimum possible given the critical path T1→T2→T4→T6). Output format and closing LAST DAY line are followed exactly, with a brief but accurate self-check of the constraints.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:39:05+00:00"
+}

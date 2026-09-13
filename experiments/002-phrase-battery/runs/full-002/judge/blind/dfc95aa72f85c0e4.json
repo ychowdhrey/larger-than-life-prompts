@@ -1,0 +1,22 @@
+{
+  "item_id": "dfc95aa72f85c0e4",
+  "sample_id": "P02-E06-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E06",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, enforces snapshot-before-risky-action as a hard rule that gates restart/failover, includes explicit abort/rollback criteria, and ends with the correct SECTIONS: 4 line, while also being operationally detailed and actionable. Depth is strong (e.g., snapshot copy-on-write space consumption, WAL/log growth causes, replica lag checks) though it lacks an explicit self-review pass confirming each hard requirement was met.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:10+00:00"
+}

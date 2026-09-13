@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T04-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T04",
+  "condition_name": "phrase_t04",
+  "repetition": 3,
+  "execution_index": 855,
+  "sample_seed": 14244534214221404831,
+  "prompt_sha256": "daf738f340c79d58cb3cf024832fc0358f1ff35732bbdf84b0fd16aad79a328e",
+  "prompt_chars": 738,
+  "response": "## The problem\n\nOur team of twelve has drifted into long-lived feature branches that often run two to three weeks before merging. By the time a branch lands, it conflicts with a dozen other changes, and integration becomes a multi-day scramble of merge conflicts and re-testing. Last month alone, three releases slipped because \"final merge\" week turned into \"final merge and a half\" week. We are effectively deferring integration risk to the worst possible moment, then paying interest on it.\n\n## The proposal\n\nI propose we move to trunk-based development: small commits merged to main at least daily, behind feature flags where work is incomplete, with CI enforcing that main is always releasable.\n\n- Every engineer merges to trunk at least once per day, using feature flags to hide unfinished work from users\n- CI must pass before merge, and a broken trunk is an all-hands, drop-everything priority\n- Code review shifts to small, fast pull requests (under 400 lines) reviewed within hours, not days\n- We adopt trunk protections (required checks, no direct pushes) to keep quality high without slowing merges\n- We run a two-week pilot with one squad before rolling out team-wide\n\n## What could go wrong\n\nThe strongest objection is that small, flag-gated commits can leave the codebase in inconsistent or half-built states more often, and that reviewing many small PRs daily is more overhead than reviewing one big one occasionally. This is a fair concern: it trades a rare, large integration cost for a frequent, smaller one, and it only pays off if reviews stay fast and flags are cleaned up promptly. If review turnaround lags or flags pile up unretired, we could end up with the worst of both worlds — constant churn and lingering complexity. We should mitigate this with a review SLA and a mandatory flag-cleanup ticket attached to every flagged change, revisited at the pilot's midpoint.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "85954ecfae922c58aeb8050c2c5a5173d3ce611e524e27a33bf1278bd2fc3ded",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28297,
+    "output_tokens": 618,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 618,
+        "cache_read_input_tokens": 28297,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0118434,
+    "duration_ms": 10899,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:43:12+00:00",
+  "finished_at": "2026-09-13T04:43:24+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

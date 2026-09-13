@@ -1,0 +1,22 @@
+{
+  "item_id": "d0355bf57a3b53df",
+  "sample_id": "C02-T03-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T03",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies both critical bugs (WHERE clause defeating the LEFT JOIN, and the UTC vs UTC+8 boundary mismatch) plus several real secondary issues (integer division truncation, NULL total_spent for zero-order customers, resulting NULL sort behavior, and a well-hedged GROUP BY portability note), all with accurate explanations and consequences and no fabricated defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:53+00:00"
+}

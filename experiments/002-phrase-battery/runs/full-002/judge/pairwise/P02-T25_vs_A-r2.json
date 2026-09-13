@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T25_vs_A-r2",
+  "contrast_id": "T25_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T25",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both responses satisfy every hard requirement (correct headings/order, snapshot-before-risk gating, no restart/failover before snapshot, explicit abort conditions), but Response A layers abort/rollback conditions at each phase (detection false-alarm, snapshot-stall, and post-mitigation non-improvement) and adds more concrete operational diagnostics (e.g., corroborating alerts via two independent sources, distinguishing I/O wait vs. log-flush backpressure vs. autovacuum as latency causes, verifying replica lag before considering failover), making it a more robust and actionable runbook than Response B's slightly thinner single abort condition.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:32:54+00:00"
+}

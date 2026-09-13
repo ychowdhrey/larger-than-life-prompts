@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T12-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T12",
+  "condition_name": "phrase_t12",
+  "repetition": 2,
+  "execution_index": 933,
+  "sample_seed": 9393665545670946038,
+  "prompt_sha256": "beb51608b5b8168e0efd06730c7489d4487afcc17a059a2e09004eea773562cd",
+  "prompt_chars": 1023,
+  "response": "Here is the defect list, organized by the claim it attacks.\n\n**1. Webinar attendance → \"webinars cause higher retention\" (causal claim from observational data)**\n- **What's wrong:** A correlation between webinar attendance and retention is treated as proof of causation. Customers who choose to attend a voluntary onboarding webinar are already more engaged, more organized, or more invested than those who don't — that pre-existing motivation is a plausible alternative explanation for both the attendance *and* the retention.\n- **What it causes:** The company could roll out mandatory webinars expecting a 31% retention lift and see little or nothing, because the effect may belong to the *kind of customer* who self-selects into attending, not to the webinar content itself.\n\n**2. Sample restricted to customers \"still active on the Pro plan today\" (survivorship / immortal-time bias)**\n- **What's wrong:** The 412 customers are the ones who *already survived* to today; anyone who churned — whether or not they attended a webinar — is excluded from the analysis entirely. You cannot draw a conclusion about what drives retention (i.e., about the churned population) using a sample that has already had all the churners removed. Relatedly, a customer has to still be a customer *at the time* a webinar happens to attend it — someone who churned early simply had less opportunity to ever attend, which mechanically links \"longer tenure\" to \"attended a webinar\" regardless of any real effect.\n- **What it causes:** The 31% figure can be inflated or entirely spurious, and it tells you nothing reliable about whether webinars would have saved any of the customers who already left.\n\n**3. \"We should make webinar attendance mandatory\" (policy non sequitur, even if causation were granted)**\n- **What's wrong:** Even if voluntary attendance genuinely helps, that doesn't imply forced attendance will produce the same benefit. The observed effect may depend on the customer *choosing* to attend (a proxy for engagement); compelling reluctant customers to sit through a webinar they wouldn't otherwise attend is a different intervention and could have a smaller effect, no effect, or even a negative one (e.g., resentment at a mandatory session).\n- **What it causes:** A costly, mandatory-onboarding policy rollout justified by an effect size that may not transfer to the population it's being forced onto.\n\n**4. \"Tested 18 attributes... Central region p = 0.04... recommend concentrating spend\" (multiple comparisons / data dredging)**\n- **What's wrong:** Running 18 separate significance tests and then treating one that clears p < 0.05 as a real finding ignores the multiple-comparisons problem. With 18 independent tests at α = 0.05, the chance of getting at least one \"significant\" result purely by chance is roughly 1 − 0.95¹⁸ ≈ 60%. A p = 0.04 that is the best of 18 tries is far weaker evidence than an isolated p = 0.04 — under a standard correction (e.g., Bonferroni: 0.05/18 ≈ 0.0028), it would not be significant at all.\n- **What it causes:** Real budget being redirected to a region whose apparent advantage may be statistical noise, with no real churn benefit — and the true drivers of churn (among the other 17 attributes, or combinations of them) potentially ignored.\n\n**5. Satisfaction \"rose from 62% to 66%... shows the new support model is working\" (causal attribution without a control or baseline variance)**\n- **What's wrong:** A single before/after comparison, with no control group, no information about normal quarter-to-quarter fluctuation in satisfaction, and no ruling-out of other concurrent changes (pricing, product updates, seasonality, sampling differences in who responded), is used to credit one specific initiative. Nothing shown demonstrates the new support model specifically caused the change rather than being coincidental with it.\n- **What it causes:** Continued investment in (or expansion of) the support model based on a movement that might be normal variation or attributable to something else entirely, while the actual cause goes unaddressed.\n\nNo other defects were found — the arithmetic and reported figures themselves are not in question, only the inferential leaps drawn from them.",
+  "response_sha256": "129f57a03ce55c4917b49a11e46b437524c0420796932d57c4bd3b0dcadfa751",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28372,
+    "output_tokens": 4116,
+    "output_tokens_details": {
+      "thinking_tokens": 2740
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4116,
+        "cache_read_input_tokens": 28372,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0468384,
+    "duration_ms": 52162,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:44:46+00:00",
+  "finished_at": "2026-09-13T04:45:39+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

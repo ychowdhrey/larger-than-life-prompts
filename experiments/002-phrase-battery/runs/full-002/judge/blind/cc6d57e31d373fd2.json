@@ -1,0 +1,22 @@
+{
+  "item_id": "cc6d57e31d373fd2",
+  "sample_id": "C01-T10-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T10",
+  "repetition": 2,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "It correctly identifies all five real defects (mutable default, in-place sort mutation, IndexError, ZeroDivisionError, and duplicate-skipping under-return) with accurate causal explanations and no false positives, but the illustrative example for the duplicate-skipping defect uses only 5 total scores with 4 distinct values, so the claimed 'missing' fifth distinct score doesn't actually exist in that example, weakening the demonstration.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:18+00:00"
+}

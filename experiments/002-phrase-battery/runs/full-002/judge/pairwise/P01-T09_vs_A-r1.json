@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T09_vs_A-r1",
+  "contrast_id": "T09_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T09",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy the stated hard requirements, but Response A sequences verification before reopening traffic to end users (cutover happens while still in maintenance mode, verification runs, then maintenance mode is lifted), making its rollback trivial and safe since no user writes ever hit the unverified target. Response B explicitly brings the application 'back online' to users in the cutover step before running post-cutover verification, so its rollback procedure must then reconcile potential user writes made against the cloud database back to on-prem via captured transaction logs — a materially riskier and less practical design for a real production cutover.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:49+00:00"
+}

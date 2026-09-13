@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T05_vs_A-r2",
+  "contrast_id": "T05_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T05",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the same four core defects (LEFT JOIN defeated by WHERE, UTC/UTC+8 boundary mismatch, integer division truncation, NULL total for zero-order customers), but Response B adds a real, additional defect (unaggregated c.name/c.signup_date in GROUP BY, a genuine portability issue under strict SQL modes) and explicitly rules out two plausible-but-absent issues (COUNT usage, open-ended date filter), directly satisfying the instruction not to report non-existent problems. Response A's extra point about NULLS FIRST sort ordering is a more marginal, Postgres-specific consequence of an already-listed defect rather than a distinct issue.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:49:31+00:00"
+}

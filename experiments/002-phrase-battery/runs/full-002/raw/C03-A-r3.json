@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-A-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 3,
+  "execution_index": 45,
+  "sample_seed": 9130629728748352852,
+  "prompt_sha256": "8089cc52136149aaf3746caa0a30a0a28611b73de88c74774b49c8123ea07a52",
+  "prompt_chars": 971,
+  "response": "Here's a paragraph-by-paragraph breakdown. The arithmetic in each case is fine — the problems are all in the inferential leap from data to conclusion.\n\n## Paragraph 1: Webinars and retention\n\n**1. Survivorship bias in the sample.** The analysis only includes the 412 customers *still active* on Pro today — i.e., the population is filtered on the very outcome (retention) the memo is trying to explain. Customers who churned, whether or not they attended a webinar, are excluded entirely. This means the comparison isn't \"webinar attendees vs. non-attendees among all Pro customers,\" it's \"webinar attendees vs. non-attendees among the survivors\" — a conditioned/collider sample.\n*Consequence:* the 31% figure can be inflated, deflated, or reversed relative to the true effect on the full customer base, since churned attendees and churned non-attendees never entered the analysis.\n\n**2. Correlation treated as causation with an obvious confound.** Webinar attendance is self-selected. Customers who bother to show up to onboarding webinars are plausibly more engaged, more invested, or better resourced than those who don't — any of which could independently drive retention. No comparison group, control variables, or randomization is described.\n*Consequence:* the memo attributes to \"webinars\" an effect that may really belong to pre-existing customer engagement, so the causal claim (\"webinars cause higher retention\") is not supported by the evidence given.\n\n**3. The policy recommendation doesn't follow even if the correlation is real.** The observed effect (if any) comes from *voluntary* attendance. Making attendance *mandatory* changes exactly the mechanism that may be driving the effect — it forces in the disengaged customers who currently opt out, so their behavior when compelled to attend is not represented anywhere in this data.\n*Consequence:* mandating webinars could produce a much smaller effect than 31%, or none at all, while adding friction/cost — the recommendation extrapolates far beyond what was measured.\n\n**4. No significance/robustness reporting for this figure**, in contrast to the region claim below (which at least reports a p-value). Sample sizes of the two subgroups, variance, and significance are not given.\n*Consequence:* readers can't tell whether 31% is a stable effect or noise from a small subgroup.\n\n## Paragraph 2: Region and churn\n\n**5. Multiple-comparisons problem (data dredging).** Eighteen attributes were tested against churn, and the one that happened to cross p = 0.04 is reported as \"significant.\" With 18 independent tests at α = 0.05, the expected number of false positives by chance alone is close to 1 (18 × 0.05 ≈ 0.9) — so finding *one* attribute at p < 0.05 is exactly what you'd expect even if none of the 18 attributes had any real relationship to churn. No correction (Bonferroni, FDR, etc.) is mentioned.\n*Consequence:* the \"Central region churns less\" finding is quite likely a false positive, and directing spend based on it risks chasing statistical noise rather than a real effect.\n\n**6. Correlation-causation gap again.** Even taking the regional association at face value, nothing shows *why* Central churns less (could be industry mix, account size, tenure, contract terms) or that it has anything to do with something spend can influence.\n*Consequence:* concentrating spend in Central may not reduce churn there or anywhere else — the mechanism linking \"spend\" to \"the observed regional difference\" is asserted, not demonstrated.\n\n## Paragraph 3: Satisfaction and the support model\n\n**7. No causal attribution is justified.** Satisfaction moving from 62% to 66% in the same quarter the support model changed is a before/after comparison with no control group and no ruling-out of other concurrent factors (seasonality, pricing, product changes, survey composition, etc.).\n*Consequence:* the new support model gets credit it may not deserve, which could lead to over-investing in it while the real driver goes unaddressed.\n\n**8. No significance/noise check on the 4-point move.** No sample size, margin of error, or historical quarter-to-quarter variance is given, so there's no way to know if a 4-point shift is meaningfully different from normal fluctuation.\n*Consequence:* a routine wobble in survey results could be mistaken for a genuine program effect.\n\n**9. (Minor) Ambiguous phrasing.** \"That 4% improvement\" for a 62%→66% move conflates percentage points with a relative percentage change (the relative increase is actually ~6.5%). Not a numeric error per the problem statement, but the label is loose enough to mislead a reader skimming for magnitude.",
+  "response_sha256": "3450ad561ea759a515afac6426748510a634b5d2671fa50b0783f66622e49c4e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2631,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 4482,
+    "output_tokens_details": {
+      "thinking_tokens": 2946
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2631,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4482,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2631,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2631
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0604932,
+    "duration_ms": 55655,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:23:20+00:00",
+  "finished_at": "2026-09-13T04:24:16+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T02_vs_A-r2",
+  "contrast_id": "T02_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T02",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "Tie",
+  "winner_condition": null,
+  "treatment_won": null,
+  "tie": true,
+  "reason": "Both responses identify the same five real defects (mutable default argument, in-place sort mutation, IndexError from unbounded indexing, ZeroDivisionError on empty input, and duplicate-induced short results) with equally accurate explanations of causes and consequences. Each adds a small extra insight not in the other (A notes the precise limit=0 scenario where ZeroDivisionError surfaces independently; B gives a concrete numeric trace proving the dedup shortfall and notes the seen list grows unbounded), so neither is clearly more correct or useful overall.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:30:53+00:00"
+}

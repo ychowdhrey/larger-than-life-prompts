@@ -1,0 +1,22 @@
+{
+  "item_id": "9189e017e175c06b",
+  "sample_id": "C05-T14-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T14",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real R1 boundary bug (>100 vs >=100) and the genuine arithmetic error in test_cap (discount(1000) actually returns 50.0, not 100.0), verifies the floating-point arithmetic explicitly rather than assuming, notes the missing boundary test, and correctly confirms the passing tests without inventing false defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:57+00:00"
+}

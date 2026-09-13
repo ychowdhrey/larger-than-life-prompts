@@ -1,0 +1,93 @@
+{
+  "sample_id": "P04-E05-r3",
+  "task_id": "P04",
+  "family": "planning",
+  "condition_id": "E05",
+  "repetition": 3,
+  "response_sha256": "26003eadf01309c0cf5015f2f0d31974e2ce3a703d04a6dd3a46a568e062b5ce",
+  "objective": {
+    "max_points": 14.0,
+    "earned_points": 14.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "total_line",
+        "label": "TOTAL line present",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched TOTAL\\s*:\\s*[\\d,]+",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "item_count",
+        "label": "At least 8 line items in the required format",
+        "type": "count_matches",
+        "points": 2.0,
+        "passed": true,
+        "detail": "found 9 (allowed 8..None)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "required_items",
+        "label": "Covers all four required categories",
+        "type": "regex_all",
+        "points": 3.0,
+        "passed": true,
+        "detail": "all matched",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "contingency",
+        "label": "Includes a contingency line",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched contingenc",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "sum_consistency",
+        "label": "Stated TOTAL equals the sum of line items, is within budget, and contingency is at least 5%",
+        "type": "sum_consistency",
+        "points": 7.0,
+        "passed": true,
+        "detail": "9 items summing to 45000.00, consistent and within budget",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 412,
+    "response_words": 55,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:45+00:00",
+  "evaluation_version": "2.0.0"
+}

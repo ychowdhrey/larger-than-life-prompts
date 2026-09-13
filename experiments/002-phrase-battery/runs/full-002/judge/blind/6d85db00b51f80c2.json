@@ -1,0 +1,22 @@
+{
+  "item_id": "6d85db00b51f80c2",
+  "sample_id": "P01-E04-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E04",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 3,
+    "usefulness": 4
+  },
+  "reason": "All hard requirements (≤12 steps, rollback, dry run, integrity check, stakeholder communication, pre-destructive backup) are explicitly satisfied and the step count line is correct, with a coherent replication-based strategy for the tight window; however it glosses over a key practical wrinkle for a 2TB dataset (whether a logical full backup can even complete within the 2-hour window versus needing a storage-level snapshot) and other cutover specifics like sequence/large-object handling or connection draining, keeping the depth moderate rather than expert-level.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:16+00:00"
+}

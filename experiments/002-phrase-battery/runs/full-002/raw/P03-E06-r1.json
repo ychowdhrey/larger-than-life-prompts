@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-E06-r1",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "E06",
+  "condition_name": "combo_e06",
+  "repetition": 1,
+  "execution_index": 519,
+  "sample_seed": 7556954197748778595,
+  "prompt_sha256": "a1e89b35eef27ab1ae6103e6d35feeaeb06ac43b9933e24455a1e0c93bc8fcef",
+  "prompt_chars": 1152,
+  "response": "**Reasoning**\n\nCritical path: T1(2)→T2(2)→T4(3)→T6(3) = 10 days minimum if run sequentially on one chain — so T6 must start immediately after T4 finishes, with no slack. T3→T5 is a shorter parallel branch (2+2=4 days after T1) that must also finish before T6 starts, but since it's shorter than T2→T4, it doesn't constrain the end date as long as it starts no later than T2/T3 do.\n\nSchedule:\n- Day 1–2: T1 (only task available, no prerequisites). Assign to E1.\n- Day 3–4: T1 done end of Day 2, so T2 and T3 can start Day 3. Run them in parallel: T2 on E1, T3 on E2. Both finish end of Day 4.\n- Day 5–7: T4 requires T2 (done Day 4) → starts Day 5, takes 3 days (5,6,7) on E1.\n- Day 5–6: T5 requires T3 (done Day 4) → starts Day 5, takes 2 days (5,6) on E2.\n- Day 8–10: T6 requires both T4 (done Day 7) and T5 (done Day 6) → can only start once T4 finishes, i.e., Day 8. Takes 3 days (8,9,10) on E1 (free since Day 8).\n\nThis fits exactly within the 10-day window with zero slack on the T1→T2→T4→T6 chain, and T3→T5 finishes with slack to spare. Engineer load: E1 handles T1,T2,T4,T6 (fully booked all 10 days); E2 handles T3,T5 (Days 3–6 only, idle otherwise) — no engineer is double-booked on any day, and every precedence and duration constraint is satisfied.\n\nVerification of constraints:\n- Each task: single engineer, consecutive days ✔ (T1:1-2, T2:3-4, T3:3-4, T4:5-7, T5:5-6, T6:8-10)\n- No engineer double-booked any day ✔\n- T2 starts Day 3 > T1 end (Day 2) ✔\n- T3 starts Day 3 > T1 end (Day 2) ✔\n- T4 starts Day 5 > T2 end (Day 4) ✔\n- T5 starts Day 5 > T3 end (Day 4) ✔\n- T6 starts Day 8 > T4 end (Day 7) and > T5 end (Day 6) ✔\n- All tasks within Day 1–10 ✔\n\n**Schedule**\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "5e8d2b5463e4b0d0874e503be0cfb9f1a20e325c223a0c7a67b33f2cf3f680df",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28490,
+    "output_tokens": 2153,
+    "output_tokens_details": {
+      "thinking_tokens": 1103
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2153,
+        "cache_read_input_tokens": 28490,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.027232000000000003,
+    "duration_ms": 22279,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:35:06+00:00",
+  "finished_at": "2026-09-13T04:35:29+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T26-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 1,
+  "execution_index": 2182,
+  "sample_seed": 10891275256760947566,
+  "prompt_sha256": "f2379267dabd68726e32e43066d3a445444222d3b29b52792963aa0cb28ea974",
+  "prompt_chars": 1026,
+  "response": "## Defects found\n\n**1. Survivorship bias in the sample itself (webinar claim)**\nThe analysis only looks at \"the 412 customers who are still active on the Pro plan today\" — i.e., it excludes every customer who already churned. Retention can't be meaningfully compared within a population that has been pre-filtered to retained customers only; the churned webinar-attendees and churned non-attendees are invisible to this comparison. This alone can distort or manufacture the 31% gap.\n*Consequence:* The reported retention difference may not reflect the true churn-rate difference between attendees and non-attendees at all — the conclusion is built on a biased base.\n\n**2. Correlation treated as causation (webinar claim)**\nEven setting aside sampling, \"attended a webinar\" is a self-selected behavior, not a randomized one. Customers who proactively attend onboarding webinars are plausibly more engaged, more invested in the product, or earlier adopters — any of which could independently drive retention. The memo asserts \"webinars therefore cause higher retention\" with no control group, no randomization, and no attempt to rule out this confound.\n*Consequence:* Mandating webinars for all new customers may not replicate the effect at all — if the true driver is pre-existing engagement, forcing attendance on unengaged customers could yield no retention benefit while adding cost/friction, and the company would wrongly credit or blame the webinar program based on this.\n\n**3. Multiple-comparisons problem (region claim)**\nEighteen attributes were tested against churn, and one came back at p = 0.04. With 18 independent tests at α = 0.05, the probability of at least one false positive by chance alone is roughly 1 − 0.95¹⁸ ≈ 60%. A single p = 0.04 result out of 18 tries is exactly what you'd expect from pure noise, not evidence of a real effect. No correction (Bonferroni, FDR, etc.) was applied, and the finding wasn't validated on a held-out sample.\n*Consequence:* Redirecting next quarter's spend to the Central region is likely chasing a statistical artifact; if the effect isn't real, the reallocation produces no churn improvement and diverts resources from regions/initiatives that might actually matter.\n\n**4. No mechanism for the region finding, even if real**\nStatistical significance of \"region correlates with churn\" says nothing about *why*, and \"concentrating spend\" presumes a causal, actionable lever exists in that region. The memo moves from an unexplained correlation to a resource-allocation decision without identifying what about the Central region would respond to spend.\n*Consequence:* Spend could be poured into a region where the low churn is driven by something spend can't influence (e.g., customer mix, industry concentration), wasting the investment.\n\n**5. Satisfaction change asserted as caused by the support model, with no significance/confound check**\nThe 62%→66% shift is presented as proof \"the new support model is working,\" but no test of whether a 4-point move is distinguishable from normal quarter-to-quarter survey noise is given (no sample size, confidence interval, or historical variance cited), and no other concurrent changes (pricing, product releases, seasonality, survey methodology changes) are ruled out.\n*Consequence:* The company may credit the support model for a fluctuation that's within normal noise or actually caused by something else, leading to continued investment in a change that isn't actually responsible for the improvement.\n\n**6. Percentage points vs. percent conflation (minor, in the write-up of that same claim)**\nGoing from 62% to 66% is a 4-*percentage-point* increase, but the memo calls it a \"4% improvement,\" which reads as a 4% relative change (it's actually ~6.5% relative). This isn't a numbers error per the given premise, but it's a defect in how the number is characterized, and it feeds directly into overstating or understating how large the \"improvement\" really is when compared to other metrics.\n*Consequence:* Readers may miscompare this \"4%\" to other percentage figures in the memo (e.g., the 31% retention figure) as if they were on the same scale, distorting prioritization between initiatives.",
+  "response_sha256": "bcf11631c8fd62559bf5066be1e5f9122a96cd013a1e5a89466166849618ea21",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28370,
+    "output_tokens": 3131,
+    "output_tokens_details": {
+      "thinking_tokens": 1784
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3131,
+        "cache_read_input_tokens": 28370,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.036988,
+    "duration_ms": 39692,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:47+00:00",
+  "finished_at": "2026-09-13T05:14:28+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T07-r3",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 3,
+  "execution_index": 1426,
+  "sample_seed": 13512820361194079638,
+  "prompt_sha256": "8891422eea0447a60b01a8fe05d7ea3350eb012b5b52314a22f9459d7e908531",
+  "prompt_chars": 863,
+  "response": "Here are the defects I found:\n\n**1. Off-by-one boundary error in the implementation (violates R1)**\n```python\nif total > 100:\n```\nR1 says a total of **100 or more** should receive the discount, i.e. the condition should be `total >= 100`. As written, an order with `total == 100` falls through to `return 0.0`, giving it no discount at all. This directly violates R1 for the boundary value.\n\n**2. `test_cap` asserts a value that violates R2**\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\nFor `total = 1000`, `d = 1000 * 0.10 = 100.0`, and R2 caps the discount at 50.00, so the correct/expected result is `50.0` — which is also exactly what the given implementation actually returns (`min(100.0, 50.0) == 50.0`). The test's expected value of `100.0` is wrong: as written, this test would **fail** against the very implementation it's supposed to validate, and if it were somehow made to pass it would be certifying a discount that exceeds the 50.00 cap, i.e. asserting a violation of R2 rather than checking compliance with it.\n\n**3. No test exercises the R1 boundary (total == 100)**\nNone of the three tests check `discount(100)`. This is the exact case exposed by defect #1 — the test suite has a gap that lets the off-by-one bug (discount incorrectly omitted at total == 100) go completely undetected.\n\n**Not a defect, for clarity:** `test_small` (50 → 0.0) and `test_large` (200 → 20.0) are both correct per R3 and R1/R2 respectively, and correctly match the implementation's actual behavior.",
+  "response_sha256": "40768647f6d5b3dfd6b7344c7bab3c68d30eaaacb4bf1c0e696abffe2a442fe1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28359,
+    "output_tokens": 2082,
+    "output_tokens_details": {
+      "thinking_tokens": 1526
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2082,
+        "cache_read_input_tokens": 28359,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026495800000000003,
+    "duration_ms": 22751,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:56:26+00:00",
+  "finished_at": "2026-09-13T04:56:49+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

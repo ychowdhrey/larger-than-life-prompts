@@ -1,0 +1,93 @@
+{
+  "sample_id": "W04-E01-r2",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "E01",
+  "repetition": 2,
+  "response_sha256": "4b674b4ce7b41f8b33f5fefb5ab9c71471f903469069193cd1b9b72d39ca88d7",
+  "objective": {
+    "max_points": 15.0,
+    "earned_points": 15.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "word_count",
+        "label": "200 to 260 words excluding the table",
+        "type": "word_count",
+        "points": 3.0,
+        "passed": true,
+        "detail": "248 words (allowed 200..260)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "one_analogy",
+        "label": "Exactly one 'Think of it like' sentence",
+        "type": "count_matches",
+        "points": 3.0,
+        "passed": true,
+        "detail": "found 1 (allowed 1..1)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "terms",
+        "label": "Defines all three required terms",
+        "type": "regex_all",
+        "points": 3.0,
+        "passed": true,
+        "detail": "all matched",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "table",
+        "label": "Table with the three required headers and exactly 4 data rows",
+        "type": "markdown_table",
+        "points": 4.0,
+        "passed": true,
+        "detail": "4 data rows (need 4)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "no_second_person",
+        "label": "Avoids 'you' and 'your'",
+        "type": "forbidden",
+        "points": 2.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 2038,
+    "response_words": 341,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:49+00:00",
+  "evaluation_version": "2.0.0"
+}

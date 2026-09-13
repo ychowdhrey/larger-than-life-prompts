@@ -1,0 +1,22 @@
+{
+  "item_id": "ba7bf3911a750a74",
+  "sample_id": "C01-T04-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T04",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default argument, in-place sort mutating caller's list, index-out-of-range when limit exceeds list length, division by zero on empty input, and the subtle dedup logic that under-fills results without scanning past the limit index) with accurate cause/effect explanations, and adds a valid distinct nuance about mutating a caller-supplied seen list, without inventing any spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:32+00:00"
+}

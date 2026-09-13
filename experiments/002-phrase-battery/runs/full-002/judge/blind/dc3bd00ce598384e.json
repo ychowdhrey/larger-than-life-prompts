@@ -1,0 +1,22 @@
+{
+  "item_id": "dc3bd00ce598384e",
+  "sample_id": "P02-T05-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T05",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, gates all data-risking actions and any restart/failover behind a completed snapshot, includes multiple well-specified abort/rollback conditions, and ends with the correct SECTIONS line, while also addressing realistic operational nuances (online resize, replica lag, VACUUM risk, avoiding concurrent conflicting fixes).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:30+00:00"
+}

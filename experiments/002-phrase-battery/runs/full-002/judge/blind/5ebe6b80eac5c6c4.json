@@ -1,0 +1,22 @@
+{
+  "item_id": "5ebe6b80eac5c6c4",
+  "sample_id": "C05-T02-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T02",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the off-by-one boundary bug (>100 vs >=100 per R1), correctly flags that test_cap's expected value (100.0) is wrong given both R2's cap and the implementation's actual min(d,50.0) behavior, and correctly notes the missing boundary test at total=100 that would have caught the bug; all claims check out against the code and no false defects are reported.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:03+00:00"
+}

@@ -32,8 +32,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from ltlp import (analyze, config, generate, judge, manifest, prompts,  # noqa: E402
-                  report, runner, score_objective, util)
+from ltlp import (analyze, battery, battery_report, config, generate, judge,  # noqa: E402
+                  manifest, prompts, report, runner, score_objective, util)
 
 
 def cmd_prepare(cfg, args):
@@ -87,11 +87,22 @@ def cmd_prepare(cfg, args):
     except Exception as exc:  # a missing API key must not block prepare
         gen_backend_desc = {"error": str(exc)}
 
+    # Identity comes from the spec, not from a literal, so a second experiment does not
+    # inherit the first one's title. The fallbacks reproduce Experiment 001's run_meta
+    # exactly: its conditions.json carries experiment_id "001" and primary_treatment "C",
+    # whose suffix is the phrase.
+    experiment_id = (cfg.raw.get("experiment_id")
+                     or cfg.conditions_doc.get("experiment_id"))
+    phrase = cfg.raw.get("phrase")
+    if phrase is None:
+        primary = cfg.conditions_doc.get("primary_treatment")
+        phrase = cfg.condition(primary)["suffix"] if primary else None
+
     util.write_json(cfg.p("run_meta.json"), {
         "run_id": cfg.run_id,
         "mode": cfg.mode,
-        "experiment_id": "001",
-        "phrase": "May the Force be with you.",
+        "experiment_id": experiment_id,
+        "phrase": phrase,
         "prepared_at": runner.now_iso(),
         "seed": cfg.seed,
         "generation": dict(cfg.generation, **{"resolved": gen_backend_desc}),
@@ -136,8 +147,16 @@ def cmd_verify(cfg, args):
     print("prompt equivalence: %s (%d tasks x %d conditions)"
           % ("OK" if not bad else "FAILED", len(cfg.tasks), len(cfg.conditions)))
 
-    # 3. raw outputs match their recorded hashes
+    # 3. raw outputs match their recorded hashes, and the ledger covers every raw file
+    #
+    # Checking only the ledger's own entries is not a tamper-evidence check: a file ADDED
+    # to raw/ after the ledger was built would never be looked at, and an empty ledger
+    # would report OK having verified nothing. Both directions are compared, and an empty
+    # ledger is reported as unverified rather than as a pass.
     index = util.read_jsonl(cfg.p("raw", "INDEX.jsonl"))
+    raw_dir = cfg.p("raw")
+    on_disk = {n for n in (os.listdir(raw_dir) if os.path.isdir(raw_dir) else [])
+               if n.endswith(".json")}
     drift = []
     for entry in index:
         path = cfg.p("raw", entry["file"])
@@ -145,10 +164,31 @@ def cmd_verify(cfg, args):
             drift.append("%s missing" % entry["file"])
         elif util.sha256_file(path) != entry["file_sha256"]:
             drift.append("%s changed" % entry["file"])
+    unledgered = sorted(on_disk - {e["file"] for e in index})
+
+    stages = (util.read_json(cfg.p("state", "stages.json"))
+              if os.path.exists(cfg.p("state", "stages.json")) else {})
+    generate_finished = bool(stages.get("generate", {}).get("finished_at"))
+
     if drift:
         problems.append("raw output drift: %s" % "; ".join(drift[:10]))
-    print("raw immutability: %s (%d files in ledger)"
-          % ("OK" if not drift else "FAILED", len(index)))
+    if unledgered and generate_finished:
+        # The generate stage rebuilds the ledger from disk when it completes, so after it
+        # has finished an unledgered file is a file nobody hashed.
+        problems.append("%d raw file(s) are not in the ledger, so their integrity is "
+                        "unverified: %s" % (len(unledgered), ", ".join(unledgered[:10])))
+    if not index and on_disk:
+        status = ("NOT YET BUILT - the ledger is written when the generate stage "
+                  "completes; %d raw file(s) are unverified" % len(on_disk))
+    elif drift or (unledgered and generate_finished):
+        status = "FAILED"
+    elif unledgered:
+        status = ("PARTIAL - %d of %d raw file(s) ledgered, generation still in progress"
+                  % (len(index), len(on_disk)))
+    else:
+        status = "OK"
+    print("raw immutability: %s (%d files in ledger, %d on disk)"
+          % (status, len(index), len(on_disk)))
 
     # 4. no judge payload contains condition text
     leaked = []
@@ -238,15 +278,40 @@ def cmd_analyze(cfg, args):
     return 0
 
 
+def cmd_battery_analyze(cfg, args):
+    d = battery.run(cfg)
+    print("battery-analyze: %d phrase arms, %d families, %d combination arms"
+          % (d["counts"]["treatment_arms"], d["counts"]["families"], d["counts"]["combo_arms"]))
+    print("  -> %s" % cfg.p("analysis", "battery_summary.json"))
+    return 0
+
+
+def cmd_battery_report(cfg, args):
+    battery_report.run(cfg)
+    print("battery-report -> %s" % cfg.p("analysis", "analysis.md"))
+    return 0
+
+
+def _is_battery(cfg):
+    return cfg.raw.get("report_style") == "battery"
+
+
 def cmd_report(cfg, args):
+    # A battery has its own renderer; report.py builds the four-condition ladder's tables.
+    if _is_battery(cfg):
+        return cmd_battery_report(cfg, args)
     report.run(cfg)
     print("report -> %s" % cfg.p("analysis", "analysis.md"))
     return 0
 
 
 def cmd_all(cfg, args):
-    for fn in (cmd_prepare, cmd_generate, cmd_score_objective, cmd_judge_blind,
-               cmd_judge_pairwise, cmd_analyze, cmd_report):
+    stages = [cmd_prepare, cmd_generate, cmd_score_objective, cmd_judge_blind,
+              cmd_judge_pairwise, cmd_analyze]
+    if _is_battery(cfg):
+        stages.append(cmd_battery_analyze)
+    stages.append(cmd_report)
+    for fn in stages:
         rc = fn(cfg, args)
         if rc and not args.keep_going:
             print("stopping: %s returned %d" % (fn.__name__, rc))
@@ -261,6 +326,8 @@ COMMANDS = {
     "judge-blind": cmd_judge_blind,
     "judge-pairwise": cmd_judge_pairwise,
     "analyze": cmd_analyze,
+    "battery-analyze": cmd_battery_analyze,
+    "battery-report": cmd_battery_report,
     "report": cmd_report,
     "status": cmd_status,
     "verify": cmd_verify,

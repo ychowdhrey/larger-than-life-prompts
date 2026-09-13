@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T26_vs_A-r1",
+  "contrast_id": "T26_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T26",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the core bugs (> vs >= at 100, and test_cap's wrong expected value of 100.0 instead of 50.0), but Response A additionally flags a genuine, correct coverage gap—no test at total=500, the exact point where R2's cap first activates—whereas Response B explicitly claims 'no other defects are present,' missing that legitimate gap.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:59+00:00"
+}

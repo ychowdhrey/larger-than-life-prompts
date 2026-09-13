@@ -1,0 +1,22 @@
+{
+  "item_id": "e9280e8b7eead69d",
+  "sample_id": "C05-T17-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T17",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all three real defects (off-by-one at total=100 violating R1, the wrong/failing assertion in test_cap that also contradicts the R2 cap, and the missing boundary test), verifies each with accurate arithmetic, and correctly confirms the other tests and the cap logic are fine without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:06+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T17_vs_A-r1",
+  "contrast_id": "T17_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T17",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both identify the same five defects, but Response B's ZeroDivisionError example (\"Calling top_scores([])\") is actually wrong as stated: with the default limit=5, that call raises IndexError before ever reaching the division line, whereas Response A explicitly catches this interaction and gives a correct example (limit=0) with a note explaining why nonzero limits would hit the IndexError first. Response A is therefore more accurate and rigorous on an otherwise nearly identical set of findings.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:31:30+00:00"
+}

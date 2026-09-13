@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T15_vs_A-r3",
+  "contrast_id": "T15_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T15",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T15",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements in 12 steps, but Response B sequences the full backup as the very first production-touching action (explicitly before logical replication setup touches the source) rather than after replication has already been configured as in Response A, more strictly honoring the 'backup before any modifying step' requirement. B also adds concrete technical safeguards A lacks, such as recording the WAL/LSN at the start of the maintenance window as a rollback reference and specifying a defined on-prem retention window before decommissioning.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:37:00+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "eb0a944fc1aa02be",
+  "sample_id": "C02-T03-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T03",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (LEFT JOIN neutralized by WHERE, UTC/local timezone mismatch on the date boundary, NULL vs 0 for zero-order customers with its knock-on sort-order effect, and integer-division truncation), explains cause and consequence for each, offers concrete fixes, and reports no spurious issues; the only weakness is a slightly overgeneralized claim that 'most engines' sort NULL first in DESC, which is really Postgres/Oracle-specific behavior rather than universal.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:04+00:00"
+}

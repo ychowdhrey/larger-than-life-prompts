@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T09-r1",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T09",
+  "condition_name": "phrase_t09",
+  "repetition": 1,
+  "execution_index": 533,
+  "sample_seed": 5278963977392110532,
+  "prompt_sha256": "967d0eedf868bada60cc4de8038843fc210c096c9b90307a3ee0f9febadc57d0",
+  "prompt_chars": 757,
+  "response": "# Incident Response Runbook: Production Database — Critical Disk Utilization with Elevated Write Latency\n\n**Trigger conditions:** Primary production database disk utilization ≥ 95% (currently 98%) AND write latency has increased significantly within a short window (currently tripled in 20 minutes).\n\n**Severity:** SEV-1 (imminent risk of write failures / outage)\n\n---\n\n## DETECTION\n\n1. Alert source: disk utilization monitor crosses 95% threshold on primary production database host, and/or write latency alert fires (p95/p99 latency exceeds baseline by >2x).\n2. On-call responder confirms the alert is not a false positive:\n   - Check current disk utilization via monitoring dashboard (e.g., `df -h`, cloud provider storage metrics, or DB-native disk metrics).\n   - Confirm write latency trend over the last 20–30 minutes using APM/DB monitoring.\n   - Correlate with recent deploys, batch jobs, migrations, or large data imports that may explain sudden disk growth.\n3. Declare the incident (open incident channel, page secondary on-call, notify database team lead) once both conditions are confirmed.\n4. Assign an Incident Commander (IC) and a designated responder to execute this runbook. Do not proceed solo on a SEV-1.\n\n---\n\n## IMMEDIATE ACTIONS\n\n**Do not restart, fail over, or reboot the production database at this stage. Do not run destructive cleanup commands until a snapshot exists.**\n\n1. **Take a storage snapshot of the primary database volume immediately, before any other remediation action.** This is mandatory and blocking — no deletion, compaction, failover, or restart may occur before this snapshot completes and is verified.\n   - Trigger via cloud provider (EBS snapshot / disk snapshot / storage array snapshot) or DB-native mechanism.\n   - Verify the snapshot job has started and confirm its status (in-progress or completed) before continuing.\n   - If the snapshot cannot be initiated (e.g., insufficient permissions, provider API failure), escalate immediately to the database team lead / cloud infra owner and pause further action until snapshot capability is restored — do not proceed to mitigation steps without a snapshot or explicit IC sign-off on an alternative (e.g., a fresh backup confirmed within the last 15 minutes).\n2. While the snapshot is in progress, gather read-only diagnostic data (safe, non-destructive):\n   - Identify top disk consumers (largest tables/indexes, WAL/binlog/redo log growth, temp files, orphaned files).\n   - Check for runaway transactions, long-running queries, or replication lag causing log retention buildup.\n   - Confirm current replica/standby health and lag — do not assume a replica is safe to promote yet.\n3. Notify stakeholders (status page / internal channel) that a SEV-1 database capacity incident is in progress, with an initial ETA for update.\n\n---\n\n## MITIGATION\n\n**Only proceed once the snapshot from IMMEDIATE ACTIONS has completed successfully and been verified.**\n\n1. Free up disk space using non-destructive or low-risk methods first, in this order of preference:\n   - Rotate/archive and remove already-shipped WAL/binlog/transaction log segments that are confirmed persisted downstream (replicas/backups).\n   - Clear temp files, old core dumps, or stale export files unrelated to live data.\n   - Truncate or archive non-critical audit/log tables if a retention policy permits.\n2. If disk space is still critical after step 1:\n   - Expand the storage volume (online disk resize) if the platform supports it without downtime. This is preferred over deleting data.\n   - If resize is not possible, consider offloading write traffic (e.g., enabling read-only mode for non-essential write paths, throttling batch jobs, pausing non-critical background writers) to reduce log/data growth while space is reclaimed.\n3. Only after the snapshot is confirmed and space-recovery steps in 1–2 have been attempted or exhausted may the team consider a controlled restart or failover to a standby, and only with explicit IC approval.\n4. **Abort/rollback condition:** If, at any point after taking remediation action (log deletion, truncation, volume resize, throttling), any of the following occur — replication breaks or lag spikes uncontrollably, data integrity checks fail, the snapshot is found to be incomplete/corrupted, or write latency/error rates worsen instead of improving within 10 minutes of an action — **stop immediately, halt further mitigation steps, and restore from the verified snapshot taken in IMMEDIATE ACTIONS** rather than continuing forward. Escalate to the database team lead and IC before taking any further corrective action.\n5. Re-check disk utilization and write latency every 5 minutes during mitigation; do not consider the incident stabilized until disk utilization is below 85% and write latency has returned to within 20% of baseline for at least 15 consecutive minutes.\n\n---\n\n## FOLLOW UP\n\n1. Confirm full recovery: disk utilization stable below warning threshold, write latency at baseline, replication healthy, no data integrity issues.\n2. Verify the snapshot taken during this incident and standard scheduled backups remain intact and retained per policy.\n3. Conduct a blameless post-incident review within 3 business days covering:\n   - Root cause of disk growth (log retention misconfiguration, unexpected data growth, batch job, missing alert threshold, etc.).\n   - Why the alert fired at 98% rather than earlier — review/adjust alert thresholds (e.g., add a warning at 80%, critical at 90%).\n   - Time-to-detect and time-to-mitigate metrics.\n4. File follow-up action items with owners and deadlines: capacity planning review, autoscaling/auto-expansion of storage where supported, log rotation policy audit, and disk headroom alerting improvements.\n5. Update this runbook with any gaps identified during the incident (e.g., missing tooling, unclear ownership, snapshot delays).\n6. Share incident summary with affected teams and, if customer-facing impact occurred, coordinate with support/communications for external notification.\n\nSECTIONS: 4",
+  "response_sha256": "12e4ab3276f2e09d5dd8984b9d091fb7473c006c3f13d008145625ded4bca105",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28309,
+    "output_tokens": 2078,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2078,
+        "cache_read_input_tokens": 28309,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026445800000000002,
+    "duration_ms": 27962,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:35:30+00:00",
+  "finished_at": "2026-09-13T04:35:59+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

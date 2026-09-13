@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T10_vs_A-r1",
+  "contrast_id": "T10_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T10",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T10",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but B more explicitly addresses the core technical constraint (2TB data, 2-hour window) by dedicating a step to starting bulk load/CDC sync days ahead so only a small delta remains at cutover, whereas A leaves this timing implicit. B also cleanly separates verification, smoke-testing, and rollback into distinct steps, making the cutover sequence easier to execute correctly.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:46:51+00:00"
+}

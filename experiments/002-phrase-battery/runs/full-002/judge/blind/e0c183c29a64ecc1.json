@@ -1,0 +1,22 @@
+{
+  "item_id": "e0c183c29a64ecc1",
+  "sample_id": "P01-E06-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E06",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and satisfies every hard requirement (dry run, rollback, post-cutover integrity checks via row counts/checksums, stakeholder communication, and backup sequenced before any write-freezing/cutover step), while correctly reasoning that 2TB cannot be dump/restored in a 2-hour window and using CDC/logical replication plus sequence reconciliation and deferred index creation to address that constraint. It is immediately actionable by a team executing the migration, with only minor room for more explicit self-verification of the plan against edge cases like partial rollback data reconciliation.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:12+00:00"
+}

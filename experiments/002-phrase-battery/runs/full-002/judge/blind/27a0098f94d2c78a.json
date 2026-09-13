@@ -1,0 +1,22 @@
+{
+  "item_id": "27a0098f94d2c78a",
+  "sample_id": "C02-T19-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T19",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the core WHERE-vs-JOIN bug, the UTC/local-midnight boundary error, integer-division truncation, the resulting NULL-sum issue, and a GROUP BY portability concern, tying each to the stated schema/requirements with concrete fixes; the one flaw is the overgeneralized claim that 'most engines' sort NULLs first in DESC order, which is true for Postgres/Oracle but backwards for MySQL, SQL Server, and SQLite.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:55+00:00"
+}

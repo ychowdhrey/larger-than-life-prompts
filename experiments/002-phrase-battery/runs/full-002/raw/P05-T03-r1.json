@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T03-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T03",
+  "condition_name": "phrase_t03",
+  "repetition": 1,
+  "execution_index": 1639,
+  "sample_seed": 8498811499976018631,
+  "prompt_sha256": "7c4236259d9a8987cbbab8de7fc7400fbb01afbf5fba5ba454b12d8655460734",
+  "prompt_chars": 813,
+  "response": "# Billing System Migration Rollout Plan\n**Scope:** Migrate 40,000 existing users from the legacy billing system to the new billing system, with both systems running in parallel throughout the migration window.\n\n## Overview\n\nThe migration runs in three phases plus a stabilization/decommission phase, moving from a small canary group to full population before any legacy infrastructure is touched. Both systems remain live and reconciled in parallel until the new system has proven itself under full load for a sustained period.\n\n---\n\n## Phase 1 — Canary (Pilot)\n\n**Population:** 1% of users (~400 users)\n\n**User selection:** Internal accounts, employee accounts, and opted-in low-risk external users (no active disputes, no complex billing constructs like multi-entity invoicing or custom contracts).\n\n**Entry criterion:** New billing system has passed a full parallel-run reconciliation test against the old system on a synthetic/staging dataset for at least 7 consecutive days with zero unexplained discrepancies, and rollback tooling (dual-write toggle, per-user routing flag) has been tested end-to-end in staging.\n\n**Goals:** Validate data migration accuracy, dual-write/dual-read consistency, invoice generation correctness, and payment processing (including failures and refunds) under real — but low-volume — traffic.\n\n**Duration:** Minimum 1 week, extendable until exit metrics are met.\n\n---\n\n## Phase 2 — Early Majority (Expansion)\n\n**Population:** 15% of users (~6,000 users)\n\n**User selection:** Broaden to a representative cross-section of plan types, geographies, and payment methods, still excluding highest-value enterprise accounts and known edge cases (e.g., proration-heavy plans, tax-exempt entities).\n\n**Entry criterion:** Phase 1 ran for its full duration with billing discrepancy rate below the halt threshold (see Metrics), zero P1 incidents, customer support ticket volume related to billing within 10% of baseline, and reconciliation job has been running automatically (not just manually audited) for at least 5 days.\n\n**Goals:** Stress-test reconciliation automation, support workflows, and customer-facing surfaces (invoices, receipts, self-serve portal) at moderate scale.\n\n**Duration:** Minimum 2 weeks.\n\n---\n\n## Phase 3 — General Availability (Full Migration)\n\n**Population:** 84% of users (~33,600 users) — remaining users including complex/enterprise accounts, migrated in scheduled waves (e.g., 4 sub-waves of ~21% each) rather than a single cutover, to preserve rollback granularity.\n\n**Entry criterion:** Phase 2 completed with all exit metrics green for a sustained 10-day window, enterprise/edge-case migration runbooks have been dry-run and signed off by Support and Finance, and on-call staffing is confirmed for the full duration of Phase 3.\n\n**Goals:** Complete migration of the remaining user base while retaining the ability to roll back any individual wave without affecting already-stable cohorts.\n\n**Duration:** 4–6 weeks, waved.\n\n---\n\n## Phase 4 — Stabilization (Post-Migration, Old System Still Live)\n\n**Population:** 100% of users on the new system; old system remains running in read-only/audit mode.\n\n**Entry criterion:** All Phase 3 waves complete, 100% of accounts confirmed migrated and reconciled with zero open critical discrepancies, and a minimum 30-day stabilization window has begun.\n\n**Goals:** Run the old system in parallel purely for audit, historical lookups, and emergency rollback reference — **no user is migrated in this phase, and no decommissioning action occurs here.** Decommissioning of the old billing system is explicitly deferred to a separate, later phase (Phase 5, not covered by this migration rollout), which will only begin after this 30-day stabilization window closes cleanly. This satisfies the separation between \"final batch migrated\" and \"old system retired.\"\n\n---\n\n## Risks\n\nRISK: Incorrect proration or tax calculation causes customers to be over/undercharged | Run shadow invoicing (generate invoices in both systems without sending) for every account for at least one full billing cycle before it is migrated, with automated diffing | Billing Engineering Lead\nRISK: Payment method tokens fail to migrate or tokenize incorrectly, causing failed charges | Pre-validate token migration in a sandbox with the payment processor and run a token-validation dry run against 100% of accounts before each wave | Payments Integration Team\nRISK: Dual-write logic drifts, causing the two systems to silently diverge | Automated hourly reconciliation job comparing balances, invoices, and payment states across both systems, alerting on any mismatch | Data Reliability Engineer\nRISK: Customer support is overwhelmed by billing confusion during cutover, damaging trust | Dedicated support runbook, staffed escalation queue, and pre-migration customer communication with opt-out/delay option for edge cases | Customer Support Manager\nRISK: Enterprise/custom-contract accounts break due to unsupported billing constructs in the new system | Freeze enterprise accounts in the last migration wave only, with manual account-by-account validation and Finance sign-off before migration | Enterprise Solutions Architect\n\n---\n\n## Halt Metrics\n\n- **Halt the rollout immediately if the billing discrepancy rate (mismatched invoice amount, duplicate charge, or missed charge) exceeds 0.5% of migrated accounts in any 24-hour window.**\n- Halt if failed-payment rate for migrated users exceeds baseline (old system) failed-payment rate by more than 2 percentage points in any 24-hour window.\n- Halt if P1/P2 billing-related incidents exceed 2 in any single wave before that wave is declared stable.\n\nAny halt triggers an immediate freeze on further migrations, a review by Billing Engineering and Finance, and — if root-caused to the new system — a rollback of the most recently migrated wave via the per-user routing flag back to the old system.\n\nPHASES: 4",
+  "response_sha256": "a3512562f40d19ceee9ebae1d5741458465f9584a2a11731c75fdcfe685a697b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28319,
+    "output_tokens": 2026,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2026,
+        "cache_read_input_tokens": 28319,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0259278,
+    "duration_ms": 27219,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:01:45+00:00",
+  "finished_at": "2026-09-13T05:02:14+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

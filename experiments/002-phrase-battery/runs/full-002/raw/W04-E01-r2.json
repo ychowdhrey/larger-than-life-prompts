@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-E01-r2",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "E01",
+  "condition_name": "combo_e01",
+  "repetition": 2,
+  "execution_index": 86,
+  "sample_seed": 14174421292042182144,
+  "prompt_sha256": "ae52a407010ecdb74be2c8439cf5f920d67e4ea2aad464f6ab5b816af5395a34",
+  "prompt_chars": 679,
+  "response": "A content delivery network, or CDN, is a system that helps web pages, images, and videos load quickly no matter where a person happens to be sitting. Every website's files normally live in one place, called the origin server, which is the original computer that stores the real, master copy of everything on a site. If everyone on the planet had to fetch data from that single origin server, people far away would face long waits, since information has to travel physically across cables and networks. To solve this, a CDN spreads copies of that content across many smaller computers scattered around the world, known as edge locations, because they sit at the \"edge,\" close to where people actually are. When someone requests a page, the network checks the nearest edge location first. If a copy is already stored there, that is called a cache hit, meaning the request was answered instantly from nearby storage instead of traveling all the way back to the origin server. Think of it like a chain of neighborhood libraries that each keep popular books on hand, so readers do not need to travel to one distant central library every time they want something to read. Only when a nearby location lacks the requested file does it reach back to the origin server, fetch a copy, and store it locally for next time. This arrangement makes browsing faster, reduces strain on the original source, and keeps services running smoothly even during heavy traffic.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The original computer holding the master copy of a site's content | Everything ultimately comes from this one source |\n| Edge location | A smaller computer placed near where people are located | Shortens the distance data has to travel |\n| Cache hit | A request answered from a nearby stored copy | Makes pages load faster and reduces delay |\n| Cache miss | A request that must be sent back to the origin server because no copy was nearby | Explains why a first visit to a page can feel slower than later ones |",
+  "response_sha256": "4b674b4ce7b41f8b33f5fefb5ab9c71471f903469069193cd1b9b72d39ca88d7",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2554,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3214,
+    "output_tokens_details": {
+      "thinking_tokens": 2633
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2554,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3214,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2554,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2554
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0475052,
+    "duration_ms": 26013,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:24:24+00:00",
+  "finished_at": "2026-09-13T04:24:51+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T03-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T03",
+  "condition_name": "phrase_t03",
+  "repetition": 2,
+  "execution_index": 1328,
+  "sample_seed": 5327182546211974612,
+  "prompt_sha256": "056b29a3c052155d144062fef137d51730738256b7f6352410815247c1e22dba",
+  "prompt_chars": 726,
+  "response": "## The problem\n\nOur team of twelve is drowning in integration pain. Feature branches routinely live for two to three weeks, and every merge back to main has become an event: hours lost resolving conflicts, re-testing code that already passed review once, and untangling changes that drifted far from what main looked like when the branch started. We've had three release delays this quarter caused directly by \"merge hell,\" and code review quality suffers because reviewers face 800-line diffs instead of focused changes. The longer a branch lives, the more it diverges, and the more expensive it becomes to bring back — a compounding cost we keep paying.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequent changes directly to main (or through branches that live less than a day), gated by feature flags for anything incomplete. Concretely:\n\n- All feature branches are merged or closed within 24 hours of creation, no exceptions without a documented reason.\n- Incomplete or risky features ship behind flags, dark until ready, rather than living in isolation on a branch.\n- CI must run on every commit to main, with a strict rule that a red build gets fixed before any new work lands.\n- Code review shifts to smaller, same-day PRs so feedback loops shrink from days to hours.\n- We adopt a shared dashboard tracking flag status so nobody loses track of what's toggled on in production.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands mature CI/CD and disciplined testing, and if our test suite has gaps, we'll be shipping broken code straight to main instead of hiding it safely in a branch. This is a legitimate risk, not a strawman — our current coverage on the payments module is thin, and that needs remediation before we flip the switch there. I'd rather acknowledge that gap now and fund a two-week testing sprint than discover it in production. Feature flags also add their own complexity and technical debt if not cleaned up, so we need a retirement policy from day one.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "2729efd68ec0cdf3f6d6087f77b085216d69cef57020ce08ef6d1ab948083292",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28294,
+    "output_tokens": 650,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 650,
+        "cache_read_input_tokens": 28294,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0121628,
+    "duration_ms": 11811,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:54:09+00:00",
+  "finished_at": "2026-09-13T04:54:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

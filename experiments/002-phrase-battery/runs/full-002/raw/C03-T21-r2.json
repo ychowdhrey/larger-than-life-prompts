@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T21-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 2,
+  "execution_index": 161,
+  "sample_seed": 14383961662752156804,
+  "prompt_sha256": "a6090212985f42fad6d18f08e8fc65e0c6cf956be5cf0f3c96fb76a573b19346",
+  "prompt_chars": 1036,
+  "response": "Here are the defects, one per claim.\n\n## Claim 1: Webinars cause higher retention → mandatory attendance\n\n1. **Selection bias / reverse causation not ruled out.** The sample is drawn from customers \"still active on the Pro plan today\" — i.e., the population is conditioned on survival. Customers who are already more engaged (and thus more likely to retain regardless of webinars) are also more likely to sign up for and attend a webinar. The correlation could be entirely explained by pre-existing engagement/motivation driving both webinar attendance and retention, rather than webinars driving retention. **Effect:** mandating webinars for everyone (including low-engagement customers who wouldn't have attended) may produce none of the observed 31% lift, wasting the investment.\n\n2. **Survivorship bias in the base sample.** Only currently-active customers were examined; churned customers are excluded entirely. This means the 31% figure describes a difference among survivors, not a churn-rate comparison across the full customer base. It says nothing about how many attendees vs. non-attendees churned in the first place. **Effect:** the true impact of webinars on churn could be much smaller, zero, or even reversed once churned customers are included — the memo's headline number may not even measure what it claims to measure.\n\n3. **No comparison group / baseline churn rate given.** We aren't told what \"retention\" means numerically (e.g., 31% relative vs. percentage-point difference) or the actual attendance rate, cohort sizes, or time window. **Effect:** without this, it's impossible to judge whether the effect is practically meaningful or how precise the estimate is (n could be very small for one subgroup).\n\n4. **Causal language (\"therefore cause\") from an observational correlation.** No randomization or controlled experiment (e.g., A/B test on webinar invitation) is described. **Effect:** jumping straight to a mandatory policy risks rolling out an intervention that has an implementation cost (webinar operations, friction for new customers who don't want to attend) without evidence it will change behavior — and mandatory attendance could even hurt onboarding if it adds friction for customers who would have churned anyway or annoys otherwise-satisfied customers.\n\n## Claim 2: Central region churns less (p=0.04) → concentrate spend there\n\n5. **Multiple comparisons / p-hacking.** They tested 18 different attributes against churn and are highlighting the one that came back significant at p=0.04. With 18 independent tests at α=0.05, the expected number of false positives by chance alone is roughly 0.9 — i.e., finding \"significant\" one hit out of 18 is exactly what you'd expect under pure noise, even if no attribute actually matters. No correction (Bonferroni, Benjamini-Hochberg, etc.) is mentioned. **Effect:** the Central region result is very likely a false positive; directing spend based on it could mean investing in a region with no real advantage while neglecting others, wasting the budget.\n\n6. **Statistical significance ≠ practical/causal significance.** Even if p=0.04 is a real effect, it is a correlation between region and churn, not evidence that region-targeted *spend* would reduce churn further — there could be confounders (industry mix, account size, tenure, support team assigned) that happen to correlate with region. **Effect:** spend concentrated on Central region may not move churn at all if the real driver is a confound rather than geography itself.\n\n## Claim 3: Satisfaction rose 4 points → new support model is working\n\n7. **No causal attribution / no counterfactual.** The 4-point rise (62%→66%) is presented as proof the new support model works, but no baseline trend, control group, or comparison to prior quarters' natural variation is given. Satisfaction could have risen due to seasonality, an unrelated product change, pricing change, macro factors, or simple survey-response variation — with no indication the new support model was even isolated as the sole change this quarter. **Effect:** crediting the support model could lead to over-investing in it while the actual driver (something else) goes unrecognized, or abandoning it later if the \"effect\" fails to replicate.\n\n8. **No significance/uncertainty check on the 4-point move.** We aren't told the sample size behind the satisfaction score or any margin of error/confidence interval. A 4-point shift in a survey metric can easily fall within normal noise, especially with modest response rates. **Effect:** the memo may be reacting to noise as if it were a real, durable improvement.\n\n---\n\n**Summary:** All three conclusions commit the same core error — treating correlational/observational data as if it demonstrated causation, without ruling out confounders, selection effects, multiple-testing artifacts, or ordinary statistical noise. None of the three recommended actions (mandatory webinars, regional spend shift, crediting the support model) is actually supported by the evidence presented, even though the underlying numbers are accurately reported.",
+  "response_sha256": "8c31be6de8a70e4a61e10d6c894d2422d237c2e9499ef4993e1434e4d3b4a97d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28375,
+    "output_tokens": 1599,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1599,
+        "cache_read_input_tokens": 28375,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.021669,
+    "duration_ms": 21655,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:25:54+00:00",
+  "finished_at": "2026-09-13T04:26:17+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

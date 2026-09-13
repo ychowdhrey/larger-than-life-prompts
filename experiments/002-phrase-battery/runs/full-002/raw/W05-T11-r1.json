@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T11-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T11",
+  "condition_name": "phrase_t11",
+  "repetition": 1,
+  "execution_index": 960,
+  "sample_seed": 10000329896236645444,
+  "prompt_sha256": "feee8f2e8b95b9650a98d3ab52af02680d97ae897d0d4aead4a3e4e05e44fb58",
+  "prompt_chars": 751,
+  "response": "## The problem\n\nOur team of twelve has drifted into long-lived feature branches that often survive for two to three weeks before merging. Every sprint retro surfaces the same pain: merge conflicts that eat a full day, integration bugs discovered only at merge time, and release candidates that break because two branches touched the same module in incompatible ways. We are effectively deferring integration risk instead of eliminating it, and the bill keeps coming due later and larger.\n\n## The proposal\n\nI'm proposing we move to trunk-based development, where engineers commit small, frequent changes directly to main (or through branches that live less than a day), guarded by feature flags for anything incomplete. Concretely, this means:\n\n- Branches are capped at one working day before merging back to main\n- All in-progress work ships behind feature flags rather than staying unmerged\n- CI must pass on every commit to main, with a hard rule that a red main gets fixed before anything else\n- Pull requests shrink to reviewable size, targeting under 400 lines of diff\n- We run a two-week pilot with one squad before rolling out team-wide\n\nThis should cut integration pain dramatically, surface conflicts while context is fresh, and let us ship continuously instead of in lumpy, risky batches.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands stronger discipline and tooling than we currently have. If our CI pipeline is flaky or slow, developers will be blocked constantly or start merging around a red build, which is worse than our current problem. Feature flags also add complexity — stale flags can pile up and become their own source of bugs if we don't commit to cleaning them up. I don't think these risks are hypothetical, and I want to name them rather than wave them away; they're exactly why the pilot phase matters. We should invest in CI reliability and a flag-lifecycle policy before wider rollout, and treat the pilot's results as a real gate, not a formality.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "3a2fe473aa4af059a1fcbc7db2739a19b6bd5ce3b7a818f03dd7b8f887ed420c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28298,
+    "output_tokens": 684,
+    "output_tokens_details": {
+      "thinking_tokens": 50
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 684,
+        "cache_read_input_tokens": 28298,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0125036,
+    "duration_ms": 11988,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:45:39+00:00",
+  "finished_at": "2026-09-13T04:45:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

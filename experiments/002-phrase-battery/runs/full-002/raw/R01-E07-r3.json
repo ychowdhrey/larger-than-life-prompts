@@ -1,0 +1,68 @@
+{
+  "sample_id": "R01-E07-r3",
+  "run_id": "full-002",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "E07",
+  "condition_name": "combo_e07",
+  "repetition": 3,
+  "execution_index": 1293,
+  "sample_seed": 7946256442428987481,
+  "prompt_sha256": "ca77a74bd9626f47e27eef75e9b1fa952ab1ec7a434633ad82edd20a2c31c4b2",
+  "prompt_chars": 503,
+  "response": "**Step 1: Convert departure time to UTC**\nDeparture: 23:40 on 3 March 2027, Kuala Lumpur time (UTC+8)\nUTC = 23:40 − 8:00 = 15:40 UTC on 3 March 2027\n\n**Step 2: Add the flight duration**\nFlight time: 13 hours 25 minutes\n15:40 + 13:25:\n- Minutes: 40 + 25 = 65 → 1 hour 5 minutes\n- Hours: 15 + 13 + 1 (carried) = 29 hours\n\n29 hours = 1 day + 5 hours, so:\nArrival UTC = 05:05 on 4 March 2027\n\n**Step 3: Convert to London local time**\nLondon is on UTC+0 on this date (UK has not yet switched to BST — the 2027 clock change to summer time occurs on the last Sunday of March, i.e., 28 March 2027, so 4 March is still GMT/UTC+0).\n\nLocal arrival time = UTC time = 05:05 on 4 March 2027\n\n**Check:** \n- KL departure 23:40 (3 Mar) is equivalent to 15:40 UTC (3 Mar).\n- Adding 13h25m: 15:40 → 16:40 (+1h) → ... → 04:40 (+13h, now 4 Mar) → 05:05 (+25m).\n- This matches: 05:05 on 4 March 2027 UTC = 05:05 London local time.\n\nFINAL ANSWER: 2027-03-04 05:05",
+  "response_sha256": "89a4f7e6645307b7c7aa04585e240eb7eaad523ba3aa7966e99c8f48994e9e55",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28255,
+    "output_tokens": 718,
+    "output_tokens_details": {
+      "thinking_tokens": 206
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 718,
+        "cache_read_input_tokens": 28255,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012835,
+    "duration_ms": 8927,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:53:24+00:00",
+  "finished_at": "2026-09-13T04:53:34+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

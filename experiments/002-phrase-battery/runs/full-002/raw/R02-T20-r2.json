@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T20-r2",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 2,
+  "execution_index": 81,
+  "sample_seed": 1112353849032444081,
+  "prompt_sha256": "2a78c14ca17e3b1e98e98a7e19f4ce6463ba0be53218e13ce3a24df1a30f9fd5",
+  "prompt_chars": 510,
+  "response": "**Setting up the problem (Bayes' theorem):**\n\n- Prevalence: P(disease) = 1/500 = 0.002, so P(no disease) = 0.998\n- Sensitivity: P(test+ | disease) = 0.98\n- Specificity: P(test− | no disease) = 0.95, so P(test+ | no disease) = 0.05 (false positive rate)\n\n**Applying Bayes' theorem:**\n\nP(disease | test+) = [P(test+|disease)·P(disease)] / [P(test+|disease)·P(disease) + P(test+|no disease)·P(no disease)]\n\nNumerator: 0.98 × 0.002 = 0.00196\n\nDenominator terms:\n- True positives: 0.00196\n- False positives: 0.05 × 0.998 = 0.04990\n\nTotal P(test+) = 0.00196 + 0.04990 = 0.05186\n\nP(disease | test+) = 0.00196 / 0.05186 = 0.0377941...\n\n**Converting to percentage:** 3.7794...% ≈ **3.78%**\n\nThis illustrates the classic base-rate effect: even with a fairly sensitive and specific test, because the condition is rare, most positive results (about 96%) are false positives — the vast pool of unaffected people generates more false positives (≈49.9 per 1000 tested) than the tiny affected pool generates true positives (≈1.96 per 1000 tested).\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "d2d8c2386685fbf3583dcee8e24ec9df2f1042d32b9620440f7666ca67c4dd24",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2489,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 786,
+    "output_tokens_details": {
+      "thinking_tokens": 302
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2489,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 786,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2489,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2489
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0229652,
+    "duration_ms": 8394,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:24:18+00:00",
+  "finished_at": "2026-09-13T04:24:27+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

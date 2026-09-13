@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-E05-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "E05",
+  "condition_name": "combo_e05",
+  "repetition": 3,
+  "execution_index": 2164,
+  "sample_seed": 9711425788284640818,
+  "prompt_sha256": "c564e3080913c63f58b91e85afe86d3343024c7ec1b0196b202b5bb4ae95bb6f",
+  "prompt_chars": 733,
+  "response": "A content delivery network, or CDN, is a system of computers spread across many cities and countries that work together to deliver websites, videos, and apps faster. Without one, every request for a webpage would travel all the way back to a single origin server — the original computer where the website's files are stored — no matter how far away the visitor happens to be. That long round trip takes time and can feel slow, especially for someone browsing from across the globe.\n\nA CDN solves this by placing copies of website files on many smaller computers positioned closer to visitors; these are called edge locations, and each one keeps a ready copy of popular content on hand. When a request arrives, the nearest edge location checks whether it already has a fresh copy of what's needed. If it does, that's called a cache hit — the content gets delivered instantly from nearby, without ever needing to contact the origin server. If not, the edge location fetches a copy from the origin server, saves it for next time, and passes it along.\n\nThink of it like a chain of neighborhood bakeries that all sell bread baked at one central factory; instead of everyone traveling across town to the factory, each bakery keeps fresh loaves on hand so customers get bread quickly from wherever is nearest.\n\nThe result is faster loading, less strain on the origin server, and a smoother experience for people everywhere, even during huge traffic spikes.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The original computer that stores the real, master copies of website files | Everything ultimately comes from here, so protecting it from too many direct requests keeps a site reliable |\n| Edge location | A smaller computer placed close to where people actually are, holding copies of popular content | Being nearby cuts the distance data has to travel, making pages load faster |\n| Cache hit | When a nearby edge location already has the copy needed and can deliver it right away | The main reason a CDN makes browsing feel quick and smooth |\n| Cache miss | When the edge location doesn't have a copy yet and must first fetch one from the origin server | Explains occasional slower first loads before a copy is stored nearby for next time |",
+  "response_sha256": "80db15c044ea9d12119c28c1051a2de3956cd7a199f00eff5e99549a34568a6c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28292,
+    "output_tokens": 5654,
+    "output_tokens_details": {
+      "thinking_tokens": 4977
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5654,
+        "cache_read_input_tokens": 28292,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0622024,
+    "duration_ms": 45346,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:20+00:00",
+  "finished_at": "2026-09-13T05:14:07+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

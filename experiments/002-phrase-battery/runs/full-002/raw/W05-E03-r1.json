@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-E03-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "E03",
+  "condition_name": "combo_e03",
+  "repetition": 1,
+  "execution_index": 1545,
+  "sample_seed": 13924976176824007282,
+  "prompt_sha256": "6a4fde58f0318ab4a84c0e4314e135c390a769469bb156844c61281dbd1b4032",
+  "prompt_chars": 776,
+  "response": "## The problem\n\nOur team of twelve engineers currently develops on long lived feature branches that often stay open for two to four weeks before merging. This has produced real costs: integration pain grows with branch age, code review batches get so large that reviewers skim rather than scrutinize, and unmerged work stays invisible to the rest of the team, causing duplicated effort and last-minute surprises before releases.\n\nConcretely, the pattern looks like this:\n\n- Merge conflicts have become routine rather than exceptional, sometimes costing a full day to resolve.\n- Our last three releases slipped because integration testing surfaced problems only after branches merged, not during development.\n- At least two engineers have unknowingly built overlapping functionality on separate branches in the past quarter.\n\nThese are symptoms of one root cause: we are deferring integration instead of doing it continuously, and the cost of that deferral compounds with every day a branch stays open.\n\n## The proposal\n\nWe should move to trunk based development: engineers commit small, frequent changes directly to main, or through branches that live less than a day, protected by a robust CI pipeline and feature flags for anything not ready for users. This means:\n\n- Breaking work into increments small enough to merge within hours, not weeks.\n- Adopting feature flags to decouple deployment from release, so incomplete work can sit safely behind a flag on main.\n\nThis surfaces integration problems immediately, when they are cheapest to fix, and gives everyone visibility into what teammates are building, reducing duplicated work and release-week surprises.\n\n## What could go wrong\n\nThe strongest objection is real and worth taking seriously: trunk based development demands a CI pipeline and test suite fast and trustworthy enough that twelve people can commit multiple times a day without fear of breaking main for everyone else. Our current suite takes forty minutes and has known flaky tests. If we adopt trunk based development before hardening CI, we will trade slow branch-integration pain for constant, team-wide breakage — arguably worse, since it blocks all twelve people at once rather than one branch owner. This is not a reason to abandon the proposal, but it is a reason to sequence it: we should invest in test reliability and speed in parallel with the rollout, and accept that the transition will take a few sprints rather than a single weekend.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "e553084fa8490d45dc8be8939406ae3f13d6076f751f93c0f539e1ad52fec5ca",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28306,
+    "output_tokens": 1567,
+    "output_tokens_details": {
+      "thinking_tokens": 818
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1567,
+        "cache_read_input_tokens": 28306,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.021335200000000002,
+    "duration_ms": 18090,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:59:32+00:00",
+  "finished_at": "2026-09-13T04:59:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T13-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 3,
+  "execution_index": 1881,
+  "sample_seed": 3389312173419140925,
+  "prompt_sha256": "3d3e96eb274745236fc592f9e101656a83b618e9842f09cd7cc49e8195edb08a",
+  "prompt_chars": 662,
+  "response": "A content delivery network, or CDN, is a system of computers spread across many cities that store copies of websites so pages load quickly no matter where a visitor is located. Without one, every request travels back to a single origin server, the original computer where a website's files live. That trip can be slow if the visitor is far away. A CDN solves this by placing copies of the content at an edge location, a nearby computer positioned close to where people actually are, geographically. When a visitor requests a page, the network checks whether a nearby edge location already has a saved copy. If it does, that's called a cache hit, and the page appears almost instantly because nothing had to travel far. Think of it like a chain of neighborhood libraries holding copies of a popular book, so nobody has to travel across the country to the one warehouse that owns the original copy. If no nearby copy exists, the request quietly continues to the origin server, fetches the content, and often stores it locally for next time. This is why popular websites feel fast and reliable even during huge traffic spikes: the workload is spread across many locations instead of overwhelming one distant computer.\n\n| Term | Plain meaning | Why it matters |\n|------|---------------|-----------------|\n| Origin server | The original computer storing a website's real files | Everything ultimately comes from here if no copy exists nearby |\n| Edge location | A nearby computer holding a saved copy of content | Shortens the distance data has to travel |\n| Cache hit | When a nearby copy is found and used | Makes pages load faster and reduces strain on the origin |\n| Latency | The delay caused by distance and network travel time | Explains why nearby copies feel so much quicker |",
+  "response_sha256": "d5db44e8395b31dec970575e912c99297c07243fe60a45d9645e7c38e49c3c8b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28277,
+    "output_tokens": 526,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 526,
+        "cache_read_input_tokens": 28277,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0109194,
+    "duration_ms": 9068,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:06:59+00:00",
+  "finished_at": "2026-09-13T05:07:09+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

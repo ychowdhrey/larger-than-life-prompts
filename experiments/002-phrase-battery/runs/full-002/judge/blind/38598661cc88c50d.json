@@ -1,0 +1,22 @@
+{
+  "item_id": "38598661cc88c50d",
+  "sample_id": "P02-E08-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E08",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places the storage snapshot before any risky action while explicitly forbidding restart/failover pre-snapshot, includes a clear abort/rollback condition with concrete triggers, and ends with the correctly matching 'SECTIONS: 4' line. It also adds genuinely useful depth (growth-pattern classification, replica-disk-full pitfall, snapshot-consistency verification, vacuum I/O trade-offs) making it a realistic, actionable runbook.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:19+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T16_vs_A-r1",
+  "contrast_id": "T16_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T16",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T16",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both find the same five defects with similar clarity, but Response A is more precise about the ZeroDivisionError: it correctly notes it only surfaces when limit=0 (since with the default limit=5 an empty scores list would hit the IndexError first), whereas Response B claims top_scores([]) itself raises ZeroDivisionError, which is inaccurate since that call would actually raise IndexError first.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:23+00:00"
+}

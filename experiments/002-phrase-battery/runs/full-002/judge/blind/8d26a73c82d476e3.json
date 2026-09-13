@@ -1,0 +1,22 @@
+{
+  "item_id": "8d26a73c82d476e3",
+  "sample_id": "P02-D-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "D",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a verified storage snapshot as the first IMMEDIATE ACTIONS step before any destructive step, explicitly forbids restart/failover before that snapshot, and includes multiple well-specified abort/rollback conditions, while also addressing non-obvious risks like WAL/replication slot deletion and replica lag; it ends with the correct SECTIONS: 4 line.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:54+00:00"
+}

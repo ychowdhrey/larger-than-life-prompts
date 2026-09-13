@@ -1,0 +1,22 @@
+{
+  "item_id": "371e5d390d8a3ad2",
+  "sample_id": "P02-T12-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T12",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four headings in the required order, places a verified storage snapshot as the first action before any destructive step, explicitly forbids restart/failover until after the snapshot, includes two clear abort/rollback conditions, and ends with the correctly formatted 'SECTIONS: 4' line. It is also operationally detailed and realistic (space-reclamation ordering, replication-lag checks before failover, root-cause reassessment if mitigation doesn't help), though it doesn't explicitly narrate a self-check against the stated constraints.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:47+00:00"
+}

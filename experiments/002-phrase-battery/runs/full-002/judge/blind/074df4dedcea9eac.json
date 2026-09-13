@@ -1,0 +1,22 @@
+{
+  "item_id": "074df4dedcea9eac",
+  "sample_id": "C01-T14-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T14",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies every real defect (mutable default, in-place mutation of caller's list, missing bounds check causing IndexError, empty-list crashes both ways, the subtle dedup-window logic bug, and a minor O(n) lookup nit), backs each with a traced concrete example that checks out arithmetically, and correctly excludes the two behaviors explicitly stated as intended.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:14+00:00"
+}

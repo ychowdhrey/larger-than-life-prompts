@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T08_vs_A-r3",
+  "contrast_id": "T08_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T08",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both identify the same core defects (LEFT JOIN turned INNER, UTC vs UTC+8 boundary, integer division truncation, NULL total/sort issues) with equally correct fixes, but Response A cleanly separates the NULL-total and NULL-sort-order problems into distinct, precisely stated defects, while Response B tacks on an inaccurate aside ('The same misalignment applies to any other day boundary in the range') that doesn't apply since the query has only a single one-sided date filter, not a multi-boundary range.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:36:15+00:00"
+}

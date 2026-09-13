@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T17_vs_A-r2",
+  "contrast_id": "T17_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T17",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements, but Response A sequences the cutover more cleanly (freeze writes → confirm near-zero lag → final sync → explicitly stop replication and verify consistency → then integrity checks), whereas Response B crams stopping writes, draining lag, final delta sync, and repointing into one step without ever explicitly stopping replication before verification, and its step 3 (backup) contradicts the ordering by claiming the backup precedes replication setup that already occurred in step 2. A's plan is thus internally more consistent and technically precise.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:25:11+00:00"
+}

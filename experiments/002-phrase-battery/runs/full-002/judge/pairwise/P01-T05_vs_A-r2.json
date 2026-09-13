@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T05_vs_A-r2",
+  "contrast_id": "T05_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T05",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T05",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Response B sets up replication tooling on the production source (step 2, which entails creating a publication/replication slot on-prem) before the full backup is taken (step 3), violating the requirement that a backup precede any step that modifies production; Response A correctly sequences its full backup (step 4) before any replication configuration touches production (step 6).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:59+00:00"
+}

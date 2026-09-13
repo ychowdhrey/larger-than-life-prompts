@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T26_vs_A-r2",
+  "contrast_id": "T26_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T26",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T26",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet the structural requirements, but Response B enforces a stricter, less ambiguous snapshot-completion gate (it explicitly forbids proceeding on an 'in progress' or 'pending' snapshot) rather than allowing action once a snapshot is merely 'confirmed in-progress and crash-consistent,' which is a subtler judgment call that's riskier for an on-call responder to apply correctly. B also adds useful operational nuance (checking replica scope/lag in detection, branching to a secondary-cause investigation if latency persists after disk relief) that makes it marginally more actionable as a real runbook.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:33+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "4cc32d792ac587b9",
+  "sample_id": "C05-T20-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T20",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all three real defects (the >100 vs >=100 boundary bug, the missing boundary test that lets it slip through, and the wrong expected value in test_cap given the cap actually yields 50.0 not 100.0), verifies its floating-point reasoning correctly, and reports no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:36+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "2673141e5ff890e0",
+  "sample_id": "P05-E03-r1",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E03",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 4,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (three named phases with percentages and entry criteria, five correctly-formatted RISK lines, numeric halt thresholds, explicit avoidance of decommissioning legacy system in the final migration phase, and a correctly formatted PHASES: 3 closing line), but the phase percentages are internally inconsistent (25% cumulative then '74% remaining' when it should be 75%, i.e. 29,600 vs the correct 30,000), an unverified arithmetic slip that shows incomplete self-checking. Otherwise the plan is detailed, actionable, and addresses non-obvious concerns like financial-close validation and staged decommissioning.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:01+00:00"
+}

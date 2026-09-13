@@ -1,0 +1,22 @@
+{
+  "item_id": "1191a54522fe8c0f",
+  "sample_id": "P01-T01-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T01",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 steps, exactly 12; rollback; rehearsal on non-prod data; post-cutover row-count/checksum verification; stakeholder communication; backups placed before any rehearsal or cutover) and is technically coherent and actionable for a real DBA team, though it leans on fairly standard replication-based migration mechanics without addressing some non-obvious risks like extension/permission limits on managed services or sequence/identity sync nuances.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:31+00:00"
+}

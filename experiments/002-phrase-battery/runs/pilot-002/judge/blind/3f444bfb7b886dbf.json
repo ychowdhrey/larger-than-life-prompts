@@ -1,0 +1,22 @@
+{
+  "item_id": "3f444bfb7b886dbf",
+  "sample_id": "P03-T22-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T22",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 3,
+    "usefulness": 5
+  },
+  "reason": "The schedule is valid (no engineer double-booked, all prerequisites respected, tasks contiguous, finishes exactly on Day 10) and matches the required output format precisely, but the response never explicitly verifies the plan against the rules and misses noting that Day 10 is actually the unavoidable minimum given the T1-T2-T4-T6 critical path.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T04:19:34+00:00"
+}

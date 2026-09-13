@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T24_vs_A-r1",
+  "contrast_id": "T24_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T24",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements, but Response B is operationally more rigorous: it separately checks WAL/temp volume growth (often the actual driver of a full-disk incident), addresses snapshot capacity constraints by targeting a separate volume, and its abort/rollback condition includes concrete rollback actions (restore from snapshot, verify integrity) rather than just escalation. Its FOLLOW UP also adds data-integrity/checksum validation against the snapshot, which is a meaningful safety check given the cleanup steps performed in MITIGATION.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:43:02+00:00"
+}

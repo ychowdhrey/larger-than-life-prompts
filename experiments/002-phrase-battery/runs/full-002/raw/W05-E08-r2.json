@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-E08-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "E08",
+  "condition_name": "combo_e08",
+  "repetition": 2,
+  "execution_index": 2059,
+  "sample_seed": 12169102737554087245,
+  "prompt_sha256": "db22c4aef9929479afa5960a8e5a8bf0c8bb7eaed43e3291c7573f5b0ba9750f",
+  "prompt_chars": 780,
+  "response": "## The problem\n\nOur team of twelve has been shipping through long-lived feature branches for over a year, and the costs are compounding. Branches routinely live two to four weeks before merging, so by integration time the diffs are enormous, conflicts are painful to resolve, and the design decisions embedded in the code are already locked in. Two symptoms stand out:\n\n- Release week regularly slips by a day or more resolving merge conflicts and re-testing integrations that should have surfaced weeks earlier.\n- Engineers report avoiding refactors near branch boundaries because \"someone else's branch touches that file,\" which quietly degrades code quality across the board.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, reviewed changes directly to main at least once a day, guarded by feature flags for anything incomplete. This isn't a radical experiment — it's the default workflow at most high-performing engineering organizations, precisely because it shrinks batch size and surfaces integration problems immediately instead of weeks later. Concretely, this means:\n\n- Adopting feature flags so incomplete work can merge safely without being user-visible.\n- Requiring CI to pass before any merge to main, with a fast (under ten minute) pipeline.\n- Capping branch lifetime at one to two days as a team norm, enforced in code review.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development shifts risk management from branch isolation to flag management and test discipline, and if our test suite or flag hygiene is weak, we could ship half-finished or broken behavior straight into main instead of a branch. That's a legitimate concern, not a strawman — it means this migration only works if we invest in CI reliability and flag cleanup discipline before we flip the switch, not after. I think that investment is worth making regardless of this decision, but it is real upfront cost, not a free lunch.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "43e1769b760aedf06d84e539eb59b13637436464d65bc88a72de61c98abcb5d4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28308,
+    "output_tokens": 1166,
+    "output_tokens_details": {
+      "thinking_tokens": 548
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1166,
+        "cache_read_input_tokens": 28308,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0173256,
+    "duration_ms": 16296,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:10:54+00:00",
+  "finished_at": "2026-09-13T05:11:12+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "523b386392c4a64f",
+  "sample_id": "C05-T26-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T26",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies both real defects (the off-by-one boundary at total==100 violating R1, and test_cap's assertion of 100.0 which both violates R2 and mismatches what the given code actually returns, 50.0), verifies its arithmetic against each test, and does not fabricate spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:40+00:00"
+}

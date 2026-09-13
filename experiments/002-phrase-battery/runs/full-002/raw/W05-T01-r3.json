@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T01-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T01",
+  "condition_name": "phrase_t01",
+  "repetition": 3,
+  "execution_index": 26,
+  "sample_seed": 15177447692232191819,
+  "prompt_sha256": "70748f0914ad343b25d23cc2648a8f9a089c0b1a8b0b6cee22aa37da68dc6c51",
+  "prompt_chars": 713,
+  "response": "Subject: Moving from Long-Lived Feature Branches to Trunk-Based Development\n\n## The problem\n\nOur team of twelve is spending more time managing branches than shipping code. Feature branches routinely live for two to three weeks, and by the time they're ready to merge, they've drifted far enough from main that integration itself becomes a project. Merge conflicts eat entire afternoons, code review happens against a moving target, and bugs introduced by \"merge day\" surprises are harder to trace than bugs introduced by normal development. We've also started seeing a chilling effect: people delay merging because they're afraid of the pain, which makes the eventual merge even more painful. This is a classic vicious cycle, and it's getting worse as the team grows.\n\n## The proposal\n\nI propose we adopt trunk-based development: everyone commits small, frequent changes directly to main (or through branches that live hours, not weeks), behind feature flags where needed.\n\n- Feature flags let us merge incomplete work safely, decoupling deployment from release.\n- CI must run on every commit to main, with a strict \"green trunk\" policy.\n- We'll need broader test coverage before this is safe, particularly around checkout and payments.\n- Code review shifts to smaller, faster-turnaround diffs rather than sprawling end-of-branch reviews.\n- We should pilot this with one squad for three weeks before rolling it out team-wide.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development is risky if our test suite isn't reliable — pushing directly to main with weak coverage could mean shipping broken code faster than we do today, not safer code. This is a fair concern, and it's exactly why the pilot includes a coverage push before we flip the switch broadly. I don't think we should dismiss this risk; instead we should sequence the work so testing investment comes first, not as an afterthought. Feature flags also add technical debt if we don't clean them up, and we'll need discipline around flag retirement.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "76a862bd0a2eeb1e7234a346dc7497995796ef9058249515e4d1470ebf53ff4a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2563,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 651,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2563,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 651,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2563,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2563
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0219112,
+    "duration_ms": 11481,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:22:07+00:00",
+  "finished_at": "2026-09-13T04:22:20+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

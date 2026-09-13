@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T04-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T04",
+  "condition_name": "phrase_t04",
+  "repetition": 2,
+  "execution_index": 411,
+  "sample_seed": 16160538019385972294,
+  "prompt_sha256": "4565eddcf2c9e45d85a6546a9a978c0c76b3d29830b7eaf3e90d4c904aca811a",
+  "prompt_chars": 825,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nBoth billing systems will run in parallel throughout the migration (dual-write / dual-run architecture), allowing per-user cutover and fast rollback at any stage. The old system remains fully active and authoritative for unmigrated users until all users have been successfully and stably migrated, and remains available in read-only/reconciliation mode for a full billing cycle after that. No decommissioning work is scheduled until a phase after the final migration batch.\n\n---\n\n## Phase 1: Canary (Internal + Opt-In Users)\n\n**Percentage of users:** 1% (~400 users)\n\n**Entry criterion:** New billing system has passed full parity testing in staging (invoice totals, tax calculation, payment retries, and refunds match legacy system output on a replayed 90-day transaction sample with 100% agreement), and dual-write reconciliation tooling is live and passing on synthetic accounts.\n\n**Composition:** Internal employee accounts, sandbox/test-tier customers, and users who explicitly opt in to early access. No customers on custom/negotiated billing contracts.\n\n**Duration:** Minimum 7 days, or two full billing cycles for any weekly-billed accounts in the group, whichever is longer.\n\n---\n\n## Phase 2: Early Majority (Expanding Cohorts)\n\n**Percentage of users:** 25% (~10,000 users), migrated in three sub-waves of ~8%, ~8%, ~9% spaced at least 5 days apart\n\n**Entry criterion:** Phase 1 completed with invoice discrepancy rate below 0.1%, zero critical payment failures attributable to the new system, and support ticket volume for migrated users within 1.5x of the baseline (non-migrated) ticket rate.\n\n**Composition:** Randomized sample stratified by plan type, payment method (card/ACH/wallet), geography, and billing frequency, so no single segment dominates the cohort. Excludes highest-ARR enterprise accounts.\n\n**Duration:** Minimum 10 days total across sub-waves to observe at least one full monthly billing cycle for the majority of monthly-billed users in this group.\n\n---\n\n## Phase 3: Broad Rollout (Majority of Remaining Users)\n\n**Percentage of users:** 54% (~21,600 users), migrated in weekly waves of ~10–15% each\n\n**Entry criterion:** Phase 2 completed with invoice discrepancy rate below 0.05%, dunning/failed-payment recovery rate for migrated users at or above legacy baseline, zero unresolved Sev-1/Sev-2 incidents tied to the new system, and rollback procedure validated via a live rollback drill on at least 100 accounts in Phase 2.\n\n**Composition:** All remaining standard-tier and mid-market accounts, still excluding top-tier enterprise/custom-contract accounts, which are held for the final phase due to complexity of contract terms and negotiated pricing rules.\n\n**Duration:** 3–4 weeks depending on wave-over-wave metrics.\n\n---\n\n## Phase 4: Final Batch (Enterprise, Custom Contracts, and Stragglers)\n\n**Percentage of users:** 20% (~8,000 users) — remaining enterprise accounts, custom-contract accounts, and any users held back or rolled back from earlier phases\n\n**Entry criterion:** Phase 3 completed with invoice discrepancy rate below 0.05% sustained for 2 consecutive weeks, finance sign-off on reconciliation reports, and dedicated white-glove migration runbooks validated with at least 5 pilot enterprise accounts.\n\n**Composition:** Enterprise accounts, custom pricing/contract accounts, and any deferred edge cases (e.g., accounts under active disputes or in dunning at time of migration).\n\n**Duration:** 3–6 weeks, with 1:1 account manager coordination for top-tier accounts.\n\n**Note:** Decommissioning, disabling, or deleting the old billing system is explicitly **out of scope** for Phase 4 and will only be considered in a subsequent Phase 5 (Legacy Sunset), which requires a minimum 30-day stability window post-Phase-4 completion, a full financial audit reconciling both systems, and executive/finance sign-off before any legacy infrastructure is touched.\n\n---\n\n## Risks\n\nRISK: Invoice or charge amount discrepancies between old and new systems leading to customer billing errors | Run continuous dual-write reconciliation with automated diffing on every transaction and halt migration on threshold breach | Billing Platform Engineering Lead\nRISK: Payment method tokens fail to migrate correctly, causing failed charges for migrated users | Pre-validate token migration in a shadow run against a payment processor sandbox before each phase, and require successful token validation for 100% of a cohort before cutover | Payments Integration Engineer\nRISK: Customer support is overwhelmed by a spike in billing-related tickets during a wave | Pre-brief support team per phase with known issues/runbooks, stagger wave sizes, and add on-call escalation path to billing engineering | Customer Support Manager\nRISK: Enterprise customers with custom contract terms are migrated incorrectly, damaging key accounts | Hold all custom-contract accounts to the final phase with manual account-manager review and pilot validation before migration | Enterprise Account Management Lead\nRISK: Data drift between systems during the dual-run period causes reconciliation to silently diverge over time | Automated daily reconciliation job with alerting, plus mandatory weekly manual audit sign-off by finance during all active phases | Finance Operations Lead\nRISK: Rollback procedure fails or is untested when needed under real incident pressure | Conduct a live rollback drill on a sample cohort before each phase gate and document a rollback runbook with defined RTO | Site Reliability Engineering Lead\n\n---\n\n## Halt / Rollback Metrics\n\nThe rollout is halted immediately (no further users migrated to the next wave or phase) and the current wave is rolled back to the old system if any of the following are breached:\n\n- **Invoice discrepancy rate exceeds 0.2%** of migrated transactions in any rolling 24-hour window (compared against dual-write reconciliation).\n- Failed/declined payment rate for migrated users exceeds legacy baseline by more than 15% relative, sustained over 48 hours.\n- Any Sev-1 incident (customers charged incorrectly, double-charged, or billing data loss) occurs in the new system.\n\n---\n\nPHASES: 4",
+  "response_sha256": "f971ffc9e7a2460658356ab69a6c1b57dd4d8a2b92cfea87900d9e59531810ee",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2596,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2205,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2596,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2205,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2596,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2596
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0375832,
+    "duration_ms": 28822,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:10+00:00",
+  "finished_at": "2026-09-13T04:32:40+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

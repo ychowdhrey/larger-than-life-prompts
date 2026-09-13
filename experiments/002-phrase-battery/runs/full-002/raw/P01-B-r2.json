@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-B-r2",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 404,
+  "sample_seed": 15100190311329121912,
+  "prompt_sha256": "194f273f6c1e10103865b09f3f615caa9e5ccec2f3ec4ba94076c463b5eb1785",
+  "prompt_chars": 800,
+  "response": "1. **Assessment & planning:** Inventory the 2 TB database (schema, extensions, roles, sequences), select the target managed service (matching Postgres version/extensions), size compute/storage/IOPS for the workload, and produce a runbook with a minute-by-minute timeline that fits the 2-hour Sunday window.\n2. **Stakeholder communication (initial):** Notify engineering, support, and end users at least 1 week ahead of the maintenance window (date/time, expected read-only or downtime period), with reminders at 48h and 1h before, and a designated status-update channel during the migration.\n3. **Environment setup:** Provision the managed Postgres instance, configure networking/VPC peering or VPN, security groups, IAM/roles, parameter groups, and encryption to mirror or improve on-prem settings.\n4. **Non-production dry run:** Take a full backup/snapshot of production, restore it into a staging copy (or use a scrubbed/representative dataset), and rehearse the entire migration (backup, transfer, restore, cutover, verification, rollback) end-to-end against the managed service; record timings to confirm the process fits the 2-hour window.\n5. **Refine runbook from rehearsal:** Fix issues found in the dry run (slow steps, compatibility errors, extension mismatches), and re-time each phase; if the rehearsal doesn't fit the window, plan a pre-seed strategy (initial bulk copy days ahead + final delta sync) instead of a single full 2TB transfer.\n6. **Pre-cutover replication seed (before window):** Days before the maintenance window, take a full backup of the production database, then start continuous logical replication/CDC (e.g., pg_logical, AWS DMS, or native logical replication) from on-prem to the managed target so only a small delta remains at cutover time.\n7. **Final stakeholder notice & freeze:** At the start of the maintenance window, confirm go-ahead with stakeholders, announce the start of the maintenance window to users, and put the application into read-only/maintenance mode to stop new writes.\n8. **Final full backup:** Immediately before any destructive/modifying action on production, take one last full backup (pg_dump/pg_basebackup or snapshot) of the on-prem database and verify it completes successfully and is restorable.\n9. **Final sync & cutover:** Apply the last replication delta (or final incremental dump/restore) to the managed target so it is fully caught up, then repoint application connection strings/DNS/secrets to the new managed database and restart application services.\n10. **Data integrity verification:** Compare row counts per table, checksums (e.g., `pg_checksums`/`checksum` extension or `md5` hash aggregates), sequence values, and index/constraint counts between source backup and target; block go-live until verification passes.\n11. **Go-live & monitoring:** Take the application out of maintenance mode, monitor query performance, replication lag, error rates, and connection health closely for the remainder of the window and the following 24–48 hours; send stakeholders a completion/status update.\n12. **Rollback procedure (trigger at any failure point in steps 7–11):** Take the application back into maintenance mode, repoint connection strings/DNS back to the original on-prem server (kept fully intact and untouched throughout), replay any writes made against the new database (if any) back into on-prem using captured delta logs, verify on-prem integrity via the same row-count/checksum checks, resume traffic on-prem, and notify stakeholders of the rollback and revised migration timeline.\n\nSTEP COUNT: 12",
+  "response_sha256": "0e6ffa7b30e348f6a58ebd853c3b9d78d8137e412c6f130c49ad9af48249ba50",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2589,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1180,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2589,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1180,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2589,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2589
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0273052,
+    "duration_ms": 17695,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:31:58+00:00",
+  "finished_at": "2026-09-13T04:32:16+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

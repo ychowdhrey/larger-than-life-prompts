@@ -1,0 +1,22 @@
+{
+  "item_id": "612e1d271c865346",
+  "sample_id": "C02-T10-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T10",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all three core defects (WHERE nullifying the LEFT JOIN, UTC/UTC+8 boundary mismatch, integer division truncation) with accurate technical explanations and impact, and appropriately hedges secondary concerns (open-ended range, GROUP BY portability) as non-confirmed rather than asserting them as definite bugs, avoiding false positives while providing a correct, usable fixed query.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:28+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "8ea0a9aa76dda4a8",
+  "sample_id": "P01-B-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "B",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all six hard requirements exactly (12 steps, backup before any modification, dry run, post-cutover verification, stakeholder communication, and a rollback procedure) and the stated STEP COUNT matches the actual list, with a technically sound approach using logical replication to fit 2TB into a short window; minor weaknesses include a slightly confusing ordering between the production bulk-load and the rehearsal step and an imprecise reference to pg_checksums for cross-server integrity comparison.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:56+00:00"
+}

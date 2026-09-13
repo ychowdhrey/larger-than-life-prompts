@@ -1,0 +1,22 @@
+{
+  "item_id": "09a9c51de73980ac",
+  "sample_id": "P02-T11-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T11",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a storage snapshot before any destructive or state-changing action, explicitly forbids restart/failover pre-snapshot (with failover only permitted post-snapshot under IC sign-off), and includes a clear, well-specified abort/rollback condition; it closes with the correct SECTIONS: 4 line and is detailed enough to be directly actionable by an on-call engineer.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:55+00:00"
+}

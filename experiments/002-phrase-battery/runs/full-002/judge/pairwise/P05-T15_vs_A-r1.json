@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T15_vs_A-r1",
+  "contrast_id": "T15_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T15",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T15",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the hard requirements (phases with percentages/entry criteria, correctly formatted RISK lines, decommissioning kept out of the final migration phase, numeric halt thresholds, and a correct PHASES line), but Response A is the more usable and rigorous plan: it adds a pre-migration shadow/parity phase to de-risk cutover, gates each sub-wave of the large ramp phase on the halt metrics rather than just the phase as a whole, specifies concrete rollback mechanics and SLAs (e.g., pointer-flip system-of-record switch, <4hr rollback for 10k accounts), and dedicates an explicit decommission phase with its own 30-day soak and sign-off criteria, giving stronger operational detail than Response B's more generic three-phase treatment.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:36:11+00:00"
+}

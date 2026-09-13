@@ -1,0 +1,22 @@
+{
+  "item_id": "f6095d595d79cd3e",
+  "sample_id": "C01-T11-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T11",
+  "repetition": 3,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 4,
+    "constraint_adherence": 4,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "Correctly identifies the mutable default argument, in-place mutation, missing bounds check, and the subtle within-call duplicate-collapsing bug, but the ZeroDivisionError claim is inaccurate: with the default limit=5, an empty scores list triggers IndexError at scores[0] before the division line is ever reached, so that scenario is mischaracterized rather than verified against actual execution order.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:22+00:00"
+}

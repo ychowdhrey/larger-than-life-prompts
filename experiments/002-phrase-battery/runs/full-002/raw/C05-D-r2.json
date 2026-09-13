@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-D-r2",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 2,
+  "execution_index": 252,
+  "sample_seed": 18427877089836063712,
+  "prompt_sha256": "a1255dd9583f4d3801b87c79639a10e8996901887f49ab1fba221e1185753ee4",
+  "prompt_chars": 865,
+  "response": "## Defects Found\n\n**1. Implementation: wrong boundary comparison (violates R1)**\nThe code uses `total > 100` instead of `total >= 100`. R1 states an order with a total of **100 or more** gets the discount. With `total = 100` exactly, the condition `100 > 100` is `False`, so the function falls through to `return 0.0` — no discount at all, when it should return `10.0`. This is a genuine bug, not covered by R3 either, since R3 only governs totals *below* 100 (100 itself is not below 100).\n\n*Effect:* `discount(100)` returns `0.0` instead of the required `10.0`.\n\n**2. Test: `test_cap` has an incorrect expected value**\n`discount(1000)` computes `1000 * 0.10 = 100.0`, then `min(100.0, 50.0) = 50.0` per the cap logic. The test asserts `discount(1000) == 100.0`, which is wrong on two counts:\n- It contradicts R2 directly (\"the discount is never more than 50.00\") — 100.0 is an impossible/non-compliant value for this function to return.\n- It contradicts the implementation's own arithmetic — the function will actually return `50.0` here (confirmed exactly in floating point: no rounding artifacts change this), so this test will **fail** as written.\n\n*Effect:* This test cannot pass against the given (or any spec-compliant) implementation; it does not actually verify R2's cap.\n\n**3. Missing test coverage for the R1/R3 boundary**\nNo test checks `total == 100`. This is precisely the case that exposes defect #1 (`> ` vs `>=`), so the boundary condition between \"gets discount\" and \"gets none\" is unverified.\n\n**4. No correct test verifies the 50.00 cap (R2)**\nBecause `test_cap`'s expected value is wrong (defect #2), there is effectively no passing test confirming that large totals are capped at 50.00. A correct version would need to assert `discount(1000) == 50.0` (or use a total like 600 where `60 → capped to 50`).\n\n## Not defects (checked and found correct)\n- `test_small` (`discount(50) == 0.0`) is correct per R3.\n- `test_large` (`discount(200) == 20.0`) is correct per R1/R2 — verified exact in floating point, no precision issue.\n- The `min(d, 50.0)` capping logic itself is structurally correct for satisfying R2 once the boundary condition (#1) is fixed.",
+  "response_sha256": "a9657c741bd4c38647fe5000afbb4c77e9d33b6c77b32e4a2c15a1e46a8c03cc",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2632,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 5584,
+    "output_tokens_details": {
+      "thinking_tokens": 4764
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2632,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5584,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2632,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2632
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0715172,
+    "duration_ms": 57456,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:28:08+00:00",
+  "finished_at": "2026-09-13T04:29:06+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

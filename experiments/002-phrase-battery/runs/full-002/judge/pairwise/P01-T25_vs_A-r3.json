@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T25_vs_A-r3",
+  "contrast_id": "T25_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T25",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements, but Response B is more rigorous about backup timing: it takes a full backup before the rehearsal (step 4) and a second, freshly-consistent backup at the write-freeze point (step 8) immediately before cutover, so rollback (step 11) restores from a backup taken at the actual cutoff rather than one taken before the bulk load began as in Response A, which could be stale by the time of cutover. B also explicitly calls for rehearsing the rollback procedure itself and adds a schema-freeze/go-no-go gate, making its runbook slightly more production-ready.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:26:29+00:00"
+}

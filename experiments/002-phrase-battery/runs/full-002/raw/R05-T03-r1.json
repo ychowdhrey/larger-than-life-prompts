@@ -1,0 +1,68 @@
+{
+  "sample_id": "R05-T03-r1",
+  "run_id": "full-002",
+  "task_id": "R05",
+  "family": "reasoning",
+  "condition_id": "T03",
+  "condition_name": "phrase_t03",
+  "repetition": 1,
+  "execution_index": 1757,
+  "sample_seed": 11230228804570236834,
+  "prompt_sha256": "7af22ccbb2ca58dd45159e37abee12284395fb21b02d99ff08438be7b3e75266",
+  "prompt_chars": 240,
+  "response": "**401**\n\nDivisible by 3 or 5: ⌊1000/3⌋+⌊1000/5⌋−⌊1000/15⌋ = 333+200−66 = 467\nDivisible by (3 or 5) and also by 7 (i.e., by 21 or 35): ⌊1000/21⌋+⌊1000/35⌋−⌊1000/105⌋ = 47+28−9 = 66\nResult: 467 − 66 = 401\n\nFINAL ANSWER: 401",
+  "response_sha256": "73b4ff3a121cb1418964e46a9860ca76fa26ac6a8404e65bb6a137f1c2a60c01",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28151,
+    "output_tokens": 345,
+    "output_tokens_details": {
+      "thinking_tokens": 178
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 345,
+        "cache_read_input_tokens": 28151,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0090842,
+    "duration_ms": 3981,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:04:23+00:00",
+  "finished_at": "2026-09-13T05:04:28+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "sample_id": "R05-T03-r2",
+  "task_id": "R05",
+  "family": "reasoning",
+  "condition_id": "T03",
+  "repetition": 2,
+  "response_sha256": "2668fd3b2c44ebbe8bcd55dafa43a02e5426a49ed48bda19e165eb8fc5f059a1",
+  "objective": {
+    "max_points": 10.0,
+    "earned_points": 10.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": 1.0,
+    "checks": [
+      {
+        "check_id": "answer",
+        "label": "Correct count",
+        "type": "regex_any",
+        "points": 6.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*401\\b",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "format",
+        "label": "Final answer line present",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*[0-9]",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "inclusion_exclusion",
+        "label": "Applies inclusion-exclusion rather than double counting",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched inclusion.{0,3}exclusion",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "no_466",
+        "label": "Does not report the count before removing multiples of 7",
+        "type": "forbidden",
+        "points": 1.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": false,
+        "planted": false,
+        "distractor": true
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 572,
+    "response_words": 107,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": 1.0
+  },
+  "scored_at": "2026-09-13T05:15:48+00:00",
+  "evaluation_version": "2.0.0"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T19-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 1,
+  "execution_index": 589,
+  "sample_seed": 11446643756431122797,
+  "prompt_sha256": "c88979e6cde9aa1a814136367c747d6e8cc216b5d5051fe629f0457ab9a08bf7",
+  "prompt_chars": 1022,
+  "response": "## Section 1 — Webinar attendance and retention\n\n**1. Correlation treated as causation.**\nThe memo moves directly from \"attendees retain 31% more\" to \"webinars therefore cause higher retention.\" Attendance is voluntary, so attendees likely differ from non‑attendees in ways that independently predict retention — e.g., they're more engaged, more invested in the product, or already leaning toward staying. This self‑selection confound is never ruled out (no control group, no randomized/A‑B test, no adjustment for other variables). *Consequence:* the causal claim is unsupported; the true driver could be pre‑existing engagement, not the webinar itself.\n\n**2. Survivorship bias in the sample.**\nThe analysis is restricted to the 412 customers \"still active on the Pro plan today\" — i.e., the population is pre‑filtered on *not having churned*. Measuring a retention‑related outcome inside a sample that is already conditioned on survival can distort the comparison (e.g., cohort/tenure effects: longer‑tenured survivors had more opportunity both to attend a webinar and to prove durable, while customers who churned before ever attending are simply absent from the analysis). *Consequence:* the 31% gap may not reflect the effect webinars would have across the full population, including customers who left.\n\n**3. Policy recommendation doesn't match what was measured.**\nThe memo generalizes from an observational, voluntary‑attendance correlation to a prescription — mandatory attendance for *all new* customers. Making something mandatory changes its meaning: compliant‑but‑unmotivated attendance is not the same variable as the voluntary attendance that was measured. *Consequence:* forcing attendance may not reproduce the observed association at all, so the recommended action isn't actually justified by the data cited.\n\n## Section 2 — 18 attributes tested, Central region \"significant\"\n\n**4. Multiple‑comparisons problem (data dredging).**\nTesting 18 attributes and reporting the one that hit p=0.04 ignores that, at α=0.05, running 18 independent tests gives roughly a 1‑(0.95)^18 ≈ 60% chance of at least one \"significant\" result purely by chance. A Bonferroni‑style correction would require something like p<0.0028 to call this significant at the same overall confidence level. *Consequence:* the Central‑region effect is quite plausibly a false positive, and reallocating spend on this basis risks acting on noise.\n\n**5. No effect size reported.**\nOnly a p‑value is given (\"significantly less,\" p=0.04) with no magnitude (how much less churn) or confidence interval. Statistical significance is not the same as a business‑meaningful effect. *Consequence:* even if the finding is real, there's no basis to judge whether it's large enough to justify a spending shift.\n\n**6. Causal/allocation logic doesn't follow even if the correlation is real.**\nObserving that a region already churns less doesn't establish that *spend* is what causes it, nor that *more* spend there would help — the memo supplies no mechanism linking spend to churn in that region. It's also backwards from a marginal‑returns standpoint: concentrating additional investment in the region that already performs best, rather than the higher‑churn regions with more room for improvement, is asserted without justification. *Consequence:* resources may be redirected away from where they'd have larger marginal impact, based on an untested causal assumption.\n\n## Section 3 — Satisfaction 62% → 66%\n\n**7. No test of whether the change is distinguishable from normal variation.**\nA 4‑point quarter‑over‑quarter move is reported as proof of impact with no sample size, margin of error, or historical baseline showing how much this metric normally fluctuates. *Consequence:* the \"improvement\" could be within ordinary noise and not a real change at all.\n\n**8. Causal attribution without a counterfactual or control.**\nThe rise is credited entirely to \"the new support model,\" but no other explanation is ruled out (seasonality, concurrent product/pricing changes, changes in the survey population or response rate, etc.), and there is no control group or trend comparison. *Consequence:* credit (and future resourcing decisions) may be misassigned to a program that isn't actually responsible for the change.",
+  "response_sha256": "289a99ab26c4f50a42dc51da905f3decd713cfb172c257f1b5a836242081e091",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2647,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 5224,
+    "output_tokens_details": {
+      "thinking_tokens": 3835
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2647,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5224,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2647,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2647
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0679772,
+    "duration_ms": 63455,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:36:48+00:00",
+  "finished_at": "2026-09-13T04:37:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

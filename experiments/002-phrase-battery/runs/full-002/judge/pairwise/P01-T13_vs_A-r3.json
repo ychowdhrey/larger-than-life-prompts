@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T13_vs_A-r3",
+  "contrast_id": "T13_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T13",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements within 12 steps, but Response B sequences the safety-critical backup more precisely (a verified backup before rehearsal, then a second full backup taken at the exact write-freeze point immediately before the destructive sync/cutover step) and its rollback step explicitly ties back to which backup to restore from and confirms the on-prem source is kept untouched, making the rollback path less ambiguous than Response A's single pre-window backup taken slightly before the freeze occurs.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:30:04+00:00"
+}

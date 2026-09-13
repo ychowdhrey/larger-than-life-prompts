@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T20-r1",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 1,
+  "execution_index": 417,
+  "sample_seed": 3988069052431610490,
+  "prompt_sha256": "f3ba6180b4b95459735291adb340f8e2f8398e7ff9610e1d1853d267b98ae1c0",
+  "prompt_chars": 843,
+  "response": "Here are the defects I find, in order of severity:\n\n**1. The `WHERE` clause silently turns the `LEFT JOIN` back into an `INNER JOIN`**\n`WHERE o.created_at >= '2026-01-01'` is evaluated *after* the join, against the joined row. For a customer with no orders at all, `o.created_at` is `NULL`, and `NULL >= '2026-01-01'` evaluates to `UNKNOWN`, so the row is dropped by the `WHERE` filter. The same thing happens to any customer whose orders all predate the cutoff — their only joined rows get filtered out, and they vanish from the result entirely.\n**Consequence:** Directly violates the stated requirement — customers with no qualifying orders (including customers with *zero* orders ever) will not appear in the report at all, instead of appearing with a count of 0.\n**Fix:** Move the date predicate into the `ON` clause: `LEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= ...`.\n\n**2. The date boundary is compared in UTC, not the team's UTC+8 calendar day**\n`created_at` is stored in UTC, but `'2026-01-01'` is being compared as a naive UTC timestamp — i.e. UTC midnight, not UTC+8 midnight. Local midnight on Jan 1 (UTC+8) is `2025-12-31 16:00:00` UTC. As written, any order placed between local `2026-01-01 00:00` and `07:59` (which is UTC `2025-12-31 16:00`–`23:59`) is stored with a `created_at` before `2026-01-01` UTC and gets wrongly excluded.\n**Consequence:** Orders from the first 8 hours of each local day are misclassified relative to the intended calendar-day boundary, so day-based cutoffs (and any similar range filters built the same way) will be off by up to 8 hours — the report will not actually reflect the local calendar day the team asked for.\n**Fix:** Convert either the column or the literal to UTC+8 before comparing (e.g. shift the boundary to `'2025-12-31 16:00:00'` UTC, or convert `created_at` to `Asia/Shanghai`/`Asia/Singapore` time before the comparison).\n\n**3. `SUM(o.total_cents)` returns `NULL`, not 0, for customers with no qualifying orders**\nOnce the join is fixed so those customers reappear (per #1), `SUM` over zero rows in a `GROUP BY` group yields `NULL`, not `0`.\n**Consequence:** `total_spent` shows `NULL` for customers with zero orders instead of `0`, which is inconsistent with the stated requirement that they appear with a proper zero value, and it also affects where those rows land in `ORDER BY total_spent DESC` (NULL ordering is engine-dependent).\n**Fix:** `COALESCE(SUM(o.total_cents), 0) / 100.0 AS total_spent`.\n\n**4. Integer division truncates cents**\n`SUM(o.total_cents) / 100` divides an integer by an integer literal. On engines with integer division semantics (PostgreSQL, SQL Server, SQLite), this truncates toward zero rather than producing a decimal dollar amount.\n**Consequence:** Fractional dollars are silently dropped — e.g. a customer who spent 199 cents total would be reported as `1` instead of `1.99`, understating every customer's total.\n**Fix:** Divide by a decimal, e.g. `/ 100.0`, or cast to `numeric`/`decimal` first.\n\n**5. Non-aggregated columns in `SELECT` aren't in `GROUP BY` (portability risk)**\n`GROUP BY c.customer_id` while selecting `c.name` and `c.signup_date` ungrouped relies on the engine recognizing that these columns are functionally dependent on the primary key `customer_id`. PostgreSQL and MySQL (5.7.5+) allow this; standard SQL and engines like SQL Server do not.\n**Consequence:** Not wrong on the likely target engines, but the query is not portable — it would fail outright with a \"column must appear in the GROUP BY clause or be used in an aggregate function\" error on stricter engines.\n\nI did not find any issue with `COUNT(o.order_id)` itself (correctly counts non-null orders, so it will read 0 once the join is fixed), nor with the join condition, nor with the presence of only a lower-bound date filter (the requirements given don't specify an end date, so that's not established as a defect).",
+  "response_sha256": "3548de0602488d2d82106d71d527df111aa4b439f5f170ccd8eda7bcfc971bcb",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2662,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 6317,
+    "output_tokens_details": {
+      "thinking_tokens": 4787
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2662,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 6317,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2662,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2662
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.07896720000000002,
+    "duration_ms": 66343,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:14+00:00",
+  "finished_at": "2026-09-13T04:33:21+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

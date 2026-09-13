@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T13-r2",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 2,
+  "execution_index": 1811,
+  "sample_seed": 2725351866062238356,
+  "prompt_sha256": "a8c6e0824b67beaa27ff6dc87e7763a070086006bce0436b37bda71bacbee497",
+  "prompt_chars": 764,
+  "response": "# Incident Response Runbook: Primary Production Database — Critical Disk Utilization + Write Latency Degradation\n\n**Trigger conditions:** Primary production database disk utilization ≥ 95% (currently 98%) AND write latency has increased ≥3x baseline within a 20-minute window.\n\n**Severity:** SEV-1 (imminent risk of write failures / outage)\n\n---\n\n## DETECTION\n\n1. Confirm the alert is real, not a monitoring artifact:\n   - Cross-check disk utilization from at least two sources (e.g., cloud provider metrics console and host-level `df -h` / `iostat`).\n   - Confirm write latency trend via APM/database dashboard (e.g., p95/p99 write latency over the last 30–60 minutes) to validate the \"tripled in 20 minutes\" pattern.\n2. Identify the affected host(s): confirm this is the **primary** (writer) instance, not a replica.\n3. Page the on-call database engineer and incident commander (IC). Open an incident channel/ticket and start a timeline log — every action below must be timestamped in that log.\n4. Check for correlated signals: replication lag, connection pool saturation, error rates on write endpoints, recent deploys, batch jobs, or backup jobs running against this instance.\n5. Determine current headroom: at current write rate, estimate time-to-full-disk (e.g., from disk growth rate over the last hour). This determines how much time is available before Step-by-step mitigation becomes mandatory rather than optional.\n\n**Do not proceed to remediation until the incident is declared and a scribe/IC is tracking actions.**\n\n---\n\n## IMMEDIATE ACTIONS\n\n> **Ordering constraint: no destructive, restart, or failover action may be taken until a storage snapshot has completed successfully and its integrity is verified.** This applies even under time pressure — an unverified or in-flight snapshot does not satisfy this requirement.\n\n1. **Take a storage snapshot of the primary database volume now**, before any other remediation step.\n   - Use the platform's native snapshot mechanism (e.g., EBS snapshot, disk-level LVM snapshot, or database-native consistent backup) so a clean recovery point exists if a later step corrupts data or triggers unexpected data loss.\n   - Wait for the snapshot to report **complete/available**, not just \"initiated.\"\n   - Verify the snapshot: confirm its reported size is non-trivial (not 0 bytes or truncated) and, if time allows, spot-check that its timestamp/metadata matches expectations.\n   - Log the snapshot ID and completion time in the incident channel.\n2. While the snapshot is running, in parallel (read-only, non-disruptive actions only):\n   - Identify top disk consumers: transaction/WAL logs, temp tables, orphaned backup files, bloated indexes, or a runaway table.\n   - Identify the query/process driving elevated write latency (e.g., `pg_stat_activity`, `SHOW PROCESSLIST`, slow query log) — do not kill anything yet.\n   - Notify downstream teams/stakeholders that a SEV-1 is in progress and writes may be degraded or briefly blocked.\n3. **Do not restart, reboot, or fail over the primary database at this stage.** A restart or failover before the snapshot completes risks losing in-flight or unflushed data and can convert a disk-space incident into a data-loss incident.\n4. Once the snapshot is confirmed complete, proceed to MITIGATION.\n\n**Abort/rollback condition:** If taking the snapshot itself causes disk utilization to spike further (e.g., a copy-on-write snapshot mechanism consuming additional local disk) and utilization crosses 99.5% or the volume reports \"out of space\" errors, **stop immediately**, halt any further snapshot or cleanup activity on that volume, and escalate to the database vendor/platform provider for emergency guidance before taking any further action. Do not attempt to delete files under this pressure without the IC's explicit sign-off, since deleting the wrong file (e.g., an active WAL segment) can corrupt the database.\n\n---\n\n## MITIGATION\n\nPerform these only after the snapshot from IMMEDIATE ACTIONS is confirmed complete.\n\n1. **Reclaim disk space safely, in order of increasing risk:**\n   a. Purge or archive-and-remove old log files, temp files, and rotated backups that are confirmed non-essential (verify against retention policy first).\n   b. Truncate or archive obsolete WAL/binlog segments **only** those already confirmed shipped/applied to replicas and backups — never truncate unshipped replication logs.\n   c. Run vacuum/compaction (e.g., `VACUUM`, `OPTIMIZE TABLE`) on the most bloated tables/indexes identified during Detection, scheduled to minimize additional write contention.\n   d. If space still cannot be reclaimed, expand the volume online (e.g., cloud disk resize) if the platform supports live expansion — this is preferred over any restart.\n2. **If write latency remains critical and disk cannot be freed fast enough:**\n   - Temporarily throttle or pause the highest-volume non-critical write workloads (e.g., batch jobs, analytics writers) at the application layer, not by killing database connections abruptly.\n   - Only after the snapshot is verified and if the platform truly requires it to apply a fix (e.g., a resize that mandates a restart, or a failover to a healthy, low-utilization replica), perform a controlled failover to a replica with sufficient headroom — coordinated by the IC, with the application layer ready to reconnect.\n3. Continuously monitor disk utilization and write latency after each step; do not proceed to the next remediation step until you've confirmed the current one had the intended effect.\n\n**Abort/rollback condition:** If, after freeing space or resizing, write latency does **not** begin trending back toward baseline within 10 minutes, or disk utilization drops but then resumes climbing at the same rate, **stop the current mitigation approach** — the root cause is not disk space alone (e.g., a runaway process, lock contention, or hardware issue). Reassess with fresh diagnostics rather than repeating the same remediation, and consider reverting any config changes (e.g., re-enabling paused write jobs) made during mitigation if they are found not to be the cause and are needed for business continuity.\n\n---\n\n## FOLLOW UP\n\n1. Confirm resolution: disk utilization stable below a safe threshold (e.g., <80%) and write latency back to baseline for at least 30 consecutive minutes.\n2. Preserve the snapshot taken in IMMEDIATE ACTIONS for a defined retention period (e.g., 7 days) in case delayed data-integrity issues surface; document its ID/location in the incident record.\n3. Root cause analysis: determine why disk grew unexpectedly (e.g., missing log rotation, runaway job, insufficient alert thresholds, under-provisioned storage).\n4. Update alerting thresholds/runbooks: add earlier warning alerts (e.g., at 80%/90% utilization) so future incidents are caught before reaching 98%.\n5. Capacity review: evaluate whether the current storage allocation is appropriately sized given growth trends; file a ticket for permanent volume expansion if the fix in MITIGATION was temporary.\n6. Conduct a blameless post-incident review within 5 business days; publish timeline, contributing factors, and action items with owners and due dates.\n7. Verify backup/snapshot automation and retention policies are functioning correctly going forward, given this incident relied on an ad hoc snapshot.\n\nSECTIONS: 4",
+  "response_sha256": "a3ae1fd01e3a4862720d24b45bc346b6f641a687dc34a4d30bcebe8bccb86d9c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28311,
+    "output_tokens": 2559,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2559,
+        "cache_read_input_tokens": 28311,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.031256200000000005,
+    "duration_ms": 34028,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:05:19+00:00",
+  "finished_at": "2026-09-13T05:05:54+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T26-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 3,
+  "execution_index": 1050,
+  "sample_seed": 1223205455613024346,
+  "prompt_sha256": "6ec3c709595c42ffa8f279280308ff9420932072f2fde555fb7cec1048da18fa",
+  "prompt_chars": 740,
+  "response": "Subject: Moving to Trunk-Based Development\n\n## The problem\n\nOur long-lived feature branches routinely live for two to four weeks before merging, and the pain compounds the longer they survive. Merge conflicts have become a predictable Friday-afternoon ritual, integration bugs surface only after code has already been \"done\" for days, and our CI pipeline tells us almost nothing about whether the whole system works, only whether one branch compiles in isolation. With twelve engineers each carrying their own branch, we are effectively running twelve parallel versions of the codebase and hoping they converge cleanly. They rarely do.\n\n## The proposal\n\nI propose we adopt trunk-based development: everyone commits small, frequent changes directly to main (or through short-lived branches merged within a day), protected by feature flags for anything incomplete. Concretely, this means:\n\n- All new work lands on main at least daily, gated by automated tests and a fast CI pipeline\n- Incomplete or risky features ship behind flags rather than staying unmerged\n- Branches, when used at all, live no longer than 24-48 hours before merging\n- We invest upfront in a reliable, fast test suite so main stays always-releasable\n- We run a two-week pilot with one squad before rolling out team-wide\n\nThis should shrink integration pain, surface conflicts while they're still small, and let us release on demand instead of batching risk into big-bang merges.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands discipline and tooling we don't fully have yet. Without solid feature flags and a trustworthy CI suite, committing directly to main could destabilize it constantly, turning \"always releasable\" into \"always broken.\" This isn't a strawman — teams that adopt trunk-based development without investing in test coverage and flagging infrastructure first often see main become less stable, not more. That's why the pilot and the CI investment aren't optional add-ons; they're prerequisites, and I'm open to delaying full rollout until they're in place.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "14c7756040cb3e593336da953e6b65c5bc5c2aa5e2f6fe477fcb9f50834821d4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28293,
+    "output_tokens": 661,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 661,
+        "cache_read_input_tokens": 28293,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0122726,
+    "duration_ms": 12183,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:47:48+00:00",
+  "finished_at": "2026-09-13T04:48:01+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

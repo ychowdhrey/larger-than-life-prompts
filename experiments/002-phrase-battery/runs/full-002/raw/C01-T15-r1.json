@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T15-r1",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 1,
+  "execution_index": 1886,
+  "sample_seed": 11254999699057257743,
+  "prompt_sha256": "8fb9029e99ab084704561997bcfbc7a3981597c0c34d8988c2dc3ca9a0d92742",
+  "prompt_chars": 617,
+  "response": "## Defects in `top_scores`\n\n**1. Mutable default argument (`seen=[]`) — shared, persistent state across calls**\nDefault arguments are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't pass `seen` explicitly. Since the body does `seen.append(...)`, each call mutates that one shared list permanently. Consequences:\n- A score returned by an earlier, unrelated call will silently be excluded from `result` in a later call, even though it's legitimately a top score for the new `scores` list — because it's already \"seen\" from before.\n- Behavior becomes dependent on call history/order rather than on the arguments passed in, making the function non-reentrant and effectively impure — a classic source of hard-to-reproduce bugs (e.g., in test suites run in sequence, or long-running services).\n- `seen` grows without bound over the life of the process, since nothing ever clears it — an unbounded memory leak as well as a correctness bug.\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\nSorting is done in place on the argument itself rather than on a copy (e.g., `sorted(scores, reverse=True)`). The caller's original list is silently reordered as a side effect of what looks like a read-only \"get top scores\" query. This can corrupt state elsewhere in the caller's program if the same list object is referenced/iterated by other code, stored elsewhere, or expected to retain insertion order.\n\n**3. `IndexError` when `scores` has fewer than `limit` elements**\nThe loop does `for i in range(0, limit): ... scores[i] ...` unconditionally, regardless of the actual length of `scores`. If `scores` has, say, 3 elements but `limit=5` (the default), `scores[3]` raises `IndexError: list index out of range`. Any caller with fewer scores than the (default!) limit crashes instead of getting however many scores are available.\n\n**4. Crash on empty `scores`**\n- If `scores == []` and `limit > 0` (e.g., the default `limit=5`), the very first loop iteration (`scores[0]`) raises `IndexError` before the average is ever computed.\n- If `scores == []` and `limit <= 0`, the loop body never executes (so no `IndexError`), but `average = sum(scores) / len(scores)` then raises `ZeroDivisionError`.\nEither way, there is no valid input shape for which an empty `scores` list returns gracefully (e.g., `([], 0)` or similar).\n\n**5. Deduplication window is too narrow — can return fewer than `limit` results even when enough distinct scores exist**\nThe loop only ever looks at the first `limit` positions of the *sorted* list (`range(0, limit)`), and skips a position when its value is already in `seen` — but it never looks further down the list to make up for a skipped slot. This means duplicate values within `scores` itself cause `result` to come back short, even on the very first call with a fresh/empty `seen`. Example: `scores=[10,10,9,8,7]`, `limit=5` → sorted is `[10,10,9,8,7]`; index 1 (`10`) is skipped because it equals the `10` already recorded at index 0, so `result = [10,9,8,7]` — only 4 values, even though 5 elements and 4 distinct values are available and a 5th distinct value doesn't exist, but more importantly with `scores=[10,10,9,8,7,6]` the correct top-5 *unique* result should be `[10,9,8,7,6]`, yet the function still returns `[10,9,8,7]` because it stops scanning at index 4 and never considers index 5 (`6`) to backfill the slot lost to the duplicate `10`. So \"top `limit`\" is not actually guaranteed; it degrades whenever duplicates are present, and this compounds with defect #1 (a pre-populated `seen` from prior calls shrinks the effective result further).\n\n**6. Minor inefficiency: `seen` as a list for membership testing**\n`scores[i] not in seen` is an O(n) scan of a Python list, performed for each of the `limit` iterations, giving O(limit × len(seen)) behavior that grows worse over time as `seen` accumulates (compounding with defect #1). Using a `set` for `seen` would make each membership check O(1). This is a performance/design issue rather than a correctness one, but worth fixing alongside the rest since `seen`'s unbounded growth (defect #1) makes it increasingly costly.",
+  "response_sha256": "51b9948d3b05da12dca67bd107b52780bcc2ce2110aa737872a04d1279a99cc1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28265,
+    "output_tokens": 5293,
+    "output_tokens_details": {
+      "thinking_tokens": 3812
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5293,
+        "cache_read_input_tokens": 28265,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.05858699999999999,
+    "duration_ms": 60151,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:03+00:00",
+  "finished_at": "2026-09-13T05:08:04+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

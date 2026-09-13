@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T06-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 1,
+  "execution_index": 748,
+  "sample_seed": 8085415092487636017,
+  "prompt_sha256": "9ed7d349023586e69b3b819793379ad943259a834b2cc8ec721b9237f0fe0e0b",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur team of twelve engineers is spending too much time on integration pain. Feature branches routinely live for two to three weeks, and merges back into main regularly produce conflicts that take hours to resolve. Code review happens late, after a branch has diverged significantly, so reviewers see large diffs instead of small, understandable changes. Bugs introduced early in a branch's life often surface only at merge time, when the original context has faded. This slows releases and adds risk exactly when we most need predictability.\n\n## The proposal\n\nI propose we adopt trunk-based development: everyone commits directly to main at least once a day, using feature flags for anything not ready for users. This requires:\n\n- A fast, reliable CI pipeline that runs on every commit and blocks merges on failure\n- Feature flags for any change that can't be finished and shipped safely within a day\n- Small, incremental pull requests reviewed within hours, not days\n- A short team session so all twelve of us agree on flagging and commit conventions\n- A two-week pilot with one squad before rolling out to the whole team\n\nThis mirrors practice at companies like Google, and industry research (notably the DORA/State of DevOps studies) consistently links trunk-based development with shorter lead times and lower change-failure rates.\n\n## What could go wrong\n\nThe strongest objection is that committing incomplete work to main increases the risk of breaking production for everyone, particularly for larger features that can't be trivially hidden behind a flag. This concern is legitimate: half-finished code behind a flag can still introduce subtle bugs, and flags themselves become a maintenance burden if we don't retire them promptly. Rather than dismiss this, we should address it directly: strong CI gates before any merge, a mandatory flag-cleanup review each sprint, and honest scoping up front to identify the rare feature that genuinely needs a short-lived branch as an exception rather than the default.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "bad47bfe58db280f5fc111b91324b80838ce68b93b6b39d860378e7e02cc883e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28294,
+    "output_tokens": 1386,
+    "output_tokens_details": {
+      "thinking_tokens": 761
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1386,
+        "cache_read_input_tokens": 28294,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0195228,
+    "duration_ms": 17326,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:40:48+00:00",
+  "finished_at": "2026-09-13T04:41:06+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

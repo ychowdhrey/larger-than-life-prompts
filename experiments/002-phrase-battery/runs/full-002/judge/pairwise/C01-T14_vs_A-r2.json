@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T14_vs_A-r2",
+  "contrast_id": "T14_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T14",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T14",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the same core defects, but Response B is more precise about the interaction between the IndexError and ZeroDivisionError (correctly pinpointing that the divide-by-zero is only reachable when limit<=0), and it adds a genuine, correctly-caveated defect (O(n) membership check compounding the mutable-default leak) while explicitly confirming no other issues exist, whereas Response A's overlap note on ZeroDivisionError is left less precise and it stops at five defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:40:37+00:00"
+}

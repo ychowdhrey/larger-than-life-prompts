@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T13-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 1,
+  "execution_index": 1731,
+  "sample_seed": 13116622090034510164,
+  "prompt_sha256": "70b828ce430a91c7ae256274cc503b02b627cb51cf1a6196f235fa37ebb17c55",
+  "prompt_chars": 750,
+  "response": "Subject: Moving From Long-Lived Feature Branches to Trunk-Based Development\n\n## The problem\n\nOur twelve-person team is losing days every sprint to merge conflicts, stale branches, and integration surprises. Feature branches routinely live two to three weeks, drifting far enough from main that merging becomes its own project. We've had three release delays this quarter caused directly by last-minute integration bugs that only surfaced when branches finally collided. Code review quality is also suffering: reviewers face forty-file diffs instead of focused, incremental changes, so real feedback gets replaced by rubber-stamping just to unblock a release.\n\n## The proposal\n\nI propose we adopt trunk-based development: everyone commits small, frequent changes directly to main, gated by feature flags for anything incomplete. Concretely, this means:\n\n- Branches live no longer than one to two days before merging back to main.\n- Incomplete features ship behind a feature flag, not a long-lived branch.\n- CI must pass on every commit to main, with a strict \"fix forward or revert immediately\" rule for breakages.\n- Pull requests shrink to single logical changes, making review faster and more substantive.\n- We run a two-week pilot with one squad before rolling out team-wide.\n\nThis isn't a radical bet: Google, Meta, and most high-performing engineering organizations studied in the State of DevOps reports use trunk-based development, and it correlates strongly with faster, more stable delivery.\n\n## What could go wrong\n\nThe strongest objection is real, and worth taking seriously: without mature feature-flag discipline, we risk shipping half-finished work into main and breaking production more often, not less. Flags add code complexity, and unless someone owns cleaning them up, they rot into permanent, tangled conditionals that are harder to read than the branches they replaced. This is a genuine cost, not a strawman — it means we need explicit flag-ownership rules and a cleanup cadence from day one, not as an afterthought. There's also a real training cost: developers accustomed to isolated branches will need deliberate practice with incremental, flag-guarded delivery before it feels natural, and the pilot may be slower before it gets faster. I think these risks are manageable and smaller than our current integration pain, but they're the reason I want a scoped pilot rather than a team-wide switch on day one.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "873b39d606f12b4c6cb8f61989433a1dc6dc529076927b7c69ca06e4f0f06bdd",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28301,
+    "output_tokens": 1723,
+    "output_tokens_details": {
+      "thinking_tokens": 951
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1723,
+        "cache_read_input_tokens": 28301,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0228942,
+    "duration_ms": 20101,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:03:48+00:00",
+  "finished_at": "2026-09-13T05:04:09+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T05-r2",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T05",
+  "condition_name": "phrase_t05",
+  "repetition": 2,
+  "execution_index": 2194,
+  "sample_seed": 13142653456327667520,
+  "prompt_sha256": "b4d2144b511e9057766d3eaaeab6df2d9fe703605b2b4459efcea9f35ea0800e",
+  "prompt_chars": 512,
+  "response": "## Step-by-step\n\n**Given:**\n- Prevalence P(D) = 1/500 = 0.002, so P(no D) = 0.998\n- Sensitivity P(+|D) = 0.98\n- Specificity P(–|no D) = 0.95, so P(+|no D) = 0.05\n\n**Apply Bayes' theorem:**\n\nP(D|+) = [P(+|D)·P(D)] / [P(+|D)·P(D) + P(+|no D)·P(no D)]\n\n**Numerator:**\n0.98 × 0.002 = 0.00196\n\n**Denominator (total P(+)):**\n0.00196 + (0.05 × 0.998) = 0.00196 + 0.0499 = 0.05186\n\n**Result:**\nP(D|+) = 0.00196 / 0.05186 = 0.0377941...\n\nConverting to a percentage: 3.77941...% ≈ **3.78%**\n\nThis illustrates the classic base-rate effect: even with a fairly good test (98% sensitivity, 95% specificity), because the condition is rare (0.2% prevalence), most positive results are false positives — only about 1 in 26 people who test positive actually have the condition.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "bad5e02031e38b6ddd2567f4fe97772f9c007dba659318b69c59c817402e939a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28213,
+    "output_tokens": 839,
+    "output_tokens_details": {
+      "thinking_tokens": 434
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 839,
+        "cache_read_input_tokens": 28213,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0140366,
+    "duration_ms": 9181,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:14:15+00:00",
+  "finished_at": "2026-09-13T05:14:26+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

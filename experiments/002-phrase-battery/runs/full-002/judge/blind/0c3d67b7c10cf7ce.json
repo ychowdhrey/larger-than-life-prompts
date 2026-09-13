@@ -1,0 +1,22 @@
+{
+  "item_id": "0c3d67b7c10cf7ce",
+  "sample_id": "P02-T23-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T23",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact required headings in order, places the storage snapshot before any destructive step, explicitly forbids restart/failover until the snapshot is confirmed and IC-approved, includes clear abort/rollback conditions, and ends with the correct SECTIONS line, all while addressing non-obvious risks like replica lag, WAL retention, and vacuum disk overhead.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:10+00:00"
+}

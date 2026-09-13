@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T07_vs_A-r3",
+  "contrast_id": "T07_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T07",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T07",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the structural and safety hard requirements, but Response B's MITIGATION section groups dropping/truncating tables under a heading it calls 'non-destructive', which is an internally inconsistent and potentially misleading safety framing for an incident runbook; Response A's space-freeing steps are more consistently and accurately risk-graded (e.g., only clearing WAL/binlog if durably backed up, cautioning that killing transactions causes costly rollbacks), making it the more reliable document to actually follow during the incident.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:28:30+00:00"
+}

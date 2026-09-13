@@ -1,0 +1,22 @@
+{
+  "item_id": "70de9beb2d245b23",
+  "sample_id": "C01-T21-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T21",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five listed defects (mutable default argument, in-place mutation of the caller's list, out-of-range indexing, division by zero, and the subtle dedup-skip bug that yields fewer than `limit` results) are genuine and accurately explained, including a correct worked example for the least obvious one, with no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:59+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "76893b533367cf04",
+  "sample_id": "C05-E01-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E01",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one boundary bug (total>100 vs R1's 'or more'), correctly traces execution to show test_cap actually fails (discount(1000) returns 50.0, not the asserted 100.0), and correctly flags the missing total==100 boundary test that would catch the bug — all defects are real, precisely explained with cause/effect, and no false positives are reported.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:33+00:00"
+}

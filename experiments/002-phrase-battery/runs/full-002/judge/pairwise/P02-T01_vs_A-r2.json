@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T01_vs_A-r2",
+  "contrast_id": "T01_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T01",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T01",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the hard requirements (correct headings/order, snapshot gates any destructive action, no restart/failover before snapshot, explicit abort/rollback conditions), but Response B is a bit more operationally concrete — naming specific tools and commands (growpart/resize2fs/xfs_growfs, Patroni/Orchestrator), explicitly discouraging manual restarts in favor of orchestrated failover, and consolidating its abort/rollback logic into one clear, condition-specific section with explicit reversal steps (e.g., restore from pre-action snapshot on replication errors).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:47:44+00:00"
+}

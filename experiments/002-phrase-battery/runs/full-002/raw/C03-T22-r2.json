@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T22-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T22",
+  "condition_name": "phrase_t22",
+  "repetition": 2,
+  "execution_index": 830,
+  "sample_seed": 15829299107780430963,
+  "prompt_sha256": "b6efcb164db4852c61de43fa1e37e978d650b44ac70464d6365246e541bf1774",
+  "prompt_chars": 1018,
+  "response": "## Defect 1 — Webinar/retention: correlation treated as causation (self‑selection confound)\n\n**What's wrong:** The comparison is observational — customers *chose* whether to attend a webinar. Attendance is likely correlated with underlying engagement/motivation (customers who care more about the product are both more likely to sign up for a webinar *and* more likely to stay, independent of anything the webinar itself teaches). Nothing in the memo rules this out.\n\n**What it causes:** The 31% gap gets attributed entirely to the webinar's content/effect. If the true driver is pre-existing engagement, making attendance *mandatory* for new customers will drag in low-engagement customers who wouldn't have signed up voluntarily — and there's no reason to expect they'll show the same 31% lift. The policy could be adopted, cost real onboarding resources, and produce none of the promised retention gain.\n\n## Defect 2 — Survivorship bias in the sample\n\n**What's wrong:** The base population is \"412 customers who are still active on the Pro plan today\" — i.e., churned customers are excluded before the comparison is even run. Retention is then measured *within* a group already conditioned on having been retained.\n\n**What it causes:** This can distort or even invert the true relationship between webinar attendance and churn, because customers who churned (whether or not they attended a webinar) never enter the analysis. Any conclusion about webinars' effect on retention drawn this way is unreliable regardless of the correlation/causation issue above.\n\n## Defect 3 — Multiple comparisons without correction (\"Central region\" finding)\n\n**What's wrong:** 18 attributes were tested against churn and one came back at p = 0.04. With 18 independent tests at α = 0.05, the chance of at least one false positive by pure chance is roughly 1 − 0.95¹⁸ ≈ 60%. No correction (Bonferroni, FDR, etc.) is mentioned, and the memo doesn't say this was a pre-registered hypothesis rather than something found by scanning many attributes.\n\n**What it causes:** Presenting this as \"significant\" and recommending a real spending decision based on it is very likely acting on noise. Next quarter's budget could be concentrated on a region that has no genuine churn advantage, misallocating spend while the actual drivers of churn go unaddressed.\n\n## Defect 4 — Even if real, the regional association is not shown to be causal or actionable\n\n**What's wrong:** \"Central region churns less\" is an association between a customer attribute (location) and churn — not evidence that *spending more* in that region would change anything. Region could be a proxy for other factors (industry mix, account size, competitive landscape) that spend cannot influence.\n\n**What it causes:** Recommending budget concentration assumes a lever (\"spend\") controls the outcome (\"regional churn\"), which was never tested. Money could be redirected there with no causal mechanism connecting the spend to the observed pattern.\n\n## Defect 5 — Satisfaction change attributed to the support model without ruling out other explanations\n\n**What's wrong:** A 62%→66% quarter-over-quarter change is presented as proof \"the new support model is working,\" but this is a single before/after comparison with no control group, no statistical significance test (no confidence interval, no sample size, no p-value), and no accounting for other things that changed that quarter (seasonality, pricing, product changes, marketing).\n\n**What it causes:** This is a classic post hoc ergo propter hoc error — treating a change that followed an intervention as proof the intervention caused it. Without knowing whether a 4-point move is even distinguishable from normal quarter-to-quarter noise, the memo risks crediting (and further funding) a support initiative that may have had no real effect, while the actual cause of the improvement — if any — goes unidentified.",
+  "response_sha256": "853f5d4b7983a5610b78ba8abe32ab4a0f8ff28ec1b4107def13c742d3e11969",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2645,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2899,
+    "output_tokens_details": {
+      "thinking_tokens": 1660
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2645,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2899,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2645,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2645
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0447192,
+    "duration_ms": 35820,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:42:36+00:00",
+  "finished_at": "2026-09-13T04:43:13+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

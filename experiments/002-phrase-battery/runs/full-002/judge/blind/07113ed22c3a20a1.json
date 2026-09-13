@@ -1,0 +1,22 @@
+{
+  "item_id": "07113ed22c3a20a1",
+  "sample_id": "C02-E03-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E03",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE-clause join nullification, UTC vs UTC+8 boundary mismatch, NULL sum for zero-order customers, integer division truncation), gives accurate causal explanations and fixes, and correctly rules out the GROUP BY column selection as a non-issue rather than inventing a false positive.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:57+00:00"
+}

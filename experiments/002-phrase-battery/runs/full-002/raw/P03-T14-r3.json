@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-T14-r3",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 3,
+  "execution_index": 2146,
+  "sample_seed": 7456321252172603217,
+  "prompt_sha256": "28896b668f1b3a5c45148930e8cbb91f8fbf2592baa7546f7bd48a2fa9d968d6",
+  "prompt_chars": 1098,
+  "response": "## Reasoning\n\n**Critical path check:** The dependency chain T1→T2→T4→T6 has total duration 2+2+3+3 = 10 days. Since this is a strict sequential chain (each task needs the previous complete, and all four are forced onto whichever engineer keeps this chain moving without gaps), the project cannot finish in fewer than 10 days. The 10-day deadline is exactly the theoretical minimum — there is zero slack on this chain. The other chain, T1→T3→T5→T6, only needs 2+2+2+3=9 days, so it has 1 day of slack and must be fitted around the critical chain.\n\n**Key idea:** Put the critical chain (T1, T2, T4, T6) all on one engineer (E1) back-to-back with no idle days in between, since any gap there blows the deadline. Put T3 and T5 on E2, running in parallel with T2 and T4 respectively.\n\n- E1: T1 (days 1–2) → T2 (days 3–4, starts right after T1 finishes) → T4 (days 5–7, starts right after T2 finishes) → T6 (days 8–10, starts right after T4 finishes). Zero idle days for E1 — required, since this is exactly 10 days of work with a 10-day deadline.\n- E2: T3 (days 3–4, can only start after T1 finishes day 2) → T5 (days 5–6, can only start after T3 finishes day 4). E2 finishes early and is idle afterward, but that's fine — T6 only needs one engineer.\n- T6 needs both T4 (done day 7) and T5 (done day 6) complete, so it can start day 8 — matches E1's availability exactly.\n\nThis satisfies every constraint with no slack to spare, confirming the deadline is achievable but tight (any 1-day delay anywhere on the E1 chain would fail).\n\n## Schedule\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "cda10f7a0e12672e9c681efaf3ec1a108104cf9ec55c3072effe39e1ae2f6bd8",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28478,
+    "output_tokens": 2118,
+    "output_tokens_details": {
+      "thinking_tokens": 1297
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2118,
+        "cache_read_input_tokens": 28478,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026879600000000003,
+    "duration_ms": 21511,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:12:58+00:00",
+  "finished_at": "2026-09-13T05:13:20+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

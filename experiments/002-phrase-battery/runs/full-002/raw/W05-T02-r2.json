@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T02-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T02",
+  "condition_name": "phrase_t02",
+  "repetition": 2,
+  "execution_index": 2030,
+  "sample_seed": 16589063712989002834,
+  "prompt_sha256": "9ed9b427f4e50e107d0d0b389bb62c1462410c7f1bb1484070a388e36685f9b8",
+  "prompt_chars": 723,
+  "response": "## The problem\n\nOur team of twelve has been shipping through long lived feature branches for over a year, and the cost is now visible every week. Branches routinely live for two to four weeks before merging, and integration has become an event rather than a habit. Merge conflicts are large and frequent, code review happens on enormous diffs that are hard to reason about, and QA discovers integration bugs only after the fact, when the origin of a regression is buried under dozens of unrelated commits. We are spending more engineering time reconciling divergent branches than we spend building features.\n\n## The proposal\n\nI propose we adopt trunk based development: every engineer commits small, frequent changes directly to main, guarded by feature flags for anything incomplete. Concretely:\n\n- All branches live no longer than one to two days before merging back to main.\n- Incomplete or risky work ships behind feature flags rather than staying isolated on a branch.\n- CI runs on every commit to main, with a strict \"fix it in minutes, not days\" rule for breakages.\n- Code review shifts to small, same-day pull requests instead of sprawling end-of-cycle diffs.\n- We invest two weeks up front in flag tooling and CI hardening before flipping the switch team-wide.\n\n## What could go wrong\n\nThe strongest objection is real: trunk based development demands stronger CI, disciplined flagging, and more upfront design work to slice features safely, and if we skip that investment we could destabilize main and slow everyone down rather than speed us up. I take that seriously, which is why the proposal includes a dedicated two-week hardening period before full rollout rather than a flag-day switch. There is also a learning curve; a few engineers unfamiliar with flag-driven development will need pairing support early on. These are manageable risks, not reasons to stay put, but they are the price of admission and we should budget for them honestly rather than pretend the transition is free.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "dd36c6a2b62a24f0abe8efd9de922182a2d0e5c28e5c52936532961b4ed89076",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28293,
+    "output_tokens": 684,
+    "output_tokens_details": {
+      "thinking_tokens": 66
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 684,
+        "cache_read_input_tokens": 28293,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012502599999999999,
+    "duration_ms": 12220,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:10:15+00:00",
+  "finished_at": "2026-09-13T05:10:29+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

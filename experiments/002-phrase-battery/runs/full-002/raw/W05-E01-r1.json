@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-E01-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "E01",
+  "condition_name": "combo_e01",
+  "repetition": 1,
+  "execution_index": 1159,
+  "sample_seed": 9314883058691546093,
+  "prompt_sha256": "1a5c3f024202f476ce26b6936a0b2b67aaee28e77dd0931ceca75eefdc6a2053",
+  "prompt_chars": 767,
+  "response": "## The problem\n\nOur team of twelve engineers has drifted toward feature branches that live for two to four weeks before merging. Integration has become the riskiest part of every release instead of the safest. Merge conflicts routinely eat half a day, code review happens on giant diffs that reviewers rubber-stamp out of fatigue, and by the time a branch lands, the assumptions it was built on have often changed underneath it. Symptoms we've all seen recently:\n\n- Three release-blocking merge conflicts in the last sprint alone, each costing four to six hours to resolve\n- Two production incidents traced to integration surprises that only appeared after a long branch finally merged\n- A growing backlog of stale branches nobody feels safe deleting or finishing\n\nWe are optimizing for the comfort of working in isolation while paying for it in integration risk we only discover late, when it is most expensive to fix.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, reviewed changes directly to main at least once a day, guarded by feature flags for anything not ready for users. This isn't a leap of faith — it's the model used at scale by high-performing teams across the industry, and it directly targets our two biggest pain points. Two concrete changes make this work:\n\n- Adopt feature flags so incomplete work ships dark and gets toggled on when ready, decoupling \"merged\" from \"released\"\n- Require CI to pass and a lightweight review, under roughly four hundred lines, before any commit reaches main\n\nThis shrinks batch size, surfaces integration problems within hours instead of weeks, and lets us ship continuously with real confidence in what's actually running.\n\n## What could go wrong\n\nThe strongest objection is real: without discipline, trunk-based development can leave main perpetually unstable, and feature flags themselves can pile up as technical debt if nobody removes them once work ships. Engineers used to isolated branches and thorough, unhurried review may feel exposed shipping smaller, more frequent changes without the safety net of a \"finished\" branch to hide behind. This isn't a strawman — teams have been burned by half-hearted attempts at both practices, ending up with the downsides of each approach and the benefits of neither. We take it seriously by assigning an owner and expiry date to every flag, adding automated health checks on main, and running a two-week pilot with one squad before rolling it out team-wide, with a retrospective to decide whether we continue.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "2dbe81c6f25a11dbee638c3f7dbc84b2dc0a07fc9b8aa113b4b3c2c026f2be52",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28304,
+    "output_tokens": 1672,
+    "output_tokens_details": {
+      "thinking_tokens": 877
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1672,
+        "cache_read_input_tokens": 28304,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.022384800000000003,
+    "duration_ms": 20604,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:50:18+00:00",
+  "finished_at": "2026-09-13T04:50:39+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

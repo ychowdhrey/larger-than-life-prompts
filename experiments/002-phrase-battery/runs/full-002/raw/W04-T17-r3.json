@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T17-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T17",
+  "condition_name": "phrase_t17",
+  "repetition": 3,
+  "execution_index": 130,
+  "sample_seed": 17161732862979873979,
+  "prompt_sha256": "57102324da41df2e62f55602529ef6b34a5360b9ec5aea57a783ad6653442592",
+  "prompt_chars": 636,
+  "response": "A content delivery network is a system that stores copies of websites and videos in many locations around the world, so people can load them quickly no matter where they live. Without this system, every single request would have to travel all the way back to the origin server, which is the original computer where a website's files are permanently stored. That trip can be slow, especially across long distances. To fix this, copies of the content get placed on servers closer to everyday people, at what's called an edge location — a mini storage point positioned near cities or regions instead of in one distant place. When a request arrives, the network checks whether the nearby edge location already has a fresh copy saved; if it does, that's called a cache hit, meaning the answer can be delivered instantly without bothering the original server at all. Think of it like a chain of neighborhood libraries stocking popular books close to readers, instead of forcing everyone to travel to one central library across the country. When there's no cache hit, the edge location fetches the content from the origin server once, saves it, and serves it faster to everyone nearby afterward. This is why videos buffer less and pages open faster, even during huge traffic spikes.\n\n| Term | Plain meaning | Why it matters |\n|------|---------------|-----------------|\n| Origin server | The original computer storing a website's true files | Everything ultimately comes from here first |\n| Edge location | A nearby storage point holding copied content | Cuts travel distance so pages load faster |\n| Cache hit | A request answered from a saved local copy | Skips the slow trip back to the origin server |\n| Latency | The delay between asking for something and receiving it | Lower delay means a smoother, faster experience |",
+  "response_sha256": "c31221a248b3ad276acb8fff8bf684052c5c974909b4adf25b3a9949acd8d71c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2541,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 516,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2541,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 516,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2541,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2541
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.020473199999999997,
+    "duration_ms": 9680,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:25:12+00:00",
+  "finished_at": "2026-09-13T04:25:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

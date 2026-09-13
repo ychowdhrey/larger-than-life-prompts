@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-T15-r2",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 2,
+  "execution_index": 2160,
+  "sample_seed": 5986183080699056374,
+  "prompt_sha256": "bad657c761b03a1128b81583d0108b58cbe0f691d72ac0789ed8adb7ecdd1b23",
+  "prompt_chars": 822,
+  "response": "# PostgreSQL 2TB Migration Plan: On-Prem → Managed Cloud\n\n**Strategy:** Use logical replication/CDC for near-zero-downtime bulk copy, reserving the 2-hour Sunday window only for final sync, verification, and cutover — not for copying 2TB live.\n\n1. **Assess & design.** Inventory schema, extensions, custom functions, roles, and PostgreSQL version; confirm the target managed service supports all of them (flag unsupported extensions early). Size compute/storage/IOPS on the target, choose the migration method (native logical replication or a CDC tool like AWS DMS/pglogical), and write a detailed runbook with a go/no-go checklist and named owners for each step.\n\n2. **Kick off stakeholder communication.** Notify engineering, support, and end users of the planned Sunday maintenance window (start time, expected ≤2-hour impact, fallback plan), publish a status-page entry, and confirm on-call staffing for the day. Re-notify 48h and 1h before the window.\n\n3. **Provision and harden the target.** Create the managed instance matching source version/parameters, configure networking (VPN/peering, security groups), TLS, IAM/roles, and backup/PITR settings on the new service itself.\n\n4. **Migrate schema (no data).** Apply DDL (tables, indexes, constraints, sequences, views, functions) to the target via `pg_dump --schema-only` or migration tooling; validate object counts match source.\n\n5. **Dry run / rehearsal.** Snapshot production to a non-prod staging copy (same size profile if feasible, or a representative subset), replay the entire runbook end-to-end — initial load, replication, cutover, verification, and rollback — against staging. Time each phase, confirm the cutover portion fits inside 2 hours, and fix any issues found before touching production.\n\n6. **Start CDC/logical replication.** Begin initial bulk copy from production to the target while production stays live and fully writable; let it run for several days, monitoring replication lag until it's consistently near zero.\n\n7. **Pre-window full backup (mandatory gate).** Immediately before the maintenance window, take a verified full backup of production (`pg_basebackup` + WAL archive or equivalent snapshot), confirm it restores successfully on a scratch instance, and store it off-site. **No destructive or write-blocking step proceeds without this backup confirmed good.**\n\n8. **Open the maintenance window.** Put the application into read-only/maintenance mode, notify users the window has started, and stop new writes to the source database.\n\n9. **Final drain and cutover.** Let replication lag reach zero, stop replication cleanly, record the final LSN/transaction ID on both sides, then repoint application connection strings/DNS to the managed target and lift maintenance mode for internal smoke testing only (not yet full traffic).\n\n10. **Data integrity verification.** Compare row counts per table, aggregate checksums (e.g., `md5` over sorted row hashes or `pg_checksums`), sequence current values, and index/constraint counts between source and target; run application-level smoke tests against the target. Do not release to users until this passes.\n\n11. **Full cutover and monitoring.** Re-enable full user traffic against the target, communicate completion to stakeholders/users, and actively monitor error rates, query latency, and connection health for the remainder of the day; keep the source read-only and untouched as a live fallback for 48–72 hours.\n\n12. **Rollback procedure (triggered at any checkpoint failure).** If verification fails or critical errors appear post-cutover within the window: revert DNS/connection strings back to the on-prem source (still intact and unmodified since step 8), lift its read-only mode, and restore full service — total rollback time budgeted under 15 minutes since no data was altered on-prem. If failure is discovered after the window closes and writes have occurred on the target, restore the pre-window backup from step 7 to a recovery instance, manually replay/reconcile any target-only transactions back into it using recorded LSNs, then resume operations on-prem while re-planning the cutover.\n\nSTEP COUNT: 12",
+  "response_sha256": "ebb44efde802c0d98c39f2231a18c0cb2efbd1d9db4ed76cca108b035e2cb3fd",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28320,
+    "output_tokens": 2672,
+    "output_tokens_details": {
+      "thinking_tokens": 1304
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2672,
+        "cache_read_input_tokens": 28320,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.032388,
+    "duration_ms": 33644,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:16+00:00",
+  "finished_at": "2026-09-13T05:13:51+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

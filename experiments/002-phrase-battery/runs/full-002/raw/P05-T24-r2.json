@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T24-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T24",
+  "condition_name": "phrase_t24",
+  "repetition": 2,
+  "execution_index": 571,
+  "sample_seed": 12059715406420710449,
+  "prompt_sha256": "0403d6fe237b9e42f7db0abb546d91d8daa7fd9accf983657c4be5ca2b3e5071",
+  "prompt_chars": 817,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the old billing system to the new billing system in three named phases. Because both systems can run concurrently, migrated and non-migrated users can be served simultaneously, allowing for controlled, reversible batches rather than a single cutover.\n\n---\n\n## Phase 1: Canary (2% of users, ~800 users)\n\n**Entry criterion:** New billing system has passed a full end-to-end test suite in staging (invoicing, payment capture, refunds, proration, tax calculation) with 100% of test cases passing, and a rollback procedure has been documented and dry-run tested at least once.\n\n**Scope:** Internal accounts and opted-in low-risk external users (e.g., monthly-cycle, single-currency, no active disputes or complex contracts).\n\n**Activities:**\n- Migrate accounts in small batches (e.g., 100 at a time) with manual verification of the first few batches.\n- Run both systems in parallel per account for one full billing cycle; do not disable old-system billing for any migrated account until reconciliation passes.\n- Compare invoices, charges, and balances line-by-line between old and new systems for every canary account.\n\n**Exit criterion:** Reconciliation mismatch rate < 0.1% across the canary population for two consecutive billing cycles, and no unresolved Sev-1/Sev-2 incidents.\n\n---\n\n## Phase 2: Expansion (25% of users, ~10,000 users)\n\n**Entry criterion:** Phase 1 exit criteria met, sign-off from Billing Engineering, Finance, and Customer Support leads, and support ticket volume attributable to migration in Phase 1 is below 1% of migrated accounts.\n\n**Scope:** Broader mix of user segments, including multiple currencies, annual contracts, and users with active discounts/coupons — but still excluding the highest-complexity accounts (e.g., enterprise custom contracts).\n\n**Activities:**\n- Migrate in daily or weekly waves (e.g., 1,000–2,000 users per wave) rather than all at once.\n- Keep old system live in parallel (read/reconcile mode) for at least one full billing cycle per migrated wave before considering that wave \"settled.\"\n- Expand automated reconciliation tooling to run continuously, not just spot-checks.\n- Support team staffed with a dedicated migration escalation queue.\n\n**Exit criterion:** Reconciliation mismatch rate remains < 0.1%, payment failure rate for migrated users is within 0.5 percentage points of the old system's baseline failure rate, and no more than 2 Sev-1 incidents occurred during the phase.\n\n---\n\n## Phase 3: Full Migration (remaining ~73%, ~29,200 users, cumulative 100%)\n\n**Entry criterion:** Phase 2 exit criteria met, all remaining edge-case account types (enterprise contracts, multi-entity billing, legacy pricing tiers) have been explicitly tested in staging or in a small Phase 2 sub-wave, and Finance has approved close-out procedures for the old system's ledger.\n\n**Scope:** All remaining users, including the most complex account types, migrated last.\n\n**Activities:**\n- Migrate remaining users in waves sized to support capacity (e.g., 5,000–10,000 per wave).\n- Continue parallel-run reconciliation for at least one full billing cycle after the final batch is migrated.\n- Old billing system remains live, read-accessible, and able to reprocess/refund during this phase — no deletion, disabling, or decommissioning occurs while any batch of user migration is still in progress or has not completed its full parallel-run reconciliation window.\n\n**Exit criterion:** All 40,000 users fully migrated, reconciliation mismatch rate < 0.1% sustained for two consecutive billing cycles after the last batch, zero unresolved Sev-1 incidents.\n\n**Note:** Decommissioning of the old billing system is explicitly a separate, subsequent phase (Phase 4, not covered by this rollout plan), beginning only after Phase 3's exit criteria are fully met and a data-retention/audit sign-off is obtained. It never overlaps with the final batch of user migration.\n\n---\n\n## Halt Condition (Automatic)\n\nThe rollout must be automatically halted and no further users migrated to the next batch/phase if, at any point:\n\n- **Reconciliation mismatch rate exceeds 0.5%** of migrated accounts in any 24-hour window, OR\n- **Payment failure rate for migrated users exceeds the pre-migration baseline by more than 2 percentage points** in any 24-hour window.\n\nAny halt triggers an immediate root-cause investigation before resuming; already-migrated users are not automatically rolled back, but new migrations pause until the issue is resolved.\n\n---\n\n## Risks\n\nRISK: Duplicate or double-billing occurs when both systems attempt to charge the same account during the parallel-run window | Implement a mutual-exclusion flag per account so only one system is authoritative for actual charge execution while the other runs in shadow/reconciliation-only mode | Billing Engineering Lead\nRISK: Data mapping errors (e.g., incorrect proration, tax rates, or currency conversion) cause incorrect invoice amounts for migrated users | Run automated line-by-line reconciliation between old and new system outputs for every migrated account before disabling old-system charging for that account | Data Migration Engineer\nRISK: Customer support is overwhelmed by billing disputes from confused or incorrectly charged migrated users | Pre-train support staff on the new system, staff a dedicated migration escalation queue, and throttle batch size based on real-time ticket volume | Customer Support Manager\nRISK: Rollback of a migrated batch is not actually possible once account state has diverged between systems | Require a tested, documented rollback runbook and a maximum \"point of no return\" defined per batch before that batch is approved to migrate | Site Reliability Engineering Lead\n\n---\n\nPHASES: 3",
+  "response_sha256": "0ad9be83fb99ace628bc7cb585cfc56d9694a17221c07fd433c65083827d60b0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2592,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2021,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2592,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2021,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2592,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2592
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0357272,
+    "duration_ms": 26272,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:36:18+00:00",
+  "finished_at": "2026-09-13T04:36:45+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

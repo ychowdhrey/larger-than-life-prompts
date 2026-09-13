@@ -1,0 +1,22 @@
+{
+  "item_id": "f940b759bc09cb30",
+  "sample_id": "C02-E07-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E07",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (WHERE clause negating the LEFT JOIN, UTC vs UTC+8 boundary mismatch, integer division truncation, NULL total for zero-order customers, NULL sort placement, and the functional-dependency GROUP BY issue), gives accurate technical explanations and fixes, and reasons through second-order effects (e.g., fixing the join reveals the NULL-total issue) without inventing spurious problems.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:23+00:00"
+}

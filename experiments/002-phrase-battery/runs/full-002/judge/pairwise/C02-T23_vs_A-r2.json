@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T23_vs_A-r2",
+  "contrast_id": "T23_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T23",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T23",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly identify the same core defects (LEFT JOIN turned into INNER JOIN, UTC/local timezone mismatch, integer division, NULL total_spent, and non-standard GROUP BY), but Response A additionally flags a real, correctly-reasoned consequence—that NULL total_spent values will sort first under ORDER BY DESC in Postgres, misplacing zero-spend customers at the top—which Response B omits, making A slightly more thorough without introducing any incorrect claims.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:23+00:00"
+}

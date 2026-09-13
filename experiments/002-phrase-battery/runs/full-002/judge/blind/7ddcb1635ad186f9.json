@@ -1,0 +1,22 @@
+{
+  "item_id": "7ddcb1635ad186f9",
+  "sample_id": "P01-T15-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T15",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and includes all required elements (pre-modification backups in steps 2 and 7, a staged dry run in step 3, stakeholder communication in step 4, post-cutover row-count/checksum verification in step 10, and an explicit rollback procedure in step 11), ending with the correctly formatted STEP COUNT line. It also shows non-obvious technical judgment (logical replication pre-sync, LSN capture, schema freeze, cold-standby retention) that makes it directly actionable, though the rollback is folded into step 11 rather than isolated and 'pg_checksums' is a slight misuse of terminology for cross-database verification.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:16+00:00"
+}

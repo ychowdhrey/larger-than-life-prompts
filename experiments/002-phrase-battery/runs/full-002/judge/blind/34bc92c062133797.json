@@ -1,0 +1,22 @@
+{
+  "item_id": "34bc92c062133797",
+  "sample_id": "C01-T12-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T12",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response identifies all the real defects (mutable default argument, in-place mutation of the caller's list, IndexError when limit exceeds list length, ZeroDivisionError on empty input, and duplicate/tie suppression from the seen list) with accurate explanations of cause and consequence, and reports no false positives; it lacks only explicit verification such as a worked example or test trace.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:20+00:00"
+}

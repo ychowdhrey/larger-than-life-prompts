@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T20_vs_A-r2",
+  "contrast_id": "T20_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T20",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans fully satisfy the hard requirements, but Response B handles the decommissioning constraint more cleanly by making it a fully specified fourth phase (with its own percentage, entry criteria, and activities) that is counted in the final PHASES:4 total, whereas Response A introduces an unstructured 'Phase 5' for decommissioning that lacks formal phase treatment and is left out of its own PHASES:4 count, creating a minor internal inconsistency.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:33:38+00:00"
+}

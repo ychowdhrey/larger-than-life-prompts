@@ -1,0 +1,22 @@
+{
+  "item_id": "4c4bea62a8803b88",
+  "sample_id": "C02-T16-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T16",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All four defects (WHERE nullifying the LEFT JOIN, UTC/UTC+8 boundary mismatch, NULL SUM for zero-order customers, integer division truncation) are real, correctly diagnosed with cause/effect/fix, and the response correctly avoids inventing non-issues (COUNT behavior, fan-out); the only flaw is the inaccurate claim that MySQL's '/' truncates integers like Postgres/SQL Server, which it does not by default.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:09+00:00"
+}

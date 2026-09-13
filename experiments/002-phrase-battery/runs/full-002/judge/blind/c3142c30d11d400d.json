@@ -1,0 +1,22 @@
+{
+  "item_id": "c3142c30d11d400d",
+  "sample_id": "C02-T06-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T06",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all the real defects (LEFT JOIN degraded to INNER JOIN via WHERE, UTC vs UTC+8 midnight offset, integer division truncation, NULL-vs-zero SUM, and a legitimate GROUP BY portability caveat), explains the concrete failure mode and fix for each, and even verifies non-issues (COUNT behavior, alias in ORDER BY, no fan-out) rather than fabricating extra problems.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:09+00:00"
+}

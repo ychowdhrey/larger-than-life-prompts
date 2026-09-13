@@ -1,0 +1,22 @@
+{
+  "item_id": "42a588608c705082",
+  "sample_id": "C01-E01-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E01",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default argument, unguarded index causing IndexError, division by zero, in-place mutation of the caller's list, and the non-obvious backfill/dedup flaw) with accurate cause-and-effect explanations and a concrete example, without inventing spurious issues or flagging the explicitly-intended sort/mean behavior.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:16:21+00:00"
+}

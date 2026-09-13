@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T18_vs_A-r2",
+  "contrast_id": "T18_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T18",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T18",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Response A backs up production before any step that touches production replication configuration (backup in step 2, replication pipeline build in step 3), whereas Response B sets up replication tooling on production in step 2 and only takes its backup in step 3, with step 3's own text ('before any replication setup touches production replication slots/config') contradicting the fact that replication setup already occurred in the prior step—an internal ordering inconsistency against the backup-before-modification requirement. Both plans otherwise satisfy all hard requirements equally well.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:25:48+00:00"
+}

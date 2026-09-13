@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-T12-r1",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T12",
+  "condition_name": "phrase_t12",
+  "repetition": 1,
+  "execution_index": 1482,
+  "sample_seed": 12675713333676620503,
+  "prompt_sha256": "894ed41c4c9b367e2a9f38fdc7c9bf73874263140c699d38997348401fca6a07",
+  "prompt_chars": 826,
+  "response": "1. **Assess & prepare target infrastructure**: Provision the managed PostgreSQL service (matching version or higher), size compute/storage for 2 TB, configure networking/VPC peering, security groups, IAM, and replicate on-prem parameter/extension settings (e.g., `pg_stat_statements`, locales, encodings).\n\n2. **Set up replication tooling**: Install and configure logical replication (e.g., `pglogical`, AWS DMS, or native logical replication) or a physical standby approach for initial bulk load, enabling continuous change-data-capture (CDC) from on-prem to the managed target.\n\n3. **Full baseline backup of production (pre-migration safety net)**: Take a full verified backup (e.g., `pg_basebackup` or `pg_dump`/WAL archive) of the production database and confirm it restores successfully; store it in at least two locations before any further destructive or modifying steps.\n\n4. **Dry run / rehearsal on non-production data**: Clone production schema plus a representative/non-sensitive dataset (or a masked full copy) into a staging environment mirroring the target service; execute the full migration procedure (initial load, CDC sync, cutover, verification, rollback) end-to-end to measure timing, surface issues, and validate the runbook against the 2-hour window.\n\n5. **Stakeholder & user communication (advance notice)**: Notify stakeholders and the 4,000 daily active users at least one week ahead and again 24 hours before the Sunday maintenance window, detailing expected downtime, impact, and status-page/support channels.\n\n6. **Initial bulk data load to target**: Start the initial full copy of the 2 TB database into the managed service during low-traffic hours ahead of the window, using parallelized dump/restore or native bulk-load tooling, then begin CDC to stream ongoing changes.\n\n7. **Pre-cutover validation**: Once initial load completes, compare schema objects, indexes, constraints, and row counts/checksums between source and target on the replicated (not-yet-cutover) data to confirm CDC is keeping the target in sync.\n\n8. **Enter maintenance window — freeze writes and take final backup**: At the start of the Sunday window, post a final \"maintenance in progress\" notice, put the application into read-only/maintenance mode, and take one last full backup (or confirmed WAL checkpoint) of production immediately before stopping writes, ensuring a clean rollback point.\n\n9. **Final sync and cutover**: Let CDC drain remaining changes to the target, verify replication lag is zero, then repoint application connection strings/DNS to the managed cloud database and take the target out of read-only mode.\n\n10. **Post-cutover data integrity verification**: Run row-count comparisons and checksum/hash validation (e.g., `pg_checksums`, table-level `CHECKSUM`/`md5` aggregates, or a tool like `pg_comparator`) across all critical tables between the final on-prem snapshot and the new managed database; confirm application smoke tests pass before reopening traffic.\n\n11. **Rollback procedure (execute if verification fails or window is exceeded)**: If integrity checks fail or the window will be exceeded, revert application connection strings/DNS back to the original on-prem server (still intact and untouched since step 8's backup), take the application out of maintenance mode, notify stakeholders of the postponement, and use the pre-cutover and final backups to diagnose the failure before rescheduling.\n\n12. **Close-out communication and decommission planning**: Announce successful completion (or rollback) to stakeholders/users, monitor the new database closely for 24–48 hours, and schedule decommissioning of the on-prem server only after a defined retention period confirms stability.\n\nSTEP COUNT: 12",
+  "response_sha256": "251d122d881b53cc7ae88e6d6cc6de41d5bd16631cb65f3d0235b62e1a5eb725",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2593,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1240,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2593,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1240,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2593,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2593
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0279212,
+    "duration_ms": 17726,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:57:49+00:00",
+  "finished_at": "2026-09-13T04:58:07+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

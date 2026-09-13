@@ -1,0 +1,22 @@
+{
+  "item_id": "8a59d05c2e0abfdf",
+  "sample_id": "C05-E05-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E05",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one bug (total>100 vs >=100 violating R1) and correctly shows that test_cap both fails against the actual implementation (returns 50.0, not 100.0) and encodes a value that would violate R2, while accurately confirming the other two tests are correct — all claims check out against manual computation of the code's behavior.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:51+00:00"
+}

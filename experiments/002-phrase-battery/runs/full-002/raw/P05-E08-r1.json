@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E08-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E08",
+  "condition_name": "combo_e08",
+  "repetition": 1,
+  "execution_index": 242,
+  "sample_seed": 13126543687973756061,
+  "prompt_sha256": "e81a4b14d58335a4032528948bd2fa5493ab5f6301d7176c7327154d660a50ca",
+  "prompt_chars": 867,
+  "response": "# Billing System Migration Rollout Plan\n**Scope:** Migrate 40,000 existing users from legacy billing system (\"Old\") to new billing system (\"New\"). Both systems remain operational in parallel throughout the rollout, enabling real-time comparison and fast rollback per user/cohort.\n\n---\n\n## Guiding Principles\n\n- Migration is reversible at the user level until final sign-off (dual-write/dual-read window per cohort).\n- No cohort advances until the prior cohort has passed its exit criteria and soaked for a minimum observation window.\n- Old system stays fully operational and authoritative-capable until at least 30 days after the last user cohort completes migration, and its decommissioning is handled as a **separate, later initiative** — not part of this rollout's final phase.\n\n---\n\n## Phase 1 — Canary (2% of users, ~800 users)\n\n**Entry criterion:** New billing system has passed end-to-end integration testing in staging, including invoice generation, payment capture, refunds, tax calculation, and dunning workflows; on-call rotation and rollback tooling (single-user and single-cohort revert) are confirmed working in a game-day drill.\n\n**Cohort selection:** Internal employee accounts and opted-in low-risk external users (no active disputes, standard payment methods, monthly — not annual — billing cycles).\n\n**Activities:**\n- Enable dual-write (transactions written to both Old and New) for the cohort; New is shadow/non-authoritative.\n- Run nightly reconciliation jobs comparing invoices, balances, and payment states between systems.\n- Manual review of every discrepancy.\n\n**Soak time:** Minimum 7 days before advancing.\n\n---\n\n## Phase 2 — Early Adopters (15% of users, ~6,000 users)\n\n**Entry criterion:** Phase 1 completed its full soak period with zero unresolved critical discrepancies (see halt metric below) and reconciliation mismatch rate stayed under 0.1% for 3 consecutive days; rollback of Phase 1 cohort has been tested at least once without data loss.\n\n**Cohort selection:** Broader mix of plan types (monthly + annual), but excluding highest-ARR enterprise accounts and any accounts with active billing disputes or pending chargebacks.\n\n**Activities:**\n- New system becomes authoritative for this cohort (source of truth for new charges); Old continues shadow-writing for comparison and safety net.\n- Expand automated reconciliation to cover proration, credits, and refund edge cases.\n- Enable customer-facing billing pages/invoices sourced from New for this cohort; support team briefed and staffed for elevated ticket volume.\n\n**Soak time:** Minimum 10 days before advancing.\n\n---\n\n## Phase 3 — General Availability (60% of users, ~24,000 users)\n\n**Entry criterion:** Phase 2 sustained payment failure rate delta (New vs. Old, like-for-like) within ±0.5 percentage points for 7 consecutive days, support ticket volume attributable to billing did not exceed 1.5x the pre-migration baseline, and finance has signed off on revenue reconciliation for Phase 2 cohorts.\n\n**Cohort selection:** Remaining standard accounts, migrated in waves of ~5,000/day to preserve rollback granularity and support capacity, ordered roughly by ascending account complexity.\n\n**Activities:**\n- New is authoritative; Old shifts to read-only shadow/audit mode for this cohort.\n- Daily automated reconciliation reports to finance and engineering.\n- Wave-by-wave go/no-go check before releasing the next wave.\n\n**Soak time:** Minimum 14 days after the last wave before proceeding to Phase 4.\n\n---\n\n## Phase 4 — High-Complexity & Final Batch (23% of users, ~9,200 users)\n\n**Entry criterion:** Phase 3 completed in full with cumulative billing-related revenue variance under 0.1% of total processed revenue, and a dedicated migration runbook has been built and reviewed for each high-complexity segment (enterprise contracts, multi-entity accounts, custom tax/discount arrangements, accounts in active dispute).\n\n**Cohort selection:** Enterprise accounts, custom-contract accounts, accounts with legal/compliance holds, and any accounts previously excluded or deferred from earlier phases.\n\n**Activities:**\n- White-glove migration with named account owner and account manager notification/sign-off per enterprise customer.\n- New is authoritative; Old remains fully running in parallel as a warm standby and audit source (not disabled, not decommissioned).\n- Post-migration reconciliation window of 30 days with both systems live before any decommissioning discussion begins as a separate follow-on project.\n\n**Soak time:** Minimum 30 days of dual-system operation before Old is even considered for retirement planning, which is explicitly out of scope for this rollout plan.\n\n---\n\n## Halt / Rollback Metrics\n\n- **Primary halt metric:** If the daily invoice/payment reconciliation mismatch rate between Old and New exceeds **0.5%** of transactions in any 24-hour period for the active cohort, the rollout is halted immediately, no further users are migrated, and the current wave is triaged before any resumption decision.\n- **Secondary halt metric:** If payment failure rate (declines/errors) for the New system exceeds the Old system's baseline failure rate by more than **1.0 percentage point** over any rolling 24-hour window, halt.\n- **Tertiary halt metric:** If P1/P2 billing-related support tickets exceed **150 per day** (roughly 2x historical baseline) for 2 consecutive days, halt and reassess.\n\n---\n\n## Risks\n\nRISK: Reconciliation logic itself has bugs, masking true discrepancies between Old and New | Independently validate reconciliation job outputs against a manually audited sample each phase; peer-review reconciliation code before Phase 1 | Data Engineering Lead\nRISK: Duplicate or double-charging customers during dual-write window | Implement idempotency keys and transaction-id cross-referencing between systems; automated alert on any duplicate charge detected within 5 minutes | Payments Engineering Lead\nRISK: Enterprise customers in Phase 4 experience contract-term or invoice discrepancies causing revenue leakage or customer disputes | Require dedicated account manager sign-off and a dry-run invoice comparison per enterprise account before cutover | Enterprise Account Management Lead\nRISK: Support team is overwhelmed by billing-related tickets during a phase, delaying detection of systemic issues | Pre-scale support staffing per phase based on cohort size and establish a dedicated billing-migration escalation queue | Customer Support Manager\nRISK: Rollback of a cohort from New back to Old fails or causes data loss under real production load | Run a full rollback game-day rehearsal before each phase and require a tested, timestamped rollback runbook as an entry criterion | Site Reliability Engineering Lead\nRISK: Regulatory/tax calculation differences between systems cause under- or over-collection of tax | Run parallel tax-calculation audits with the tax/compliance team for every cohort before it goes authoritative on New | Finance & Compliance Lead\n\nPHASES: 4",
+  "response_sha256": "4ee8a46938c8c1aa754580f62b4d494052033e5e9b5a1f3e14109d14e7ac0f1e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2607,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2431,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2607,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2431,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2607,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2607
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0398872,
+    "duration_ms": 30979,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:27:52+00:00",
+  "finished_at": "2026-09-13T04:28:24+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

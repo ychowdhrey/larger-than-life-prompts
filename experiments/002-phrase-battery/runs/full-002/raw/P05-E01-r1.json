@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E01-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E01",
+  "condition_name": "combo_e01",
+  "repetition": 1,
+  "execution_index": 2166,
+  "sample_seed": 17052609605403643752,
+  "prompt_sha256": "ab3c4915968c30f89b3ce64373ed5b34f7a88654e9078e5eb83ab5bdb0a820df",
+  "prompt_chars": 854,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy Billing to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the old billing system to the new billing system in three named phases, leveraging the fact that both systems can run concurrently (dual-run) during the transition. The old system remains fully operational and untouched (no deletion, disabling, or decommissioning) throughout all user-migration phases; decommissioning is explicitly deferred to a separate post-migration phase.\n\n---\n\n## Phase 1: Canary (5% of users — 2,000 users)\n\n**Entry criterion:** New billing system has passed end-to-end functional testing in staging (invoicing, proration, tax calculation, payment retries, refunds) with 100% of test cases green, dual-write reconciliation tooling is live and validated against a synthetic dataset, and a documented rollback procedure has been rehearsed at least once in staging.\n\n**Scope and approach:**\n- Select 2,000 low-risk internal/beta-friendly accounts (internal employee accounts, free-tier or low-ARR customers, and users who have opted into early-access programs) — explicitly exclude enterprise/high-ARR accounts and any accounts with active billing disputes.\n- Both systems run in parallel (\"dual-run\"): the old system remains the system of record for invoicing/dunning during this phase; the new system processes transactions in shadow/active mode and results are reconciled line-by-line against the old system's output.\n- Migrate in daily sub-batches of ~200–300 users rather than all 2,000 at once, to catch issues early.\n- Support team is on standby with a dedicated escalation channel.\n\n**Exit criterion to advance:** 7 consecutive days with reconciliation match rate ≥99.9%, no Sev1/Sev2 incidents, and support ticket volume for billing within normal baseline (see metrics below).\n\n---\n\n## Phase 2: Expansion (35% of users — 14,000 users)\n\n**Entry criterion:** Phase 1 exit criteria met and signed off by Billing Engineering Lead and Customer Support Lead; any Sev2+ defects found in Phase 1 are resolved and verified in staging; on-call rotation and runbook updated with Phase 1 learnings.\n\n**Scope and approach:**\n- Expand to a representative cross-section of the user base, segmented by plan type, geography, and payment method (credit card, ACH/direct debit, invoiced/net-terms), migrated in weekly waves of ~3,000–4,000 users to maintain observability and rollback capacity.\n- Continue dual-run reconciliation, now sampling at a statistically significant rate (minimum 20% of transactions per wave, 100% for ACH/net-terms due to higher failure impact) rather than exhaustive reconciliation, to manage compute/ops load at scale.\n- Explicitly exclude the highest-ARR/enterprise accounts and any accounts under contractual SLAs requiring advance notice — these are reserved for Phase 3 after the process is proven.\n- Introduce customer-facing communication (email notice of billing system update) 5 business days before each wave, with an opt-out/delay request channel for customers with special circumstances.\n\n**Exit criterion to advance:** All weekly waves in Phase 2 individually meet the halt-metric thresholds (below) with no rollback triggered, cumulative reconciliation match rate ≥99.9%, payment failure rate for migrated cohorts within 0.5 percentage points of the old system's historical baseline, and finance sign-off that revenue recognition/reporting from the new system reconciles with the old system for the full 35%.\n\n---\n\n## Phase 3: General Availability / Final Batch (60% of users — 24,000 users)\n\n**Entry criterion:** Phase 2 exit criteria met and signed off by Billing Engineering Lead, Customer Support Lead, and Finance; a full audit of Phase 1+2 migrated accounts shows no open Sev1/Sev2 billing discrepancies; legal/compliance has confirmed customer notification requirements (e.g., contractual notice periods) are satisfied for all remaining segments, including enterprise/net-terms accounts.\n\n**Scope and approach:**\n- Migrate all remaining users, including previously excluded enterprise and net-terms accounts, in waves of ~5,000–8,000 users, prioritizing lower-complexity accounts first and highest-value/highest-complexity enterprise accounts last within this phase.\n- Maintain dual-run and reconciliation through the entire phase; do not reduce reconciliation sampling below 100% for enterprise/net-terms accounts.\n- Freeze non-critical changes to both billing systems during active wave migration windows to reduce confounding variables when triaging issues.\n- At the conclusion of this phase, all 40,000 users are on the new system, but **the old billing system remains live, read-accessible, and undisabled** for a mandatory post-migration observation/reconciliation window (minimum 30 days) before any separate decommissioning plan is proposed or executed. Decommissioning the old system is explicitly out of scope for this rollout plan and must be handled as its own subsequent phase/project with its own entry criteria, sign-offs, and archival/data-retention review.\n\n**Exit criterion (rollout complete):** 100% of users migrated, 30-day post-migration reconciliation window completed with no open discrepancies above materiality threshold, and Finance has closed out final revenue reconciliation between old and new systems.\n\n---\n\n## Risks\n\nRISK: Payment processor tokenization mismatch causes stored payment methods to fail silently after migration | Run a pre-migration token validation pass against the processor's API for every account before cutover, and reconcile a sample of live charges within 24 hours of each wave | Payments Engineering Lead\nRISK: Duplicate or missed invoices occur if both systems attempt to bill the same customer in the same cycle during dual-run | Implement a billing-cycle lock/ownership flag per account so only one system is authoritative for invoicing at any time, enforced at the API gateway layer | Billing Engineering Lead\nRISK: Enterprise customers with custom contract terms (custom pricing, net-terms, multi-entity invoicing) are migrated incorrectly due to edge cases not covered in standard test suites | Require manual contract-term verification and a dedicated test invoice run for every enterprise account before inclusion in Phase 3, signed off by Account Management | Enterprise Billing Program Manager\nRISK: Customer support is overwhelmed by billing-related tickets during a wave, delaying resolution and harming customer trust | Staff a dedicated billing-migration support queue with surge capacity pre-scheduled for each wave, and pause new waves if ticket backlog exceeds SLA | Customer Support Lead\nRISK: Data migration script corrupts or truncates historical billing/invoice history needed for audits or customer disputes | Take a full validated backup/export of the old system's data before each wave and run automated row-count and checksum validation post-migration | Data Engineering Lead\nRISK: Rollback from new system back to old system mid-wave is untested at scale and fails when actually needed | Rehearse a full rollback drill for a representative wave size in staging before Phase 2 begins, and require rollback dry-runs to pass before each phase's entry gate | Site Reliability Engineering Lead\n\n---\n\n## Halt / Rollback Metrics\n\nThe rollout must be **immediately paused** (no further accounts moved to the new system) if any of the following thresholds are breached for any active wave:\n\n- **Reconciliation match rate falls below 99.5%** between old and new system outputs (invoice amount, tax, due date) for any 24-hour period.\n- **Payment failure rate for migrated accounts exceeds the old system's trailing 90-day baseline by more than 1.0 percentage point** in any 24-hour period.\n- **Billing-related support ticket volume for migrated accounts exceeds 3x the pre-migration baseline rate** within a 48-hour window.\n- **Any Sev1 incident** (e.g., customers double-charged, or a full outage of invoicing/payment collection) occurs on the new system.\n\nA halt triggers an incident review involving Billing Engineering, Finance, and Customer Support leads before any further migration resumes; affected accounts already migrated are reconciled or rolled back to the old system on a case-by-case basis per the rollback runbook.\n\nPHASES: 3",
+  "response_sha256": "b4da57fcc8a06834de8dff9e8534c91b42a627de95007dea2bdfcef0c103ec78",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28329,
+    "output_tokens": 2816,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2816,
+        "cache_read_input_tokens": 28329,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0338298,
+    "duration_ms": 36254,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:21+00:00",
+  "finished_at": "2026-09-13T05:13:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

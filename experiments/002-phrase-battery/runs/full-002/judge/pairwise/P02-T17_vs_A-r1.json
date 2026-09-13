@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T17_vs_A-r1",
+  "contrast_id": "T17_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy all hard requirements equally well, but Response B adds more operationally useful specifics: distinguishing WAL/temp volume fill from the main data volume, snapshotting to a separate target when the near-full disk can't host the snapshot itself, throttling writes as a stopgap if the disk will fill before the snapshot completes, and concrete post-mitigation data-integrity validation (checksums/row counts, replica consistency) rather than a vaguer check.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:36:12+00:00"
+}

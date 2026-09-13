@@ -1,0 +1,22 @@
+{
+  "item_id": "bc3776c7daec9d0c",
+  "sample_id": "C01-E08-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E08",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default arg, missing bounds check, division by zero, dedup-without-backfill shrinking results, in-place mutation of caller's list) with accurate mechanics and concrete worked examples, and does not flag the two behaviors explicitly stated as intended.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:16:58+00:00"
+}

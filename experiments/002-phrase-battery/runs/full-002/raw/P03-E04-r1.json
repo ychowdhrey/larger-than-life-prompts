@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-E04-r1",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "E04",
+  "condition_name": "combo_e04",
+  "repetition": 1,
+  "execution_index": 2143,
+  "sample_seed": 11716928002307272043,
+  "prompt_sha256": "dd789fbea09c534f5961c96f53903705cfb6ed61f5eea56c0a089a03e959fe9a",
+  "prompt_chars": 1166,
+  "response": "**Reasoning**\n\nDependency chain analysis:\n- Critical path: T1(2) → T2(2) → T4(3) → T6(3) = 10 days total. This path has zero slack, so T1, T2, T4, T6 must start the instant their prerequisites finish, with no idle gaps.\n- Secondary path: T1(2) → T3(2) → T5(2) = 6 days before T6 could start from this branch — clearly less constrained than the T2/T4 branch, giving T3/T5 slack of (finish of T4 requirement) - (finish of T5) = 1 day.\n- T6 needs both T4 and T5 done, so it can't start until T4 finishes (the binding constraint).\n\nSince two engineers are available, run the critical chain (T1→T2→T4) on E1 continuously, while E2 handles the parallel branch (T3→T5) as soon as T1 frees it up. T6 (needs both T4 and T5 finished) starts right after T4 finishes.\n\n- T1: Days 1–2 (E1)\n- T2: starts day 3 (day after T1 finishes) — Days 3–4 (E1)\n- T3: starts day 3 (day after T1 finishes) — Days 3–4 (E2)\n- T4: starts day 5 (day after T2 finishes) — Days 5–7 (E1)\n- T5: starts day 5 (day after T3 finishes) — Days 5–6 (E2)\n- T6: needs T4 (finishes day 7) and T5 (finishes day 6) both done → starts day 8 — Days 8–10 (E1, since E1 is already free and continuing the critical chain)\n\nCheck: each task's days are consecutive; no engineer double-booked on any day; every start day is strictly after all prerequisite finish days; everything fits within Day 1–10.\n\n**Schedule**\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "ed9f575f723c58bf50f2fe3587d7911102e1d89a135a6fb0224a55523f17abb9",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28495,
+    "output_tokens": 2101,
+    "output_tokens_details": {
+      "thinking_tokens": 1291
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2101,
+        "cache_read_input_tokens": 28495,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026713,
+    "duration_ms": 22080,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:12:52+00:00",
+  "finished_at": "2026-09-13T05:13:15+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

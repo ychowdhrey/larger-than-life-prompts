@@ -1,0 +1,22 @@
+{
+  "item_id": "b7b791784d52fc37",
+  "sample_id": "C05-T18-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T18",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the R1 boundary bug (total==100 wrongly excluded), correctly recomputes discount(1000)=50.0 to show test_cap's expected 100.0 is both wrong per R2 and would fail against the actual code, and flags the missing boundary test — while accurately confirming the other two tests are correct without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:11+00:00"
+}

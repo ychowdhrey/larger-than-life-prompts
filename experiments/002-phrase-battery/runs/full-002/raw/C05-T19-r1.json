@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T19-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 1,
+  "execution_index": 200,
+  "sample_seed": 9942922074955676094,
+  "prompt_sha256": "a259cddd78c18253c4005fa6c26249d864a7ceec36e902033a2ba6d8b30fdf6f",
+  "prompt_chars": 861,
+  "response": "## Defects Found\n\n**1. Boundary error in the implementation — violates R1**\nThe code uses `if total > 100`, but R1 requires a discount for a total that is \"100 or more\" (i.e., `>= 100`). For `total == 100`, the function falls through to `return 0.0` instead of returning `10.0`. This is a genuine off-by-one bug: an order of exactly 100 is denied the discount it's entitled to under R1.\n\n**2. Missing boundary test — the R1/R3 boundary is never exercised**\nNone of the three tests check `discount(100)`. Since R1 and R3 meet exactly at 100 (R1: \"100 or more\" gets discount; R3: \"below 100\" gets none), this is precisely the boundary a test suite should verify. Its absence means the boundary bug in defect #1 goes completely undetected.\n\n**3. Incorrect assertion in `test_cap` — contradicts R2 and does not match actual behavior**\n`test_cap` asserts `discount(1000) == 100.0`. But per R2, the discount must never exceed 50.00, and the implementation itself computes `min(1000 * 0.10, 50.0) = min(100.0, 50.0) = 50.0`. So:\n- The expected value `100.0` in the test directly contradicts requirement R2 (it exceeds the 50.00 cap).\n- It also doesn't match what the given implementation actually returns (`50.0`).\n- As written, this test would fail with `AssertionError: 50.0 != 100.0` when run — it does not pass against the provided implementation, and \"fixing\" the code to make it pass would break R2.\n\n## Not defects (checked, found correct)\n- `test_small` (`discount(50) == 0.0`) correctly reflects R3.\n- `test_large` (`discount(200) == 20.0`) correctly reflects R1 (200 × 10% = 20, under the 50 cap).\n- The `min(d, 50.0)` capping logic itself is correct with respect to R2 for values away from the boundary.",
+  "response_sha256": "6e1bb0d127ae1b44902e042ab39aaf33bfbc2135a2810926098b7fcf30bb2e3b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2632,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2078,
+    "output_tokens_details": {
+      "thinking_tokens": 1415
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2632,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2078,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2632,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2632
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.036457199999999995,
+    "duration_ms": 21956,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:26:50+00:00",
+  "finished_at": "2026-09-13T04:27:13+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

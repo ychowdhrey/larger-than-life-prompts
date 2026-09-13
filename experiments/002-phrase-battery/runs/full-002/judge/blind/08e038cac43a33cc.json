@@ -1,0 +1,22 @@
+{
+  "item_id": "08e038cac43a33cc",
+  "sample_id": "C02-E05-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E05",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (WHERE-clause join-nullification, UTC vs. UTC+8 boundary mismatch, integer division truncation, NULL-vs-zero total_spent with the subtle NULLS FIRST DESC sorting consequence, and a fair portability caveat on GROUP BY), gives correct fixes for each, and explicitly confirms non-issues (COUNT choice, no fan-out) rather than inventing extra problems.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:18+00:00"
+}

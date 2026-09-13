@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E02-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 3,
+  "execution_index": 365,
+  "sample_seed": 14864794252550216371,
+  "prompt_sha256": "ebbd64ede9d6fc8384b12f2b6ae3b78debf0eaaff9a3bf64698e8cea946f6860",
+  "prompt_chars": 879,
+  "response": "# Billing System Migration Rollout Plan\n**Scope:** Migrate 40,000 existing users from legacy billing system (\"Old\") to the new billing system (\"New\"). Both systems can run concurrently during the migration window, which allows for a dual-run/reconciliation strategy rather than a hard cutover.\n\n---\n\n## Guiding Principles\n\n- Migrate in increasing order of risk exposure: internal/test accounts first, then low-value/low-complexity users, then the broad base, then the highest-value and most complex accounts last.\n- Keep Old billing running in parallel (read-only fallback capable) through every phase — it is not touched, disabled, or decommissioned until a dedicated post-migration phase, separate from the final user batch.\n- Every phase requires sign-off against its entry criterion before it begins. No phase starts on a calendar date alone.\n\n---\n\n## Phase 0: Internal Validation (0% of the 40,000 — internal/synthetic accounts only)\n\n**Population:** Internal staff accounts, QA accounts, and synthetic test users (not counted against the 40,000). No real customers.\n\n**Entry criterion:** New billing system has passed a full regression suite covering invoicing, proration, tax calculation, refunds, and payment-method tokenization in a staging environment with production-equivalent data volume.\n\n**Activities:**\n- Run full billing cycles (charge, invoice, dunning, refund) end-to-end on internal accounts.\n- Validate dual-write/reconciliation tooling between Old and New.\n- Build and test the rollback procedure (routing a migrated account back to Old).\n\n**Exit criterion:** Zero critical/high-severity defects open; reconciliation job shows 100% match between Old and New computed charges for all Phase 0 accounts across two consecutive billing cycles.\n\n---\n\n## Phase 1: Pilot (2% of users ≈ 800 users)\n\n**Entry criterion:** Phase 0 exit criterion met, AND rollback procedure has been executed successfully at least once in staging within the last 5 business days.\n\n**Population:** Opt-in pilot group plus a random sample skewed toward low-complexity accounts (single subscription, single payment method, standard currency). Excludes enterprise/custom-contract accounts.\n\n**Activities:**\n- Migrate accounts in small daily batches (e.g., 100–150/day) rather than all at once.\n- Run Old and New in shadow mode where feasible: New computes charges but Old remains authoritative for actual billing for the first 48 hours per batch, with automated diffing.\n- Dedicated support monitoring channel for pilot users.\n\n**Exit criterion:** Billing discrepancy rate ≤ 0.1% of transactions across the pilot group for two consecutive billing cycles; support ticket volume from pilot users within 1.5x of baseline (non-pilot) ticket rate.\n\n---\n\n## Phase 2: Expanded Rollout (25% of users ≈ 10,000 users)\n\n**Entry criterion:** Phase 1 exit criterion met, AND payment gateway and tax-vendor rate limits have been validated to support 10,000 concurrent accounts on New without throttling.\n\n**Population:** Broadened to include mid-complexity accounts (multiple subscriptions, discounts/coupons, multiple currencies), still excluding top-tier enterprise accounts.\n\n**Activities:**\n- Increase batch size (e.g., 500–1,000/day), migrating by cohort (e.g., by signup date range or account tier) so any issue can be traced to a cohort.\n- Continue shadow-billing/reconciliation for the first 24 hours per batch, then shorten as confidence builds.\n- Weekly go/no-go review of metrics before advancing batch size.\n\n**Exit criterion:** Billing discrepancy rate remains ≤ 0.1%; failed-payment rate on New within 0.2 percentage points of Old's historical baseline; no unresolved Sev-1/Sev-2 incidents open.\n\n---\n\n## Phase 3: General Availability (73% of remaining users ≈ 29,200 users, bringing cumulative total to 100%)\n\n**Entry criterion:** Phase 2 exit criterion met, AND finance/accounting has reconciled New's ledger output against Old for all prior phases with no unresolved variances, AND customer support has confirmed staffing/runbooks for full-volume migration support.\n\n**Population:** All remaining users, including enterprise, custom-contract, and high-value accounts, migrated last given their complexity and business risk.\n\n**Activities:**\n- Migrate in descending order of remaining complexity, largest/most complex enterprise accounts last within this phase, in batches sized to support team capacity (e.g., 2,000–4,000/day, tapering for top-tier accounts).\n- Maintain dual-run reconciliation for enterprise accounts even after cutover to New, for at least one full billing cycle, given their outsized financial impact.\n- Freeze non-essential changes to New during the final batch window.\n\n**Exit criterion (end of migration, not decommissioning of Old):** 100% of the 40,000 users successfully billing on New for one full consecutive billing cycle with discrepancy rate ≤ 0.1% and no open Sev-1 incidents.\n\n---\n\n## Phase 4: Legacy Decommissioning (0% — no user migration occurs in this phase)\n\n**Entry criterion:** Phase 3 exit criterion met, AND New has been the sole billing system of record for all 40,000 users for at least two full consecutive billing cycles with no reconciliation variances, AND finance has completed final audit sign-off on historical data migration/archival from Old.\n\n**Activities:**\n- Archive Old system's historical billing data per data-retention policy.\n- Move Old to read-only mode, then decommission infrastructure.\n- This phase is intentionally separate from and subsequent to the final user migration batch in Phase 3, per rollout policy.\n\n**Exit criterion:** Old system fully decommissioned; archived data verified retrievable.\n\n---\n\n## Risks\n\nRISK: Billing discrepancies between Old and New cause customers to be over- or under-charged | Run mandatory shadow-billing/reconciliation window before New becomes authoritative for each batch, with automated diffing and manual review of any variance above threshold | Billing Engineering Lead\nRISK: Payment gateway or tax-vendor API rate limits are exceeded as batch sizes grow, causing failed transactions | Load-test third-party integrations at each phase's target concurrency before advancing, and implement exponential backoff/queueing | Platform Infrastructure Lead\nRISK: Enterprise customers with custom contract terms (custom pricing, invoicing schedules) are migrated incorrectly, damaging key accounts | Migrate enterprise accounts last, in small sub-batches, with dedicated account-manager review and manual verification of each contract before cutover | Enterprise Account Management Lead\nRISK: Rollback from New to Old fails or is not exercised in time during an incident, extending customer impact | Test and document the rollback procedure in Phase 0 and re-validate it before each subsequent phase begins | Site Reliability Engineering Lead\nRISK: Customer support is overwhelmed by a spike in billing-related tickets during a large batch migration | Stagger batch sizes, monitor ticket volume in real time against baseline, and maintain a surge staffing plan triggered at defined ticket-volume thresholds | Customer Support Manager\n\n---\n\n## Halt Criteria (Automatic Rollout Freeze)\n\nThe rollout must pause immediately, halting further migration batches, if any of the following occur:\n\n- **Billing discrepancy rate exceeds 0.5%** of reconciled transactions in any 24-hour window (target ceiling is 0.1%; 0.5% triggers a hard stop).\n- **Failed-payment rate on New exceeds Old's trailing 30-day baseline by more than 1.0 percentage point.**\n- **More than 2 Sev-1 incidents** related to billing occur within any single phase.\n\nResuming requires root-cause identification, a fix validated in staging, and re-approval from the rollout steering group (Billing Engineering Lead, SRE Lead, and Finance) before migration batches continue.\n\n---\n\nPHASES: 5",
+  "response_sha256": "db9285102dc009564386283f25af3f8d766bccf85711a7560ed4e387357ecc9b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2611,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2753,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2611,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2753,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2611,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2611
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0431232,
+    "duration_ms": 34822,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:31:04+00:00",
+  "finished_at": "2026-09-13T04:31:39+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

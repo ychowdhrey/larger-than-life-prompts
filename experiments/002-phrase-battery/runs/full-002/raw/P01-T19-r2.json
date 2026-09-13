@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-T19-r2",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 2,
+  "execution_index": 1215,
+  "sample_seed": 12729320634022275732,
+  "prompt_sha256": "b0b8563aa8742fb142b0eb2fe18838b140ca544ea97300aa13fd8bc3cb48e9ee",
+  "prompt_chars": 825,
+  "response": "1. **Assess and prepare the target**: Provision the managed PostgreSQL service (matching version or a validated newer version), sizing compute/storage for 2 TB plus growth, configure networking/VPC peering or VPN, security groups, IAM/auth, parameter groups to mirror on-prem settings (extensions, collations, encoding), and enable encryption at rest/in transit.\n\n2. **Establish continuous replication**: Set up logical replication (e.g., pglogical, native logical replication, or a CDC tool such as AWS DMS/Debezium) from on-prem to the managed target, or configure `pg_basebackup` + WAL streaming, so the target can stay in near-continuous sync ahead of cutover, minimizing the data delta that must move during the maintenance window.\n\n3. **Full backup before any destructive/modifying action**: Take a verified full physical backup (e.g., `pg_basebackup` or storage snapshot) plus a logical backup (`pg_dump -Fc`) of the on-prem production database, confirm checksums and restorability, and archive it to durable storage before performing any schema changes, replication setup that writes to production, or cutover steps.\n\n4. **Dry run / rehearsal on non-production data**: Restore the backup to a staging copy of the managed service, replay the full migration and cutover procedure (schema migration, replication catch-up, cutover scripts, application config switch, verification queries) end-to-end against this non-production dataset, and time each phase to confirm it fits inside the two-hour window.\n\n5. **Fix gaps found in rehearsal**: Resolve any incompatibilities (extension availability, role/permission differences, sequence ownership, custom functions, collation mismatches) discovered during the dry run, and re-run the rehearsal until it completes cleanly and within budget.\n\n6. **Communicate with stakeholders and users**: Announce the scheduled Sunday maintenance window at least one week in advance and again 24 hours prior to all ~4,000 daily active users and internal stakeholders, stating expected downtime, impact, and a status-page/notification channel for updates; assign an incident commander and communication owner for the day of migration.\n\n7. **Freeze schema changes and take a final pre-cutover backup**: Starting shortly before the window, halt non-essential schema/DDL changes on production; immediately before cutover, take one more full backup/snapshot (physical + logical) of the current production state as the last-known-good rollback point.\n\n8. **Execute cutover within the maintenance window**: Put the application into maintenance mode (block writes), let replication fully catch up to zero lag, stop writes on the source, perform a final incremental sync/WAL flush, promote the managed target as primary, update DNS/connection strings/secrets, and bring the application back online pointed at the new database.\n\n9. **Verify data integrity post-cutover**: Run row-count comparisons per table, checksum/hash comparisons (e.g., `pg_checksums`, `md5` aggregates, or a tool like `pgCompare`), validate sequence values, foreign key/constraint integrity, and spot-check critical business transactions between source and target before declaring success.\n\n10. **Smoke-test application functionality**: Run automated and manual smoke tests against the live application (login, core transactions, reporting) using the new database to confirm functional correctness under real connection paths and credentials.\n\n11. **Rollback procedure (if verification or smoke tests fail)**: Repoint the application back to the original on-prem primary (which was never decommissioned and can be fast-forwarded from retained WAL/replication if any writes occurred post-freeze), or restore from the pre-cutover backup taken in step 7 to a scratch instance for forensic comparison; keep the on-prem server intact and in read-only standby for a defined retention period (e.g., 1–2 weeks) as the rollback safety net, and communicate the rollback and revised timeline to stakeholders immediately.\n\n12. **Post-migration monitoring and decommission**: Monitor performance, error rates, and query latency on the new managed database for an extended stabilization period (e.g., 1–2 weeks), confirm no rollback is needed, notify stakeholders of successful completion, then decommission or archive the on-prem server per data retention policy.\n\nSTEP COUNT: 12",
+  "response_sha256": "0d0a63473bc1381a270a4f8107baf7ca5a1dc3edd0e0a2fefd8f0d9421070058",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28320,
+    "output_tokens": 1411,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1411,
+        "cache_read_input_tokens": 28320,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.019778,
+    "duration_ms": 20161,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:51:38+00:00",
+  "finished_at": "2026-09-13T04:51:59+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

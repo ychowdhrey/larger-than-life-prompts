@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T13_vs_A-r1",
+  "contrast_id": "T13_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T13",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T13",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses find the same five defects with comparable clarity, but Response A asserts that calling top_scores([]) raises ZeroDivisionError, which is false under the default limit=5 (an IndexError fires first at i=0, before the division line ever executes); Response B correctly identifies this interaction, noting ZeroDivisionError is only reachable via limit=0, and also backs its deduplication defect with a concrete, verified example. This makes B's analysis more accurate overall.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:05+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T13_vs_A-r1",
+  "contrast_id": "T13_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T13",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet all hard requirements (correct headings, snapshot-first gate, no restart/failover before snapshot, explicit abort/rollback), but Response A includes a critical safeguard for the specific scenario described: if disk is projected to hit 100% before the snapshot itself completes, it directs responders to throttle write traffic at the application layer rather than touching the database, buying time without risking data loss. Response B lacks this pre-snapshot safety valve, only introducing write throttling after the snapshot gate has already passed, leaving a gap for the exact near-full, rapidly-degrading scenario in the prompt.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:28:50+00:00"
+}

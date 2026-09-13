@@ -1,0 +1,22 @@
+{
+  "item_id": "d9285f33deaacafc",
+  "sample_id": "C02-T16-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T16",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE-clause defeating the LEFT JOIN, UTC vs UTC+8 boundary miscalculation with the correct 16:00 UTC conversion, NULL-vs-zero spend plus NULL sort-order implications, and integer division truncation), explicitly confirms COUNT(o.order_id) is not a bug, and supplies a corrected query with an accurate note on the GROUP BY portability nuance.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:07+00:00"
+}

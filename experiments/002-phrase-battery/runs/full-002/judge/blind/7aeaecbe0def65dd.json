@@ -1,0 +1,22 @@
+{
+  "item_id": "7aeaecbe0def65dd",
+  "sample_id": "P01-E06-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E06",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps with an accurate trailing count, and includes all required elements (stakeholder comms, rehearsal on non-prod data, pre-cutover backup, post-cutover row-count/checksum verification, and a clear rollback), correctly sequencing backups before any production-modifying action. It also shows real depth by recognizing 2TB can't be dumped/restored in a 2-hour window and designing around pre-window replication with only final sync in the window, making it directly actionable for a real migration.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:18+00:00"
+}

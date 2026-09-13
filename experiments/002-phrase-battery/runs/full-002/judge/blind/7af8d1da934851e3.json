@@ -1,0 +1,22 @@
+{
+  "item_id": "7af8d1da934851e3",
+  "sample_id": "C02-T02-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T02",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "Correctly identifies all major defects (LEFT JOIN neutralized by WHERE, UTC/UTC+8 boundary mismatch, integer division truncation, NULL-vs-zero aggregate, resulting sort artifact, and a GROUP BY portability note), tying each to the stated requirements with concrete fixes; however it asserts MySQL performs integer-truncating division, which is factually wrong (MySQL's '/' returns a decimal), indicating the claims were not fully verified before being presented.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:55+00:00"
+}

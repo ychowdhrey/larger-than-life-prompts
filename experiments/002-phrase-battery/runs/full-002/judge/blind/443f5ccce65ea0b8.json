@@ -1,0 +1,22 @@
+{
+  "item_id": "443f5ccce65ea0b8",
+  "sample_id": "P03-T24-r3",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T24",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule correctly respects all prerequisite, single-engineer-per-day, and 10-day constraints, follows the exact required output format, and even achieves the provably tightest possible finish (critical path T1→T2→T4→T6 = 10 days), but the response never explicitly re-verifies the built schedule against the constraints beyond the initial derivation.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:39:01+00:00"
+}

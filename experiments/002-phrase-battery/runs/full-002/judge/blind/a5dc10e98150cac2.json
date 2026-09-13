@@ -1,0 +1,22 @@
+{
+  "item_id": "a5dc10e98150cac2",
+  "sample_id": "P01-T11-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T11",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 numbered steps, rollback, non-prod dry run, post-cutover integrity checks, stakeholder communication, backup preceding any prod-impacting action) and ends with the exact required format, while sequencing technically sound migration mechanics (logical replication, WAL archiving, sequence/index validation, DNS cutover, monitoring window) that a practitioner could directly execute.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:10+00:00"
+}

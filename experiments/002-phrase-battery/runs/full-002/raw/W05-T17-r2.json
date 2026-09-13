@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T17-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T17",
+  "condition_name": "phrase_t17",
+  "repetition": 2,
+  "execution_index": 1873,
+  "sample_seed": 15556764645272726705,
+  "prompt_sha256": "ac14623eb3d44fa38e0ab5a73a319ada7ac1a4fb57609e369475fbcf9804f9a7",
+  "prompt_chars": 724,
+  "response": "Subject: Moving to Trunk-Based Development\n\n## The problem\n\nOur twelve-person team routinely runs feature branches that live for two to four weeks before merging. By the time they land, they've drifted far enough from main that integration turns into a multi-day ordeal of conflict resolution and re-testing. Last quarter alone we had three releases delayed by merge conflicts that took longer to resolve than the original feature took to build. Code review also suffers: reviewers face 40-file diffs touching unrelated areas, so they skim instead of scrutinizing. Meanwhile, nobody has an accurate picture of what \"main\" actually does, because half our real work is sitting invisible on branches. This isn't a tooling problem; it's a workflow problem, and it's getting worse as the team grows.\n\n## The proposal\n\nI'm proposing we adopt trunk-based development: everyone commits small, reviewed changes directly to main at least once a day, guarded by feature flags for anything incomplete.\n\n- Cap branch lifetime at one day; anything larger gets split into smaller, independently mergeable pieces.\n- Put unfinished or risky work behind feature flags rather than behind a branch, so main stays releasable at all times.\n- Require CI (tests plus linting) to pass before every merge, with a fast enough pipeline that this doesn't become a bottleneck.\n- Pair this with trunk-based CI/CD so we can deploy from main daily instead of batching releases.\n- Run a two-week pilot with one squad before rolling it out team-wide, so we catch process gaps early.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development trades merge pain for release risk: shipping small, unfinished increments to main daily means a bad commit can break the build for everyone, and feature flags add real complexity of their own — stale flags, combinatorial testing, and flags left in code for months. This is a legitimate cost, not a hypothetical one, and it means we need disciplined flag hygiene and a genuinely fast, reliable CI pipeline before we start, not after. If our test suite isn't trustworthy, we shouldn't flip the switch yet.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "01d042fd7849b360e07311b9d64a798893bb7c9376634b0c52122ac78d0cac64",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28291,
+    "output_tokens": 777,
+    "output_tokens_details": {
+      "thinking_tokens": 64
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 777,
+        "cache_read_input_tokens": 28291,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0134322,
+    "duration_ms": 13152,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:06:46+00:00",
+  "finished_at": "2026-09-13T05:07:00+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

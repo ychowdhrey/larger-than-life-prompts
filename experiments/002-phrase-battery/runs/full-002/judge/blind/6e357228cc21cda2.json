@@ -1,0 +1,22 @@
+{
+  "item_id": "6e357228cc21cda2",
+  "sample_id": "P03-T14-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T14",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The schedule correctly satisfies every dependency, single-engineer-per-day, and 10-day-window constraint, and the response verifies each prerequisite and non-overlap explicitly; the only flaw is the unverified overclaim that this is 'the only feasible layout,' when other valid schedules (e.g., swapped branches or shifted T3/T5 within slack) also exist.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:34+00:00"
+}

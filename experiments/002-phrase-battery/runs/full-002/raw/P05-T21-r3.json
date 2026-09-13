@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T21-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 3,
+  "execution_index": 1346,
+  "sample_seed": 10120010237938304361,
+  "prompt_sha256": "1b3bcd64ab8a20c986a14126226d709b51dd014b55f3fe58d2748dc80b4c10d1",
+  "prompt_chars": 837,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nBoth billing systems (legacy \"BILL-OLD\" and new \"BILL-NEW\") will run concurrently in parallel-write/dual-reconciliation mode throughout the migration. Users are migrated in batches by cohort; the old system remains fully operational as a fallback until well after the last user batch has been verified stable. No decommissioning work occurs until a separate, later phase outside this migration's user-facing scope.\n\n---\n\n## Phase 1 — Pilot (Internal + Opt-In Canary)\n\n**Population:** 1% of users (~400 accounts) — internal test accounts, employees, and opt-in low-risk customers (no active disputes, no complex proration/multi-subscription setups).\n\n**Entry criterion:** BILL-NEW has passed full parallel-run validation in staging for 14 consecutive days with zero critical invoicing discrepancies; rollback tooling (single-account revert to BILL-OLD) has been tested successfully end-to-end at least 3 times.\n\n**Goals:** Validate data migration accuracy, dual-write reconciliation, and rollback mechanics under real (low-stakes) traffic.\n\n**Exit criterion:** Invoice/charge parity between systems ≥99.95% for the full pilot cohort over 7 consecutive days, and no unresolved Sev-1/Sev-2 incidents open.\n\n---\n\n## Phase 2 — Expanded Cohort (Graduated Ramp)\n\n**Population:** 25% of users (~10,000 accounts) — introduced in three sub-waves (5% → 15% → 25% cumulative), segmented to exclude highest-ARR enterprise accounts and users on legacy/custom contract terms.\n\n**Entry criterion:** Phase 1 exit criteria met and signed off by Billing Eng, Finance, and Support leads; support ticket volume attributable to billing migration in Phase 1 is below the halt threshold (see Metrics/Halt Conditions below) for the full 7-day observation window.\n\n**Goals:** Stress-test at meaningful volume, validate dunning/retry logic, payment gateway routing, tax calculation, and customer-facing statements at scale.\n\n**Exit criterion:** Payment success rate for migrated cohort within 0.5 percentage points of BILL-OLD baseline; reconciliation discrepancy rate ≤0.05% sustained for 7 consecutive days; each sub-wave individually meets this bar before advancing to the next sub-wave.\n\n---\n\n## Phase 3 — General Availability Rollout\n\n**Population:** 74% of users (~29,600 accounts) — all remaining standard accounts, migrated in weekly batches of no more than 15% of total user base per batch, sequenced by account complexity (simplest billing profiles first, enterprise/custom-contract accounts last).\n\n**Entry criterion:** Phase 2 exit criteria met; on-call and support teams have completed migration-specific training; automated per-account rollback tooling is confirmed capable of reverting a full batch (not just single accounts) within 4 hours if needed.\n\n**Exit criterion (= end of user migration):** 100% of the 40,000 users successfully migrated with reconciliation discrepancy rate ≤0.05% sustained for 14 consecutive days, and no open Sev-1/Sev-2 billing incidents.\n\n> **Important boundary:** Phase 3 covers migration of the final batch of users only. Any decommissioning, disabling, or deletion of BILL-OLD is explicitly out of scope for Phase 3 and will not begin until a separate Phase 4 (\"Legacy Decommission\") starts no earlier than 30 days after Phase 3's exit criteria are met, with its own independent entry criteria (full historical data archival verified, finance audit sign-off, and zero reliance on BILL-OLD for active billing, reporting, or support workflows).\n\n---\n\n## Metrics and Halt Conditions\n\nRollout is automatically paused (no further batches advanced) and escalated to the migration steering group if any of the following occur:\n\n- **Reconciliation discrepancy rate exceeds 0.5%** of migrated accounts' invoices/charges in any rolling 24-hour window (primary halt trigger).\n- Failed payment rate for migrated cohort rises more than 2 percentage points above the BILL-OLD baseline for the equivalent cohort, sustained over 24 hours.\n- Billing-related support ticket volume for the migrated cohort exceeds 3x the pre-migration baseline rate in any 48-hour window.\n\nA halt freezes further migration batches but does not automatically roll back already-migrated users; rollback of a batch is a separate decision made by the steering group based on root-cause severity.\n\n---\n\n## Risks\n\nRISK: Duplicate or missing charges during dual-write window due to reconciliation logic bugs | Run automated reconciliation diffing every 15 minutes with alerting, and require 7+ days of clean parallel-run data before advancing any phase | Billing Engineering Lead\nRISK: Payment gateway or tax-calculation vendor behaves differently under BILL-NEW, causing declined transactions | Run shadow-mode transactions against BILL-NEW without settling funds before each phase, and maintain a tested one-click batch rollback to BILL-OLD | Payments Platform Lead\nRISK: Customer confusion or trust erosion from unexpected invoice formatting/timing changes | Pre-notify affected users by email at least 7 days before their batch migrates, and staff Support with migration-specific FAQ and escalation path | Customer Support Lead\nRISK: Enterprise accounts with custom contract terms are mismapped, causing revenue leakage or overbilling | Require manual Finance review and sign-off for every custom-contract account before inclusion in Phase 3, with dedicated migration runbooks per contract type | Finance Operations Lead\nRISK: Migration batches proceed faster than support/on-call capacity can absorb incident load | Cap batch size at 15% of total users per week and require on-call headcount confirmation as a go/no-go gate before each batch | Program Manager\n\nPHASES: 3",
+  "response_sha256": "15dcbe0604b0900076a4a950cb99d8a50eb718bbb07dfff7bd9a6823c4069517",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2597,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2070,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2597,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2070,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2597,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2597
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0362372,
+    "duration_ms": 27726,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:54:29+00:00",
+  "finished_at": "2026-09-13T04:54:57+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

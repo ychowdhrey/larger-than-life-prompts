@@ -1,0 +1,68 @@
+{
+  "sample_id": "R05-T14-r1",
+  "run_id": "full-002",
+  "task_id": "R05",
+  "family": "reasoning",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 1,
+  "execution_index": 1859,
+  "sample_seed": 12335109161671609288,
+  "prompt_sha256": "85953ba5409fbbe7bc000adb77751b5f80e16689d608c4b9994bfd1da88775dd",
+  "prompt_chars": 250,
+  "response": "**Setting up inclusion‑exclusion**\n\nLet me count integers in [1,1000] divisible by 3 or 5, then remove those that are also divisible by 7.\n\n**Step 1: Divisible by 3 or 5**\n\n- Divisible by 3: ⌊1000/3⌋ = 333\n- Divisible by 5: ⌊1000/5⌋ = 200\n- Divisible by 15 (both): ⌊1000/15⌋ = 66\n\n|A∪B| = 333 + 200 − 66 = **467**\n\n**Step 2: Among those, how many are divisible by 7?**\n\nA number divisible by 7 *and* (3 or 5) is divisible by 21 or by 35 (since 7,3 coprime and 7,5 coprime).\n\n- Divisible by 21: ⌊1000/21⌋ = 47\n- Divisible by 35: ⌊1000/35⌋ = 28\n- Divisible by lcm(21,35)=105 (both, i.e. divisible by 3,5,7 = 105): ⌊1000/105⌋ = 9\n\nDivisible by 21 or 35 = 47 + 28 − 9 = **66**\n\n**Step 3: Subtract**\n\n467 − 66 = **401**\n\n**Sanity check with a smaller case:** For 1–20: multiples of 3 or 5 → {3,5,6,9,10,12,15,18,20} = 9 numbers. Among these, divisible by 7: none (21 is out of range). So answer should be 9. Using formula: ⌊20/3⌋+⌊20/5⌋-⌊20/15⌋=6+4-1=9; divisible by 21 or 35 in range 1-20 = 0. 9-0=9 ✓. Method checks out.\n\nSo for 1–1000, the count is 401.\n\nFINAL ANSWER: 401",
+  "response_sha256": "94ab2a57e7824600f1f0df671850d125ab318cdde168d9a5552d1906f256b9c2",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28156,
+    "output_tokens": 965,
+    "output_tokens_details": {
+      "thinking_tokens": 357
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 965,
+        "cache_read_input_tokens": 28156,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.015285200000000002,
+    "duration_ms": 10156,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:06:23+00:00",
+  "finished_at": "2026-09-13T05:06:35+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

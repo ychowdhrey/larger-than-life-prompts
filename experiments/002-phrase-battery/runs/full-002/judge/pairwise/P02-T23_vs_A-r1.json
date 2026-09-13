@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T23_vs_A-r1",
+  "contrast_id": "T23_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T23",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T23",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements (correct headings, snapshot-before-risk, no restart/failover before snapshot, explicit abort/rollback conditions), but Response B is slightly more operationally robust: it embeds distinct abort/rollback conditions in both IMMEDIATE ACTIONS (snapshot failure/timeout) and MITIGATION (stalled recovery after mitigation), gives practical guidance for the edge case where a fully consistent snapshot isn't guaranteed under time pressure, and its FOLLOW UP section is more actionable with owners/due dates and a snapshot-restorability check.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:29:06+00:00"
+}

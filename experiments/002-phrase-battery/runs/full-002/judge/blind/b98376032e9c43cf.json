@@ -1,0 +1,22 @@
+{
+  "item_id": "b98376032e9c43cf",
+  "sample_id": "P01-T15-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T15",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (12 steps exactly, rollback, rehearsal, integrity check, stakeholder communication, backup before any destructive step) and shows sound migration design (CDC-based bulk load before the window, freeze/drain/cutover within the 2-hour slot, sequence and credential handling), though verification technically runs after the app is already reopened to users rather than before, a minor sequencing gap.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:18+00:00"
+}

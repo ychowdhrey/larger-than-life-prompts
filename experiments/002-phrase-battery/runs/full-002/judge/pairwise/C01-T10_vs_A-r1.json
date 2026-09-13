@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T10_vs_A-r1",
+  "contrast_id": "T10_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T10",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T10",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both identify the same five defects (mutable default, IndexError, ZeroDivisionError, in-place sort mutation, faulty dedup causing short results), but Response A is more precise: it correctly notes that with the default limit=5, an empty scores list actually triggers IndexError before the division is ever reached, and ZeroDivisionError only manifests when limit=0. Response B claims 'Calling top_scores([]) raises ZeroDivisionError' without this caveat, which is inaccurate given the default arguments, so it misstates when that error actually occurs.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:49:33+00:00"
+}

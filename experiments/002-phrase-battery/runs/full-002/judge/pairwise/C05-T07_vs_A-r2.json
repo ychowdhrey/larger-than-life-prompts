@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T07_vs_A-r2",
+  "contrast_id": "T07_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T07",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the same two core defects (off-by-one at total=100 and the wrong test_cap expectation) and both flag the missing boundary test, but Response A's heading inaccurately claims the boundary bug 'violates R1/R3' when R3 only concerns totals strictly below 100, whereas Response B more precisely notes that R3 doesn't actually sanction or forbid behavior at total=100, giving a more accurate requirement analysis.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:32:22+00:00"
+}

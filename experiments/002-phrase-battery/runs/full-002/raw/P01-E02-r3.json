@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-E02-r3",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 3,
+  "execution_index": 1031,
+  "sample_seed": 15821964210435519206,
+  "prompt_sha256": "11b2d8e5f0aeafe7de3930ca956af248e6518e0fb3a359dc0bf8e80529160717",
+  "prompt_chars": 881,
+  "response": "# PostgreSQL 2 TB Migration Plan: On-Premises → Managed Cloud Database\n\n1. **Assess and prepare target environment.** Provision the managed cloud PostgreSQL instance (matching or exceeding source version, extensions, collation, and resource sizing for 2 TB + headroom + 4,000 DAU concurrency). Configure networking, security groups, IAM, encryption, parameter groups, and backup/retention policies. Document the full architecture and connection topology.\n\n2. **Set up continuous replication tooling.** Install and configure logical replication (e.g., native PostgreSQL logical replication, or a CDC tool such as AWS DMS/pglogical) between the on-prem primary and the cloud target so the target can be kept in near-real-time sync ahead of cutover, minimizing the required maintenance-window downtime.\n\n3. **Notify stakeholders (initial).** Announce the planned migration, the Sunday maintenance window (start/end time, expected read-only or full downtime), and impact to all 4,000 DAU via email/in-app banner/status page at least one week in advance, with a reminder 24 hours prior.\n\n4. **Take a full verified backup of production (pre-work safeguard).** Before any replication setup touches production or any rehearsal/config change is applied, take a full logical + physical (base) backup of the on-prem database and confirm it restores successfully to a scratch instance. This is the baseline safety net for all subsequent steps.\n\n5. **Conduct a dry run / rehearsal on non-production data.** Restore the verified backup (or a sanitized production-like copy) to a staging copy of the target cloud instance. Execute the entire planned migration and cutover sequence — replication sync, schema/extension checks, application config switch, integrity checks — end-to-end against this non-production copy, timing each step against the two-hour window and fixing any issues found.\n\n6. **Freeze schema changes and finalize the cutover runbook.** Based on rehearsal results, lock down production schema migrations, finalize exact commands, timing budget, and named owners for each cutover step, and get sign-off from engineering and stakeholders.\n\n7. **Send final stakeholder/user notification.** Confirm the maintenance window is proceeding (or reschedule if rehearsal surfaced blockers), reminding users of the exact downtime start, expected duration, and any read-only/degraded behavior.\n\n8. **Begin the maintenance window: take a final full backup, then stop writes.** At window start, take one last full backup/snapshot of production (physical + WAL), then put the application into maintenance mode / block writes so the source database becomes static.\n\n9. **Perform final replication sync and cutover.** Let logical replication drain to zero lag (confirm LSN/WAL position matches), then stop replication, update application connection strings/DNS/secrets to point at the cloud database, and bring the application back online in a controlled (initially read-only, if desired) mode.\n\n10. **Verify data integrity post-cutover.** Run row-count comparisons per table, checksum/hash comparisons (e.g., `pg_checksums`, `md5` aggregates, or a checksum extension) between source backup and target, validate sequence values, indexes, and constraints, and run smoke tests against critical application workflows before removing maintenance mode.\n\n11. **Go live and monitor.** Remove maintenance mode, restore full read/write traffic, and closely monitor replication lag (now none), query performance, error rates, and connection counts for the first several hours; notify stakeholders/users that the migration is complete.\n\n12. **Rollback procedure (execute if any check in steps 9–11 fails within the window or shortly after).** If integrity verification fails, performance is unacceptable, or critical errors appear: immediately revert application connection strings/DNS/secrets back to the on-premises database (which was frozen read-only, not destroyed, in step 8), take the application out of read-only mode, confirm on-prem data is intact and current as of the freeze point, notify stakeholders of the rollback and revised timeline, and restore from the Step 8/4 backups to the cloud target only after root-causing the failure before attempting migration again.\n\nSTEP COUNT: 12",
+  "response_sha256": "6598b667988250c5eb5a2029500973e7947a876ee8d0cbf9698e54df6464387d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28336,
+    "output_tokens": 1381,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1381,
+        "cache_read_input_tokens": 28336,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.019481200000000004,
+    "duration_ms": 19601,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:47:16+00:00",
+  "finished_at": "2026-09-13T04:47:37+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

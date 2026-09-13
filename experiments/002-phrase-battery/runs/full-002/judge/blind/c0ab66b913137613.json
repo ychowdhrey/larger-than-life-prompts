@@ -1,0 +1,22 @@
+{
+  "item_id": "c0ab66b913137613",
+  "sample_id": "P01-T03-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T03",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 numbered steps, rollback, dry run on non-prod data, post-cutover integrity checks via row counts/checksums, stakeholder communication, and pre-destructive backups) while sequencing realistic mechanics like pre-window replication sync, WAL drain, and a read-only rollback path; it lacks an explicit self-check against the stated requirements but embeds verification logic throughout.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:34+00:00"
+}

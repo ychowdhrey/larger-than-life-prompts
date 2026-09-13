@@ -1,0 +1,22 @@
+{
+  "item_id": "715251de38af20e4",
+  "sample_id": "C02-T17-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T17",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies every defect implied by the schema notes (LEFT JOIN nullified by the WHERE clause, missing UTC-to-UTC+8 boundary shift, integer division truncating cents) plus additional real issues (missing COALESCE producing NULL totals, NULL sort placement, GROUP BY portability), each with accurate technical reasoning and concrete fixes, with no fabricated defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:16+00:00"
+}

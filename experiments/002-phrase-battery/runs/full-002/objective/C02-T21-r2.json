@@ -1,0 +1,93 @@
+{
+  "sample_id": "C02-T21-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T21",
+  "repetition": 2,
+  "response_sha256": "bc01a4b90c0b7a46693a05d32ad1d5c48f60df38e2395d46ba59785b91d50ab6",
+  "objective": {
+    "max_points": 14.0,
+    "earned_points": 14.0,
+    "objective_score": 1.0,
+    "constraint_completion": null,
+    "planted_issue_recall": 1.0,
+    "distractor_avoidance": 1.0,
+    "checks": [
+      {
+        "check_id": "where_kills_outer",
+        "label": "PLANTED: WHERE on the outer table turns LEFT JOIN into an inner join",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched WHERE.{0,120}(?:inner join|defeats|negat|cancel|nullif|turns it into)",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "group_by",
+        "label": "PLANTED: c.name and c.signup_date are selected but not grouped",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched GROUP BY.{0,120}(?:name|signup_date|non.?aggregat)",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "integer_division",
+        "label": "PLANTED: integer division truncates cents",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched integer division",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "timezone",
+        "label": "PLANTED: UTC boundary does not match the readers' local day",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched time ?zone",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "distractor_count",
+        "label": "DISTRACTOR: did not claim COUNT(o.order_id) should be COUNT(*)",
+        "type": "forbidden",
+        "points": 2.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": false,
+        "planted": false,
+        "distractor": true
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 3763,
+    "response_words": 596,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": null,
+    "planted_issue_recall": 1.0,
+    "distractor_avoidance": 1.0
+  },
+  "scored_at": "2026-09-13T05:15:40+00:00",
+  "evaluation_version": "2.0.0"
+}

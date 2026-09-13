@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T04_vs_A-r3",
+  "contrast_id": "T04_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T04",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy every hard requirement (three phased percentages that sum to 100%, correctly formatted RISK lines, deferred decommissioning, and a PHASES:3 closer), but Response B is operationally more rigorous: it defines four distinct halt metrics with numeric thresholds and paired actions (freeze vs. immediate rollback), adds explicit exit criteria alongside entry criteria for each phase, and reduces risk exposure within phases via weekly sub-batches and load-testing gates, giving it a slight edge in practical usefulness over Response A's comparatively thinner two-metric halt condition.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:48:39+00:00"
+}
