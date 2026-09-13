@@ -114,6 +114,32 @@ def wilson_ci(successes: int, trials: int, z: float = 1.959963985) -> Optional[T
     return (max(0.0, centre - half), min(1.0, centre + half))
 
 
+def benjamini_hochberg(pvalues: Dict[str, Optional[float]]) -> Dict[str, Optional[float]]:
+    """Benjamini-Hochberg adjusted p values (q values) across a family of tests.
+
+    Holm controls the probability of ANY false positive, which is the right instrument when
+    a single experiment asks three questions. A battery that screens dozens of phrases is a
+    different job: there, controlling the expected PROPORTION of false discoveries keeps the
+    screen usable while still correcting for having looked many times. Both are reported;
+    which one is the decision rule is fixed in the preregistration, not chosen afterwards.
+    """
+    items = [(k, v) for k, v in pvalues.items() if v is not None]
+    if not items:
+        return {k: None for k in pvalues}
+    items.sort(key=lambda kv: kv[1])
+    m = len(items)
+    adjusted: Dict[str, Optional[float]] = {}
+    running = 1.0
+    # Step up from the largest p value, enforcing monotonicity.
+    for i in range(m - 1, -1, -1):
+        k, p = items[i]
+        running = min(running, m * p / (i + 1))
+        adjusted[k] = min(1.0, running)
+    for k in pvalues:
+        adjusted.setdefault(k, None)
+    return adjusted
+
+
 def holm(pvalues: Dict[str, Optional[float]]) -> Dict[str, Optional[float]]:
     """Holm-Bonferroni adjustment across a family of tests."""
     items = [(k, v) for k, v in pvalues.items() if v is not None]

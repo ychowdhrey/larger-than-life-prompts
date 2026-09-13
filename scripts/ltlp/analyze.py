@@ -247,6 +247,15 @@ def run(cfg) -> Dict[str, Any]:
     return summary
 
 
+# Public names for the two routines the battery analysis reuses. The battery must compute
+# contrasts with exactly the code that produced every other number in this repository; a
+# second implementation would be free to drift from this one, which is the failure the spec
+# lock exists to prevent everywhere else.
+contrast_for = _contrast
+condition_summary_for = _condition_summary
+cells_for = _cell
+
+
 def _write_samples_csv(cfg, rows) -> None:
     fields = ["run_id", "sample_id", "task_id", "family", "condition_id", "condition_name",
               "repetition", "model", "backend", "condition_echo", "objective_score",

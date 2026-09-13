@@ -1,0 +1,39 @@
+{
+  "run_id": "pilot-002",
+  "mode": "pilot",
+  "experiment_id": "002",
+  "phrase": "phrase battery: 25 phrases across 9 behavioural families",
+  "report_style": "battery",
+  "experiment_dir": "experiments/002-phrase-battery",
+  "seed": 20260913,
+  "repetitions": 1,
+  "tasks": ["R01", "P03"],
+  "_tasks_note": "R01 exercises the reasoning family; P03 exercises the schedule validator, the hardest objective scorer. 2 x 37 x 1 = 74 generations. A pilot validates the workflow and is not evidence.",
+  "generation": {
+    "backend": "claude_cli",
+    "model": "claude-sonnet-5",
+    "timeout_seconds": 600,
+    "retries": 3
+  },
+  "judging": {
+    "backend": "claude_cli",
+    "model": "claude-sonnet-5",
+    "timeout_seconds": 600,
+    "retries": 3
+  },
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  },
+  "spec": {
+    "tasks": "tasks/core-v1.json",
+    "conditions": "experiments/002-phrase-battery/conditions.json",
+    "phrases": "experiments/002-phrase-battery/phrases.json",
+    "rubric": "evals/rubric.json",
+    "judge_prompt_blind": "evals/judge-prompt-blind.md",
+    "judge_prompt_pairwise": "evals/judge-prompt.md",
+    "preregistration": "experiments/002-phrase-battery/PREREGISTRATION.md"
+  }
+}
