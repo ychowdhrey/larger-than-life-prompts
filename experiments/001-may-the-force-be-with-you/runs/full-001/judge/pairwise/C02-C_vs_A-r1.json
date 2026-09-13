@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-C_vs_A-r1",
+  "contrast_id": "C_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the same three core defects (WHERE clause defeating the LEFT JOIN, missing UTC+8 conversion, integer division truncation) with equally accurate explanations, but Response B additionally surfaces a valid, non-obvious consequence—that once the join is fixed, NULL total_spent values will sort ahead of real totals in a DESC ORDER BY on most engines—which Response A never mentions even though it flags the related NULL/COALESCE issue for total_spent.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:29:22+00:00"
+}

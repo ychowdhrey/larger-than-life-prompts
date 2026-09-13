@@ -6,7 +6,69 @@ The purpose of this file is not to draft polished chapters. It is to preserve wh
 
 ## Experiment 001
 
-**Pilot run, 2026-09-12. Workflow validated; the phrase was not tested.**
+**Full run, 2026-09-13. 240 generations. The phrase did nothing.**
+
+Appending "May the Force be with you." to the end of a task prompt produced no measurable
+improvement. On the preregistered primary outcome, blind judge task success, the task-level
+paired difference against an empty control was **0.000**. Not small: zero to three decimal
+places, from eight tasks whose differences cancelled. Against generic encouragement it was
+-0.017. Against a plain instruction to be thorough it was -0.100, and every one of the five
+tasks that discriminated at all moved against the phrase.
+
+The objective score, computed with no judge involved, gave the same ordering: A 0.921,
+B 0.914, C 0.920, D 0.953. Two independent instruments, one of them immune to length bias
+and blind by construction, agree that the phrase is indistinguishable from appending
+nothing.
+
+The lesson is not "cinematic language is inert." It is narrower and more useful: **the
+active ingredient in appended text is instruction content, not tone.** The only condition
+that moved anything was D, the one that actually told the model what to do. D leads on
+objective score, on task success, on thoroughness, on error checking, on depth, and it beats
+the phrase in pairwise preference. It does not clear the preregistered bar either, and
+`D_vs_A` was declared secondary in advance, so it is a direction to test rather than a
+finding. But the ordering is the reverse of the premise: the plain instruction outperformed
+the evocative one.
+
+One number deserves recording because it is the opposite of the hypothesis. Verification
+markers were **lowest** under the phrase (0.217 distinct markers per response) — lower than
+the bare control (0.317) and lower than every other condition. These are crude regex counts
+and mean little on their own, but nothing in the data points towards the phrase inducing
+more checking, and this points mildly the other way.
+
+The pilot's warning about a ceiling was half right, and the half it got wrong matters.
+Measured on all 20 tasks: the judge measure *is* saturated (4.78-4.88 of 5; 12 to 15 of 20
+tasks give a difference of exactly zero), but the objective score is *not* (mean 0.92, only
+4 of 20 tasks perfect across all 12 runs). The null therefore rests on an instrument that
+had room to move. Had the pilot's recommendation been followed — rebuild the task set before
+running — the null would have been deferred on the strength of five tasks, and the finding
+that the unsaturated measure agrees would never have been produced. A pilot is allowed to
+flag a defect. It is not powered to cancel the experiment.
+
+Where the ceiling does bite is `C_vs_D`. Its bootstrap interval excludes zero and its
+direction is perfectly consistent, but only 5 of 20 tasks produced a non-zero difference,
+and a sign-flip test on 5 values cannot return below 2/2^5 = 0.0625. The test was
+arithmetically incapable of significance before the data arrived. That is worth remembering
+as a design lesson: with a saturated measure, the effective n is not the number of tasks,
+it is the number of tasks that discriminate.
+
+Two method notes earned in this run:
+
+1. **The preregistration paid for itself in the direction nobody plans for.** The lock is
+   usually described as protection against talking yourself into an effect. Here it was
+   protection against talking yourself out of running the experiment at all. The spec was
+   fixed, the pilot's advice to redesign first was advice rather than authority, and the
+   run produced a clean null on 240 generations instead of an indefinite postponement.
+
+2. **A blinding leak can hurt the treatment.** Exactly one of 240 responses echoed its
+   condition text: `P05-C-r1` ended with the phrase. The blind judge noticed and docked
+   constraint adherence, and that response lost all three of its pairwise comparisons with
+   the judge citing the out-of-place line. Leakage is normally modelled as a risk of
+   flattering the treatment. It can equally penalise it, and the direction is not
+   predictable in advance.
+
+### Pilot, 2026-09-12 (retained: workflow validation only)
+
+**Workflow validated; the phrase was not tested.**
 
 The pilot's lesson is about instruments, not about the phrase.
 

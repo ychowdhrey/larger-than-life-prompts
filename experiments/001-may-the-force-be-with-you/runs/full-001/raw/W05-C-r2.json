@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-C-r2",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 2,
+  "execution_index": 9,
+  "sample_seed": 4139240978074926031,
+  "prompt_sha256": "70748f0914ad343b25d23cc2648a8f9a089c0b1a8b0b6cee22aa37da68dc6c51",
+  "prompt_chars": 713,
+  "response": "## The problem\n\nOur team of twelve has drifted into long-lived feature branches, some open for three or four weeks at a time. Merges have become dreaded events: conflicts stack up, integration bugs surface only at the end, and code review happens on giant diffs nobody can meaningfully evaluate. We are effectively deferring integration risk to the worst possible moment, right before a release, when we have the least time to fix what breaks.\n\nThe symptoms are visible in our own history:\n\n- Three of the last five releases slipped due to merge conflicts or last-minute integration bugs discovered after branches were combined.\n- Average branch lifetime has grown from four days to nineteen days over the past two quarters.\n- Two engineers are often blocked waiting on a shared branch to stabilize before they can start related work.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequent changes directly to main (or through short-lived branches lasting under a day), gated by feature flags for anything incomplete. This means investing in a faster CI pipeline, enforcing a norm of splitting work into shippable increments, and giving every engineer the discipline to keep main always releasable. The payoff is that integration problems surface within hours, not weeks, when they're cheap to fix.\n\n## What could go wrong\n\nThe strongest objection is real: with twelve people committing to one trunk, we risk a noisier, less stable main branch, and less experienced engineers may need more hand-holding to break work into safe increments. This isn't a strawman — teams that adopt trunk-based development without solid CI and code review discipline genuinely do see more breakage reach main. The honest mitigation is that we don't flip a switch; we build the safety net first (automated tests, fast builds, mandatory flags for incomplete work) before we lean on the new workflow, and we accept a slower first month while habits form.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "1ef9fb79abd63e87c5b18bfc5473440970fb1bd7159e0927be0516fbbbb88ab9",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2564,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 612,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2564,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 612,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2564,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2564
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0215252,
+    "duration_ms": 10987,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:51:34+00:00",
+  "finished_at": "2026-09-13T02:51:46+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

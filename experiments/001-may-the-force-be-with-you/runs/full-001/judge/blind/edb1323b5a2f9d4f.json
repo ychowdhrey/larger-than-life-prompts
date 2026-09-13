@@ -1,0 +1,22 @@
+{
+  "item_id": "edb1323b5a2f9d4f",
+  "sample_id": "C02-B-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "B",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all the defects implied by the schema notes (WHERE-clause neutralizing the LEFT JOIN, UTC vs UTC+8 boundary math, integer division truncation, NULL propagation for zero-order customers, and consequent NULL sort ordering) with correct fixes and no fabricated issues, but it inaccurately cites MySQL as a database where integer/integer division truncates (MySQL's / actually returns a decimal), a factual slip that slightly undercuts its self-verification.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:10:39+00:00"
+}

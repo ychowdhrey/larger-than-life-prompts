@@ -1,0 +1,22 @@
+{
+  "item_id": "edb46d153d365d07",
+  "sample_id": "P01-D-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "D",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 numbered steps, dry run, rollback, post-cutover integrity check via row counts/checksums, stakeholder communication, and backups placed before any state-altering production changes) and ends with a correctly matching STEP COUNT line. It shows genuine depth by using CDC/logical replication to fit a 2 TB migration into a 2-hour window and by designing a low-risk rollback that relies on an untouched on-prem source, making it directly actionable for a real migration.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:13:54+00:00"
+}

@@ -1,0 +1,71 @@
+{
+  "sample_id": "R03-B-r2",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "B",
+  "repetition": 2,
+  "response_sha256": "3135c89580bb5f41c20ade1825ef686f77582f54506e68b1f47087a52277a691",
+  "objective": {
+    "max_points": 9.0,
+    "earned_points": 9.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "answer",
+        "label": "Correct unique seating",
+        "type": "regex_any",
+        "points": 6.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*Dev\\s*,\\s*Ben\\s*,\\s*Ana\\s*,\\s*Eli\\s*,\\s*Chi",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "format",
+        "label": "Final answer line lists five names",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*\\w+\\s*,\\s*\\w+\\s*,\\s*\\w+\\s*,\\s*\\w+\\s*,\\s*\\w+",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "checks_all",
+        "label": "Verifies the solution against the clues",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched verif",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 373,
+    "response_words": 77,
+    "coverage": 0.5,
+    "coverage_hits": 2,
+    "coverage_possible": 4,
+    "verification_markers": 1,
+    "verification_marker_total": 1,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T03:08:57+00:00",
+  "evaluation_version": "2.0.0"
+}

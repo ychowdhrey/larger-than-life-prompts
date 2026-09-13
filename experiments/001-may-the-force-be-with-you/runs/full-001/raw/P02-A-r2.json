@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-A-r2",
+  "run_id": "full-001",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 2,
+  "execution_index": 177,
+  "sample_seed": 2328573866802422141,
+  "prompt_sha256": "d02fa5679b2e87511918cb4511437d803fbca4fd54b74f71bcc4bdefbc534950",
+  "prompt_chars": 699,
+  "response": "# Incident Response Runbook: Production Database — Critical Disk Utilisation with Elevated Write Latency\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 98%; write latency increased ~3x within a 20-minute window.\n\n---\n\n## DETECTION\n\n1. Confirm the alert is real, not a monitoring artifact:\n   - Check disk utilisation on the primary DB host via infrastructure monitoring (e.g., Datadog/CloudWatch/Prometheus) — confirm ≥98% on the actual data volume, not a log or temp volume.\n   - Check write latency dashboards (p50/p95/p99) to confirm a sustained ~3x increase over the last 20 minutes, not a single spike.\n2. Identify the affected instance(s): confirm which node is primary, and whether replicas are also affected (shared storage, replication lag, etc.).\n3. Declare the incident: open an incident channel/ticket, page the on-call DBA and the service owner, and note timestamp of detection.\n4. Capture baseline metrics (disk %, IOPS, write latency, active connections, longest-running transactions) with timestamps before taking any action — this baseline is needed to judge whether mitigation is working and to support the abort/rollback decision below.\n\n---\n\n## IMMEDIATE ACTIONS\n\n1. **Do not restart, reboot, or fail over the primary database yet.** Restart/failover is only permitted after Step 3 (snapshot) below has completed successfully.\n2. Freeze the blast radius:\n   - Notify stakeholders that writes may be delayed or throttled.\n   - If available, enable/verify alerting suppression only for this known issue (do not silence unrelated alerts).\n3. **Take a storage snapshot of the primary database volume before any further remedial or destructive action.** This is mandatory and blocking:\n   - Trigger the cloud provider / storage layer snapshot (e.g., EBS snapshot, disk image, LVM snapshot) of the data volume(s).\n   - Confirm the snapshot job has started and record its ID/timestamp.\n   - Wait for snapshot completion confirmation (or, if the platform guarantees crash-consistent point-in-time snapshots that don't block writes, confirm the snapshot has reached a \"completed\" or \"in progress, consistent\" state per platform semantics) before proceeding to any action in MITIGATION that deletes, truncates, moves, or compacts data, or that restarts/fails over the database.\n   - If the snapshot fails or cannot be verified as started, escalate immediately and do not proceed to destructive mitigation steps — read-only or non-destructive relief actions (see MITIGATION step 1) may still proceed.\n4. Assess immediate free-space relief options that carry no data-loss risk and can run in parallel with the snapshot:\n   - Check for obviously safe space to reclaim: old log files outside the DB data directory, core dumps, temp export files.\n   - Do not delete WAL/binlog/redo log files, temp tablespaces in active use, or any file inside the DB's data directory at this stage — these can cause data loss or corruption and must wait until after the snapshot completes and is verified.\n\n---\n\n## MITIGATION\n\nPerform these only **after** the snapshot from IMMEDIATE ACTIONS is confirmed complete:\n\n1. **Non-destructive relief (safe at any time, snapshot or not):**\n   - Throttle or pause non-critical batch jobs, ETL processes, and reporting queries hitting the primary.\n   - Enable/verify application-level write backpressure or rate limiting if available.\n2. **Space reclamation (only after snapshot is confirmed):**\n   - Archive and remove old WAL/binlog files that are already past the required retention/replication point (verify replicas are caught up first).\n   - Vacuum/compact tables with significant bloat if the engine supports online compaction (e.g., `VACUUM`, `OPTIMIZE TABLE`) — monitor disk usage during this, as some compaction operations temporarily need extra space.\n   - Drop or truncate confirmed-obsolete tables/partitions only with sign-off from the service owner.\n   - Expand the volume (online disk resize) if the platform supports it — this is the preferred fix over deletion where available, and can be done as soon as the snapshot is confirmed.\n3. **Restart / failover (only after snapshot confirmed, and only if steps above did not relieve the condition):**\n   - If disk is expanded or space reclaimed and latency has not recovered, consider a controlled failover to a healthy replica, promoting it to primary.\n   - Only restart the original primary DB process after the snapshot is confirmed and after failover (if performed) has completed and stabilised.\n4. **Abort / rollback condition (explicit):**\n   - **Stop and reverse course immediately if, after any mitigation action (compaction, deletion, resize, or failover), disk utilisation does not decrease within 10 minutes, OR write latency continues to climb, OR replication lag/data consistency errors appear on any replica.**\n   - In that case: halt further destructive actions, do not proceed to failover if not already done, restore from the pre-mitigation snapshot taken in IMMEDIATE ACTIONS to a new instance if corruption is suspected, and escalate to the database vendor/platform support and senior engineering leadership.\n   - Do not attempt a second, different mitigation technique on top of a failed one without explicit incident commander approval — stack no further changes until the current state is understood.\n\n---\n\n## FOLLOW UP\n\n1. Confirm resolution: disk utilisation back under a safe threshold (e.g., <80%) and write latency back to baseline for at least 30 sustained minutes.\n2. Verify data integrity: run consistency checks against the snapshot and post-incident state; confirm replica sync status.\n3. Retain the snapshot taken during IMMEDIATE ACTIONS for at least the standard incident retention period before deletion.\n4. Write a post-incident review covering: root cause of disk growth (e.g., log retention misconfiguration, unbounded table growth, missing partition pruning), timeline, effectiveness of each mitigation step, and whether the abort condition was triggered.\n5. File follow-up tickets: implement proactive disk-usage alerting at a lower threshold (e.g., 75%/85% warning tiers), automate log/WAL rotation and retention, and add capacity planning review to prevent recurrence.\n6. Update this runbook with any gaps found during the incident (e.g., missing tooling, unclear ownership, snapshot timing issues).\n\nSECTIONS: 4",
+  "response_sha256": "6486e1c1e36c1c2ec4c9e05fe39239dbca62755955da6c5911541a0642dfc304",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28291,
+    "output_tokens": 2201,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2201,
+        "cache_read_input_tokens": 28291,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0276722,
+    "duration_ms": 28574,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:01:53+00:00",
+  "finished_at": "2026-09-13T03:02:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

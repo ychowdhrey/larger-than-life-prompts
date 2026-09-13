@@ -1,0 +1,22 @@
+{
+  "item_id": "8e0a2014fe83611b",
+  "sample_id": "C02-D-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "D",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE clause negating the LEFT JOIN, UTC vs UTC+8 boundary mismatch, integer division truncation, and the resulting NULL total_spent/ORDER BY issue after fixing the join), explains the causal mechanism and consequence for each with correct fixes, and explicitly verifies two non-issues rather than inventing extra complaints.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:10:57+00:00"
+}

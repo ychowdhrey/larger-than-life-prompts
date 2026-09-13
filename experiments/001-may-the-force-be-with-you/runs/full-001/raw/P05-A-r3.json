@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-A-r3",
+  "run_id": "full-001",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 3,
+  "execution_index": 160,
+  "sample_seed": 13067079170388211233,
+  "prompt_sha256": "c8e8a520a7b5e2e2e70d17c2529e4d6c3999200f4c682e5cfe841d6ba4262d74",
+  "prompt_chars": 772,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy to New Billing System\n\n## Overview\nBoth billing systems will run in parallel throughout the migration, allowing safe rollback at any point. Users are migrated in batches by percentage of the total 40,000-user base, with each phase gated by explicit entry criteria and monitored against defined health metrics.\n\n## Phase 1: Pilot (2% of users, ~800 accounts)\n**Entry criterion:** New billing system has passed end-to-end integration testing in staging (invoicing, payment capture, refunds, tax calculation, dunning) with zero critical defects open, and a rollback procedure has been tested successfully at least once.\n\n- Select low-complexity, low-revenue-risk internal or opt-in beta accounts.\n- Run dual-write/dual-read reconciliation between old and new systems daily.\n- Support team briefed and on standby; dedicated Slack/incident channel opened.\n- Duration: minimum 2 weeks or 2 full billing cycles, whichever is longer.\n\n## Phase 2: Early Majority (20% of users, ~8,000 accounts)\n**Entry criterion:** Phase 1 completed its minimum duration with invoice accuracy ≥99.9%, no unresolved Sev1/Sev2 incidents, and reconciliation discrepancies fully explained and closed.\n\n- Expand to a representative cross-section of customer segments (plan types, geographies, payment methods).\n- Automate reconciliation reporting (previously manual in Phase 1).\n- Introduce customer-facing communication (email notice) 7 days before each batch cutover.\n- Duration: minimum 3 weeks, migrated in weekly sub-batches (e.g., ~2,700/week).\n\n## Phase 3: General Availability (58% of users, ~23,200 accounts)\n**Entry criterion:** Phase 2 sustained error rate below the halt threshold (see Metrics) for its full duration, support ticket volume attributable to billing migration is trending flat or down, and finance has signed off on revenue reconciliation for Phases 1–2.\n\n- Migrate remaining users in scheduled daily/weekly batches sized to support team capacity.\n- Maintain dual-system operation; do not begin any decommissioning activity for the old system during this phase.\n- Final batch within this phase is explicitly treated as \"last migration wave\" — old system remains fully operational post-cutover for a mandatory parallel-run/observation period before any decommission planning begins (as a separate, later phase, not part of Phase 3).\n\n## Metrics and Halt Condition\n- **Halt the rollout immediately if the failed-payment/transaction-error rate for migrated users exceeds 0.5% in any rolling 24-hour window**, or if invoice discrepancy rate (new vs. old system) exceeds 0.1% of transactions in a batch. Any halt triggers automatic pause of further batches and root-cause review before resuming.\n\n## Risks\n\nRISK: Payment processor tokenization mismatch causes failed charges for migrated users | Pre-validate token migration in staging with processor sandbox and reconcile a sample of tokens before each batch | Payments Engineering Lead\nRISK: Duplicate or missed invoices during dual-system operation | Implement idempotency keys and automated daily reconciliation jobs comparing both systems' ledgers | Billing Platform Team\nRISK: Customer confusion or support overload from visible billing changes (new invoice format, portal changes) | Send proactive email/in-app notices before migration and staff support queue with extra capacity during each batch window | Customer Support Manager\nRISK: Data migration errors (incorrect proration, tax, or currency values) for edge-case accounts | Run automated validation rules and manual spot-checks on a statistically significant sample per batch before finalizing | QA/Data Integrity Lead\nRISK: Regulatory/compliance exposure from incorrect tax handling in new system | Engage compliance/legal review of tax logic before Phase 1 and audit sample invoices each phase | Compliance Officer\n\nPHASES: 3",
+  "response_sha256": "5fb74871728f05106b8285bb351a9637ec01e39bf5d0987434d70566e1d397a2",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2580,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1365,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2580,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1365,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2580,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2580
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.029119199999999998,
+    "duration_ms": 20704,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:01:02+00:00",
+  "finished_at": "2026-09-13T03:01:23+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

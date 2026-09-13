@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-C-r3",
+  "run_id": "full-001",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 3,
+  "execution_index": 161,
+  "sample_seed": 12071495261292048516,
+  "prompt_sha256": "79cff96f44d6f9cd954253e416a38bfe3c4654fdc1dd5fe05f3f3e81f3a62ec4",
+  "prompt_chars": 625,
+  "response": "A content delivery network is a system of computer servers spread across many locations, all storing copies of the same website content so people can load pages faster no matter where they are. Every website originally lives on one main computer called the origin server, which holds the real, complete version of all its files. Sending every single visitor's request all the way to that one origin server would be slow, especially for people far away. So copies of the content get stored on servers closer to visitors, called edge locations, positioned in cities around the world. When a request arrives, the nearest edge location checks whether it already has a saved copy; if it does, that's called a cache hit, and the content gets delivered instantly without ever bothering the origin server. Think of it like a chain of neighborhood libraries that each keep copies of popular books, so nobody has to travel to the one national archive every time they want to read something. This setup reduces waiting time, prevents overload during traffic spikes, and keeps things running even if one server has trouble, since another nearby one can step in.\n\n| Term | Plain meaning | Why it matters |\n|------|---------------|-----------------|\n| Origin server | The original computer holding the real website files | It's the ultimate source of truth for all content |\n| Edge location | A nearby server storing copies of that content | It shortens the distance data must travel |\n| Cache hit | A successful delivery from a stored copy | It means faster loading and less strain on the origin |\n| Latency | The delay before content starts appearing | Lower delay creates a smoother, faster experience |",
+  "response_sha256": "546eed654bb22a1ca019fae7ec579b33e10f23260fee17970cfdb3f3d3281c4b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28266,
+    "output_tokens": 473,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 473,
+        "cache_read_input_tokens": 28266,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0103872,
+    "duration_ms": 9369,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:01:03+00:00",
+  "finished_at": "2026-09-13T03:01:14+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

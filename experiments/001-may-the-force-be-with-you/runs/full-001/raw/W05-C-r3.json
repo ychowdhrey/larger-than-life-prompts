@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-C-r3",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 3,
+  "execution_index": 135,
+  "sample_seed": 11826749395379790170,
+  "prompt_sha256": "70748f0914ad343b25d23cc2648a8f9a089c0b1a8b0b6cee22aa37da68dc6c51",
+  "prompt_chars": 713,
+  "response": "## The problem\n\nOur team of twelve currently ships from long-lived feature branches that often survive for two to three weeks before merging. In that time, each branch drifts further from main, and integration turns into a guessing game about whose changes will collide. Merge days routinely eat half a sprint, code review happens too late to change design decisions cheaply, and a growing share of our incident postmortems trace back to a merge that looked clean but broke behavior no one tested together. We are effectively paying an integration tax on every release, and that tax is compounding as headcount grows.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: everyone commits small, frequent changes directly to main (or through branches that live less than a day), gated by feature flags for anything unfinished. Concretely:\n\n- Adopt a feature-flag system so incomplete work can merge to main without being user-visible.\n- Require CI to pass on every commit to main, with a fast (under 10 minute) test suite.\n- Set a team norm of merging at least once per day per active workstream.\n- Pair or mob on riskier changes instead of isolating them on a branch.\n- Run a 30-day pilot with two sub-teams before rolling out to everyone.\n\nThis shortens feedback loops, surfaces conflicts while they're still small, and makes release day a non-event.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development assumes a test and CI infrastructure mature enough to catch regressions within minutes, and ours is currently slow and flaky in places. If we flip the switch before fixing that, we'll just relocate our integration pain from merge day to every single day, and trust in main will erode fast. I take this seriously — it's the reason the proposal includes a pilot and explicit investment in CI speed and reliability before wider rollout, not a company-wide mandate on day one. There's also a real risk that feature flags proliferate into unmanaged technical debt if we don't retire them, and that engineers accustomed to isolated branches will need real coaching, not just a policy memo, to work comfortably in shared code daily.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "97c0682c0a6bfc376f7cfd3fc93e0006e5b2a1c2cf8bafe66c29296459a879fb",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28290,
+    "output_tokens": 682,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 682,
+        "cache_read_input_tokens": 28290,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012482,
+    "duration_ms": 12135,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:59:18+00:00",
+  "finished_at": "2026-09-13T02:59:31+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

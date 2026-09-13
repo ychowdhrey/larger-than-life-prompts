@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-A-r1",
+  "run_id": "full-001",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 1,
+  "execution_index": 128,
+  "sample_seed": 3346503031803651052,
+  "prompt_sha256": "d02fa5679b2e87511918cb4511437d803fbca4fd54b74f71bcc4bdefbc534950",
+  "prompt_chars": 699,
+  "response": "# Incident Response Runbook: Production Database Disk Exhaustion / Write Latency Degradation\n\n**Trigger condition:** Primary production database at ≥98% disk utilization with write latency ~3x baseline over the trailing 20 minutes.\n\n---\n\n## DETECTION\n\n1. Confirm the alert against at least two independent sources before treating this as active (e.g., infrastructure monitoring/disk metrics AND database-level latency/error metrics). Do not act on a single flapping metric.\n2. Verify current disk utilization on the primary's data volume(s) and confirm the trend (climbing, plateaued, or already at ceiling).\n3. Confirm write latency figures (p50/p95/p99) over the last 20–30 minutes and compare to the prior 24-hour baseline to validate the \"tripled\" claim.\n4. Check for correlated signals: replication lag to standby/replicas, WAL/redo log growth rate, active long-running transactions, autovacuum/compaction status, and any recent deploys, schema migrations, or batch jobs that started in the same window.\n5. Declare the incident, open an incident channel/ticket, and assign an Incident Commander (IC) and a Scribe to log timestamped actions. All subsequent steps are logged with timestamps.\n6. Notify on-call DBA and the owning service team.\n\n---\n\n## IMMEDIATE ACTIONS\n\n7. **Take a storage snapshot of the primary database volume before performing any action that could modify, delete, or risk data on that volume.** This snapshot is mandatory and blocking — no destructive, corrective, or state-changing action (including restart, failover, log truncation, or file deletion) proceeds until the snapshot is confirmed complete and verified (check snapshot status = \"completed\", not just \"initiated\").\n8. While the snapshot is in progress, gather read-only diagnostics that do not touch disk state materially:\n   - Identify top space consumers (largest tables/indexes, temp files, orphaned WAL segments, bloat).\n   - Identify top write-latency contributors (lock waits, disk I/O saturation, checkpoint/flush storms).\n   - Capture current connection count and query list for the incident record.\n9. Put the service into a degraded-but-safe posture if available and non-destructive: enable/verify write-rate limiting or backpressure at the application/load-balancer tier, pause non-critical batch/ETL jobs, and pause non-essential background writers (e.g., analytics ingestion) — these are safe to do in parallel with the snapshot since they don't touch the DB's stored data.\n10. **Do not restart the database process. Do not initiate failover to a replica. Do not delete any files.** These are explicitly deferred until step 7's snapshot is confirmed complete (see MITIGATION for when they become permissible).\n\n---\n\n## MITIGATION\n\n11. Once the snapshot is confirmed complete and verified, proceed with space-recovery and latency-recovery actions, ordered from lowest to highest risk:\n    a. Reclaim disk space via safe, well-understood mechanisms first: rotate/archive completed WAL or transaction logs that are already backed up elsewhere, clear confirmed-stale temp files, and drop only objects explicitly confirmed as safe-to-remove (e.g., verified-obsolete tables/indexes) with sign-off from the service owner.\n    b. If space reclamation is insufficient, expand the volume (online disk resize) if the platform supports it without downtime — this is preferred over deletion-based approaches.\n    c. If neither reclaims sufficient headroom and latency continues to degrade service-level objectives, only now consider a controlled failover to a healthy, low-latency, fully-replicated standby. Before failing over: confirm replication lag is at or near zero and the replica's own disk utilization is healthy (<80%). Failing over to a lagged or similarly space-constrained replica is prohibited.\n    d. Only after the above are exhausted or judged insufficient does a controlled restart of the primary (e.g., to clear connection/lock buildup) become permissible, and only with the snapshot from step 7 already verified complete beforehand.\n12. **Abort/rollback condition:** If, after taking the snapshot and reclaiming space or resizing the volume, disk utilization does not drop below 90% within 15 minutes OR write latency does not begin trending back toward baseline within 10 minutes of the mitigation action, stop the current mitigation path, do not proceed to the next-higher-risk action (e.g., do not proceed to failover or restart), and escalate immediately to the senior DBA/on-call engineering lead for a joint decision. Any mitigation step that causes replication lag to spike, error rates to increase, or a second, unrelated failure signal to appear must be immediately reversed (e.g., re-enable dropped objects from snapshot/backup, resume paused jobs only if safe) before any further action is taken.\n13. Continuously monitor disk utilization, write latency, replication lag, and error rates throughout mitigation; log each action and its measured effect in the incident timeline.\n\n---\n\n## FOLLOW UP\n\n14. Once disk utilization is stable below a safe threshold (e.g., <75%) and write latency has returned to baseline for a sustained period (e.g., 30 minutes), declare the incident mitigated and resume any paused batch/background jobs incrementally, monitoring for regression.\n15. Retain the snapshot from step 7 for a defined minimum retention period per data-retention policy before deletion, in case root-cause analysis requires it.\n16. Conduct a blameless post-incident review within 5 business days covering: root cause of disk growth, why alerting/capacity planning didn't catch the trend earlier, effectiveness of this runbook, and whether the abort condition in step 12 was triggered and why.\n17. File follow-up tickets for: automated disk-capacity alerting at earlier thresholds (e.g., 80%/90%), capacity forecasting, WAL/log retention policy review, and any schema or query changes identified as latency contributors.\n18. Update this runbook with any gaps identified during the incident (timing thresholds, tooling gaps, missing diagnostics).\n\nSECTIONS: 4",
+  "response_sha256": "df6427e5822b116e7c7941d06de9b456379f9d627c39682906d233fb091a23c0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28291,
+    "output_tokens": 2054,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2054,
+        "cache_read_input_tokens": 28291,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026202200000000002,
+    "duration_ms": 27305,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:59:05+00:00",
+  "finished_at": "2026-09-13T02:59:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

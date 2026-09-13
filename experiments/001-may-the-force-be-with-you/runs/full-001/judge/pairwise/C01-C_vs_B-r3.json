@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-C_vs_B-r3",
+  "contrast_id": "C_vs_B",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "B",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both responses correctly identify the same five core defects (mutable default, IndexError, ZeroDivisionError, in-place mutation of scores, and deduplication under-filling result), but Response B additionally and correctly notes that a caller-supplied seen list is also mutated in place via aliasing—a real, distinct defect that Response A misses—making B more complete without sacrificing accuracy.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:26:34+00:00"
+}

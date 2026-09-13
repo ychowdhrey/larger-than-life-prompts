@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-C_vs_D-r2",
+  "contrast_id": "C_vs_D",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "D",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the LEFT JOIN/WHERE bug, the UTC/local timezone mismatch, integer division truncation, and NULL total_spent for zero-order customers, but B also catches two additional real defects A misses: NULLs sorting as the largest value under ORDER BY ... DESC (pushing zero-order customers to the top) and the non-standard GROUP BY that omits c.name/c.signup_date, which fails under strict SQL modes. B's optional note on the missing upper date bound is clearly caveated as conditional rather than asserted as a definite defect, so it doesn't violate the 'don't report absent problems' instruction while still giving useful context.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:31:07+00:00"
+}

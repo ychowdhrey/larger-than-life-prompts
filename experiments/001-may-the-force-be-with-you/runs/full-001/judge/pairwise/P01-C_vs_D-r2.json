@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_D-r2",
+  "contrast_id": "C_vs_D",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "D",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response B sequences things more soundly: it verifies data integrity and runs a smoke test before reopening the app to users, and dedicates a full step exclusively to the rollback procedure (including replaying transactions captured during the attempted cutover), whereas Response A conflates the rollback procedure with the go-live decision and updates DNS/connection strings before completing verification, which is slightly less clean ordering.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:33:10+00:00"
+}

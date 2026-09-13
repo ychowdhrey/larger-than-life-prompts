@@ -1,0 +1,22 @@
+{
+  "item_id": "d1b6b307aa5a3f51",
+  "sample_id": "P02-A-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "A",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, gates all destructive/space-reclamation actions and any restart/failover behind a confirmed snapshot, includes a clear and concrete abort/rollback condition, and ends with the correctly formatted SECTIONS line while also addressing realistic subtleties like replica lag, WAL retention, and compaction space needs.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:14:03+00:00"
+}

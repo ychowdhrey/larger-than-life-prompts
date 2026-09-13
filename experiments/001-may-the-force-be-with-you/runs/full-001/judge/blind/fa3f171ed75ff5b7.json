@@ -1,0 +1,22 @@
+{
+  "item_id": "fa3f171ed75ff5b7",
+  "sample_id": "P02-C-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "C",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a mandatory storage snapshot before any risky action, explicitly forbids restart/failover before the snapshot completes, and includes two clearly labeled abort/rollback conditions with concrete triggers. It is operationally detailed and actionable, addressing non-obvious issues like WAL truncation safety and replica lag before failover, with correct SECTIONS: 4 formatting at the end.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:14:08+00:00"
+}

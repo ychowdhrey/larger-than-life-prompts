@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-A-r1",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 1,
+  "execution_index": 70,
+  "sample_seed": 11538801109091144851,
+  "prompt_sha256": "a111ab385a58ee4c9d9b09d3ebf66c4f201a45f68c187de2d1510ad4237226f3",
+  "prompt_chars": 685,
+  "response": "## The problem\n\nOur team of twelve now maintains feature branches that routinely live for two to three weeks before merging. By the time a branch is ready, it has diverged so far from main that integration becomes its own project. Two symptoms make this urgent:\n\n- Merge conflicts have become a weekly occurrence, often touching files three or four people have independently modified\n- Our last two releases slipped by four and six days respectively, almost entirely due to integration pain discovered only at the end of a cycle, not feature complexity\n\nRelease week has effectively become \"merge week,\" where several engineers spend days untangling divergent history instead of shipping.\n\n## The proposal\n\nI propose we move to trunk-based development: engineers commit directly to main, or through branches lasting under a day, gated by feature flags and a strengthened CI pipeline. Concretely:\n\n- Adopt feature flags so incomplete work can be merged safely and toggled off before it's ready for users\n- Require CI (build, lint, tests) to pass before any merge, with a firm rule that a broken main gets fixed before new work continues\n\nThis shrinks the gap between writing code and integrating it, surfaces conflicts while they're still small, and lets us answer \"is main releasable\" at any moment rather than only at the end of a cycle.\n\n## What could go wrong\n\nThe strongest objection is real: without long-lived branches, half-finished features become visible in main, and a careless flag or an incomplete migration could expose broken functionality to teammates or users relying on a stable trunk. This isn't a strawman — it's precisely why teams reach for long branches in the first place, and any honest proposal has to sit with it rather than wave it away. Mitigating it demands discipline we don't fully have yet: consistent flagging, smaller pull requests, and a culture of fixing a red build immediately instead of working around it. I believe that discipline is achievable given our team's size and CI maturity, but it represents genuine short-term overhead, not a free lunch, and we should expect a rocky first few weeks.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "8855574e0228973b3c483ca3bdd1a9f7f96f2c655d424b6cbb5b7513a7926b93",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28281,
+    "output_tokens": 1630,
+    "output_tokens_details": {
+      "thinking_tokens": 971
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1630,
+        "cache_read_input_tokens": 28281,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0219602,
+    "duration_ms": 19181,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:55:32+00:00",
+  "finished_at": "2026-09-13T02:55:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-A-r1",
+  "run_id": "full-001",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 1,
+  "execution_index": 61,
+  "sample_seed": 16482860950505355744,
+  "prompt_sha256": "8089cc52136149aaf3746caa0a30a0a28611b73de88c74774b49c8123ea07a52",
+  "prompt_chars": 971,
+  "response": "## Paragraph 1 — Webinar attendance and retention\n\n**Defect A: Correlation treated as causation.**\nThe memo observes that webinar attendees retain 31% better, then asserts \"webinars therefore cause higher retention.\" Attendance wasn't randomized — customers chose whether to show up. Motivation, engagement, company size, or urgency of need for the product plausibly drive *both* webinar attendance and retention. This is a textbook confound, not evidence of a causal mechanism.\n*Consequence:* Making attendance mandatory may not reproduce the effect at all — you'd be forcing a behavior onto customers who wouldn't have opted in, and the retention advantage may belong to the self-selecting trait, not the webinar itself. The company could spend real operational effort on mandatory onboarding and see no retention gain.\n\n**Defect B: Survivorship bias in the sample.**\nThe population is defined as \"customers still active on the Pro plan today\" — i.e., everyone who already churned has been excluded before the comparison is even made. Measuring a \"retention\" effect only among people who are, by construction, still retained is circular and can distort the estimated size (or even direction) of the webinar effect, since the churned customers who would be most informative about *why* people leave are missing from the analysis.\n*Consequence:* The 31% figure may not reflect the true relationship between webinars and churn at all — it describes a sub-population selected on the outcome.\n\n## Paragraph 2 — Region and churn\n\n**Defect C: Multiple comparisons / data dredging.**\nEighteen attributes were tested against churn, and one (Central region) came back at p = 0.04, which is then treated as a validated finding. Running 18 independent tests at α = 0.05 gives roughly a 60% chance that *at least one* comes back \"significant\" purely by chance, and no correction (Bonferroni, FDR, etc.) is mentioned. A p = 0.04 result cherry-picked out of 18 attempts is weak evidence at best.\n*Consequence:* The \"Central region churns less\" finding is quite likely noise. Redirecting quarterly spend based on it risks wasting the budget on a pattern that won't replicate next quarter.\n\n**Defect D: Even if real, the finding doesn't support the recommendation.**\nRegion correlating with lower churn doesn't mean success spend is what's driving it (could be industry mix, account size, contract type, etc.), and doesn't imply that *more* spend there would help further. If anything, a region that already churns less has less headroom for improvement than a high-churn region would — so \"concentrate spend where churn is already low\" is a non sequitur even taking the statistic at face value.\n*Consequence:* Spend gets allocated toward the customers least likely to need intervention, while regions with real churn problems go unaddressed.\n\n## Paragraph 3 — Satisfaction increase\n\n**Defect E: No test of whether the change is distinguishable from noise.**\n62% → 66% is reported as a real, meaningful shift with no sample size, confidence interval, or significance test given. A 4-point movement in a satisfaction survey between quarters can easily fall within ordinary sampling variation.\n*Consequence:* The company may be reacting to random fluctuation as if it were a genuine trend.\n\n**Defect F: Post hoc causal attribution.**\nEven granting that the rise is real, attributing it specifically to \"the new support model\" ignores every other thing that changed that quarter (seasonality, pricing, product updates, macro conditions) and there's no control group or baseline comparison isolating the support model's contribution. This is a classic post-hoc-ergo-propter-hoc inference.\n*Consequence:* Resources may keep flowing into a support model that isn't actually responsible for the improvement, while the actual driver goes unidentified and unexploited.\n\n**Minor labeling note:** \"4% improvement\" for a 62%→66% move conflates percentage points with percent change (the relative increase is actually ~6.5%). Not a numerical error, but it's worth stating precisely since it affects how large the claimed effect sounds.",
+  "response_sha256": "5fec870cadaec8c03b1b4e20494df563ce900c34098a9175bf9a10fa7989994a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2632,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 4714,
+    "output_tokens_details": {
+      "thinking_tokens": 3376
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2632,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4714,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2632,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2632
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0628172,
+    "duration_ms": 54421,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:54:45+00:00",
+  "finished_at": "2026-09-13T02:55:40+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

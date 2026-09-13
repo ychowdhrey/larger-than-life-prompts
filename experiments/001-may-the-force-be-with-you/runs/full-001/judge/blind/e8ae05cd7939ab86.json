@@ -1,0 +1,22 @@
+{
+  "item_id": "e8ae05cd7939ab86",
+  "sample_id": "P02-D-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "D",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, mandates a verified snapshot before any expansion/cleanup/restart/failover, explicitly forbids restart or failover before the snapshot completes, includes both an abort condition and a rollback condition, and ends with the correct SECTIONS line, while also addressing realistic operational nuances like replica lag checks and verification steps.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:14:14+00:00"
+}

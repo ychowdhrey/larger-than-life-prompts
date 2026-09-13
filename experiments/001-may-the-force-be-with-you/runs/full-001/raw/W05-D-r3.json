@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-D-r3",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 3,
+  "execution_index": 148,
+  "sample_seed": 10435175986056518872,
+  "prompt_sha256": "14067dae325c643d814f9d9e1ac82a805e1feef3a8ecdea7036b110e853ee8d0",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur team of twelve engineers has drifted toward long-lived feature branches that often survive two to three weeks before merging. Integration has become the riskiest part of our process instead of the safest. Merge conflicts now regularly consume half a day or more per developer, and several recent incidents traced back to code that behaved differently in isolation than it did once combined with other in-flight work. We are effectively testing integration only at the very end of a cycle, exactly when we can least afford surprises. The costs show up in three concrete ways:\n\n- Release delays: our last four releases slipped by an average of three days due to last-minute merge conflicts and integration bugs.\n- Review quality: reviewers face enormous diffs after weeks of divergence, so they skim instead of scrutinizing.\n- Duplicate work: two engineers each spent a week solving overlapping problems on separate branches last quarter.\n\n## The proposal\n\nI propose we adopt trunk-based development: everyone commits small, reviewed changes directly to main at least daily, protected by feature flags for anything not ready for users. This shortens feedback loops, keeps CI meaningful, and turns integration into a non-event rather than a project milestone.\n\n- Rollout: introduce a lightweight feature-flag system, tighten CI to run on every commit to main, and set a team norm that branches live no longer than one working day.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands more discipline around testing and flagging, not less, and if we skip that groundwork we risk breaking main constantly or shipping half-finished features behind flags nobody remembers to remove. This isn't hypothetical — teams that switch without investing in automated test coverage first often report more production incidents in the following months, not fewer. That risk deserves a real answer, not reassurance. Our mitigation is to sequence the change: two sprints hardening CI and building a flag-cleanup process before the new workflow becomes mandatory, plus a rollback plan if incident rates rise instead of fall. We should also expect a short-term dip in perceived velocity as people adjust to smaller, more frequent commits; that is a fair trade for fewer catastrophic integration days.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "4bf5fa7a954c5f1ebaa0a482ec3d25e8b2f3e12925a110d7fae5362bc9ded4ce",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28297,
+    "output_tokens": 1598,
+    "output_tokens_details": {
+      "thinking_tokens": 877
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1598,
+        "cache_read_input_tokens": 28297,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0216434,
+    "duration_ms": 20073,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:00:20+00:00",
+  "finished_at": "2026-09-13T03:00:41+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

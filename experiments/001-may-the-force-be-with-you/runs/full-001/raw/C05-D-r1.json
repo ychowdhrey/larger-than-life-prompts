@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-D-r1",
+  "run_id": "full-001",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 1,
+  "execution_index": 144,
+  "sample_seed": 9445234739767777071,
+  "prompt_sha256": "a1255dd9583f4d3801b87c79639a10e8996901887f49ab1fba221e1185753ee4",
+  "prompt_chars": 865,
+  "response": "## Defects found\n\n**1. Implementation violates R1 at the boundary (total == 100)**\nThe code uses `if total > 100:` instead of `if total >= 100:`. R1 states a total of \"100 or more\" gets the 10% discount, but `discount(100)` falls through to the `else` and returns `0.0` instead of `10.0`. This is a genuine off-by-one bug, not just a style nit — an order of exactly 100 is wrongly charged full price.\n\n**2. `test_cap` asserts the wrong expected value, contradicting R2**\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\nFor `total=1000`, the raw discount is `1000 * 0.10 = 100.0`, and R2 requires the discount be capped at 50.00, so the correct expected result is `50.0`. The implementation actually returns `50.0` (verified: `1000 * 0.10` rounds to exactly `100.0` in double precision, then `min(100.0, 50.0) = 50.0`). So this test does not merely fail to validate the cap — it asserts a value that directly violates R2 and **will fail when run** against the given (already-buggy) implementation. As written, this test is simply wrong; if it somehow passed, that would itself indicate the cap wasn't being enforced.\n\n**3. No test covers the R1 boundary (total == 100)**\nNone of the three tests exercise `total == 100`. This is exactly the value where the implementation's `>` vs `>=` bug (defect #1) manifests, so the test suite has a coverage gap that lets the boundary bug slip through undetected.\n\n## Not defects (checked and ruled out)\n- The cap logic itself (`min(d, 50.0)`) is correctly implemented for R2 in general.\n- `test_small` (`discount(50) == 0.0`) correctly validates R3.\n- `test_large` (`discount(200) == 20.0`): despite the `==` comparison on floats, `200 * 0.10` rounds to exactly `20.0` in IEEE-754 double precision, so this assertion is not flaky and correctly reflects R1's non-capped case.",
+  "response_sha256": "41dbddbd641262f2233a47c8f477d7b629494010e0fb4ff2932865f577848ea9",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28359,
+    "output_tokens": 5799,
+    "output_tokens_details": {
+      "thinking_tokens": 5098
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5799,
+        "cache_read_input_tokens": 28359,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0636658,
+    "duration_ms": 58549,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:59:56+00:00",
+  "finished_at": "2026-09-13T03:00:56+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

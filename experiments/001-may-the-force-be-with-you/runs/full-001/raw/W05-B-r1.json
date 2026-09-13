@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-B-r1",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 1,
+  "execution_index": 174,
+  "sample_seed": 8821395587637577906,
+  "prompt_sha256": "1ab164ccf11830b61447e9fb1c51e23e81c80eceadee9c82603b2acd49b3af00",
+  "prompt_chars": 711,
+  "response": "## The problem\n\nOur team of twelve is spending more time managing merges than shipping features. Feature branches routinely live for two to three weeks, and by the time they're ready to merge, they've drifted so far from main that integration itself becomes a multi-day project. Last month alone we lost an estimated four engineer-days to a single conflict-resolution effort on the payments refactor. Beyond the wasted hours, this pattern hides risk: bugs surface only at merge time, when they're hardest to isolate and blame is hardest to assign. We're also duplicating effort — two developers this quarter independently touched the same auth logic on separate branches without knowing it. The longer branches live, the more our codebase behaves like twelve separate projects instead of one.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: all engineers commit small, frequent changes directly to main (or through short-lived branches merged within a day), guarded by feature flags for anything incomplete. This isn't a radical experiment — it's the norm at most high-performing engineering organizations, and it directly targets our integration pain. Practically, it requires:\n\n- Feature flags for any change that can't ship complete in under a day\n- CI checks strict enough that a broken main is rare and fixed within minutes\n- A short training session on flag hygiene and small-batch commits before rollout\n\n## What could go wrong\n\nThe strongest objection is real: without careful discipline, trunk-based development can turn main into a dumping ground of half-finished, flag-guarded code that's harder to reason about than clean feature branches ever were. If we don't invest in flag cleanup and enforce small commit sizes, we risk trading merge-day chaos for permanent, low-grade complexity — a worse outcome in some ways, because it never resolves. I take this seriously; it's the reason our rollout plan includes flag audits and CI gates, not just a policy change. If those guardrails don't materialize, we should be honest that the migration has failed and reconsider.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "79ab03c372c46886d93462ec4559611c20685a17b7f1e261ac60777cb24183b6",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28292,
+    "output_tokens": 652,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 652,
+        "cache_read_input_tokens": 28292,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0121824,
+    "duration_ms": 11729,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:01:46+00:00",
+  "finished_at": "2026-09-13T03:01:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

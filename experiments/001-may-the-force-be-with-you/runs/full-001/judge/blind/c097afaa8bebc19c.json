@@ -1,0 +1,22 @@
+{
+  "item_id": "c097afaa8bebc19c",
+  "sample_id": "C01-C-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "C",
+  "repetition": 1,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "The response correctly identifies the mutable default argument, in-place sort mutation, limit-overflow IndexError, and the value-based dedup under-delivery bug, but its ZeroDivisionError claim is imprecise: calling top_scores([]) with the default limit actually raises IndexError first, so the stated trigger for that defect doesn't hold as described, indicating incomplete tracing of interacting failure modes.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:10:04+00:00"
+}

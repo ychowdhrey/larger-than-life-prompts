@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-A-r3",
+  "run_id": "full-001",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 3,
+  "execution_index": 146,
+  "sample_seed": 13350824490532834381,
+  "prompt_sha256": "8089cc52136149aaf3746caa0a30a0a28611b73de88c74774b49c8123ea07a52",
+  "prompt_chars": 971,
+  "response": "## Defect list\n\n**Paragraph 1 — Webinar attendance and retention**\n\n1. **Survivorship bias in the sample.** The analysis starts from \"412 customers who are still active on the Pro plan today\" — i.e., it conditions on retention before measuring retention. Churned customers are excluded entirely, so any comparison of \"retention\" within a filtered pool that already excludes non-retained customers is on shaky ground: it can't recover what fraction of webinar-attenders vs. non-attenders churned, only something about the surviving pool. This can distort or invert the true churn-webinar relationship and makes the 31% figure hard to trust as a churn/retention rate at all.\n\n2. **Correlation treated as causation.** Webinar attendance is not randomly assigned — customers self-select into attending. More engaged, more invested, or healthier-fit customers are plausibly both more likely to attend a webinar *and* more likely to stay, regardless of the webinar's content. This confound (or even reverse causation — satisfied/committed customers seek out webinars) is not ruled out, so \"webinars therefore cause higher retention\" does not follow from an observed association. **Effect:** could justify spending on a lever (mandatory webinars) that does nothing for retention, while the real driver (engagement/fit) goes unaddressed.\n\n3. **Extrapolation from voluntary to mandatory participation.** Even if attendance were genuinely causal for the customers who chose to attend, that effect was produced under self-selection. Forcing *all* new customers to attend (including ones who would never have opted in) is a different intervention on a different population, and there's no evidence the effect transfers. **Effect:** the mandatory-attendance policy may fail to reproduce the observed 31% gap, wasting the investment.\n\n**Paragraph 2 — Region and churn**\n\n4. **Multiple-comparisons / data-dredging problem.** Eighteen attributes were tested against churn and one came back significant at p = 0.04. With 18 independent tests at α = 0.05, the expected number of false positives is close to 1, and the chance of at least one spurious \"significant\" result by chance alone is roughly 1 − 0.95¹⁸ ≈ 60%. No correction (Bonferroni, FDR, etc.) is mentioned, and picking out the one hit after the fact is exactly the pattern multiple-testing correction exists to guard against. **Effect:** the Central-region effect is quite likely noise, and reallocating budget on this basis risks spending against a pattern that won't replicate next quarter.\n\n5. **Same correlation-vs-causation gap as above, applied to region.** \"Churn less\" is an association; nothing establishes *why* Central churns less (could be industry mix, account size, tenure, a confound correlated with region) or that spending more there would improve — or wouldn't just be redundant with — an already-low-churn segment. **Effect:** money is directed by an unexplained association rather than a mechanism, so it may not move churn at all.\n\n**Paragraph 3 — Satisfaction score**\n\n6. **Percentage points conflated with percent change.** 62% → 66% is a 4-percentage-point increase, not a \"4% improvement\" — the relative increase is actually about 6.5% (4/62). This is a labeling/units error that can mislead readers about the size of the effect (and compounds if anyone re-derives further percentages from the misstated \"4%\").\n\n7. **No indication the change is statistically distinguishable from normal quarter-to-quarter variation.** No sample size, confidence interval, or significance test is given for the satisfaction shift. A 4-point move on a survey metric can easily fall within ordinary noise; without that check, \"rose\" hasn't been shown to be a real change at all.\n\n8. **Post hoc causal attribution with no control group or ruled-out confounds.** The rise is attributed to \"the new support model\" solely because the model was introduced and the number went up in the same quarter (a classic post hoc ergo propter hoc pattern). No comparison group, no accounting for other concurrent changes (seasonality, pricing, product changes, macro factors), and no mechanism tying the support model to the specific respondents whose satisfaction moved. **Effect:** credit (and future investment) may be assigned to an intervention that had nothing to do with the change, while the actual cause goes unidentified.",
+  "response_sha256": "701fd7cc56a602966b76f75d4c1ab825e83e54e756ebeef5f40e3bf628dd1aef",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28358,
+    "output_tokens": 3126,
+    "output_tokens_details": {
+      "thinking_tokens": 1705
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3126,
+        "cache_read_input_tokens": 28358,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.03693559999999999,
+    "duration_ms": 38569,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:00:13+00:00",
+  "finished_at": "2026-09-13T03:00:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

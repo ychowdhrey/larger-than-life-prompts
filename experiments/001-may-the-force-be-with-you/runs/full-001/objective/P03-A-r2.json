@@ -1,0 +1,71 @@
+{
+  "sample_id": "P03-A-r2",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "A",
+  "repetition": 2,
+  "response_sha256": "5b67a1997c0178aa06de8b6bd55d69c2b56148b3bcc80ce6f123046a357491ce",
+  "objective": {
+    "max_points": 12.0,
+    "earned_points": 12.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "last_day_line",
+        "label": "LAST DAY line present",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched LAST\\s*DAY\\s*:\\s*\\d+",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "schedule_lines",
+        "label": "Emits schedule lines in the required format",
+        "type": "count_matches",
+        "points": 2.0,
+        "passed": true,
+        "detail": "found 14 (allowed 1..None)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "schedule_valid",
+        "label": "Schedule satisfies durations, dependencies, capacity and the 10 day limit",
+        "type": "schedule_valid",
+        "points": 9.0,
+        "passed": true,
+        "detail": "feasible schedule, last day 10",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 658,
+    "response_words": 146,
+    "coverage": 0.8,
+    "coverage_hits": 4,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T03:08:57+00:00",
+  "evaluation_version": "2.0.0"
+}

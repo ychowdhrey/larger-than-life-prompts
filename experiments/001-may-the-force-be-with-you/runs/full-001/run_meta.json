@@ -1,0 +1,97 @@
+{
+  "run_id": "full-001",
+  "mode": "full",
+  "experiment_id": "001",
+  "phrase": "May the Force be with you.",
+  "prepared_at": "2026-09-13T02:50:40+00:00",
+  "seed": 20260912,
+  "generation": {
+    "backend": "claude_cli",
+    "model": "claude-sonnet-5",
+    "timeout_seconds": 600,
+    "retries": 3,
+    "resolved": {
+      "backend": "claude_cli",
+      "model": "claude-sonnet-5",
+      "argv_template": [
+        "claude",
+        "-p",
+        "<PROMPT>",
+        "--model",
+        "claude-sonnet-5",
+        "--system-prompt",
+        "<SYSTEM>",
+        "--output-format",
+        "json",
+        "--no-session-persistence",
+        "--strict-mcp-config",
+        "--disable-slash-commands",
+        "--restricted"
+      ],
+      "cwd": "/root",
+      "fresh_context": "one OS process per generation",
+      "temperature": "provider default, not exposed by the CLI",
+      "seed": "not exposed by the CLI"
+    }
+  },
+  "judging": {
+    "backend": "claude_cli",
+    "model": "claude-sonnet-5",
+    "timeout_seconds": 600,
+    "retries": 3
+  },
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  },
+  "system_prompt_generation": "You are completing a written task. Respond to the task directly. Do not ask clarifying questions and do not describe what you are about to do.",
+  "system_prompt_judging": "You are an impartial evaluator. Follow the instructions exactly and return only the JSON object requested.",
+  "tasks": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "W01",
+    "W02",
+    "W03",
+    "W04",
+    "W05"
+  ],
+  "conditions": [
+    {
+      "id": "A",
+      "name": "control",
+      "suffix": ""
+    },
+    {
+      "id": "B",
+      "name": "generic_encouragement",
+      "suffix": "Good luck. Do your best."
+    },
+    {
+      "id": "C",
+      "name": "larger_than_life",
+      "suffix": "May the Force be with you."
+    },
+    {
+      "id": "D",
+      "name": "explicit_effort",
+      "suffix": "Be especially thorough and check your work carefully."
+    }
+  ],
+  "python": "3.11.15",
+  "config_file": "experiments/001-may-the-force-be-with-you/config/full.json"
+}

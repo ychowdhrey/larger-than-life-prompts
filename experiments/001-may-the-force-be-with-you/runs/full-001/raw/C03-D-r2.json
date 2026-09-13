@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-D-r2",
+  "run_id": "full-001",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 2,
+  "execution_index": 112,
+  "sample_seed": 2336430385071253362,
+  "prompt_sha256": "1c092ad73f2e28adb9e21ac7653c229b0a7e51b479450fa91dc4873203c1bbae",
+  "prompt_chars": 1026,
+  "response": "Here is a defect-by-defect assessment, organized by the three claims in the memo.\n\n## 1. Webinar attendance → retention\n\n**Defect: Correlation treated as causation (self-selection confound).**\nWebinar attendance was not randomly assigned — customers chose whether to attend. Customers who proactively attend an onboarding webinar are plausibly more engaged, better-resourced, or more invested in the product to begin with, and any of those traits could independently drive higher retention. The memo's claim that \"webinars therefore cause higher retention\" is not supported by an observational comparison like this. **Effect:** could justify spending on a mandatory-attendance program that doesn't actually move retention, because the real driver was pre-existing customer engagement, not the webinar itself.\n\n**Defect: Extrapolating a voluntary-attendee effect to a mandatory policy.**\nEven if some of the association were causal, it was measured among customers who *chose* to attend. Making attendance mandatory for all new customers changes the population and the mechanism (compliance vs. genuine motivation) and could easily produce a smaller, zero, or even negative effect (e.g., irritating customers with a forced session). This is a distinct error from simple confounding — it's an external-validity leap from \"voluntary attendees retain better\" to \"forcing everyone to attend will replicate that gain.\"\n\n**Defect: Sample restricted to customers \"still active … today\" (survivorship bias / ill-defined outcome).**\nThe 412-customer base is already conditioned on being retained (still active). Computing a \"retention\" comparison inside a sample that has been filtered down to survivors is internally confusing — it either excludes churned customers who would be essential to a genuine retention comparison, or it isn't clear what outcome is actually varying within an all-active sample. Either way, conditioning the sample on the outcome (survival) risks distorting the measured relationship between webinar attendance and retention. **Effect:** the 31% figure may not represent what a true attendee-vs-non-attendee churn/retention comparison would show.\n\n**Defect: No uncertainty reported for the 31% figure.**\nNo subgroup sizes, confidence interval, or p-value is given for this comparison (contrast with the region claim, which at least reports p=0.04). Without this, there's no way to know whether 31% reflects a robust pattern or noise from a small/unbalanced subgroup. **Effect:** risk of building a company-wide mandatory policy on a difference that isn't statistically distinguishable from chance.\n\n## 2. Central region and churn\n\n**Defect: Multiple-comparisons problem (implicit p-hacking).**\nEighteen attributes were tested against churn, and the one that happened to cross p<0.05 was singled out. With 18 independent tests at α=0.05, the expected number of false positives by chance alone is ~0.9, and the probability of at least one test showing p<0.05 purely by chance is roughly 1−0.95¹⁸ ≈ 60%. A p-value of 0.04 does not survive even a simple Bonferroni correction (threshold ≈ 0.05/18 ≈ 0.0028). **Effect:** treating this as a real, actionable finding without correction or out-of-sample validation risks reallocating quarterly spend based on what is likely a statistical fluke.\n\n**Defect: Region treated as a causal lever rather than a proxy.**\nEven taking the finding at face value, \"region\" is an observational grouping, not a randomized treatment — it likely proxies for other factors (industry mix, account size/tenure, which reps or support resources happen to cover that region, etc.). Concentrating spend \"on the Central region\" assumes that spend directed at the region will act on whatever is actually driving the lower churn, which hasn't been established. **Effect:** the recommended spend may fail to reproduce the observed churn advantage, because it targets a label rather than the underlying cause.\n\n**Defect: No effect size reported.**\nOnly a p-value is given, not the magnitude of the churn difference. Statistical significance is not the same as practical significance — a \"significant\" but tiny difference wouldn't justify shifting a quarter's budget. **Effect:** decision-makers can't judge whether the finding is big enough to matter even if it were causally real.\n\n## 3. Satisfaction rose from 62% to 66%\n\n**Defect: Uncontrolled pre/post comparison attributed to a single cause.**\nThis is a single before-after measurement with no control group and no ruling out of other explanations — seasonal effects, other concurrent initiatives, changes in who responded to the survey, or simple regression to the mean. Attributing the entire change specifically to \"the new support model\" is a causal claim the design cannot support. **Effect:** could lead to over-crediting (or continued investment in) a program that had little or nothing to do with the actual change.\n\n**Defect: No test of whether the change is distinguishable from noise.**\nNo sample size, response rate, or confidence interval is given for either the 62% or 66% figure. A 4-point quarter-over-quarter swing in a satisfaction metric can easily fall within normal sampling variation. **Effect:** the memo may be reacting to noise as if it were a real, sustained improvement.\n\n**Defect: Percentage-point vs. percentage ambiguity.**\nCalling a 62%→66% move a \"4% improvement\" blurs percentage points with relative percent change (the actual relative increase is ~6.5%, not 4%). The same ambiguity appears in the \"31% higher retention\" figure, where it's unclear whether that's an absolute or relative difference. **Effect:** readers could misjudge the true magnitude of either result.",
+  "response_sha256": "4b3d82e009a7fe82f92bc9d44cae9db6a53b3f10db4e40a598d7d0a750cefd2f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28374,
+    "output_tokens": 6157,
+    "output_tokens_details": {
+      "thinking_tokens": 4307
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 6157,
+        "cache_read_input_tokens": 28374,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0672488,
+    "duration_ms": 70827,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:58:02+00:00",
+  "finished_at": "2026-09-13T02:59:14+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

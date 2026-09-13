@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-C-r2",
+  "run_id": "full-001",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 2,
+  "execution_index": 196,
+  "sample_seed": 17744973675985543940,
+  "prompt_sha256": "bfecefd1ed4e48b15227fd5a99e5fc36b35b1db530f2150266ce882f4fa66e4f",
+  "prompt_chars": 800,
+  "response": "# Billing System Migration Rollout Plan\n## 40,000 Users — Dual-Run Migration (Old + New Systems Coexisting)\n\n## Overview\n\nThis plan migrates 40,000 users from the legacy billing system to the new billing system in three phases, with both systems running in parallel throughout to allow safe rollback at any point. The old system remains fully operational (read/write capable) until well after the final user batch has been migrated and validated.\n\n---\n\n## Phase 1: Canary (5% of users — 2,000 users)\n\n**Entry criterion:** New billing system has passed end-to-end integration testing in staging, including invoice generation, payment capture, proration, and refund flows; dual-write reconciliation job is deployed and verified to correctly diff records between old and new systems on a test dataset.\n\n**Cohort selection:** Internal employee accounts, opted-in beta users, and low-value/low-risk accounts (e.g., accounts with no active subscriptions or minimal MRR). Explicitly exclude enterprise/high-ARPU accounts and accounts with custom contract terms.\n\n**Duration:** Minimum 7 days of stable operation before proceeding.\n\n**Activities:**\n- Migrate account and payment method data via one-way sync.\n- Enable dual-write (old system remains source of truth) for 48 hours before cutting billing-of-record to new system for this cohort.\n- Daily reconciliation reports comparing invoices, charges, and balances between systems.\n- Support team briefed and on standby with an expedited escalation path for this cohort.\n\n---\n\n## Phase 2: Expansion (35% of users — 14,000 users, cumulative 40%)\n\n**Entry criterion:** Phase 1 cohort shows zero critical billing discrepancies (defined as any diff affecting charge amount, currency, or duplicate charge) for 5 consecutive days; support ticket volume from Phase 1 cohort is within 1.5x of baseline ticket rate; rollback procedure has been dry-run successfully at least once in a staging environment.\n\n**Cohort selection:** Randomized sample stratified across plan types, geographies, and payment methods (cards, ACH, wallets) to surface edge cases before full rollout. Continue excluding highest-tier enterprise accounts.\n\n**Duration:** Migrate in weekly waves of ~3,500 users rather than a single batch, with a 48-hour bake period between waves before starting the next.\n\n**Activities:**\n- Same dual-write and reconciliation process as Phase 1, applied per wave.\n- Weekly review of financial reconciliation, dunning/retry success rates, and tax calculation accuracy.\n- Customer communications sent ahead of each wave for accounts with active payment retries or upcoming renewals.\n\n---\n\n## Phase 3: General Availability / Final Batch (60% of users — 24,000 users, cumulative 100%)\n\n**Entry criterion:** Phase 2 cumulative discrepancy rate is below 0.1% of migrated invoices; zero unresolved Sev-1/Sev-2 billing incidents open from Phases 1–2; finance has signed off on reconciliation accuracy for two consecutive billing cycles; support staffing plan confirmed for the full-volume cutover window.\n\n**Cohort selection:** All remaining users, including enterprise/high-ARPU and custom-contract accounts, migrated last given their complexity and blast radius.\n\n**Duration:** Migrated in at least two sub-waves (e.g., remaining SMB accounts, then enterprise accounts) rather than a single 24,000-user cutover, with a 72-hour bake period after each sub-wave.\n\n**Activities:**\n- Full dual-write and reconciliation continues per sub-wave.\n- Enterprise accounts get white-glove migration with dedicated account manager sign-off before and after migration.\n- Old system remains live, in read/write dual-run mode, for a minimum 60-day post-migration stabilization window after the last user is cut over — no deletion, disabling, or decommissioning of the old system occurs during this phase or this window. Decommissioning is scoped as a separate, subsequent phase gated on its own entry criteria (e.g., 60 days with zero discrepancies and full financial audit sign-off).\n\n---\n\n## Risks\n\nRISK: Duplicate or missing charges caused by both systems attempting to bill the same invoice during dual-run | Implement idempotency keys shared across both systems and a locking mechanism so only one system is billing-of-record per account at any time | Billing Platform Engineering Lead\nRISK: Payment method tokens (cards stored with old PSP vault) fail to migrate or re-tokenize correctly with the new processor | Run a pre-migration tokenization dry-run against a sandbox PSP account for every payment method type and manually verify a sample before each phase | Payments Integrations Engineer\nRISK: Tax and compliance calculations differ between old and new systems, causing under- or over-collection in certain jurisdictions | Run parallel tax calculations for 100% of transactions during Phases 1-2 and require tax/finance sign-off before expanding jurisdiction coverage | Finance Compliance Owner\nRISK: Customer support is overwhelmed by billing confusion during cutover waves, delaying resolution of real incidents | Stagger waves to match support capacity, pre-stage FAQ/macros, and add temporary on-call support headcount during each phase | Customer Support Manager\nRISK: Data migration script silently corrupts historical invoice/credit records, affecting future refunds or audits | Checksum and row-count validation of every migrated table against source, with a mandatory manual audit of a random 1% sample per wave | Data Migration Engineer\n\n---\n\n## Halt Criteria (Automatic Rollback Trigger)\n\nThe rollout must be **halted immediately** and the affected cohort reverted to old-system billing-of-record if any of the following occur:\n\n- **Billing discrepancy rate exceeds 0.5%** of invoices in any 24-hour window (charge amount mismatch, duplicate charge, or missing charge) for any actively-migrating cohort.\n- Payment failure rate for migrated accounts exceeds **150% of the pre-migration baseline** failure rate for 2 consecutive days.\n- Any single incident causes **more than $10,000** in erroneous customer charges.\n\n---\n\nPHASES: 3",
+  "response_sha256": "de81172730d15d800b27f1c57782f2dabbb88dc37d63e02f3162c55d49830a46",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28315,
+    "output_tokens": 2107,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2107,
+        "cache_read_input_tokens": 28315,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026737,
+    "duration_ms": 27283,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:03:00+00:00",
+  "finished_at": "2026-09-13T03:03:28+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

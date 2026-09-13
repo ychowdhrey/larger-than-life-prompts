@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-C_vs_A-r2",
+  "contrast_id": "C_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses find the same five defects and describe them accurately, but Response B's explanation of the deduplication flaw is more precise, correctly identifying the root cause as the loop never scanning past index `limit-1` to backfill a skipped duplicate, and it unifies this with the cross-call `seen` issue rather than treating them as unrelated. Response B also adds an accurate, useful observation that the mutable-default `seen` list grows unbounded across calls (a memory leak), a valid consequence Response A omits.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:30:22+00:00"
+}

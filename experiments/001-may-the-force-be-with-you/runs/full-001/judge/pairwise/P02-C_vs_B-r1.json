@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-C_vs_B-r1",
+  "contrast_id": "C_vs_B",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "B",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements equally, but Response A is more internally consistent on safety: it explicitly avoids logical/hot-backup tools that write extra data to the already near-full local disk, favoring storage-layer snapshots for that reason, whereas Response B's fallback of pg_start_backup/xtrabackup at 98% disk risks consuming the remaining headroom it's trying to preserve. Response A also cleanly labels and places its three abort/rollback conditions right after the relevant actions, making them easier to follow than Response B's single bundled condition tucked inside a MITIGATION list item.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:31:10+00:00"
+}

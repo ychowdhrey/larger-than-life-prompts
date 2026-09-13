@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-B-r3",
+  "run_id": "full-001",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 3,
+  "execution_index": 52,
+  "sample_seed": 1322051209705210788,
+  "prompt_sha256": "2034bfa8fa34829904ffc165a8b71b90cb21f82bfdd61e09d22e3ceb1f809972",
+  "prompt_chars": 623,
+  "response": "A content delivery network helps web pages and videos load faster by storing copies of that content in many places around the world, instead of keeping everything in one single location. Normally, every request for a website travels back to the origin server, which is the original computer where the website's files live. If that server is far away, loading feels slow. A content delivery network solves this by placing copies of the content on servers closer to people, called edge locations, since they sit at the \"edge\" of the network, nearer to homes and offices rather than in one distant data center. When a request arrives at a nearby edge location and the content is already stored there, that is called a cache hit, meaning the answer can be delivered immediately without contacting the original server at all. Think of it like a chain of neighborhood libraries that each keep popular books in stock, so readers do not have to travel to one central library across the country every time. Fewer long trips mean faster loading, less strain on the origin server, and a smoother experience even during busy periods. This system quietly supports much of the modern internet, from streaming shows to loading news sites.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The original computer storing a website's real files | It is the ultimate source, used when no nearby copy exists |\n| Edge location | A server placed close to where people actually are | It shortens the distance data must travel |\n| Cache hit | When requested content is already stored nearby | It means near-instant delivery, skipping a long trip |\n| Content delivery network | A worldwide network of edge locations working together | It keeps websites fast and reliable for a global audience |",
+  "response_sha256": "ab59e2ab15a8d46dfd959d76893d881ce9510db12fb3dd833ebe5ab05e830adc",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28268,
+    "output_tokens": 499,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 499,
+        "cache_read_input_tokens": 28268,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0106476,
+    "duration_ms": 8943,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:54:19+00:00",
+  "finished_at": "2026-09-13T02:54:29+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-B-r2",
+  "run_id": "full-001",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 158,
+  "sample_seed": 16388628686578485461,
+  "prompt_sha256": "314613bd3f93809026fdb45898e2c06537f9892b8583a8f8489c8a2f78557112",
+  "prompt_chars": 820,
+  "response": "Here are the defects in this query:\n\n**1. `LEFT JOIN` is defeated by the `WHERE` clause, dropping customers with no orders**\nThe `WHERE o.created_at >= '2026-01-01'` filter runs after the join and rejects any row where `o.created_at` is `NULL` (customers with no orders, or no orders in range). This silently turns the `LEFT JOIN` into an effective `INNER JOIN`, so customers with zero qualifying orders disappear entirely — directly violating the stated requirement that customers with no orders must still appear with a count of zero. The filter needs to be moved into the `ON` clause (or wrapped as `o.created_at IS NULL OR o.created_at >= ...`) so it only restricts which orders are joined, not which customers survive.\n\n**2. No upper bound on the date filter**\n`o.created_at >= '2026-01-01'` has no end date, so the report accumulates all orders from 2026-01-01 forward indefinitely rather than a bounded reporting period (e.g., \"2026\" or a specific month). If the intent is a fixed period, this will keep including future dates as time passes, making the report's scope drift rather than represent a fixed window. (If an open-ended \"since Jan 1\" report is actually intended, flag this as worth confirming rather than assuming — but as written it's inconsistent with a \"calendar day\" reporting notion.)\n\n**3. Timezone mismatch: UTC comparison against a UTC+8 calendar boundary**\n`created_at` is stored in UTC, but the literal `'2026-01-01'` is being compared directly with no timezone conversion. The team wants calendar-day boundaries in UTC+8, meaning their \"2026-01-01 00:00\" local starts at `2025-12-31 16:00 UTC`. As written, the filter cuts off at `2026-01-01 00:00 UTC`, which is `2026-01-01 08:00` local time — so the first 8 hours of local Jan 1st orders are excluded (and, symmetrically, any day-boundary grouping elsewhere would be off by 8 hours). This causes orders to be misclassified into the wrong local calendar day, and near a period boundary, orders can be dropped from or wrongly included in the report period.\n\n**4. `SUM(o.total_cents) / 100` uses integer division and loses/misrepresents fractional cents**\n`total_cents` is an integer number of cents. Depending on the database's type system, `INTEGER / 100` performs integer division, truncating the result to whole dollars (e.g., 12345 cents → 123, not 123.45) — silently corrupting the reported total. Even on systems that return a numeric/exact type here, the fix should explicitly cast (`SUM(o.total_cents) / 100.0`) to guarantee decimal division rather than relying on implicit behavior.\n\n**5. `SUM(o.total_cents)` returns `NULL` for customers with zero orders (once the join is fixed)**\nOnce defect #1 is fixed so no-order customers appear via the `LEFT JOIN`, `SUM()` over zero joined rows evaluates to `NULL`, not `0`. `total_spent` would show as `NULL` instead of `0` for those customers, which is likely not the intended zero-value display and could break downstream consumers expecting a number. Needs `COALESCE(SUM(o.total_cents), 0)`.\n\n**6. Non-aggregated column `c.name` (and `c.signup_date`) in `SELECT` with `GROUP BY c.customer_id`**\nThe query groups only by `c.customer_id` but selects `c.name` and `c.signup_date` without aggregating them or including them in the `GROUP BY`. On strict SQL engines (e.g., PostgreSQL, SQL Server, or MySQL in `ONLY_FULL_GROUP_BY` mode) this is a syntax/semantic error and the query will fail to run at all. On lenient engines (older MySQL) it will run but relies on undefined/implementation-specific behavior for which row's `name`/`signup_date` gets picked — technically safe here since they're functionally dependent on `customer_id`, but only if the engine recognizes that dependency; otherwise it's a portability risk and a potential outright failure.",
+  "response_sha256": "606b787d1224cc52bfe8c6490dc4ce34ea58e747718457187bb6888afa768045",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28385,
+    "output_tokens": 1406,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1406,
+        "cache_read_input_tokens": 28385,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.019741,
+    "duration_ms": 19211,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:00:58+00:00",
+  "finished_at": "2026-09-13T03:01:18+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-A-r1",
+  "run_id": "full-001",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 1,
+  "execution_index": 19,
+  "sample_seed": 13976595504764900116,
+  "prompt_sha256": "915e138b783096d50fa4e9ca6679decd6eb392226b316f12e29421fe4eb53b5f",
+  "prompt_chars": 569,
+  "response": "Here are the defects I found, each of which is real and independently verifiable from the code:\n\n**1. Mutable default argument (`seen=[]`)**\nThe default list is created exactly once, when the function is defined, not each time it's called. Any call that doesn't pass its own `seen` argument shares and mutates that same list via `seen.append(...)`. Consequence: state leaks across calls — a score returned as a \"top score\" in one call will be silently excluded from the result of a later, unrelated call simply because it was appended to the shared `seen` list previously. The list also grows without bound for the life of the program, which is a memory leak over many calls.\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\n`list.sort()` sorts the object in place rather than returning a new sorted list. Since `scores` is the caller's own list object, calling this function reorders it permanently as an observable side effect. Consequence: any code the caller has that relies on the original ordering of `scores` after calling `top_scores` will see corrupted/reordered data, which is a surprising and usually unwanted side effect for what looks like a query function.\n\n**3. No bounds check between `limit` and `len(scores)`**\nThe loop does `for i in range(0, limit): ... scores[i] ...` with no check that `limit <= len(scores)`. Consequence: if `limit` (default 5) exceeds the number of elements in `scores` (e.g., only 3 scores are passed), this raises an `IndexError` and crashes.\n\n**4. Crash on empty `scores`**\nIf `scores` is `[]`: with the default `limit=5`, the loop immediately hits `scores[0]` and raises `IndexError` (a special case of defect #3). If `limit` were 0, the loop would be skipped, but then `average = sum(scores) / len(scores)` divides by zero, raising `ZeroDivisionError`. Either way, an empty input crashes the function instead of returning something sensible like an empty result and `0`/`None` average.\n\n**5. Duplicate-value scores are incorrectly treated as \"already seen\"**\nThe de-duplication check `if scores[i] not in seen` compares by *value*, not by which entry/position it came from. If the top `limit` scores contain legitimate duplicates (e.g., two different players both scored 90), the second occurrence of that value is treated as a duplicate and dropped — and the loop does not look further into `scores` to find a replacement to fill the gap, since it only ever iterates `range(0, limit)`. Consequence: `result` can end up with fewer than `limit` entries even when `scores` has plenty of additional (distinct-position) values available, silently under-reporting the top scores.",
+  "response_sha256": "a5c8029e263bbd7d814d85efaebb5d5d95aadef57a3f05e272712a39e7db13e0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2524,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2513,
+    "output_tokens_details": {
+      "thinking_tokens": 1639
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2524,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2513,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2524,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2524
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0403752,
+    "duration_ms": 29010,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:51:50+00:00",
+  "finished_at": "2026-09-13T02:52:20+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

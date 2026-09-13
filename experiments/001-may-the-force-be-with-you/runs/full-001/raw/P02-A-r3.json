@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-A-r3",
+  "run_id": "full-001",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 3,
+  "execution_index": 127,
+  "sample_seed": 5234507532566111627,
+  "prompt_sha256": "d02fa5679b2e87511918cb4511437d803fbca4fd54b74f71bcc4bdefbc534950",
+  "prompt_chars": 699,
+  "response": "# Incident Response Runbook: Production Database — Critical Disk Utilisation & Write Latency Degradation\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 95% AND/OR write latency has increased ≥ 3x baseline within a 20-30 minute window.\n\n---\n\n## DETECTION\n\n1. Alert fires from monitoring (disk utilisation ≥ 95% threshold and/or write latency p95/p99 anomaly vs. 20-minute rolling baseline).\n2. On-call responder acknowledges the page within the defined SLA (e.g., 5 minutes).\n3. Confirm the alert is real, not a monitoring artifact:\n   - Check disk utilisation on the actual host/volume via infra dashboard or `df -h` / cloud provider storage metrics.\n   - Confirm write latency trend on the database's own query/latency dashboard (not just the load balancer).\n   - Rule out a duplicate/stale alert by checking alert history for the same host.\n4. Open an incident channel/ticket and declare severity (this scenario = SEV-1/SEV-2 given production write path risk).\n5. Identify current on-call DBA or database owner and page them if not already engaged.\n6. Record start time and initial metrics (disk %, latency numbers, growth rate) in the incident log — this baseline is needed later to judge whether mitigation worked.\n\n---\n\n## IMMEDIATE ACTIONS\n\n> **Do not restart, fail over, reboot, or restart the primary database at this stage. Do not run any destructive cleanup (deleting files, truncating tables, dropping logs) until a storage snapshot has completed successfully.**\n\n1. **Take a storage snapshot of the primary database volume first, before any other remediating action.**\n   - Trigger the snapshot via your cloud/storage provider (e.g., EBS snapshot, disk image, LVM snapshot) or your database's native snapshot/backup mechanism.\n   - Confirm the snapshot job has started and monitor it to completion. Log the snapshot ID/timestamp in the incident channel.\n   - If the snapshot cannot be initiated (e.g., insufficient space to create it, API failure), stop and escalate to the DBA/infra lead before proceeding — do not attempt manual file deletion or restarts as a substitute.\n2. While the snapshot is running, gather read-only diagnostic data (do not change state):\n   - Identify what is consuming disk: data growth, WAL/redo/binlog accumulation, temp files, orphaned replication slots, bloated tables/indexes, or a runaway job.\n   - Identify what is driving write latency: lock contention, long-running transactions, replication lag, checkpoint/flush storms, or the disk pressure itself.\n   - Check replica health and replication lag — a healthy replica is your safety net for later failover decisions.\n3. Notify stakeholders (engineering leadership, customer-facing teams) that a SEV incident is in progress and writes may be degraded; set expectations, do not yet promise a fix ETA.\n4. Once the snapshot is confirmed complete and verified (status = success, not just \"started\"), proceed to MITIGATION.\n\n**Abort/rollback condition:** If disk utilisation continues climbing past 99% or write failures (not just latency) begin occurring *before* the snapshot completes, do not wait for the snapshot to finish before engaging emergency capacity (e.g., provisioning additional disk/expanding the volume online) if your platform supports online expansion without a restart — but still do not restart or fail over. If the snapshot itself is stalled/failing and disk is about to hit 100%, escalate immediately to the most senior DBA/infra engineer available rather than improvising a fix; do not proceed to any destructive mitigation step without their sign-off.\n\n---\n\n## MITIGATION\n\nOnly proceed once the pre-action storage snapshot is confirmed successful.\n\n1. **Reclaim space (safest first):**\n   - Expand the volume/disk online if the platform supports it (preferred — no restart required).\n   - Clear identified safe-to-remove space: rotate/archive old WAL/binlog files that are already replicated and backed up, clear temp/scratch space, remove old local backups already copied off-host.\n   - Re-check disk utilisation after each step and log the delta.\n2. **Address write latency contributors:**\n   - Kill or pause identified long-running/blocking transactions or runaway batch jobs (confirm with the owning team first if possible).\n   - If replication lag is contributing to lock/IO pressure, address the lagging replica rather than the primary.\n3. **If space cannot be reclaimed and disk is still critical (>90%) after the above:**\n   - Only now consider a planned failover to a healthy, low-lag replica, or a controlled restart — and only after the storage snapshot has been taken and confirmed, and with DBA/incident commander sign-off.\n   - Before failover: verify replica data currency (lag near zero), verify replica has adequate disk headroom, and communicate the cutover window.\n4. Continuously monitor disk utilisation and write latency after each mitigation step against the DETECTION baseline to confirm improvement.\n\n**Abort/rollback condition:** If after failover the replica (now primary) shows the same or worse disk/latency symptoms, or data inconsistency/replication errors are observed post-cutover, halt further changes immediately, do not attempt a second failover back without DBA review, and restore from the pre-incident snapshot taken in IMMEDIATE ACTIONS rather than continuing to improvise on the live system.\n\n---\n\n## FOLLOW UP\n\n1. Confirm disk utilisation has returned below a safe threshold (e.g., <75%) and write latency has returned to baseline for a sustained period (e.g., 30+ minutes) before declaring the incident resolved.\n2. Verify the storage snapshot taken during the incident is retained and catalogued (not auto-expired) until root cause analysis is complete.\n3. Schedule and run a blameless post-incident review covering: root cause of disk growth, why the alert threshold/lead time was or wasn't sufficient, and whether autoscaling/alerting thresholds need adjustment.\n4. Action items to prevent recurrence: proactive disk autoscaling or alerting at lower thresholds (e.g., 80%), automated WAL/log rotation policies, capacity planning review, and validation that snapshot/backup tooling performed within acceptable time during the incident.\n5. Update this runbook with any gaps found during the incident (e.g., snapshot took longer than expected, missing automation for online volume expansion).\n6. Close out the incident ticket with full timeline, actions taken, and links to snapshot IDs and dashboards for audit purposes.\n\nSECTIONS: 4",
+  "response_sha256": "6ee59d04992febba3619722abced0acfe927c775caff76745022ab02e936580e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2565,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2248,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2565,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2248,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2565,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2565
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0378892,
+    "duration_ms": 28539,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:58:53+00:00",
+  "finished_at": "2026-09-13T02:59:23+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

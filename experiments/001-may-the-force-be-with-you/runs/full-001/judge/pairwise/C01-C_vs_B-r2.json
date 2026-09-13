@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-C_vs_B-r2",
+  "contrast_id": "C_vs_B",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the core defects (mutable default, in-place sort, index bound issue, empty-input crash, dedup backfill shortfall), but Response B correctly identifies the ZeroDivisionError case (limit=0 with empty scores) and even notes its interaction with the IndexError, a nuance Response A omits entirely. This makes B's defect list more complete and precise.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:25:44+00:00"
+}

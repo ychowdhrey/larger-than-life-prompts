@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-C_vs_D-r2",
+  "contrast_id": "C_vs_D",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both satisfy all hard requirements, but B is slightly more practically grounded: it adds a time-to-full growth-rate estimate to drive urgency triage, explicitly handles the edge case of a disk too full to even initiate a snapshot, and its abort/rollback condition is more coherent, tying a concrete recovery action (restore from the already-taken snapshot) to clearly defined trigger conditions. A's rollback logic is good but its abort condition is oddly placed inside MITIGATION despite describing a pre-snapshot scenario that section has already gated past.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:27:23+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-C_vs_A-r2",
+  "contrast_id": "C_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both fully satisfy the hard requirements, but Response B's abort/rollback condition is more concrete and actionable (a specific 10-minute no-improvement threshold plus a rule against stacking further mitigations without IC approval), and it more explicitly gates each destructive step (e.g., explicitly forbidding WAL/binlog/data-directory deletion until snapshot verification) rather than relying on a single blanket caveat as in Response A, which also contains a slightly overgeneralized claim that block-storage snapshots require free disk space to initiate.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:23:53+00:00"
+}

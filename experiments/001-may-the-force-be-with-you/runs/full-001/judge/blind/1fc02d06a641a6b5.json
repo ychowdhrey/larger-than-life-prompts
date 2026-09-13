@@ -1,0 +1,22 @@
+{
+  "item_id": "1fc02d06a641a6b5",
+  "sample_id": "C02-A-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "A",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (LEFT JOIN nullified by WHERE, UTC-vs-UTC+8 boundary math done correctly, integer division truncation, cascading NULL from SUM after the join fix, and resulting NULL sort-order issue), gives correct fixes for each, and explicitly verifies one non-issue (GROUP BY functional dependency) rather than falsely flagging it, matching the task's exclusion requirement.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:10:19+00:00"
+}

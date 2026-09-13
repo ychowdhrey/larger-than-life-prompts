@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-C_vs_B-r1",
+  "contrast_id": "C_vs_B",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "B",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both responses correctly identify the same three core defects (LEFT JOIN turned INNER by the WHERE clause, UTC vs UTC+8 boundary mismatch, and integer division truncation) with equally clear fixes, but Response A elevates the NULL-vs-zero SUM issue to a full defect and additionally notes its concrete impact on the query's own ORDER BY total_spent DESC clause (NULLS FIRST/LAST behavior), a real consequence tied directly to the given query that Response B never mentions.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:33:12+00:00"
+}

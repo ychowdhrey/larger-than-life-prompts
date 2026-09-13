@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-A-r1",
+  "run_id": "full-001",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 1,
+  "execution_index": 119,
+  "sample_seed": 5677858688818984290,
+  "prompt_sha256": "6f8bbc7d6e79df9e5daf90ab0f07a0b76ba532d1cde26d1d815906ff9f941053",
+  "prompt_chars": 810,
+  "response": "## Defects found\n\n**1. Implementation: boundary condition violates R1 (off‑by-one)**\nThe code uses `total > 100` instead of `total >= 100`. R1 states an order with a total **of 100 or more** gets the discount. With `total = 100`, the condition `100 > 100` is `False`, so the function falls through to `return 0.0`. This causes `discount(100)` to incorrectly return `0.0` instead of `10.0` (10% of 100). This is a direct violation of R1 at the boundary.\n\n(Note: this same `> 100` check happens to keep R3 satisfied — totals strictly below 100 correctly get 0 — so R3 itself is fine; it's specifically the \"100 or more\" boundary from R1 that's mishandled.)\n\n**2. Test: `test_cap` asserts an incorrect expected value**\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\nFor `total = 1000`, `d = 1000 * 0.10 = 100.0`, and `min(d, 50.0) = 50.0`. So the actual return value of `discount(1000)` is `50.0`, not `100.0`. This assertion is simply wrong and would **fail** when the test suite is run against the given implementation. It also directly encodes a value that violates R2 (discount never more than 50.00) — the test's expected value itself is inconsistent with the requirement it's supposed to verify.\n\n**3. Missing test coverage for the R1 boundary**\nNo test exercises `total == 100`. Given defect #1, this is exactly the case that needed a test (e.g., `assert discount(100) == 10.0`) to catch the off-by-one bug. Its absence means the suite does not actually verify R1 as stated (\"100 or more\"), only totals strictly greater than 100 (200) and strictly less (50).\n\n**4. No test correctly verifying the cap behavior (R2)**\n`test_cap` is the only test aimed at R2, but as noted in #2 its expected value is wrong. So there is effectively no passing/correct test confirming that discounts are capped at 50.00 (e.g., a correct version would assert `discount(1000) == 50.0`).\n\n## Not defects (checked, found correct)\n- `test_small` (`discount(50) == 0.0`) correctly reflects R3.\n- `test_large` (`discount(200) == 20.0`) correctly reflects R1 for a value clearly above 100, and is below the cap so R2 doesn't engage — this test passes and is correct.\n- The capping logic itself (`min(d, 50.0)`) is structurally correct for R2, aside from the test's wrong expected value.",
+  "response_sha256": "2760f22d0335a0da9b0a55a97c7e9226d08c0440abbd7ad25b6a6c0742a06f36",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28343,
+    "output_tokens": 2229,
+    "output_tokens_details": {
+      "thinking_tokens": 1360
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2229,
+        "cache_read_input_tokens": 28343,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0279626,
+    "duration_ms": 24431,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:58:22+00:00",
+  "finished_at": "2026-09-13T02:58:48+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

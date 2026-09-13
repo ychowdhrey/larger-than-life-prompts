@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-D-r1",
+  "run_id": "full-001",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 1,
+  "execution_index": 33,
+  "sample_seed": 1411604055025258535,
+  "prompt_sha256": "786dff57c036c0d0c3a6b4a702b1c05c15e6767088e18994b3ccf45aaa9f3105",
+  "prompt_chars": 827,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy Billing to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the old billing system (\"Legacy\") to the new billing system (\"Nova\") in controlled phases. Both systems will run in parallel (dual-write / shadow mode where applicable) for the duration of the rollout, giving each phase a safe fallback path. The old system is **not** decommissioned as part of this plan — decommissioning is explicitly deferred to a separate post-migration phase, at least one full billing cycle after the final batch completes, so that any billing disputes, refunds, or invoice corrections still have a system of record to reconcile against.\n\n---\n\n## Phase 0: Pre-Migration Readiness (0% of users migrated)\n\n**Purpose:** Validate infrastructure, tooling, and rollback mechanisms before any real user is touched.\n\n- **% of users:** 0% (internal/synthetic test accounts only, plus up to 50 opted-in internal employee accounts)\n- **Entry criterion:** New billing system (Nova) has passed a full parallel reconciliation test against Legacy using replayed production-shaped invoice data for 14 consecutive days with zero unexplained discrepancies; automated rollback tooling (reverting a migrated account back to Legacy as billing system of record) has been tested successfully on at least 20 synthetic accounts; on-call runbook and dashboards are published.\n\n---\n\n## Phase 1: Pilot Cohort (\"Canary\")\n\n- **% of users:** 1% (~400 users), selected from low-risk segments: month-to-month plans, no active disputes, no enterprise/custom contracts, opted into beta communications.\n- **Entry criterion:** Phase 0 exit criteria met and signed off by Billing Eng Lead and Finance; incident response rotation staffed for the duration of the pilot; customer support team briefed and provided with a migration-specific FAQ/playbook.\n- **Duration:** Minimum 2 full billing cycles (to observe at least two invoice/renewal events per migrated user) before proceeding.\n\n## Phase 2: Expanded Rollout (\"Early Majority\")\n\n- **% of users:** 15% cumulative (~6,000 users), expanding to include mid-tier plans and a limited number of annual-plan users, still excluding enterprise/custom-contract accounts.\n- **Entry criterion:** Phase 1 completed its full duration with zero Sev-1/Sev-2 billing incidents attributable to Nova; invoice-amount discrepancy rate stayed below the halt threshold (see Metrics below) throughout; support ticket volume related to billing did not increase more than 10% over Phase 1 baseline.\n\n## Phase 3: General Availability Migration (\"Majority Rollout\")\n\n- **% of users:** 60% cumulative (~24,000 users), opening migration to all remaining standard self-serve and mid-market accounts, still excluding highest-complexity enterprise contracts.\n- **Entry criterion:** Phase 2 exit metrics green for 2 consecutive weeks; finance month-end close using Nova-sourced data for migrated cohort reconciled successfully against Legacy for at least one full close cycle; data retention/compliance sign-off obtained for expanded PII/payment data volume in Nova.\n\n## Phase 4: Final Batch — Long Tail & Enterprise (\"Completion\")\n\n- **% of users:** 100% cumulative (remaining ~16,000 users, including enterprise/custom-contract accounts, dunning/at-risk accounts, and any accounts held back due to edge-case billing logic).\n- **Entry criterion:** Phase 3 exit metrics green for 2 consecutive weeks; each enterprise account has an individually reviewed migration runbook signed off by both Billing Eng and the named Customer Success/Account Manager; legal/contractual review confirms no custom contract terms are incompatible with Nova's billing logic.\n- **Important constraint:** Legacy system remains fully operational, unmodified, and undeleted during this phase and for a defined post-migration soak period afterward (minimum 90 days / one full quarterly billing cycle) before any decommissioning activity is even planned. Decommissioning of Legacy is explicitly out of scope for this rollout plan and will be tracked as a separate initiative with its own approval gate.\n\n---\n\n## Halt / Rollback Metrics\n\nThe rollout is **automatically paused** (no further accounts migrated to the next phase or cohort) if any of the following occur, and requires Billing Eng Lead + Finance sign-off to resume:\n\n- **Invoice discrepancy rate > 0.5%** of migrated accounts in any rolling 24-hour window (defined as invoiced amount on Nova differing from the Legacy-computed shadow invoice by more than $0.01 or 0.1%, whichever is greater).\n- Payment failure rate for migrated cohort exceeds baseline (Legacy) payment failure rate by more than **2 percentage points** in any 7-day window.\n- Billing-related support ticket volume for migrated users exceeds **3x** the pre-migration per-capita baseline in any 48-hour window.\n\n---\n\n## Risks\n\nRISK: Duplicate or double billing occurs when both Legacy and Nova attempt to charge the same customer during dual-run | Implement a single source-of-truth flag per account gating which system is authorized to initiate charges, enforced via a shared idempotency/lock service checked by both systems before charge execution | Billing Platform Eng Lead\nRISK: Proration and mid-cycle plan-change logic differs between Legacy and Nova, causing incorrect invoice amounts for migrated users | Run shadow-mode parallel invoice generation for every migrated account for at least one full cycle and automatically flag any diff above threshold for manual review before the invoice is sent | Billing Data/QA Lead\nRISK: Enterprise customers with custom contract terms (custom pricing, negotiated discounts, non-standard billing cycles) are migrated before Nova fully supports their contract logic, causing revenue leakage or contract breach | Require explicit per-account migration checklist and sign-off from Customer Success/Account Management before any enterprise account leaves Phase 3, with enterprise accounts held in Legacy until verified | VP Customer Success / Enterprise Billing Owner\nRISK: Rollback of a migrated account back to Legacy mid-cycle causes loss or duplication of billing history, confusing customers and finance reporting | Build and test a bidirectional sync/rollback tool in Phase 0 that preserves a full audit trail and reconciles partial-cycle charges before switching system of record back | Billing Platform Eng Lead\nRISK: Customer support is unprepared for billing questions from users mid-migration, leading to poor customer experience and escalations | Provide support team with migration cohort visibility (which system each account is on), a dedicated FAQ/playbook, and a fast-track escalation path to the billing migration on-call engineer | Head of Customer Support\n\nPHASES: 5",
+  "response_sha256": "4a556f76f88ff13a9c105ac058001f75bec6485f491020acd290b696a5f22cee",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2596,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2361,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2596,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2361,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2596,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2596
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.039143199999999996,
+    "duration_ms": 30318,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:53:06+00:00",
+  "finished_at": "2026-09-13T02:53:37+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

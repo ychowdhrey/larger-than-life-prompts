@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-D-r3",
+  "run_id": "full-001",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 3,
+  "execution_index": 213,
+  "sample_seed": 8910489311131288741,
+  "prompt_sha256": "2598761c9ac29941f33ea9e94e87efd4a7b7539a29ce9880e36deb8d9d07e074",
+  "prompt_chars": 624,
+  "response": "## Defects Found\n\n**1. Mutable default argument (`seen=[]`)**\nThe default list is created once, at function-definition time, and reused across every call that doesn't explicitly pass `seen`. Since the function calls `seen.append(...)`, each call mutates that same shared list.\n*Effect:* State leaks between unrelated calls. E.g. `top_scores([10,9,8,7,6])` followed by `top_scores([10,9,8,7,6])` again will silently drop 10, 9, 8, 7, 6 from the second call's `result` (treating them as \"already seen\"), even though the caller never asked for cross-call deduplication and passed no `seen` argument. This is the classic Python mutable-default-argument bug.\n\n**2. Deduplication logic drops values, so `result` can have fewer than `limit` entries even in one isolated call**\nThe `if scores[i] not in seen` check (and the resulting `seen.append`) silently discards a score if it's equal to a previously-collected one — including duplicates *within the same call's top-`limit` slice*, not just across calls.\n*Effect:* For example `top_scores([90,90,80,70,60], limit=5)` (with a fresh `seen`) yields `result = [90, 80, 70, 60]` — only 4 elements instead of the requested top 5 — and does not substitute the 6th-highest score to fill the gap. Any duplicate value among the top `limit` scores causes the function to under-deliver on its own `limit` parameter.\n\n**3. `IndexError` when `limit` exceeds the number of available scores**\n`for i in range(0, limit)` always iterates `limit` times regardless of `len(scores)`, and indexes `scores[i]` directly with no bounds check.\n*Effect:* Calling `top_scores([5, 3, 1])` with the default `limit=5` (or any `limit > len(scores)`) raises `IndexError: list index out of range` instead of just returning the 3 available scores.\n\n**4. `ZeroDivisionError` on empty input**\n`average = sum(scores) / len(scores)` divides by `len(scores)` unconditionally.\n*Effect:* Calling `top_scores([])` raises `ZeroDivisionError` (and would actually hit the `IndexError` from defect 3 first if `limit > 0`, or the division error if `limit == 0`). There is no handling for an empty `scores` list.\n\n**5. In-place sort mutates the caller's original list as a side effect**\n`scores.sort(reverse=True)` sorts the list object passed in by the caller, rather than sorting a copy (e.g. `sorted(scores, reverse=True)`).\n*Effect:* After calling `top_scores(my_list)`, the caller's `my_list` is silently reordered (descending) outside the function, which can break code elsewhere that relied on the original ordering — an unexpected and undocumented side effect.",
+  "response_sha256": "451b9bcd88868af0a129e12347f9f1610e775733fb12e12729fd717060205d5f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28266,
+    "output_tokens": 3282,
+    "output_tokens_details": {
+      "thinking_tokens": 2333
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3282,
+        "cache_read_input_tokens": 28266,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0384772,
+    "duration_ms": 36969,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:04:00+00:00",
+  "finished_at": "2026-09-13T03:04:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

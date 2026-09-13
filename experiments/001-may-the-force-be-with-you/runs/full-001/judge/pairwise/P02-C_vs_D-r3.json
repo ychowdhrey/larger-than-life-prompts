@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-C_vs_D-r3",
+  "contrast_id": "C_vs_D",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet the structural requirements, but Response B's IMMEDIATE ACTIONS section includes a carve-out allowing restart/failover if the disk hits 100% and the instance becomes unresponsive, without explicitly conditioning that even on the snapshot having completed — a conditional violation of the hard requirement that restart/failover never precede a snapshot. Response A's equivalent abort condition explicitly forbids restart even in the worst-case scenario, making its compliance with that hard constraint unambiguous while still being equally thorough on diagnostics, mitigation ordering, and rollback guidance.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:24:34+00:00"
+}

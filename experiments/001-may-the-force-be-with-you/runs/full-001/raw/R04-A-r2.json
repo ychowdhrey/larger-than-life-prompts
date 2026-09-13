@@ -1,0 +1,68 @@
+{
+  "sample_id": "R04-A-r2",
+  "run_id": "full-001",
+  "task_id": "R04",
+  "family": "reasoning",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 2,
+  "execution_index": 100,
+  "sample_seed": 6822871451688498327,
+  "prompt_sha256": "4b24b68a9c60ce504880c1aa4156c560611c0c838f3d95ac8cb4abf7c4faeddb",
+  "prompt_chars": 464,
+  "response": "Year 1: 10,000.00 × 1.12 = 11,200.00 − 90 = 11,110.00\nYear 2: 11,110.00 × 0.88 = 9,776.80 − 90 = 9,686.80\nYear 3: 9,686.80 × 1.05 = 10,171.14 − 90 = 10,081.14\n\nFINAL ANSWER: 10081.14",
+  "response_sha256": "1f99ef53aa77a9c8610562c58b6eeeba614f90e8a2a7c273d355574aa3532f75",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2504,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 205,
+    "output_tokens_details": {
+      "thinking_tokens": 74
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2504,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 205,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2504,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2504
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0172152,
+    "duration_ms": 3995,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:57:25+00:00",
+  "finished_at": "2026-09-13T02:57:30+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

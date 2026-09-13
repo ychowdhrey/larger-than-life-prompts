@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-A-r1",
+  "run_id": "full-001",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 1,
+  "execution_index": 163,
+  "sample_seed": 17150865342452195897,
+  "prompt_sha256": "dfcece13a2fa855e9ea0eb277d6adc8a393fb83233bdcdd0d5abd9e90eec712d",
+  "prompt_chars": 1203,
+  "response": "## Defects Found\n\n**1. Conflicting notice periods for Client-initiated termination (4.1 vs. 4.2)**\n4.1 states either party may terminate on 30 days' notice. 4.2 then requires the Client specifically to give \"not less than 45 days\" notice. These directly contradict each other for the case of Client-initiated termination — 4.1 says 30 days suffices, 4.2 says 30 days is not enough. Effect: it is unclear which notice period actually governs a Client termination, exposing both parties to disputes over whether a given notice was valid and, downstream, over when termination actually takes effect.\n\n**2. Undefined \"Effective Termination Date\" made ambiguous by the 4.1/4.2 conflict (4.4)**\n4.4 pegs the refund payment deadline to the \"Effective Termination Date,\" but this term is never defined in the extract, and because 4.1 and 4.2 disagree on the required notice period, it cannot be derived whether that date falls 30 or 45 days after notice. Effect: the 14-day refund payment clock has no fixed, calculable start point.\n\n**3. Gap in Table 4A's month bands — no rate for exactly 6 months remaining**\nThe bands run \"9 or more,\" \"7 to 8,\" \"3 to 5,\" and \"fewer than 3.\" A client with exactly 6 months remaining falls into no band at all. Effect: the refund rate for that case is undefined, making the schedule unusable for a real termination occurring at the 6-month mark.\n\n**4. Arithmetic error in the 40% row of Table 4A**\nThe row states a 40% refund rate but shows a refund of 3,600 on a 12,000 annual prepayment. 40% of 12,000 is 4,800, not 3,600 (3,600 corresponds to 30%, not 40%). Effect: the stated rate and the stated dollar figure are inconsistent, so it's unclear whether the Client is owed 3,600, 4,800, or some other amount — a direct calculation dispute.\n\n**5. \"Pro rata\" characterization inconsistent with the actual tiered schedule (4.3 vs. Table 4A)**\n4.3 promises a \"pro rata\" refund, which implies an amount proportional to time remaining, but Table 4A applies flat, discontinuous bands (e.g., 9 months and 12 months both yield 80%, while crossing from 9 to 8 months drops the rate a full 20 points). Effect: the schedule does not actually deliver what 4.3 describes, creating a mismatch a client could rely on to argue for a true proportional calculation instead of the banded one.",
+  "response_sha256": "043d29df601fbb41b9b9865e0ab89266981115582ec8692cf86baa23fce4075f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2790,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2564,
+    "output_tokens_details": {
+      "thinking_tokens": 1708
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2790,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2564,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2790,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2790
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0419492,
+    "duration_ms": 29329,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:01:18+00:00",
+  "finished_at": "2026-09-13T03:01:48+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

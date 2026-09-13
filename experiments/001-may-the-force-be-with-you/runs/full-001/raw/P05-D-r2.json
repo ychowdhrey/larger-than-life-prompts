@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-D-r2",
+  "run_id": "full-001",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 2,
+  "execution_index": 62,
+  "sample_seed": 16954659502122156392,
+  "prompt_sha256": "786dff57c036c0d0c3a6b4a702b1c05c15e6767088e18994b3ccf45aaa9f3105",
+  "prompt_chars": 827,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the old billing system (\"Legacy\") to the new billing system (\"Nova\") in three named phases, with both systems running in parallel (dual-run) throughout the migration window. No user is cut over without a rollback path, and Legacy remains fully operational — with no deletion, disabling, or decommissioning of any component — until well after the final batch of users has been migrated and independently verified.\n\n---\n\n## Phase Structure\n\n### Phase 1: Canary (2% of users, ~800 accounts)\n\n**Entry criterion:** Nova has passed a full end-to-end billing simulation in staging (invoicing, payment capture, refunds, proration, tax calculation) with zero critical defects; dual-write reconciliation tooling between Legacy and Nova is deployed and validated on synthetic data; rollback automation (single-command revert of a user's billing-system-of-record flag from Nova to Legacy) has been tested and confirmed to complete in under 5 minutes per account.\n\n**Population:** Internal employee accounts and opted-in low-ARPU (average revenue per user) test customers, selected to minimize customer-facing blast radius. Excludes any accounts with active disputes, enterprise contracts, or custom pricing.\n\n**Duration:** 1–2 weeks, with daily reconciliation checks between Legacy and Nova ledgers.\n\n**Exit criterion to advance:** Invoice accuracy ≥99.99% against Legacy shadow calculations; zero unresolved payment failures attributable to Nova; support ticket volume for migrated users within 1.5x of baseline.\n\n---\n\n### Phase 2: Expansion (25% of users, ~10,000 accounts)\n\n**Entry criterion:** Phase 1 exit criteria fully met and signed off by Billing Engineering and Finance; at least 7 consecutive days of stable dual-run reconciliation with no manual intervention required; on-call runbook for Nova incidents published and on-call team trained.\n\n**Population:** Broad, randomized sample across customer segments (plan tiers, geographies, payment methods) to surface edge cases (currency handling, tax jurisdictions, dunning workflows) before full-scale exposure. Enterprise and high-ARPU accounts are still excluded pending Phase 3 review.\n\n**Duration:** 2–3 weeks, with weekly checkpoint reviews.\n\n**Exit criterion to advance:** Payment success rate on Nova within 0.2 percentage points of Legacy baseline; reconciliation discrepancies fully explained and resolved within 24 hours of detection; no P1/P2 incidents open longer than 48 hours.\n\n---\n\n### Phase 3: General Availability / Full Migration (73% of users, ~29,200 accounts, including all remaining segments — enterprise and high-ARPU accounts included in the final batches)\n\n**Entry criterion:** Phase 2 exit criteria fully met; Finance has reconciled Nova revenue reporting against Legacy for at least one full billing cycle with no material variance; enterprise account managers have briefed affected customers on any visible changes (e.g., new invoice format) at least 2 weeks prior to their migration slot; dedicated incident response staffing scheduled for the migration window.\n\n**Population and sequencing:** Migrated in waves of ~5,000–8,000 accounts, ordered from lowest to highest contractual/revenue complexity, with enterprise and custom-contract accounts migrated last and individually validated.\n\n**Duration:** 4–6 weeks.\n\n**Exit criterion (end of migration, not decommissioning):** 100% of the 40,000 users are billing-system-of-record on Nova; all accounts pass a post-migration ledger reconciliation against their final Legacy state.\n\n> **Important boundary:** Completion of Phase 3 marks the end of *user migration* only. Legacy remains live, fully licensed, and untouched in a read-only/standby capacity for a defined post-migration observation period (minimum 90 days) to support audits, rollback of individual accounts if late-surfacing defects appear, and historical reporting. Decommissioning of Legacy is a **separate, subsequent phase** (Phase 4: Legacy Decommissioning), planned and executed only after the observation period closes with no material discrepancies — never within the same phase as the final migration batch.\n\n---\n\n## Rollback Strategy (applies across all phases)\n\nEach account carries a \"billing system of record\" flag. Dual-write keeps both systems' ledgers synchronized during the parallel-run window, so any account can be reverted to Legacy without data loss if Nova exhibits errors. Rollback is scoped per-account or per-wave, never requiring a full-program rollback unless a systemic defect is found.\n\n---\n\n## Key Metrics and Halt Condition\n\nStandard tracked metrics: invoice accuracy rate, payment success rate, reconciliation discrepancy count, support ticket volume, and P1/P2 incident count/duration.\n\n**Halt threshold:** If the payment failure rate for migrated (Nova) users exceeds **1.0% in any rolling 24-hour window** (compared to a Legacy baseline of ~0.3%), the rollout is automatically paused: no further accounts are migrated, and the on-call lead initiates a root-cause review before any subsequent wave proceeds. A secondary halt trigger applies if unresolved ledger reconciliation discrepancies exceed **50 accounts outstanding at any time**.\n\n---\n\n## Risks\n\nRISK: Dual-write reconciliation drift causes silent revenue leakage or duplicate charges | Automated hourly reconciliation jobs with alerting on any discrepancy, plus mandatory manual sign-off before each phase gate | Billing Engineering Lead\nRISK: Enterprise customers with custom contract terms are miscalculated by Nova's pricing engine | Migrate enterprise accounts last, in small individually-validated batches, with account manager and Finance sign-off per account | Finance Operations Manager\nRISK: Payment processor integration behaves differently under Nova, causing elevated decline rates | Run shadow transactions through Nova in parallel with Legacy before cutover, and monitor decline-rate metric against the 1.0% halt threshold | Payments Platform Engineer\nRISK: Customer confusion from changed invoice formatting or billing dates increases support load | Proactive customer communications 2 weeks before each migration wave and expanded support staffing during migration windows | Customer Support Manager\nRISK: Rollback automation fails under real production load during an incident | Load-test rollback procedure at Phase 2 scale before Phase 3 begins, and rehearse a live rollback drill on a canary batch | Site Reliability Engineering Lead\n\n---\n\nPHASES: 3",
+  "response_sha256": "fb92553f4127157f07d1c36bd56571b96b9d5777aa6bbfe51ccb998125184c4c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28322,
+    "output_tokens": 2287,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2287,
+        "cache_read_input_tokens": 28322,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.028538400000000002,
+    "duration_ms": 30385,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:54:50+00:00",
+  "finished_at": "2026-09-13T02:55:21+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}
