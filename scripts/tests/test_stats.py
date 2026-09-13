@@ -27,6 +27,42 @@ class TestKnownValues(unittest.TestCase):
             p = stats.paired_permutation_test([1.0] * n, seed=1)
             self.assertAlmostEqual(p, 2 / (2 ** n), places=12)
 
+    def test_tied_tasks_do_not_change_the_permutation_p_value(self):
+        """Dropping zeros from the enumeration is exact, not an approximation.
+
+        Flipping the sign of a zero cannot change a permuted sum, so each pattern over the
+        non-zero differences stands for 2^(n-k) masks and that factor cancels. The mean is
+        still divided by the full n, so padding with zeros DOES move the p value through
+        the observed mean - what must not change is the answer for a fixed vector.
+        """
+        for base in ([1.0, -1.0, 2.0], [0.5, 0.5, 0.5, -1.5], [1 / 3, -2 / 3, 1.0, 1.0]):
+            n = len(base)
+            # Reference: enumerate every one of the 2^n masks, zeros included.
+            observed = abs(sum(base) / n)
+            count = 0
+            for mask in range(1 << n):
+                s = sum(-v if (mask >> i) & 1 else v for i, v in enumerate(base))
+                if abs(s / n) >= observed - 1e-12:
+                    count += 1
+            self.assertEqual(stats.paired_permutation_test(base, seed=1), count / (1 << n))
+
+    def test_padding_with_zeros_is_handled_exactly(self):
+        # A vector and the same vector with tied tasks appended: the enumeration shrinks
+        # but the arithmetic must still be the full-n one.
+        d = [1.0, 1.0, -1.0]
+        padded = d + [0.0, 0.0, 0.0, 0.0]
+        n = len(padded)
+        observed = abs(sum(padded) / n)
+        count = 0
+        for mask in range(1 << n):
+            s = sum(-v if (mask >> i) & 1 else v for i, v in enumerate(padded))
+            if abs(s / n) >= observed - 1e-12:
+                count += 1
+        self.assertEqual(stats.paired_permutation_test(padded, seed=1), count / (1 << n))
+
+    def test_an_all_tied_vector_cannot_be_significant(self):
+        self.assertEqual(stats.paired_permutation_test([0.0] * 20, seed=1), 1.0)
+
     def test_permutation_symmetric_data_is_not_significant(self):
         self.assertGreater(stats.paired_permutation_test([1, -1, 1, -1, 1, -1], seed=1), 0.5)
 

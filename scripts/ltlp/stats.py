@@ -67,14 +67,27 @@ def paired_permutation_test(diffs: Sequence[float], *, seed: int,
         return None
     observed = abs(sum(d) / len(d))
     n = len(d)
-    if n <= 20:  # exact: 2^20 is a million, still fast enough
-        count, total = 0, 0
-        for mask in range(1 << n):
-            s = sum(-v if (mask >> i) & 1 else v for i, v in enumerate(d))
-            total += 1
+
+    # Only the tasks that discriminate need enumerating. Flipping the sign of a zero
+    # difference cannot change a permuted sum, so each sign pattern over the k non-zero
+    # differences stands for exactly 2^(n-k) masks, and that factor cancels out of the
+    # ratio. Dropping the zeros is therefore EXACT, not an approximation, and it returns
+    # bitwise-identical p values: adding 0.0 to a float leaves it unchanged, so the
+    # summation order that survives is the same one.
+    #
+    # This matters because the measure it is applied to is partly saturated. Experiment
+    # 001 found 12 to 15 of 20 tasks tied on the primary outcome, which turns 2^20 masks
+    # into 2^5 to 2^8. The mean is still divided by the full n; only the enumeration
+    # shrinks.
+    nonzero = [v for v in d if v]
+    k = len(nonzero)
+    if k <= 20:  # exact: 2^20 is a million, and usually far fewer
+        count = 0
+        for mask in range(1 << k):
+            s = sum(-v if (mask >> i) & 1 else v for i, v in enumerate(nonzero))
             if abs(s / n) >= observed - 1e-12:
                 count += 1
-        return count / total
+        return count / (1 << k)
     rng = random.Random(seed)
     count = 0
     for _ in range(draws):
