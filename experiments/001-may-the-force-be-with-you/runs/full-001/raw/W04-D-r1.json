@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-D-r1",
+  "run_id": "full-001",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 1,
+  "execution_index": 71,
+  "sample_seed": 2651387065810709884,
+  "prompt_sha256": "90f1ea7ece5bb6c6bc3867ecf528e8340a43d8fb660982e7094952262577ac19",
+  "prompt_chars": 652,
+  "response": "A content delivery network is a system of computers spread across many cities and countries that work together to deliver websites, videos, and images faster. Without one, every visitor to a website has to fetch everything from a single origin server — the main computer where the website's files are originally stored. If that server is far away, or if millions of people request the same page at once, loading becomes slow or the server can become overwhelmed.\n\nTo solve this, copies of popular files are stored on many smaller computers scattered around the world, called edge locations, because they sit at the \"edge\" of the network, closer to where people actually live and browse. When someone requests a page, the network checks whether a nearby edge location already has a saved copy. If it does, that's called a cache hit, and the file is delivered almost instantly from nearby, without ever bothering the distant origin server. If no copy exists yet, the request travels further to fetch the original file, and a copy is often saved locally for next time.\n\nThink of it like a chain of neighborhood libraries stocking popular books close to readers instead of everyone traveling to one central archive across the country. This approach reduces waiting time, spreads out the burden of traffic, and keeps websites running smoothly even during busy periods or sudden surges in popularity, because most requests are answered nearby rather than by one distant computer handling everyone at once.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The main computer that stores the original, master copy of a website's files | It is the ultimate source of truth, but relying on it alone for every request causes delays and overload |\n| Edge location | A smaller computer positioned near groups of people, holding copies of popular content | It shortens the distance data has to travel, making pages load much faster |\n| Cache hit | When a requested file is already saved at a nearby edge location | It means near-instant delivery without troubling the distant origin server |\n| Cache miss | When a requested file is not yet saved nearby and must be fetched from further away | It explains occasional slower loads and shows why copies get saved locally afterward |",
+  "response_sha256": "3fc818beeeba012f7fd6ee0a064688bf595ee3fe0ef2d7748101b6731a4fe10f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28273,
+    "output_tokens": 3424,
+    "output_tokens_details": {
+      "thinking_tokens": 2774
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3424,
+        "cache_read_input_tokens": 28273,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0398986,
+    "duration_ms": 29665,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:55:35+00:00",
+  "finished_at": "2026-09-13T02:56:05+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "7bff8d787182ae7c",
+  "sample_id": "P01-D-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "D",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 4,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all required elements (dry run, stakeholder comms, post-cutover verification, rollback, ≤12 steps, correct STEP COUNT line) and is realistic and actionable, though the pre-migration replication setup in step 2 touches the production database before the first full backup in step 3, slightly muddying the 'backup before any modifying step' requirement.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:13:58+00:00"
+}

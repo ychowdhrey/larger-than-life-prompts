@@ -1,0 +1,22 @@
+{
+  "item_id": "0bdbc3273b20b8f4",
+  "sample_id": "C02-D-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "D",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects cited (WHERE-clause nullifying the LEFT JOIN, UTC vs UTC+8 boundary mismatch, integer division truncation, missing COALESCE, and the resulting NULL sort behavior) are real and correctly diagnosed with accurate causes and fixes, and nothing false is claimed; it omits only a minor dialect-dependent GROUP BY concern.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:10:42+00:00"
+}

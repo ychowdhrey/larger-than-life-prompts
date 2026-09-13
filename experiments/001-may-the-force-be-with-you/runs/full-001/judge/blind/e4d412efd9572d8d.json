@@ -1,0 +1,22 @@
+{
+  "item_id": "e4d412efd9572d8d",
+  "sample_id": "R01-A-r3",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "A",
+  "repetition": 3,
+  "scores": {
+    "task_success": 1,
+    "thoroughness": 2,
+    "constraint_adherence": 4,
+    "error_checking": 1,
+    "depth": 2,
+    "usefulness": 1
+  },
+  "reason": "Departure converts correctly to 15:40 UTC on 3 March, but adding 13h25m actually gives 05:05 UTC on 4 March (28:40 then 05:05, one day forward), not 5 March as stated; the final answer is off by one day and thus wrong despite correct handling of the UK time-zone fact and proper output formatting.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:16:07+00:00"
+}

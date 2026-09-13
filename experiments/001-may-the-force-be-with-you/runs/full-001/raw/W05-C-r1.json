@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-C-r1",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 1,
+  "execution_index": 167,
+  "sample_seed": 8856596445449969251,
+  "prompt_sha256": "70748f0914ad343b25d23cc2648a8f9a089c0b1a8b0b6cee22aa37da68dc6c51",
+  "prompt_chars": 713,
+  "response": "## The problem\n\nOur team of twelve has drifted into long-lived feature branches that survive for weeks. Merges have become dreaded events: three engineers recently spent two full days resolving conflicts on the payments-refactor branch, and that pain repeats every sprint. Integration is happening too late to catch design mismatches before they're expensive to fix.\n\n## The proposal\n\n- Merge to main at least once a day, behind feature flags where work is incomplete\n- Keep branches alive for hours, not weeks, with small, reviewable commits\n- Run CI on every merge to main so breakage is caught within minutes, not weeks\n- Use feature flags to decouple \"deployed\" from \"released\" so incomplete work stays hidden safely\n- Pair or mob on riskier changes instead of isolating them on a branch for later integration\n\nThis shifts risk left: small, frequent integrations surface conflicts and design issues while they're still cheap to resolve.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands discipline we haven't consistently shown. Half-finished features behind flags can leak into production if flags aren't cleaned up, and \"commit small, commit often\" is easy to say but hard to sustain under deadline pressure. Teams that adopt trunk-based development without also adopting strong CI, code review speed, and flag hygiene often end up with a main branch that's broken more often, not less — trading merge-day pain for daily uncertainty. This is a legitimate risk, not a strawman, and it means we cannot flip the switch without also investing in faster CI feedback and a flag-lifecycle policy (an owner, an expiry date, and cleanup as part of \"done\").\n\nThere's also a learning-curve cost: engineers used to isolating work on branches will need a few sprints to get comfortable exposing incomplete code behind flags. That discomfort is temporary and worth working through.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "f730acf9bffc83834573c423f0ad644c11442ac6784778204f9e1ca10b3028b2",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28290,
+    "output_tokens": 622,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 622,
+        "cache_read_input_tokens": 28290,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.011882,
+    "duration_ms": 11335,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:01:23+00:00",
+  "finished_at": "2026-09-13T03:01:35+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

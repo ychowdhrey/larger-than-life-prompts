@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-C_vs_D-r1",
+  "contrast_id": "C_vs_D",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "D",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both cover the same five defects, but Response B's ZeroDivisionError example is wrong: calling top_scores([]) with the default limit=5 actually raises IndexError first (scores[0] on an empty list), not ZeroDivisionError as claimed. Response A correctly identifies this interaction, noting the ZeroDivisionError only surfaces independently when limit=0, making it the more accurate and rigorous analysis.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:22:58+00:00"
+}

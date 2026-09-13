@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_B-r1",
+  "contrast_id": "C_vs_B",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "B",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet the hard requirements, but Response B's plan is more technically feasible for a 2 TB database within a 2-hour window: it establishes continuous logical replication/CDC well before the maintenance window (step 4) so only a final delta sync is needed at cutover, whereas Response A defers the entire data migration to step 8 inside the window without an earlier bulk-load/replication setup step, making the 2-hour constraint harder to satisfy in practice.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:26:41+00:00"
+}

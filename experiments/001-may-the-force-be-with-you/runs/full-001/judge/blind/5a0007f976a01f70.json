@@ -1,0 +1,22 @@
+{
+  "item_id": "5a0007f976a01f70",
+  "sample_id": "C05-C-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "C",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the off-by-one boundary bug (> vs >=) in the implementation, correctly recomputes that discount(1000) should be 50.0 rather than the test's asserted 100.0, and notes the missing boundary-value test that would have caught the off-by-one bug, while correctly validating the other tests and capping logic as fine without inventing false defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:13:28+00:00"
+}

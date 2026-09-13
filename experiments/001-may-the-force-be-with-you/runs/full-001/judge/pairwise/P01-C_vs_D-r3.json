@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_D-r3",
+  "contrast_id": "C_vs_D",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Response B sequences verification before re-enabling writes on the new system (steps 6-9), avoiding a data-consistency gap; Response A instead switches connections and re-enables writes as part of cutover (step 8) before verification occurs (step 9), meaning a failed check could leave writes stranded on the new system with no reconciliation plan in its rollback step. B's rollback procedure also explicitly accounts for and handles that edge case (replaying post-cutover writes back to on-prem), making it the more technically sound and safer plan overall.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:24:02+00:00"
+}

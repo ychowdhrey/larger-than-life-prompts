@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-C_vs_B-r2",
+  "contrast_id": "C_vs_B",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements, but Response B is more operationally robust: it addresses the realistic edge case where the disk is too full to even initiate a snapshot, gives a more concrete abort/rollback condition (restore from the pre-incident snapshot with named escalation before restoring) that also triggers on data-integrity errors, and explicitly gates a later database restart on snapshot completion rather than leaving that ambiguous.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:27:19+00:00"
+}

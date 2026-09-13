@@ -1,0 +1,22 @@
+{
+  "item_id": "597e65b15201d1c1",
+  "sample_id": "C05-B-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "B",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one bug (>100 vs >=100), correctly computes that test_cap's expected value of 100.0 is wrong both against R2 and against the given implementation's actual output (50.0), and flags the missing boundary test at total=100, without inventing any false defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:13:26+00:00"
+}

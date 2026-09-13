@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-D-r1",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 1,
+  "execution_index": 60,
+  "sample_seed": 7203384125721725528,
+  "prompt_sha256": "14067dae325c643d814f9d9e1ac82a805e1feef3a8ecdea7036b110e853ee8d0",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur twelve engineers currently work on feature branches that often live for two to four weeks before merging. This costs us time and quality. Merge conflicts are routine, integration surprises surface late, and code review happens on enormous diffs that reviewers approve quickly because no one can realistically review thousands of lines carefully. Our last three releases slipped by several days because of chaotic merge weeks. We are deferring integration risk instead of eliminating it, and paying interest on that debt every sprint.\n\n## The proposal\n\nI propose we adopt trunk-based development: small, frequent commits directly to main, short-lived branches under a day, and feature flags gating anything incomplete. Concretely:\n\n- Adopt feature flags for all in-progress work so unfinished features can ship dark without breaking main.\n- Require CI to pass on every commit to main, fixing a red main before new work lands.\n- Cap branch lifetime at one working day, enforced with a lightweight automated reminder.\n- Shift code review to small, same-day pull requests averaging under two hundred lines.\n- Run a two-week pilot with one squad before rolling out to the whole team.\n\nThis should shrink integration risk sharply, since conflicts get caught and resolved in hours rather than weeks, and reviewers can actually reason carefully about small diffs.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development demands test automation and CI reliability we do not fully have yet; our suite is flaky and takes forty minutes to run, and shipping half-finished features behind flags could leak into production if flags are mismanaged. This is a fair concern, not one to dismiss. It means our pilot must harden CI and establish flag hygiene before anyone commits directly to main. Skipping that groundwork would trade slow, safe integration for fast, unsafe integration, a regression, not an improvement. Rolling out squad by squad gives us a chance to catch these gaps before they reach customers.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "ea92d9bdc1dce28da6acd582180f6b99cf109938179e8207a2d468944f21c04d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2571,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 8854,
+    "output_tokens_details": {
+      "thinking_tokens": 8208
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2571,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 8854,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2571,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2571
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.10397320000000002,
+    "duration_ms": 71577,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:54:45+00:00",
+  "finished_at": "2026-09-13T02:55:57+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

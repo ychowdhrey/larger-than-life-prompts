@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-A-r2",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 2,
+  "execution_index": 20,
+  "sample_seed": 17029099710953756239,
+  "prompt_sha256": "a111ab385a58ee4c9d9b09d3ebf66c4f201a45f68c187de2d1510ad4237226f3",
+  "prompt_chars": 685,
+  "response": "## The problem\n\nOur team of twelve has drifted into long-lived feature branches that routinely survive one to three weeks. Merges have become dreaded events: diffs of two thousand lines, conflicting refactors, and integration bugs that surface only after the fact, when the original context has faded. Two things follow. First, our CI pipeline tells us almost nothing useful — it validates branches in isolation while the real risk, how changes interact, goes untested until merge day. Second, release velocity keeps dropping even though headcount hasn't changed, because we spend a growing share of each sprint resolving conflicts instead of building.\n\n## The proposal\n\nI propose we adopt trunk-based development: all engineers commit to main at least daily, behind feature flags where work is incomplete, with branches living no more than a day or two.\n\n- Wrap incomplete or risky work in feature flags so main stays releasable at all times.\n- Require small, reviewable pull requests (under ~400 lines) merged same-day or next-day.\n- Invest in a fast, reliable CI suite, since trunk-based development lives or dies on tests catching regressions immediately.\n- Run a two-week pilot with one squad before rolling out team-wide, so we surface tooling gaps early.\n- Pair this with lightweight code review norms so speed doesn't come at the cost of quality.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands mature test automation and feature-flag discipline we don't fully have yet. If our CI has blind spots, we won't get fewer late surprises — we'll get more frequent, less-reviewed breakage landing directly on main, which is worse than an occasional painful merge. This is worth taking seriously rather than waving away. Our mitigation is sequencing: the pilot phase is explicitly meant to expose these gaps on one squad before they become a company-wide problem, and we should be willing to delay full rollout if CI reliability isn't there yet.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "32aaadf50c6250e8a046a1f54aef8145159378f7145079a0d4f51ea74092764c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2555,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 645,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2555,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 645,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2555,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2555
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.021819199999999997,
+    "duration_ms": 11437,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:51:53+00:00",
+  "finished_at": "2026-09-13T02:52:05+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

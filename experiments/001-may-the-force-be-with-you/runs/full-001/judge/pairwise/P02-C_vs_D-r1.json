@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-C_vs_D-r1",
+  "contrast_id": "C_vs_D",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "D",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet the hard requirements, but Response B is more operationally precise: it clarifies snapshot completion criteria (crash-consistent vs in-progress), adds write-throttling as an intermediate lever before failover, includes a periodic re-check cadence during mitigation, and its abort/rollback conditions are more concrete and actionable (e.g., cancel an in-progress VACUUM that risks worsening disk usage, and a specific replica-lag failover rollback). Response A's guidance is solid but slightly less rigorous on snapshot verification and offers fewer intermediate mitigation options before escalating to failover.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:26:21+00:00"
+}

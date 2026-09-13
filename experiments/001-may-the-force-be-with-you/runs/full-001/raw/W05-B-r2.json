@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-B-r2",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 193,
+  "sample_seed": 6242910031528592165,
+  "prompt_sha256": "1ab164ccf11830b61447e9fb1c51e23e81c80eceadee9c82603b2acd49b3af00",
+  "prompt_chars": 711,
+  "response": "**Memo: Moving to Trunk-Based Development**\n\nTo: Engineering Team\nFrom: Dhle\nDate: September 13, 2026\n\n## The problem\n\nOur long-lived feature branches routinely survive two to three weeks before merging, and every one of those weeks compounds our integration risk. Merge conflicts have become a predictable tax on release week rather than an occasional surprise, and reviewers frequently face 800+ line diffs that get rubber-stamped because nobody has the stamina to review them properly. With twelve engineers each carrying their own branch, our integration surface grows combinatorially, not linearly. Two recent incidents trace directly back to this: a pricing bug shipped because a stale branch silently reintroduced logic that had been fixed on main weeks earlier.\n\n## The proposal\n\n- Adopt trunk-based development: everyone commits directly to main (or via branches lasting under one day), gated by feature flags for anything incomplete.\n- Require CI to pass on every commit to main, with a hard rule that a red main gets fixed before any new work lands.\n- Break work into smaller, independently mergeable increments rather than one large branch per feature.\n- Use feature flags to decouple deployment from release, so incomplete work can sit safely in production, dark.\n- Run a two-week pilot with one squad before rolling out team-wide, so we validate the workflow before asking everyone to change habits.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands strong CI discipline and comprehensive test coverage, and our test suite has known gaps, particularly around the billing module. If we flip the switch without addressing that, we risk shipping broken code to main constantly, which is worse than our current problem. I don't think this is a reason to abandon the plan, but it is a reason to sequence it: we should invest two sprints in shoring up CI coverage for our highest-risk modules before the pilot begins, not after.\n\nThere's also a real learning curve around feature flags, and sloppy flag hygiene can create its own mess of dead code paths if we don't commit to cleaning them up.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "287b71ddedd66f6c7072508a164dc39ad38decef03a6556036948bdc92cc1cc8",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28292,
+    "output_tokens": 691,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 691,
+        "cache_read_input_tokens": 28292,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012572400000000001,
+    "duration_ms": 11422,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:02:49+00:00",
+  "finished_at": "2026-09-13T03:03:01+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

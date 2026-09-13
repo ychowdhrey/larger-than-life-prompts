@@ -1,0 +1,22 @@
+{
+  "item_id": "80f78e247ab7135c",
+  "sample_id": "C01-C-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "C",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default, in-place sort side effect, IndexError, ZeroDivisionError, and the non-backfilling dedup logic), accurately explains their consequences, and even correctly reasons about the interaction/ordering between the IndexError and ZeroDivisionError cases without fabricating any non-existent issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:09:43+00:00"
+}

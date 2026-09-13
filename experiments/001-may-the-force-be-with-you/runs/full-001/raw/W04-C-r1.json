@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-C-r1",
+  "run_id": "full-001",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 1,
+  "execution_index": 97,
+  "sample_seed": 7463592362244968945,
+  "prompt_sha256": "79cff96f44d6f9cd954253e416a38bfe3c4654fdc1dd5fe05f3f3e81f3a62ec4",
+  "prompt_chars": 625,
+  "response": "A content delivery network is a system that helps web pages, videos, and images load quickly no matter where a person happens to be in the world. Normally, every request for a website's files travels all the way back to one central computer called the origin server, which is where the original, master copies of everything are stored. If that server sits far away, loading a page can feel slow because data has to travel a long physical distance. A content delivery network solves this by placing many smaller storage points, called edge locations, in cities around the globe, much closer to everyday people. When someone visits a website, the request goes to the nearest edge location instead of the distant origin server. If that edge location already has a saved copy of the needed file, this is called a cache hit, and the file gets delivered almost instantly without ever bothering the origin server. Think of it like a chain of neighborhood libraries that each keep popular books on hand, so nobody has to travel across the country to the one giant national archive every time a book is wanted. Only when an edge location lacks a copy does it fetch one from the origin server, then store it for next time. This arrangement reduces waiting time, eases strain on the origin server, and keeps things running smoothly even when huge numbers of people are browsing at once. The result is a faster, more reliable experience for everyone online.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The main computer holding the original files | Every edge location ultimately depends on it |\n| Edge location | A smaller storage point near a group of users | Shortens the distance data must travel |\n| Cache hit | A request answered instantly from stored copies | Speeds up delivery and reduces waiting |\n| Cache miss | A request that must be fetched from the origin server first | Explains why a first visit can be slower than later ones |",
+  "response_sha256": "c792dfa2af44056451472e029a59bd16cf691e3eb556bca78cf44dd08770359a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2540,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1186,
+    "output_tokens_details": {
+      "thinking_tokens": 624
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2540,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1186,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2540,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2540
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.027169199999999998,
+    "duration_ms": 14172,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:57:18+00:00",
+  "finished_at": "2026-09-13T02:57:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

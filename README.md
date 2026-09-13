@@ -94,15 +94,25 @@ larger-than-life-prompts/
 
 | ID | Phrase | Situation | Position | Impact | Confidence | Eval |
 |---|---|---|---|---|---|---|
-| 001 | May the Force be with you | Reasoning, critique, planning, writing | End of prompt | TBD | Observed | [Experiment 001](experiments/001-may-the-force-be-with-you/) |
+| 001 | May the Force be with you | Reasoning, critique, planning, writing | End of prompt | Neutral | Observed | [Experiment 001](experiments/001-may-the-force-be-with-you/) |
 
-Experiment 001 has a locked task set, a preregistered analysis plan and a working evaluation
-pipeline. The pilot has been run; the full 240 generation experiment has not.
+Experiment 001 is complete. The pilot validated the workflow and the full 240 generation
+experiment has now been run against the locked task set (`runs/full-001`, 2026-09-13).
+
+**The result is a null.** Appending "May the Force be with you." did not beat an empty
+control (task-level difference 0.000 on the preregistered primary outcome), did not beat
+generic encouragement (-0.017), and was directionally worse than a plain instruction to be
+thorough (-0.100). No contrast met the preregistered decision rule, and an independent
+objective score with genuine headroom agreed. The condition that moved the numbers was the
+plain effort instruction, which is the opposite of what the premise predicted.
+
+This is a negative result for the phrase and it stays in the repository. See
+[Experiment 001](experiments/001-may-the-force-be-with-you/).
 
 ## Running an experiment
 
 ```bash
-python3 scripts/experiment.py all --config experiments/001-may-the-force-be-with-you/config/pilot.json --workers 4
+python3 scripts/experiment.py all --config experiments/001-may-the-force-be-with-you/config/full.json --workers 6
 ```
 
 Seven stages, resumable, standard library only. Raw outputs are immutable and the

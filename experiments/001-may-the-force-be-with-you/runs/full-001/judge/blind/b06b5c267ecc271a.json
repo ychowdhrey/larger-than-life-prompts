@@ -1,0 +1,22 @@
+{
+  "item_id": "b06b5c267ecc271a",
+  "sample_id": "C01-A-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "A",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default, IndexError on short lists, duplicate-collapsing via seen, ZeroDivisionError on empty input, in-place mutation) with accurate causal explanations and no false positives, though it doesn't note that for default limit>0 the IndexError would actually fire before the ZeroDivisionError on an empty list, a minor execution-order detail it left unverified.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:09:32+00:00"
+}

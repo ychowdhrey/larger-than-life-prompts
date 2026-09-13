@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_A-r3",
+  "contrast_id": "C_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Response B's step 4 claims the full baseline backup happens \"before any replication or schema changes begin,\" but that backup is actually listed after step 3, which sets up replication/CDC tooling against production — a direct internal contradiction with the hard requirement that a backup precede any modification to production. Response A's backup step avoids this inconsistency, sequencing the full backup right before the write-freeze/cutover-destructive steps, making its ordering more internally consistent while both plans are otherwise comparable in completeness (rollback, dry run, verification, stakeholder communication).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:29:42+00:00"
+}

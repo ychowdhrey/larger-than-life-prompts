@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-B-r2",
+  "run_id": "full-001",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 214,
+  "sample_seed": 17860502600632977926,
+  "prompt_sha256": "274b2f95924e8501c7d8e43a14cc9f34fb7c5a7d3f664f89ef31d8d2d37dd4a0",
+  "prompt_chars": 595,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`)**\nDefault argument values are evaluated once, at function definition time, and the same list object is reused on every call that doesn't pass `seen` explicitly. Anything appended to it in one call is still there on the next call.\n*Effect:* calling `top_scores(scores_a)` and later `top_scores(scores_b)` (both using the default) will cause values from `scores_a`'s run to \"leak\" into the dedup check for `scores_b`, silently dropping legitimate scores from `scores_b`'s result. Repeated calls become order-dependent and results shrink/change over the program's lifetime even though each call looks independent.\n\n**2. `IndexError` when `limit` exceeds the length of `scores`**\nThe loop does `for i in range(0, limit): ... scores[i]` with no check that `i` stays within bounds of the (possibly shorter) list.\n*Effect:* e.g. `top_scores([50, 20, 30])` with the default `limit=5` raises `IndexError: list index out of range` instead of returning the 3 available scores.\n\n**3. Crash on empty `scores`**\nIf `scores == []`, the very first loop iteration does `scores[0]`, raising `IndexError` immediately (this is really a special case of #2, but worth calling out since an empty input is an easy, likely-to-occur case).\n\n**4. Fixed loop range causes fewer than `limit` results when duplicates are present**\nThe loop only ever inspects the first `limit` positions of the sorted list (`range(0, limit)`); when a value at one of those positions is already in `seen` (e.g., a duplicate score), it is skipped but nothing later in the list is pulled in to replace it — the loop never extends past `limit`.\n*Effect:* `top_scores([100, 100, 90, 80, 70, 60], limit=5)` sorts to `[100,100,90,80,70,60]` and returns only `[100, 90, 80, 70]` (4 items) even though a 5th distinct score (`60`) exists and should have been included to fill out the top 5.\n\n**5. In-place mutation of the caller's list**\n`scores.sort(reverse=True)` sorts the list the caller passed in, in place, rather than sorting a copy.\n*Effect:* the caller's original list is silently reordered as a side effect of calling `top_scores`; any code elsewhere that relied on the original ordering of that same list object will see it changed after this call.",
+  "response_sha256": "ce3a9da38dc13e1574c4e41331c85eceaa6dadf0099d5d456793e54d9754a1d1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28261,
+    "output_tokens": 3450,
+    "output_tokens_details": {
+      "thinking_tokens": 2641
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3450,
+        "cache_read_input_tokens": 28261,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0401562,
+    "duration_ms": 39266,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:04:02+00:00",
+  "finished_at": "2026-09-13T03:04:42+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-C_vs_A-r3",
+  "contrast_id": "C_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the same five defects, but Response B explains the duplicate/dedup defect more precisely by identifying the actual mechanism (the loop only scans the first `limit` sorted positions and never extends when a duplicate is skipped) and verifies it with a correctly traced example, whereas Response A's discussion of that defect is muddled, hedging on whether it's intended and conflating it with the mutable-default bug rather than isolating the root cause.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:26:59+00:00"
+}

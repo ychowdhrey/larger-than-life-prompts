@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-C_vs_A-r1",
+  "contrast_id": "C_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the hard requirements (heading order, snapshot-before-risk, no restart/failover before snapshot, explicit abort/rollback conditions), but Response B is more technically precise and actionable — it notes using crash-consistent hot-backup mechanisms (e.g., pg_start_backup/xtrabackup) when a live snapshot isn't clean, gives a concrete replication-lag threshold before promotion, and states a clearer, more emphatic 'hard gate' callout for the no-restart/no-failover-before-snapshot rule. Response A is equally compliant but relies on more generic, less concrete guidance.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:24:38+00:00"
+}

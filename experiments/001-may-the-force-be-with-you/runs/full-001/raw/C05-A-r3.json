@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-A-r3",
+  "run_id": "full-001",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 3,
+  "execution_index": 184,
+  "sample_seed": 3052341165379512763,
+  "prompt_sha256": "6f8bbc7d6e79df9e5daf90ab0f07a0b76ba532d1cde26d1d815906ff9f941053",
+  "prompt_chars": 810,
+  "response": "## Defects Found\n\n**1. Boundary condition bug in `discount()` (violates R1)**\nThe implementation uses `total > 100`, excluding the boundary. R1 states an order with a total of **100 or more** should receive the 10% discount, but `discount(100)` currently returns `0.0` instead of `10.0`. This should be `total >= 100`.\n\n**2. `test_cap` asserts an incorrect expected value, and that value itself violates R2**\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\nFor `total=1000`, the raw discount would be `100.0`, but the implementation caps it at `min(d, 50.0)`, so the actual return value is `50.0`. This assertion is simply wrong against the implementation as written — the test would fail. Additionally, the expected value `100.0` itself violates R2 (discount must never exceed 50.00), so even independent of the implementation, this is a badly chosen expected value — it encodes a cap-violating result as \"correct.\"\n\n**3. Missing test coverage for the R1/R3 boundary at total = 100**\nNo test exercises `discount(100)` (or any value in the 100–500 range where the discount is not yet capped, e.g. `discount(500)` = exactly at the cap threshold). Because of this gap, the off-by-one bug in defect #1 is not caught by the suite at all — every existing test uses inputs strictly greater than or strictly less than 100 (50, 200, 1000), so none of them touch the boundary where the code disagrees with the spec.\n\n**4. No test verifies the cap itself with a correct expected value**\nSince `test_cap`'s expectation is wrong (defect #2), there is in fact no test in the suite that correctly confirms R2 (the 50.00 cap) — e.g., a test like `assert discount(1000) == 50.0` or `assert discount(600) == 50.0` is absent.\n\n## Not defects (confirmed correct)\n- `test_small` (`discount(50) == 0.0`) correctly reflects R3.\n- `test_large` (`discount(200) == 20.0`) correctly reflects R1's 10% calculation below the cap.\n- The cap logic `min(d, 50.0)` itself is correctly implemented for satisfying R2, once given a correctly-specified expectation.",
+  "response_sha256": "79eb0c9fb333b988e55136b9b25f31f44a882272e022e12edb38afe00a385e54",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28343,
+    "output_tokens": 1513,
+    "output_tokens_details": {
+      "thinking_tokens": 757
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1513,
+        "cache_read_input_tokens": 28343,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0208026,
+    "duration_ms": 18427,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:02:17+00:00",
+  "finished_at": "2026-09-13T03:02:37+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

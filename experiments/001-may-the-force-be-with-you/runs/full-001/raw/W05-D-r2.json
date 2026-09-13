@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-D-r2",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 2,
+  "execution_index": 73,
+  "sample_seed": 1011797412049637318,
+  "prompt_sha256": "14067dae325c643d814f9d9e1ac82a805e1feef3a8ecdea7036b110e853ee8d0",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur twelve-person team still relies on long-lived feature branches, and it is slowing us down. Branches routinely live one to three weeks before merging, and by the time they land the codebase has drifted enough that integration becomes its own project. Last quarter we spent roughly two engineer-weeks resolving merge conflicts that would not have existed if changes had landed daily. Our staging environment rarely reflects what customers will actually get, because half the team's work sits unmerged. We find integration bugs late, ship less predictably, and struggle to review branches that balloon into 40-file diffs.\n\n## The proposal\n\nI propose we adopt trunk-based development: every engineer commits small, reviewed changes directly to main at least once a day, guarded by feature flags for anything incomplete. Concretely, this means:\n\n- Cap branch lifetime at one day; anything longer gets split into smaller commits.\n- Put unfinished or risky work behind feature flags rather than behind a branch.\n- Invest in a fast, reliable CI pipeline so broken commits are caught within minutes, not days.\n- Require small pull requests (under ~200 lines) so reviews stay fast and thorough.\n- Roll out flag-gated changes to a small percentage of traffic before enabling them fully.\n\nThis shift doesn't eliminate code review or CI; it just moves integration from a rare, painful event to a routine, low-stakes one.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development trades merge pain for stability risk: if everyone commits to main constantly, a single bad commit can break the build for the whole team, and half-finished features behind flags can leak complexity and bugs into production code paths that are technically \"live\" but not really done. This is a real cost, not a strawman—teams that adopt trunk-based development without disciplined CI and flag hygiene do see more incidents, at least initially. Our mitigation is that CI investment and small commits are not optional add-ons to this proposal; they are the precondition for it working at all, and we should treat flag cleanup as tracked work, not an afterthought.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "df71054510c64da41e43e1569efa7c874f7ae6cc2bacf347b78a1a93f37bc927",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28297,
+    "output_tokens": 6106,
+    "output_tokens_details": {
+      "thinking_tokens": 5416
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 6106,
+        "cache_read_input_tokens": 28297,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0667234,
+    "duration_ms": 49050,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:55:40+00:00",
+  "finished_at": "2026-09-13T02:56:30+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

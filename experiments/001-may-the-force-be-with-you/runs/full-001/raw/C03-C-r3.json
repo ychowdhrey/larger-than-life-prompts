@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-C-r3",
+  "run_id": "full-001",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 3,
+  "execution_index": 120,
+  "sample_seed": 13068942594131425564,
+  "prompt_sha256": "ac10a292e42c0f500e0eaf4b16ee4b1c47ed2be4a65044226534d640928ee01c",
+  "prompt_chars": 999,
+  "response": "## Defects found\n\n**1. Causal claim from a purely observational comparison (webinar attendance → retention)**\nThe memo treats \"attendees retain 31% better\" as proof that webinars *cause* retention, then jumps straight to a policy (mandatory attendance). But nothing here rules out **self-selection**: customers who bother to show up for a webinar are plausibly already more engaged, more invested in the product, or earlier in a satisfied lifecycle — traits that independently predict staying longer. The causal arrow could just as easily run the other way (engaged customers choose to attend) or both effects could stem from a third factor (e.g., company size, onboarding rep quality).\n*Consequence:* Making attendance mandatory forces a **behavior** onto everyone, but the retention benefit may only ever have belonged to the **type of customer** who voluntarily attended. Compulsory webinars could produce none of the measured lift (or even annoy customers), while the memo's confidence implies a payoff that hasn't actually been demonstrated.\n\n**2. Survivorship bias in the sample**\nThe population analyzed is \"the 412 customers who are still active on the Pro plan **today**\" — i.e., the sample is already conditioned on having survived. Churned customers (who may or may not have attended webinars) are excluded entirely from the comparison. Drawing a retention conclusion from a group that, by construction, already didn't churn is circular and can distort the true relationship between webinar attendance and churn.\n*Consequence:* The 31% figure describes a pattern only among survivors, not the effect of webinars on the actual churn/retention decision across the full customer base — the true effect (or lack of one) on customers who left is invisible to this analysis, so the estimate is unreliable for the causal claim being made.\n\n**3. Multiple-comparisons problem (the \"Central region\" finding)**\nTesting 18 different attributes and flagging the one that hits p = 0.04 is a classic data-dredging / multiple-testing error. At a 0.05 significance threshold, running 18 independent tests gives roughly a 60% chance that *at least one* comes back \"significant\" purely by chance, even if none of the underlying attributes matter at all. No correction (Bonferroni, FDR, etc.) is mentioned.\n*Consequence:* The Central-region effect is quite likely a false positive. Reallocating next quarter's spend based on it risks investing in a pattern that won't replicate, while the resources are pulled away from regions where they might actually matter.\n\n**4. Even if the regional effect were real, \"less churn\" doesn't imply \"spend more will reduce churn further\"**\nThe recommendation conflates an *association* between region and churn with the *effectiveness of an intervention* (spend) in that region. Nothing in the data speaks to how spend affects churn in Central versus elsewhere.\n*Consequence:* Budget could be concentrated on a region that already churns least for reasons unrelated to spend (and possibly with the least room for improvement), rather than on regions where additional investment would actually move the needle.\n\n**5. Uncontrolled pre/post comparison attributed to a single cause (satisfaction increase)**\nSatisfaction moving from 62% to 66% is a before/after comparison with no control group, no accounting for seasonality or other concurrent initiatives, and no test of whether a 4-point move is distinguishable from normal quarter-to-quarter noise (no confidence interval, no sample size, no significance test given). The memo nonetheless credits it entirely to \"the new support model.\"\n*Consequence:* The support model could be given credit (and continued investment) for a change that's actually random fluctuation, a seasonal effect, or the result of some other change made the same quarter — while the real driver goes unidentified.\n\nNo other issues stand out — the sample sizes and percentages themselves aren't in question, only what's being inferred from them.",
+  "response_sha256": "c1e34b736258af4a7119713ae470c07209fca4d42b17ae8398add3b815afa358",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28367,
+    "output_tokens": 3317,
+    "output_tokens_details": {
+      "thinking_tokens": 2057
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3317,
+        "cache_read_input_tokens": 28367,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0388474,
+    "duration_ms": 42626,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:58:24+00:00",
+  "finished_at": "2026-09-13T02:59:07+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

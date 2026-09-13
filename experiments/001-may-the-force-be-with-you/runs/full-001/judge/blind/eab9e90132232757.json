@@ -1,0 +1,22 @@
+{
+  "item_id": "eab9e90132232757",
+  "sample_id": "C05-B-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "B",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the R1 boundary bug (>100 vs >=100), correctly shows test_cap's expected value is arithmetically wrong and would also violate R2 if taken literally, and correctly flags the missing boundary test at total=100, all backed by accurate recomputation, without inventing any spurious defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:13:21+00:00"
+}

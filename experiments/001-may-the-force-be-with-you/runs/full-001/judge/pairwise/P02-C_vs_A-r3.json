@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-C_vs_A-r3",
+  "contrast_id": "C_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements, but Response B is more internally consistent about ordering (every risky or capacity action is explicitly gated behind snapshot confirmation, with no ambiguous exception), and it adds sharper technical safeguards (never deleting unshipped WAL, cross-checking latency via both DB-internal and app-side metrics, checking for concurrent deploys/migrations) plus quantified abort thresholds (100% disk, 15-minute latency check) that make the abort/rollback conditions more actionable. Response A is comparable overall but includes a slightly muddled exception allowing emergency capacity action 'before the snapshot finishes,' which weakens the clarity of its own snapshot-first rule.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:26:08+00:00"
+}

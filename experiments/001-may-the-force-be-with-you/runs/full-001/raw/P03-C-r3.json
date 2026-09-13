@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-C-r3",
+  "run_id": "full-001",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 3,
+  "execution_index": 231,
+  "sample_seed": 375220236060128326,
+  "prompt_sha256": "9356d5f0585e30d9b2de3199c83c342c253b9eda2481ded72a996aac2756dfcc",
+  "prompt_chars": 1075,
+  "response": "**Reasoning:**\n\nThe critical path is T1(2) → T2(2) → T4(3) → T6(3) = 10 days, so this path (assigned to E1) has zero slack. The other path T1 → T3(2) → T5(2) → T6 is only 9 days when starts align, so E2 has flexibility.\n\n- T1: days 1–2 (E1)\n- T2: days 3–4 (E1, after T1)\n- T3: days 3–4 (E2, after T1, parallel with T2)\n- T4: days 5–7 (E1, after T2)\n- T5: days 5–6 (E2, after T3)\n- T6: days 8–10 (needs T4 and T5 both done — T4 finishes day 7, T5 finishes day 6, so T6 starts day 8; assign to E1)\n\nThis fits exactly within 10 days with no conflicts (each engineer has at most one task per day, all prerequisite ordering respected).\n\n**Schedule:**\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "82d434d6dc8854e661b58ae117a1a85013d65d5b5609e2d6fbdb686ac763fd2a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28469,
+    "output_tokens": 1083,
+    "output_tokens_details": {
+      "thinking_tokens": 563
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1083,
+        "cache_read_input_tokens": 28469,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.016527800000000002,
+    "duration_ms": 11581,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:04:45+00:00",
+  "finished_at": "2026-09-13T03:04:57+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

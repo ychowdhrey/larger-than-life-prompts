@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-C_vs_D-r1",
+  "contrast_id": "C_vs_D",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly identify the same three core defects (WHERE clause defeating the LEFT JOIN, UTC/UTC+8 boundary mismatch, integer division truncation) and both note the downstream NULL-vs-zero issue as a consequence; Response B is more precise by explicitly confirming that COUNT(o.order_id) and GROUP BY c.customer_id are NOT defects, which better satisfies the instruction not to report problems that aren't actually present, whereas Response A tacks on a fifth 'defect' (NULL sort order) that only arises hypothetically after a different fix is applied and isn't present in the query as written.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:23:26+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-B-r2",
+  "run_id": "full-001",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 215,
+  "sample_seed": 9248788139229567837,
+  "prompt_sha256": "348c9cc0c2bb0899aedb6111742e38784e6b3d08e583979f59e4bc20c65c720f",
+  "prompt_chars": 997,
+  "response": "## Defects in the memo's reasoning\n\n**1. Webinar → retention: correlation treated as causation**\nWhat's wrong: The memo observes that webinar attendees have higher retention and concludes webinars *cause* that retention. But customers who choose to attend an optional onboarding webinar are almost certainly more engaged/motivated to begin with — that underlying motivation, not the webinar itself, could be driving both attendance and retention (self-selection confound).\nWhat it causes: If the true driver is pre-existing motivation, forcing all new customers to attend won't reproduce the 31% gap — you'd be extrapolating a voluntary-attender effect onto an unwilling population, likely wasting the mandatory-training investment for no retention gain.\n\n**2. Sample is restricted to customers already active on the Pro plan**\nWhat's wrong: The 412 customers analyzed are those \"still active... today,\" i.e., the population is conditioned on the outcome (survival) itself. This is survivorship bias, and it also makes \"retention\" an odd thing to measure within a group that is, by construction, all currently retained — it's unclear what the 31% figure is even comparing (tenure length? past renewal?) since churned customers who may or may not have attended webinars are excluded entirely.\nWhat it causes: The comparison could understate or overstate the webinar effect in either direction, and any churned-customer webinar data (which is exactly what you'd need to see if webinars prevent churn) is missing from the analysis.\n\n**3. No effect size/significance reporting for the webinar comparison**\nWhat's wrong: No p-value, confidence interval, or group sizes (how many of the 412 attended vs. not) are given for the 31% figure.\nWhat it causes: Without knowing the split (e.g., 400 vs. 12 customers) or variance, it's impossible to know if 31% reflects a real, stable effect or noise from a small subgroup — yet a company-wide mandatory policy is being justified on it.\n\n**4. Multiple-comparisons problem in the regional finding**\nWhat's wrong: 18 attributes were tested against churn and one (Central region) hit p=0.04. Testing 18 hypotheses at an uncorrected significance threshold of 0.05 gives roughly a 60% chance of at least one \"significant\" result appearing purely by chance (1 − 0.95¹⁸ ≈ 0.60). A single p=0.04 result out of 18 tests is weak evidence, not a discovery — it would typically need a corrected threshold (e.g., Bonferroni ≈ 0.05/18 ≈ 0.0028) to be taken seriously.\nWhat it causes: Reallocating next quarter's marketing/success spend to the Central region based on what is very likely a false positive risks wasting budget on a nonexistent effect while under-investing elsewhere.\n\n**5. Statistical significance conflated with practical/causal significance (regional finding)**\nWhat's wrong: Even setting aside the multiple-comparisons issue, p=0.04 says only that the difference is unlikely under pure chance in this sample — it says nothing about the *size* of the churn reduction, nor why Central customers churn less (could be industry mix, contract size, account age, or other confounds correlated with region rather than anything actionable by \"spend\").\nWhat it causes: Spend could be concentrated on a region where the underlying driver isn't something marketing/CS spend can influence, producing no actual return.\n\n**6. Satisfaction increase attributed to the support model without ruling out alternatives**\nWhat's wrong: A before/after (62%→66%) comparison with no control group or held-constant conditions cannot isolate the \"new support model\" as the cause. Other things that changed over the same quarter (seasonality, pricing changes, product releases, a shift in who responded to the survey) could equally explain the movement.\nWhat it causes: Continued investment in or scaling of the \"new support model\" could be based on an improvement that had nothing to do with it, while the actual driver goes unaddressed.\n\n**7. No significance test on the 4-point satisfaction change**\nWhat's wrong: No sample size, margin of error, or significance test is given for the 62%→66% shift.\nWhat it causes: A 4-point swing in a survey metric can easily fall within normal quarter-to-quarter sampling noise; declaring it evidence the \"new support model is working\" may be reading signal into noise.\n\n**8. Minor terminology slip: \"4% improvement\" vs. 4 percentage points**\nWhat's wrong: Going from 62% to 66% is a 4-percentage-point increase, but a ~6.5% *relative* improvement. Calling it \"4% improvement\" blurs the two and understates the relative gain (or could mislead readers who interpret it either way inconsistently with other reported figures).\nWhat it causes: Downstream comparisons (e.g., against other percentage-based KPIs in future memos) could misstate the actual magnitude of change if this ambiguity isn't cleared up.",
+  "response_sha256": "728562637b311d5da7b0f3748026b23258c56589a1058bba5ba7397b5b226cae",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28369,
+    "output_tokens": 3234,
+    "output_tokens_details": {
+      "thinking_tokens": 1625
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3234,
+        "cache_read_input_tokens": 28369,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0380178,
+    "duration_ms": 39964,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:04:04+00:00",
+  "finished_at": "2026-09-13T03:04:45+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "d7ffb2be3bb21e0c",
+  "sample_id": "C01-A-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "A",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default arg, in-place caller-list mutation, missing bounds check causing IndexError, empty-list crash, and duplicate-value dedup logic silently shrinking results) with accurate causal explanations, and correctly avoids flagging the sort/average behavior that the task explicitly says is intended.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:09:24+00:00"
+}

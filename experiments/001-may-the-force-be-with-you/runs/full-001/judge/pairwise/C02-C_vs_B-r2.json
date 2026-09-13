@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-C_vs_B-r2",
+  "contrast_id": "C_vs_B",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "B",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the LEFT JOIN/WHERE bug, the UTC-vs-UTC+8 boundary issue, integer division, and NULL-vs-zero totals with similarly accurate explanations, but Response A also catches a real additional defect—non-aggregated columns (c.name, c.signup_date) selected under a GROUP BY on customer_id only, which can error on strict engines like SQL Server—and appropriately caveats the engine-dependent nature of the risk. Response B is well-written but misses this issue entirely, so A is more complete without introducing incorrect claims.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:25:53+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-A-r3",
+  "run_id": "full-001",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 3,
+  "execution_index": 84,
+  "sample_seed": 11322134913271659017,
+  "prompt_sha256": "a111ab385a58ee4c9d9b09d3ebf66c4f201a45f68c187de2d1510ad4237226f3",
+  "prompt_chars": 685,
+  "response": "## The problem\n\nOur team of twelve has drifted into long-lived feature branches that often stay open for two to three weeks before merging. By the time a branch lands, it has diverged so far from main that integration becomes its own project: merge conflicts spill across dozens of files, and the person merging is rarely the person who wrote the original code six commits ago. Release week has become synonymous with a multi-day \"merge crunch\" where several branches land at once and nobody can say with confidence what state main is actually in. Bugs introduced during these merges are hard to trace because the diff is enormous and the blame spans multiple authors and multiple weeks. Meanwhile, code review quality suffers: reviewers face 800-line diffs instead of focused, digestible changes, so real feedback gets replaced with rubber-stamp approvals just to keep things moving.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: everyone commits small, incremental changes directly to main (or through branches that live less than a day) behind feature flags for anything not ready for users.\n\n- Cap branch lifetime at one working day; anything longer gets split into smaller commits.\n- Gate unfinished features with flags rather than isolating them on branches.\n- Require CI to pass on every merge to main, with main always deployable.\n- Shift code review to same-day turnaround on small diffs instead of end-of-cycle mega-reviews.\n- Pilot the workflow with one squad for three weeks before rolling out team-wide.\n\n## What could go wrong\n\nThe strongest objection is real: without branch isolation, an incomplete or buggy change can destabilize main for everyone, and twelve engineers committing directly to a shared trunk multiplies the blast radius of any single mistake. This is a legitimate risk, not a hypothetical one — it's why feature flags and strong CI gates aren't optional add-ons here but load-bearing parts of the proposal. We should also expect a rocky first few weeks as habits change.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "2c43f44fa68644b9f5aba49856a817f0ceab6bc8e7a9dedab4aa029f3752cfd0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28281,
+    "output_tokens": 648,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 648,
+        "cache_read_input_tokens": 28281,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0121402,
+    "duration_ms": 11409,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:56:30+00:00",
+  "finished_at": "2026-09-13T02:56:43+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

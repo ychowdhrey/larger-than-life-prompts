@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_A-r2",
+  "contrast_id": "C_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "C",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both cover all hard requirements, but Response A sequences the cutover correctly: it repoints connections while the app is still frozen and only unfreezes writes after integrity verification passes, whereas Response B re-enables read/write traffic on the new database in step 9 before running verification in step 10, which risks accepting new writes on unverified data and complicates rollback if verification then fails.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:29:30+00:00"
+}

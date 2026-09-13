@@ -1,0 +1,22 @@
+{
+  "item_id": "91f8a0f58cedb482",
+  "sample_id": "P01-A-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "A",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (12-step cap, rollback, rehearsal, post-cutover integrity checks via row counts/checksums, stakeholder communication, and a backup preceding any destructive step) and ends with the correctly formatted step count. It is technically grounded (CDC/logical replication, LSN/freeze timestamps, sequence and constraint validation) and directly actionable as a runbook, though a few technical specifics (e.g., checksum tooling) are stated somewhat loosely.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:13:38+00:00"
+}

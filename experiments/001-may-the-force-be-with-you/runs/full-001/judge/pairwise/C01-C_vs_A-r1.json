@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-C_vs_A-r1",
+  "contrast_id": "C_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both identify the same five defects, but Response A is more precise about the empty-input case: it correctly notes that with the default limit=5, an empty scores list actually raises IndexError before ever reaching the division, and ZeroDivisionError only occurs if limit were 0. Response B flatly claims top_scores([]) raises ZeroDivisionError, which is inaccurate given the default limit, so A's defect list is more technically correct overall.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:32:00+00:00"
+}

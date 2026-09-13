@@ -1,0 +1,68 @@
+{
+  "sample_id": "R05-C-r2",
+  "run_id": "full-001",
+  "task_id": "R05",
+  "family": "reasoning",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 2,
+  "execution_index": 211,
+  "sample_seed": 3100765445552728267,
+  "prompt_sha256": "b13e7fe12d487b9a1a96f68a6fb96821449f2b9bfb849489157e3c65daea4e62",
+  "prompt_chars": 227,
+  "response": "**Setting up the count**\n\nLet A = multiples of 3, B = multiples of 5, up to 1000.\n\n**Step 1: Count divisible by 3 or 5**\n- ⌊1000/3⌋ = 333\n- ⌊1000/5⌋ = 200\n- ⌊1000/15⌋ = 66 (divisible by both 3 and 5)\n\n|A ∪ B| = 333 + 200 − 66 = **467**\n\n**Step 2: Subtract those among these that are also divisible by 7**\n\nWe need |(A ∪ B) ∩ (div by 7)| = |(3&7)| + |(5&7)| − |(3&5&7)|\n- Divisible by 21: ⌊1000/21⌋ = 47\n- Divisible by 35: ⌊1000/35⌋ = 28\n- Divisible by 105: ⌊1000/105⌋ = 9\n\nSo overlap = 47 + 28 − 9 = 66\n\n**Step 3: Final count**\n\n467 − 66 = **401**\n\nFINAL ANSWER: 401",
+  "response_sha256": "c009df16396f369e82a636188abd0aad5576bcac647fe5d0373b98597e7dae01",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28147,
+    "output_tokens": 702,
+    "output_tokens_details": {
+      "thinking_tokens": 352
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 702,
+        "cache_read_input_tokens": 28147,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012653399999999999,
+    "duration_ms": 7885,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T03:03:55+00:00",
+  "finished_at": "2026-09-13T03:04:04+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

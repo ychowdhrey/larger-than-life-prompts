@@ -1,0 +1,22 @@
+{
+  "item_id": "acab73655eace964",
+  "sample_id": "P02-D-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "D",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four headings in the required order, places the storage snapshot before any risky action, explicitly forbids restart/failover before the snapshot, includes multiple well-reasoned abort/rollback conditions, and ends with the exact 'SECTIONS: 4' line, while also engaging non-obvious risks like VACUUM consuming space or replica lag before failover.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:14:14+00:00"
+}

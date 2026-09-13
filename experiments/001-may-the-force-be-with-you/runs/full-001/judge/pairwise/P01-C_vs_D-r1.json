@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_D-r1",
+  "contrast_id": "C_vs_D",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "D",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "D",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet all hard requirements with exactly 12 steps, but Response A explicitly addresses the core technical challenge — migrating 2 TB within only a 2-hour window — by stating the CDC/logical-replication strategy up front and dedicating separate steps to pre-window bulk load and continuous sync, so the maintenance window is used only for final catch-up and cutover. Response B's step 8 references 'logical replication catch-up' without ever specifying an initial bulk-load step done ahead of the window, leaving it ambiguous whether the full 2 TB transfer could actually fit in the stated timeframe.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:24:12+00:00"
+}

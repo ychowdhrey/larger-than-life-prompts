@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-A-r3",
+  "run_id": "full-001",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 3,
+  "execution_index": 78,
+  "sample_seed": 3716565687904744826,
+  "prompt_sha256": "915e138b783096d50fa4e9ca6679decd6eb392226b316f12e29421fe4eb53b5f",
+  "prompt_chars": 569,
+  "response": "**Defects found:**\n\n1. **Mutable default argument (`seen=[]`)** — The default list is created once, at function definition time, and reused across every call that doesn't pass `seen` explicitly. Since the function mutates it (`seen.append(...)`), scores from one call will \"leak\" into subsequent calls, causing previously-seen values to be silently excluded from `result` in later, unrelated invocations. This is a classic Python footgun and will produce incorrect/inconsistent results depending on call history.\n\n2. **`IndexError` when `len(scores) < limit`** — The loop does `for i in range(0, limit)` and indexes `scores[i]` unconditionally. If `scores` has fewer than `limit` elements, this raises an `IndexError` instead of just returning however many scores are available.\n\n3. **Duplicate values within `scores` collapse silently, shrinking the result below `limit`** — The `seen` list (whether freshly empty or, worse, polluted per defect #1) causes any repeated value within the same `scores` list to be skipped after its first occurrence. So `top_scores([90, 90, 80, 70, 60], limit=5)` returns only 4 results (`[90, 80, 70, 60]`) instead of 5, even though there were enough elements. This may or may not be intended (\"top N distinct scores\"), but combined with defect #1 it's clearly buggy since it also drops values that were never in this call's input at all.\n\n4. **`ZeroDivisionError` on empty `scores`** — `average = sum(scores) / len(scores)` will throw if `scores` is an empty list, since `len(scores)` is 0.\n\n5. **In-place mutation of the caller's list (`scores.sort(reverse=True)`)** — Sorting is done in place on the caller-supplied list rather than on a copy. This silently reorders the caller's original data as a side effect, which can surprise callers who didn't expect their input list to be mutated.\n\nNo other issues are present — the descending sort and the \"average of all scores\" calculation are correctly implemented as intended.",
+  "response_sha256": "b54ca70cd1b2cdf514cf84b5f1c93a66a8fbd9541bcf86ecdfbae4419995c152",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28250,
+    "output_tokens": 669,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 669,
+        "cache_read_input_tokens": 28250,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012344,
+    "duration_ms": 9844,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:55:59+00:00",
+  "finished_at": "2026-09-13T02:56:09+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

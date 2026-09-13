@@ -1,0 +1,22 @@
+{
+  "item_id": "d89b8ffb2f49edd2",
+  "sample_id": "C05-A-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "A",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (total > 100 vs >= 100 per R1), correctly computes that test_cap's expected value (100.0) is wrong since the implementation actually returns 50.0 for input 1000, notes that 100.0 also violates R2, and flags the missing boundary/cap test coverage — all defects are genuine and no false positives are introduced.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T03:13:07+00:00"
+}

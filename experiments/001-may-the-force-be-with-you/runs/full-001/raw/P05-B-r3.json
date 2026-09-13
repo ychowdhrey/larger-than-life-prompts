@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-B-r3",
+  "run_id": "full-001",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 3,
+  "execution_index": 56,
+  "sample_seed": 2113897937696800748,
+  "prompt_sha256": "2ebce5bca0d4fdb32367768d3ab45e99d35c7c9e828553126be762803effaff7",
+  "prompt_chars": 798,
+  "response": "# Billing System Migration Rollout Plan\n## 40,000 Users — Old System → New System (Dual-Run Supported)\n\n## Overview\n\nThis plan migrates all 40,000 users from the legacy billing system (\"Old\") to the new billing system (\"New\") in four phases, leveraging the ability to run both systems concurrently. The old system remains fully operational and untouched (no deletion, disabling, or decommissioning) until well after the final user batch has been migrated and validated.\n\n---\n\n## Phase 1: Canary (0.25% — ~100 users)\n\n**Entry criterion:** New system has passed end-to-end integration testing in staging, including full billing cycles (invoice generation, payment capture, refund, proration) using synthetic accounts; on-call rotation and rollback runbook are signed off.\n\n- Population: Internal employee accounts and opted-in volunteer customers on month-to-month plans (no annual contracts, no active disputes).\n- Duration: 5 business days minimum.\n- Both systems run in parallel; Old remains source of truth for all non-canary users.\n- Success gate to advance: zero billing discrepancies >$0.01 per invoice, zero failed payment captures attributable to migration.\n\n## Phase 2: Early Adopters (5% — ~2,000 users)\n\n**Entry criterion:** Phase 1 canary completed its full billing cycle (including at least one renewal/invoice date) with no unresolved critical (Sev-1/Sev-2) defects, and reconciliation job shows 100% match between Old and New ledgers for canary accounts.\n\n- Population: Low-complexity accounts (single subscription, standard currency, no custom discounts/enterprise contracts), stratified across geographies and payment methods (card, ACH, wallet).\n- Duration: 2 weeks, spanning at least one full billing cycle.\n- Dual-write reconciliation runs daily.\n- Success gate to advance: discrepancy rate stays below defined halt threshold (see Metrics below) for the full duration.\n\n## Phase 3: General Rollout (40% — ~16,000 users)\n\n**Entry criterion:** Phase 2 exit review completed with sign-off from Finance, Engineering, and Support leads; support ticket volume attributable to migration is below 1% of migrated accounts; reconciliation discrepancy rate has stayed under 0.5% for 7 consecutive days.\n\n- Population: Broader mix including multi-subscription accounts, non-USD currencies, and mid-tier enterprise contracts. Exclude highest-complexity/highest-revenue accounts (reserved for Phase 4).\n- Duration: 3–4 weeks, batched in weekly waves (~4,000/week) to preserve ability to pause between waves.\n- Both systems continue running in parallel; Old remains authoritative fallback for any account not yet migrated or rolled back.\n- Success gate to advance: no new Sev-1 incidents in final wave; cumulative discrepancy rate under threshold.\n\n## Phase 4: Final Batch & Long-Tail (54.75% — ~21,900 users)\n\n**Entry criterion:** Phase 3 fully complete with a clean 7-day reconciliation window; all known edge cases from Phases 1–3 (proration bugs, currency rounding, tax edge cases) have documented fixes deployed and verified; executive/Finance sign-off obtained given this phase includes highest-value and highest-complexity accounts.\n\n- Population: Remaining users, including large enterprise contracts, custom pricing, legal holds, and any accounts previously excluded or rolled back.\n- Duration: 3–4 weeks, with enterprise accounts migrated in coordinated, scheduled windows with customer notification.\n- **Old system remains fully live and unchanged through this phase and beyond.** Decommissioning of the old system is explicitly out of scope for this rollout plan and must be governed by a separate post-migration decommissioning plan, gated on a minimum 60–90 day parallel-run/observation period after the last account in Phase 4 is migrated and confirmed stable.\n\n---\n\n## Metrics & Halt Conditions\n\n- **Halt the rollout immediately if:** the ledger reconciliation discrepancy rate between Old and New systems exceeds **0.5% of migrated accounts in any 24-hour window**, or any single discrepancy exceeds **$50 per account**.\n- Additional halt triggers: failed payment capture rate on migrated accounts exceeds **2x** the pre-migration baseline rate for that segment, or Sev-1 incident count attributable to migration exceeds **2 in a rolling 48-hour period**.\n- On halt: stop new migrations, do not roll back completed migrations unless discrepancy is confirmed systemic, convene incident review before resuming.\n\n---\n\n## Risks\n\nRISK: Dual-write logic causes billing double-charges or missed charges during the parallel-run window | Implement idempotency keys and a nightly automated reconciliation job comparing Old vs New ledgers with automatic alerting on mismatch | Engineering Lead (Billing Platform)\nRISK: Enterprise customers with custom contract terms are migrated before edge cases (custom proration, multi-currency tax rules) are fully supported in the new system | Hold all enterprise/high-complexity accounts for Phase 4 only, with a dedicated contract-parity test suite signed off by Finance before migration | Finance Systems Owner\nRISK: Customer-facing disruption (failed payments, duplicate invoices) erodes trust and increases churn during migration waves | Proactive customer communication before each wave, dedicated support queue tagged for migration issues, and a fast single-account rollback path to Old system | Customer Support Lead\nRISK: Rollback of a migrated account back to Old system creates data drift if New system processed transactions Old is unaware of | Freeze writes on an account for a defined window before rollback and replay/reconcile transactions from New into Old before re-activating Old as source of truth | Data Engineering Lead\nRISK: Migration schedule pressure leads to skipping the required reconciliation soak period between phases | Enforce entry criteria as hard gates in the rollout tooling (automated checks block phase advancement, not just process/checklist) | Program Manager (Migration)\n\nPHASES: 4",
+  "response_sha256": "860bdbe69962e24c056fd83d528e094a4e7ef628d8423f90aca5c7dd150e3e06",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28317,
+    "output_tokens": 2088,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2088,
+        "cache_read_input_tokens": 28317,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0265474,
+    "duration_ms": 26357,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T02:54:32+00:00",
+  "finished_at": "2026-09-13T02:55:00+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

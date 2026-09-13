@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-C_vs_B-r1",
+  "contrast_id": "C_vs_B",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "B",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both identify the same five defects, but Response A is more precise about how they interact: it correctly notes that calling top_scores([]) actually raises IndexError before ever reaching the division line, only then explaining when ZeroDivisionError would independently occur. Response B asserts that calling top_scores([]) 'raises ZeroDivisionError,' which is factually wrong given the code as written (the empty list triggers scores[0] IndexError first), making Response A's account more technically accurate.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:31:09+00:00"
+}

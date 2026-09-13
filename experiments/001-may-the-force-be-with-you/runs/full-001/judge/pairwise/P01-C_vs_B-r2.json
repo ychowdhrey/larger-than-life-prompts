@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-C_vs_B-r2",
+  "contrast_id": "C_vs_B",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "C",
+  "reference_condition": "B",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "B",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response B has a cleaner, more technically sound sequence: it records the LSN/transaction position before freeze, drains replication to zero lag before stopping the source, includes a smoke-test step before resuming traffic, and keeps the cloud instance intact for post-mortem on rollback rather than discarding it. Response A's step 3 backup restorability check duplicates step 4's rehearsal awkwardly and its rollback step conflates go-live decision with rollback in a more tangled way.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T03:30:02+00:00"
+}
