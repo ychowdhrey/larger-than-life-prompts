@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-C-r1",
+  "run_id": "pilot-001",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "C",
+  "condition_name": "larger_than_life",
+  "repetition": 1,
+  "execution_index": 11,
+  "sample_seed": 12771271388737552577,
+  "prompt_sha256": "f8b614c9296d32cadb23d61fbb700e8fb47d493c169e35a3b2e487a3fe0d9a82",
+  "prompt_chars": 597,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`)**\nDefault arguments are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't pass `seen` explicitly. Since the function mutates it (`seen.append(...)`), values accumulate across unrelated calls. Effect: a second call (even with a completely different `scores` list) will silently treat scores from the *first* call as \"already seen\" and exclude them from `result`, producing wrong/short output that depends on call history rather than on the current input. This is the classic Python mutable-default-argument bug.\n\n**2. Sorting mutates the caller's list in place**\n`scores.sort(reverse=True)` sorts `scores` in place rather than working on a copy (e.g. via `sorted(scores, reverse=True)`). Effect: the caller's original list is reordered as a side effect of calling `top_scores`, which is surprising/unwanted if the caller still needs the original order elsewhere.\n\n**3. No bounds check on `limit` vs. length of `scores`**\nThe loop does `for i in range(0, limit): ... scores[i] ...` with no check that `limit <= len(scores)`. Effect: if `limit` exceeds the number of scores, this raises `IndexError: list index out of range` instead of e.g. just returning as many scores as are available.\n\n**4. Division by zero on empty input**\n`average = sum(scores) / len(scores)` divides by `len(scores)` unconditionally. Effect: if `scores` is empty, this raises `ZeroDivisionError`. (Note: this path is only reached when `limit <= 0`, since a positive `limit` with empty `scores` hits defect #3's `IndexError` first — but the empty-list crash is still a real, reachable defect.)\n\n**5. Deduplication by value causes fewer than `limit` results even when enough scores exist**\nThe `if scores[i] not in seen` / `seen.append(scores[i])` logic filters out *equal-valued* scores, not just previously-returned entries — and the loop still only ever inspects indices `0` through `limit-1`, without extending further to compensate for skipped duplicates. Effect: if there are ties among the top scores (e.g. `scores = [10, 10, 9, 8, 7]`, `limit=5`), the second `10` is treated as a duplicate and dropped, so `result` ends up with only 4 elements instead of the top 5 scores (by position), even though 5 well-defined \"top scores\" exist in the list.",
+  "response_sha256": "19b92de8d6265e87a16333d917b31a11d96a1322717ce202a5770b596691d768",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2534,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3017,
+    "output_tokens_details": {
+      "thinking_tokens": 2192
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2534,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3017,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2534,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2534
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0454552,
+    "duration_ms": 33426,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-12T08:34:17+00:00",
+  "finished_at": "2026-09-12T08:34:51+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  }
+}

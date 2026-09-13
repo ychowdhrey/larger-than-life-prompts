@@ -10,108 +10,197 @@ During normal AI use, adding this phrase appeared to improve the resulting outpu
 
 ## Hypothesis
 
-Adding the phrase at the end of a task prompt may improve observable AI task performance compared with the same prompt without the phrase.
+Adding the phrase at the end of a task prompt may improve observable AI task performance
+compared with the same prompt without the phrase.
 
-The project does not assume that the model is literally motivated. The test is whether output behavior changes in ways associated with greater effort, seriousness, thoroughness, checking, creativity, or overall task success.
+The project does not assume that the model is literally motivated. The test is whether
+output behavior changes in ways associated with greater effort, seriousness, thoroughness,
+checking, creativity, or overall task success.
+
+The full, locked statement of hypotheses, contrasts, analysis plan and decision rule is in
+[PREREGISTRATION.md](PREREGISTRATION.md).
 
 ## Situation
 
-To be defined from the first real task where the effect was noticed and then expanded into a controlled task set.
+Four task families where additional care, checking, depth or persistence could genuinely
+change the answer: reasoning, critique and error detection, planning, and writing under hard
+constraints. 20 tasks, 5 per family, in [tasks.json](tasks.json).
 
 ## Position
 
 End of prompt.
 
-## Control
+## Conditions
+
+One independent variable — text appended to an otherwise identical base prompt — at four
+levels. Nothing else differs. See [conditions.json](conditions.json).
+
+| ID | Role | Appended text |
+|---|---|---|
+| A | Control | *(nothing appended)* |
+| B | Generic encouragement | `Good luck. Do your best.` |
+| C | **Treatment** | `May the Force be with you.` |
+| D | Explicit effort instruction | `Be especially thorough and check your work carefully.` |
 
 ```text
-{task_prompt}
+A:  {task_prompt}
+
+B:  {task_prompt}
+
+    Good luck. Do your best.
+
+C:  {task_prompt}
+
+    May the Force be with you.
+
+D:  {task_prompt}
+
+    Be especially thorough and check your work carefully.
 ```
 
-## Treatment
+### Why four conditions rather than two
 
-```text
-{task_prompt}
+The original design here compared treatment against control alone. That comparison cannot
+answer the question the project actually cares about. If C beats A, the cause might be the
+phrase, or it might be that appending *any* text helps, or that anything resembling
+encouragement helps. B and D are active controls that separate those explanations.
 
-May the Force be with you.
-```
+This is still one variable at a time: the appended text, at four levels.
 
 ## Primary questions
 
-1. Does treatment win more often than control under blinded evaluation?
-2. Does treatment increase overall task quality?
-3. Which dimensions change most: thoroughness, checking, reasoning, creativity, instruction adherence, or usefulness?
-4. Is any effect consistent across tasks or limited to certain situations?
+1. Does the phrase beat **Control**?
+2. Does it beat **generic encouragement**?
+3. Does it beat an **explicit effort instruction**?
+4. Which dimensions change most, and is any effect consistent across task families?
 
-## Initial design
+Question 3 is the hard one. A phrase that merely matches "be thorough and check your work"
+is a curiosity; a phrase that beats it would be genuinely surprising.
 
-Start small and establish the workflow before scaling.
+## Design
 
-Suggested first pass:
+| | Pilot | Full |
+|---|---:|---:|
+| Tasks | 5 | 20 |
+| Conditions | 4 | 4 |
+| Repetitions | 2 | 3 |
+| Generations | **40** | **240** |
+| Blind judgments | 40 | 240 |
+| Pairwise comparisons | 30 | 180 |
 
-* 20 tasks
-* 2 conditions per task
-* 3 repeated generations per condition where practical
-* randomized blind judging
-* one consistent judge rubric
-
-This yields up to 120 task outputs before judge calls.
-
-## Model record
-
-Provider: TBD
-
-Model: TBD
-
-Model version: TBD
-
-Temperature / sampling: TBD
-
-Maximum output: TBD
-
-Date: TBD
-
-Judge model: TBD
+Every generation starts in a fresh model context. Execution order is shuffled from a
+recorded seed so that condition is not confounded with time or model drift.
 
 ## Evaluation
 
-Primary metric:
+**Primary outcome:** blind judge `task_success`, 1–5.
 
-* blinded pairwise preference
+**Blind judge dimensions:** task success (primary), thoroughness, constraint adherence,
+error checking, depth, usefulness. See [../../evals/rubric.json](../../evals/rubric.json)
+v2.0.0 and [../../evals/judge-prompt-blind.md](../../evals/judge-prompt-blind.md).
 
-Secondary metrics:
+**Objective scoring, no judge involved:** 265 points across the task set from verifiable
+answers, 22 deliberately planted defects, 7 distractors (correct things that look wrong, so
+that listing every possible concern cannot beat reading carefully), and machine-checked
+constraints including a schedule feasibility validator and a budget self-consistency check.
 
-* task completion
-* accuracy
-* reasoning quality
-* instruction adherence
-* usefulness
-* thoroughness
-* checking behavior
-* creativity where relevant
+**Behavioral indicators:** response length, coverage, verification markers, alternatives,
+caveats, self-correction, constraint completion. Heuristic proxies, reported as description.
+
+**Pairwise preference:** secondary, A/B presentation order randomised from the seed before
+judging began.
+
+The judge never sees the condition, the sample id, or the condition-augmented prompt — only
+the base task and a response under an opaque id.
+
+## Running it
+
+```bash
+# pilot: 40 generations
+python3 ../../scripts/experiment.py all --config config/pilot.json --workers 4
+
+# full: 240 generations
+python3 ../../scripts/experiment.py all --config config/full.json --workers 4
+
+python3 ../../scripts/experiment.py status --config config/pilot.json
+python3 ../../scripts/experiment.py verify --config config/pilot.json
+```
+
+Resumable: interrupt any stage and re-run it, and nothing already produced is regenerated.
+Raw outputs are write-once with a sha256 ledger. The spec is hashed at prepare time and
+every later stage refuses to run if tasks, conditions, rubric, judge prompts or the
+preregistration changed.
+
+## Model record
+
+See `runs/<run_id>/run_meta.json` for the authoritative record of any run.
+
+Provider: Anthropic, via the `claude` CLI (one process per generation)
+
+Model: `claude-sonnet-5`
+
+Judge model: `claude-sonnet-5`
+
+Temperature / sampling: not exposed by the CLI backend, recorded as such
+
+Task set version: 1.0.0 · Rubric version: 2.0.0 · Prompt version: 1.0.0 · Workflow version: 1.0.0
 
 ## Results
 
-Not run yet.
+**Pilot only (40 generations, 2026-09-12).** Full report in [analysis.md](analysis.md),
+machine readable in `runs/pilot-001/analysis/`. The full 240 generation experiment has
+**not** been run.
 
-Control win rate: TBD
+The pilot validated the workflow and did **not** test the phrase. Both outcome measures
+hit their ceiling:
 
-Treatment win rate: TBD
+| Measure | A control | B generic | C phrase | D effort |
+|---|---:|---:|---:|---:|
+| Objective score | 0.973 | 0.960 | **1.000** | 0.980 |
+| Blind judge task success (1-5) | 4.60 | 4.90 | **5.00** | 5.00 |
 
-Tie rate: TBD
+Three of the five pilot tasks scored a perfect 1.000 under every condition. Nothing can
+be concluded from a measure that everything saturates, and no contrast is demonstrated
+under the preregistered decision rule.
 
-Average control score: TBD
+Pipeline health was good: 40/40 generations and 70/70 judgments with zero failures,
+sha256 ledger intact, and **0 of 40 responses leaked their condition** by echoing the
+appended text. Generation cost about 1.08 USD.
 
-Average treatment score: TBD
+### Known defects in this task set, recorded not repaired
 
-Effect: TBD
+The spec was locked before the run, so neither was fixed in place. Both are reasons the
+full run should wait for a new task set version.
+
+1. **Ceiling effect.** The tasks are too easy for the model under test. Difficulty needs
+   raising until the control condition fails a meaningful fraction of the time; a task
+   set with no headroom cannot measure a marginal effect.
+2. **`P01/backup_before_destructive` misfires.** It penalised three correct plans because
+   "cutover" appeared in a passing mention earlier in the text than the backup step. The
+   ordering check matches the first occurrence anywhere rather than the step performing
+   the action. This artifact flattered condition C.
 
 ## Conclusion
 
 **Status: Observed**
 
-This experiment has not yet been tested under controlled conditions.
+A pilot validates the workflow and cannot move the confidence stage. Promotion to **Tested**
+requires the full run.
 
 ## Next action
 
-Create the initial task set in `tasks.json`, lock the evaluation rubric, choose the model and settings, and run the first controlled comparison.
+**Do not run `config/full.json` against task set v1.0.0.** 240 generations against a
+measure that saturates at its maximum would cost roughly six times the pilot and return
+a null result that says nothing about the phrase.
+
+Instead:
+
+1. Raise task difficulty until the control condition fails a meaningful fraction of the
+   time, and fix the `P01` ordering check. Ship both as `tasks.json` **v1.1.0**.
+2. Re-run the pilot on v1.1.0 and confirm the control condition has headroom before
+   spending the full run.
+3. Then run `config/full.json` under a new `run_id`.
+
+`runs/pilot-001/` stays as it is. Bumping the task set will break its spec lock, which
+is the intended behaviour: its raw data and this report remain valid for the spec they
+were produced under, and a changed spec means a new run rather than a revised result.

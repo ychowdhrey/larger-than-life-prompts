@@ -1,0 +1,22 @@
+{
+  "item_id": "a9a8db2fd6715c23",
+  "sample_id": "C01-A-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "A",
+  "repetition": 1,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 4,
+    "constraint_adherence": 4,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies five real defects (mutable default, in-place sort mutation, IndexError on large limit, ZeroDivisionError on empty input, and a subtle under-fill bug in deduplication with a concrete correct trace), but its ZeroDivisionError example is inaccurate since calling top_scores([]) with the default limit=5 actually raises IndexError first, so it didn't fully verify execution order across its own findings.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-12T08:37:28+00:00"
+}

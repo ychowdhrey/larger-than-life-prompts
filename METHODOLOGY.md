@@ -20,9 +20,33 @@ The original task prompt with no experimental phrase.
 
 The identical task prompt with one experimental phrase added in a specified position.
 
+### Active controls
+
+A treatment that beats control has not yet shown anything about the phrase. It may only have
+shown that appending *any* text helps, or that telling a model to be careful helps. An
+experiment should therefore include active controls: other text, appended in the same
+position, that is not the phrase under test.
+
+The standard ladder is four conditions:
+
+| Role | Content |
+|---|---|
+| Control | nothing appended |
+| Generic encouragement | ordinary supportive language carrying no specific instruction |
+| Treatment | the larger than life phrase under test |
+| Explicit effort instruction | a plain instruction to be thorough and check the work |
+
+This is still **one variable at a time**: the independent variable is the text appended to an
+otherwise identical base prompt, and it takes four levels. The interesting result is never
+"treatment beats control" on its own. It is whether the phrase beats generic encouragement
+and beats an explicit effort instruction. If it does not, the effect belongs to appended text
+in general rather than to the phrase, which is a negative result for the premise and stays in
+the repository.
+
 ## Independent variable
 
-The experimental phrase.
+The experimental phrase, or more precisely the text appended to an otherwise identical base
+prompt.
 
 ## Variables held constant within an experiment
 
@@ -68,20 +92,45 @@ The primary experiment should begin in the situation where the phrase was natura
 
 ## Evaluation
 
-The primary outcome is blinded preference between control and treatment outputs.
+The primary outcome is **blind judge task success**: a judge that cannot see the condition
+rates each response from 1 to 5 on whether it actually accomplished the task.
 
-Secondary dimensions may include:
+This replaced blinded pairwise preference as the primary outcome in evaluation version 2.0.0.
+The reason is the four condition ladder above. Pairwise preference compares two things at a
+time, so with four conditions it cannot cleanly answer "does the phrase beat generic
+encouragement" and "does it beat an explicit effort instruction" in one measurement. A
+per response score can. Pairwise preference is retained as a secondary outcome because it
+remains the most intuitive summary of "which would you actually use".
 
-* task completion
-* accuracy
-* reasoning quality
-* instruction adherence
-* usefulness
+Blind judge dimensions, each scored 1 to 5:
+
+* task success (primary)
 * thoroughness
-* checking behavior
-* creativity where relevant
+* constraint adherence
+* error checking
+* depth
+* usefulness
 
-Each dimension is scored from 1 to 5 unless an experiment defines a more objective metric.
+### Objective scoring
+
+Where practical, a task should carry scoring that does not depend on a judge at all: a
+verifiable answer, deliberately planted defects to be found, or constraints a parser can
+check. Objective scoring is immune to the length bias and self preference that affect LLM
+judges, and it is blind by construction rather than by procedure.
+
+A task set should also include **distractors**: elements that look wrong but are correct.
+Without them, a response that lists every possible concern scores as well as one that read
+carefully, and "thoroughness" collapses into verbosity.
+
+### Behavioral indicators
+
+Alongside outcome scores, record observable properties of the text: response length, coverage
+of relevant considerations, verification behavior, alternatives considered, caveats
+identified, self correction, constraint completion.
+
+These are **heuristic proxies**, computed by pattern matching. A response can check its work
+without using any marker phrase, and use marker phrases without checking anything. They are
+reported as description and never as a test.
 
 ## Blind judging
 
@@ -107,7 +156,69 @@ A useful operational question is:
 
 Models are stochastic. Each condition should therefore be run multiple times when practical.
 
-For an initial low cost experiment, 20 tasks with multiple repeated runs is acceptable. Stronger claims require larger samples and replication.
+For an initial low cost experiment, 20 tasks with multiple repeated runs is acceptable.
+Stronger claims require larger samples and replication.
+
+Every generation must start in a **fresh context**. A model that has already answered the
+same task under another condition is not an independent sample.
+
+## Pilot runs
+
+Run a pilot before the full experiment: a small subset of tasks, all conditions, fewer
+repetitions. Its purpose is to prove the workflow end to end, surface broken scoring, and
+give a cost estimate.
+
+A pilot is not evidence. It cannot assign an impact classification and cannot move an
+experiment along the confidence ladder. Reports generated from a pilot say so at the top.
+
+## Preregistration and the spec lock
+
+Hypotheses, task set, conditions, primary outcome, analysis plan and decision rule are
+written down and locked **before** the first generation exists.
+
+This is enforced mechanically rather than by good intentions. The runner hashes every file
+that defines an experiment into `spec.lock.json` when a run is prepared, and every later
+stage re-checks those hashes and refuses to proceed if one changed. Editing a task after
+results exist does not produce a revised result; it produces an error.
+
+If something in a locked spec turns out to be wrong, the response is a **new run with a new
+spec version**, leaving the original and its results in place. A spec that can be quietly
+edited after seeing the numbers is not a preregistration.
+
+## Statistical reporting
+
+Responses to the same task are not independent, so the **task** is the unit of analysis.
+Paired differences are taken within a (task, repetition) cell, averaged to the task level,
+and then:
+
+* intervals from a cluster bootstrap over tasks, seeded and therefore recomputable
+* a two sided sign flip permutation test on task level differences, exact where feasible
+* effect size as Cohen's dz on task level differences
+* Holm adjustment across the preregistered contrasts
+
+A result is reported as demonstrated only if the direction, the interval and the adjusted p
+value all agree. A positive looking difference with an interval spanning zero is reported as
+a direction, never as an effect.
+
+Small task counts should be stated as such. With few tasks a permutation test has a floor
+below which it cannot produce a small p value no matter how consistent the direction is, and
+a null result is then uninformative rather than negative.
+
+## Confounds to declare in advance
+
+At minimum, every experiment of this shape should declare:
+
+1. **Prompt length.** The control is shorter than the other conditions by construction. Any
+   control versus treatment difference could be a response to a longer prompt. The active
+   controls are what isolate the phrase.
+2. **Blinding leakage.** A response may echo the appended text back. Measure the rate,
+   report it, and never edit the output to hide it.
+3. **Judge self preference** when judge and generator are the same model.
+4. **Length bias** in LLM judging. Objective scoring is the check.
+5. **Harness context.** Generating through a CLI or agent adds a system preamble. It is
+   identical across conditions so internal validity holds, but the result describes behavior
+   in that harness.
+6. **Multiplicity.** Report which measurement is the test and which are descriptive.
 
 ## Impact classification
 
@@ -146,22 +257,28 @@ Any claim should ultimately be translated into measurable outcomes such as more 
 
 ## Reproducibility record
 
-Each experiment should record:
+Each experiment should record, per generation as well as in aggregate:
 
 * date
 * model
 * model version if exposed
 * provider
+* task ID
 * prompt condition
+* repetition number
 * phrase position
-* settings
-* task set
+* random seed, and the per sample seed derived from it
+* settings, or an explicit note that the backend does not expose them
+* prompt version
+* task set version
+* evaluation version and judge prompt version
 * number of runs
 * judge model
-* judge prompt version
-* raw outputs or references to them
-* aggregate results
-* interpretation
+* raw outputs, stored immutably, with a hash ledger
+* aggregate results, machine readable
+* interpretation, human readable
+
+If a number in a report cannot be traced to a raw output and a seed, it is not a result.
 
 ## Book threshold
 

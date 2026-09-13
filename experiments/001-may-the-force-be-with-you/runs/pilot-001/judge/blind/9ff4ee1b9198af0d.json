@@ -1,0 +1,22 @@
+{
+  "item_id": "9ff4ee1b9198af0d",
+  "sample_id": "P01-C-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "C",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies all hard requirements within the 12-step cap (backup, replication-based dry run, stakeholder notice, post-cutover checksum/row-count verification, and a concrete rollback), with correct format and an accurate step count line. It is technically specific and actionable, though the integrity-verification and rollback steps could specify exact pass/fail thresholds for stronger self-checking.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-12T08:38:04+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "7d63aa14d7872837",
+  "sample_id": "P01-B-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "B",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (12 steps exactly, rehearsal in step 4, pre-cutover backup in step 5, integrity checks in step 9, rollback in step 10, stakeholder comms in steps 3/6/11) with concrete, actionable detail like replication lag checks, LSN tracking, and a go/no-go gate, though it omits some finer points like security/credential rotation and post-cutover load testing.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-12T08:37:47+00:00"
+}

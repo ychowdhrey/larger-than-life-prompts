@@ -1,0 +1,35 @@
+{
+  "run_id": "pilot-001",
+  "mode": "pilot",
+  "experiment_dir": "experiments/001-may-the-force-be-with-you",
+  "seed": 20260912,
+  "repetitions": 2,
+  "tasks": ["R01", "C01", "P01", "P03", "W01"],
+  "_tasks_note": "One task from each family, plus P03 so the schedule validator, the hardest objective scorer, is exercised before the full run.",
+  "generation": {
+    "backend": "claude_cli",
+    "model": "claude-sonnet-5",
+    "timeout_seconds": 600,
+    "retries": 3
+  },
+  "judging": {
+    "backend": "claude_cli",
+    "model": "claude-sonnet-5",
+    "timeout_seconds": 600,
+    "retries": 3
+  },
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.0.0"
+  },
+  "spec": {
+    "tasks": "experiments/001-may-the-force-be-with-you/tasks.json",
+    "conditions": "experiments/001-may-the-force-be-with-you/conditions.json",
+    "rubric": "evals/rubric.json",
+    "judge_prompt_blind": "evals/judge-prompt-blind.md",
+    "judge_prompt_pairwise": "evals/judge-prompt.md",
+    "preregistration": "experiments/001-may-the-force-be-with-you/PREREGISTRATION.md"
+  }
+}
