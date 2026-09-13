@@ -220,6 +220,63 @@ At minimum, every experiment of this shape should declare:
    in that harness.
 6. **Multiplicity.** Report which measurement is the test and which are descriptive.
 
+## Multi-arm batteries
+
+A battery tests many phrases against one shared set of references in a single run. It is
+the same design as the four-condition ladder with more levels of the same independent
+variable, and it raises four questions the ladder never has to answer. All four are settled
+in the preregistration, before the run.
+
+### Shared control arms
+
+The control arms may be generated once and reused as the reference for every treatment arm,
+rather than regenerated inside each comparison. This is only legitimate when execution order
+is shuffled globally from the master seed, so that control and treatment generations are
+interleaved in time and no arm sits in its own window.
+
+The cost has to be declared: contrasts sharing a reference are **statistically correlated
+with one another**. That does not affect the validity of any single within-phrase paired
+test, which is still computed inside (task, repetition) cells. It affects joint claims
+across phrases — a leaderboard — which is what the FDR level below is for.
+
+### Placebo arms
+
+A battery should include at least one arm whose appended text is irrelevant filler of
+comparable length. Generic encouragement is not this: "Good luck" still carries
+encouragement. A placebo arm is the floor that separates *the meaning of a phrase* from
+*the act of appending a sentence*, and without one a family that beats the empty control
+cannot be told apart from length.
+
+Two placebo arms are better than one, because a single one cannot distinguish a real floor
+from one unlucky draw.
+
+### Multiplicity, at three levels
+
+Holm controls the probability of **any** false positive, which is the right instrument when
+one experiment asks three questions. Screening dozens of phrases is a different job:
+applying Holm across the whole battery makes the bar depend on how many other phrases
+happened to be in the run.
+
+A battery therefore reports three levels, and names which one is the decision rule:
+
+1. **Per phrase.** Holm across that arm's own contrasts. Keeping this as the decision rule
+   is what makes a verdict here mean the same thing a verdict in a single-phrase experiment
+   means.
+2. **Across the battery.** Benjamini-Hochberg FDR across every core contrast. Any claim of
+   the form "phrase X works, selected from a battery of N" must survive this.
+3. **Across families**, where families are analysed.
+
+### Family pooling
+
+Where arms are grouped into behavioural families, a family-level contrast pools its member
+arms by averaging their paired differences **within** each task, and then treats the task as
+the unit as usual. Concatenating the arms instead would count one task several times and
+report an interval that is too narrow.
+
+Pooling is the only way a battery can say anything about a family rather than about one
+phrase, and it is why a family needs more than one member: with a single member, "the
+family" and "that phrase" are the same measurement wearing two names.
+
 ## Impact classification
 
 | Classification | Meaning |
@@ -231,6 +288,12 @@ At minimum, every experiment of this shape should declare:
 | Inconclusive | Not enough evidence |
 
 Numeric results should always be retained alongside the classification.
+
+An experiment may refine these labels provided the refinement is fixed in its
+preregistration and maps onto the table above. Experiment 002 splits **Positive** into
+*Positive* (beats the empty control, beats an active control, and survives the battery-wide
+FDR) and *Weak positive* (beats the empty control only), because in a battery the
+distinction between "this phrase works" and "appending text works" is the entire finding.
 
 ## Confidence stages
 
