@@ -233,3 +233,70 @@ class TestVerifyLedgerIsTamperEvident(unittest.TestCase):
             self.assertIn("NOT YET BUILT", out)
             self.assertIn("unverified", out)
             self.assertNotIn("raw immutability: OK", out)
+
+
+class TestBatteryPromptEquivalenceAndBlinding(unittest.TestCase):
+    """The same validity claims tests/test_prompts.py makes, over the battery's 37 arms.
+
+    That file loads Experiment 001's four conditions by path, so none of its assertions
+    covered this battery: 34 more arms, suffixes from 24 to 133 characters, and eight
+    two-sentence combination suffixes that no earlier experiment had. The runtime `verify`
+    stage checks equivalence, but a check that only runs when someone runs it is not the
+    same as one the suite enforces.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        from ltlp import prompts
+        cls.prompts = prompts
+        cls.tasks = util.read_json(os.path.join(REPO, "tasks", "core-v1.json"))["tasks"]
+        cls.conds = util.read_json(os.path.join(EXP2, "conditions.json"))
+
+    def test_every_arm_differs_from_the_base_prompt_only_by_its_suffix(self):
+        join = self.conds["join"]
+        for task in self.tasks:
+            for c in self.conds["conditions"]:
+                rendered = self.prompts.render_prompt(task["base_prompt"], c["suffix"], join)
+                self.assertEqual(
+                    self.prompts.strip_suffix(rendered, c["suffix"], join),
+                    task["base_prompt"],
+                    "%s/%s differs by more than its suffix" % (task["id"], c["id"]))
+
+    def test_the_control_arm_is_byte_identical_to_the_base_prompt(self):
+        control = [c for c in self.conds["conditions"] if c["id"] == "A"][0]
+        for task in self.tasks:
+            self.assertEqual(
+                self.prompts.render_prompt(task["base_prompt"], control["suffix"],
+                                           self.conds["join"]),
+                task["base_prompt"], "the control must append nothing at all")
+
+    def test_all_thirty_seven_arms_produce_distinct_prompts(self):
+        join = self.conds["join"]
+        for task in self.tasks:
+            rendered = {self.prompts.render_prompt(task["base_prompt"], c["suffix"], join)
+                        for c in self.conds["conditions"]}
+            self.assertEqual(len(rendered), len(self.conds["conditions"]),
+                             "two arms render the same prompt for %s" % task["id"])
+
+    def test_no_arm_text_can_reach_a_judge_prompt(self):
+        suffixes = [c["suffix"] for c in self.conds["conditions"] if c["suffix"]]
+        blind = util.read_text(os.path.join(REPO, "evals", "judge-prompt-blind.md"))
+        pair = util.read_text(os.path.join(REPO, "evals", "judge-prompt.md"))
+        for task in self.tasks:
+            a = self.prompts.build_blind_judge_prompt(blind, task["base_prompt"], "a response")
+            b = self.prompts.build_pairwise_judge_prompt(pair, task["base_prompt"], "a", "b")
+            for suf in suffixes:
+                self.assertNotIn(suf, a, "arm text leaked into the blind judge prompt")
+                self.assertNotIn(suf, b, "arm text leaked into the pairwise judge prompt")
+
+    def test_echo_detection_recognises_every_arm_including_the_combinations(self):
+        suffixes = [c["suffix"] for c in self.conds["conditions"] if c["suffix"]]
+        for c in self.conds["conditions"]:
+            if not c["suffix"]:
+                continue
+            leaked = "Here is my answer.\n\n%s" % c["suffix"]
+            self.assertIsNotNone(self.prompts.condition_echo(leaked, suffixes),
+                                 "an echo of %s would go uncounted" % c["id"])
+        self.assertIsNone(
+            self.prompts.condition_echo("An ordinary answer with no appended text.",
+                                        suffixes))
