@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T03_vs_A-r2",
+  "contrast_id": "T03_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T03",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the same four core defects (LEFT JOIN turned INNER via WHERE, UTC vs. local-day mismatch, NULL total_spent instead of 0, integer division truncation) with similarly accurate explanations, but Response A also flags the non-aggregated GROUP BY columns (c.name, c.signup_date) as a real portability/strict-SQL-mode defect, appropriately caveating its severity — an additional true finding B misses entirely. B's extra remark about NULL sort order in defect #3 is a nice elaboration but not an independent defect, so it doesn't offset A's greater completeness.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:36:19+00:00"
+}

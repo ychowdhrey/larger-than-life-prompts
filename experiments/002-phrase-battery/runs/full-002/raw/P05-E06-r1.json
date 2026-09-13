@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E06-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E06",
+  "condition_name": "combo_e06",
+  "repetition": 1,
+  "execution_index": 1070,
+  "sample_seed": 5973372599758927015,
+  "prompt_sha256": "0548feec90dbdacd356ad39d1eb1797d258c826ef56209ba43086b209adc9324",
+  "prompt_chars": 877,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the legacy billing system (\"Old System\") to the new billing system (\"New System\") using a phased, percentage-based rollout. Both systems will run concurrently (dual-run) throughout the migration to allow reconciliation, comparison, and rollback of individual user cohorts without service disruption. The Old System is retained in a fully operational, read/write-capable state through every migration phase and is only considered for retirement in a dedicated post-migration phase after the final batch has been stable in production for a defined soak period.\n\nKey design principles:\n- Each phase gates on objective entry criteria, not calendar dates alone.\n- Cohorts are selected to de-risk the largest/most complex accounts last, not first.\n- Reconciliation between Old and New systems runs continuously during dual-run, not just at cutover.\n- Rollback per-user (or per-cohort) is possible at every phase because the Old System remains live and authoritative for unmigrated users.\n\n---\n\n## Phase 0: Internal Validation (0% of production users — pre-phase, not counted in rollout %)\n\n**Population:** 0 real customers. Internal test accounts, synthetic accounts, and opted-in employee/dogfood accounts only (target: 100–200 synthetic accounts).\n\n**Entry criterion to start Phase 0:**\n- New System has passed a full functional test suite covering invoicing, proration, tax calculation, payment retries, refunds, and dunning logic, with 100% of critical-path test cases passing.\n- Dual-write/dual-read reconciliation tooling is deployed and produces a diff report between Old and New systems for any account processed in both.\n- Rollback tooling (ability to revert a single account to Old-System-of-record) is built and tested successfully on at least 10 synthetic accounts.\n\n**Exit criterion (feeds into Phase 1 entry):** Zero critical or high-severity defects open; reconciliation diff rate across synthetic accounts is 0% for financial fields (invoice amount, tax amount, balance).\n\n---\n\n## Phase 1: Pilot Cohort (5% of users — 2,000 users)\n\n**Population:** Low-risk, low-complexity accounts: single-currency, no active disputes, no complex multi-subscription bundles, opted-in beta users where possible. Excludes enterprise/high-ARR accounts.\n\n**Entry criterion:**\n- Phase 0 exit criteria fully met.\n- Support and billing-ops teams have completed training on New System workflows and escalation paths.\n- Feature flag / cohort-routing mechanism is verified to correctly route only the selected 2,000 user IDs to the New System while all others remain on Old System.\n- On-call rotation and incident runbook for billing-migration issues is published and staffed.\n\n**Duration/soak:** Minimum 14 days of dual-run before proceeding, or longer if reconciliation issues are found.\n\n---\n\n## Phase 2: Expanded Rollout (30% of users — 12,000 users, cumulative 35%)\n\n**Population:** Broader mix including medium-complexity accounts (multi-currency, coupons/discounts, mid-tier subscription plans). Still excludes the highest-complexity enterprise accounts and any accounts flagged with active billing disputes.\n\n**Entry criterion:**\n- Phase 1 ran for its full soak period with no unresolved critical/high-severity billing defects.\n- Financial reconciliation diff rate for Phase 1 cohort is ≤ 0.1% of transactions by count and ≤ 0.1% by dollar value over the soak period.\n- Customer support ticket volume attributable to billing migration for Phase 1 cohort is at or below baseline ticket volume (i.e., no statistically significant spike).\n- Rollback of at least one real (non-synthetic) Phase 1 account has been exercised successfully in production (a \"game day\" test), confirming rollback works end-to-end, not just in theory.\n\n**Duration/soak:** Minimum 21 days of dual-run.\n\n---\n\n## Phase 3: General Availability / Majority Rollout (50% of users — 20,000 users, cumulative 85%)\n\n**Population:** Remaining standard accounts, including higher-complexity multi-subscription and multi-currency accounts, but still excluding the top-tier enterprise/high-ARR accounts and any account currently mid-dispute or mid-refund-cycle.\n\n**Entry criterion:**\n- Phase 2 exit criteria fully met (same reconciliation and support-ticket thresholds as above, evaluated on the larger Phase 2 cohort).\n- Load testing confirms New System can handle projected peak transaction volume at 85% of user base with p99 latency within agreed SLA and no degradation of payment processor success rates.\n- Finance/accounting sign-off that revenue recognition and tax reporting outputs from New System match Old System for the cumulative migrated population within acceptable tolerance.\n\n**Duration/soak:** Minimum 21 days of dual-run.\n\n---\n\n## Phase 4: Final Batch and Remaining Complex Accounts (15% of users — 6,000 users, cumulative 100%)\n\n**Population:** Highest-complexity accounts: enterprise/high-ARR, custom contract terms, active or recently resolved disputes, and any accounts explicitly deferred from earlier phases for manual review.\n\n**Entry criterion:**\n- Phase 3 exit criteria fully met on the 85% cumulative cohort.\n- Every account in this final batch has had an individual pre-migration data validation check (contract terms, custom pricing rules, tax exemptions) signed off by billing operations.\n- A dedicated white-glove support plan is staffed for this cohort during and after migration, given their revenue significance.\n- Executive/finance stakeholder sign-off obtained given the revenue concentration in this cohort.\n\n**Note:** This phase migrates the final batch of users only. It does **not** include decommissioning, disabling, or deleting the Old System. The Old System remains fully operational and dual-run continues.\n\n---\n\n## Phase 5: Post-Migration Soak and Old System Decommissioning (0% new user migration — stabilization and retirement phase)\n\n**Population:** No new user migration occurs in this phase; all 40,000 users are already on the New System as of the end of Phase 4.\n\n**Entry criterion:**\n- 100% of users successfully migrated and confirmed present in New System with no open rollbacks.\n- Minimum 30-day soak period post-Phase-4 completion with reconciliation diff rate ≤ 0.1% sustained throughout.\n- Full billing cycle (at least one complete monthly and, where applicable, annual billing cycle) has completed successfully on New System for the final batch cohort with no critical incidents.\n- Finance has completed a full close/audit cycle using New System data only, with results reconciled against Old System records for the same period.\n\n**Actions in this phase:** Only after all the above criteria are met does this phase proceed to (a) switching Old System to read-only archival mode, and later (b) formal decommissioning/deletion of Old System infrastructure, on a separate, explicitly approved timeline.\n\n---\n\n## Risks\n\nRISK: Financial data (invoice amounts, balances, tax) diverges between Old and New systems during dual-run, causing customer billing errors | Run continuous automated reconciliation jobs comparing every migrated account's invoices/balances between systems, alert on any diff above 0.1%, and halt further migration until root-caused | Billing Platform Engineering Lead\n\nRISK: Payment processor integration behaves differently in New System (e.g., different retry/dunning logic), increasing involuntary churn or failed payments | Run New System against a payment-processor sandbox and a controlled live sample before each phase, monitor payment success rate per cohort, and roll back the cohort if success rate drops more than 2 percentage points versus Old System baseline | Payments Engineering Lead\n\nRISK: High-complexity enterprise accounts with custom contract terms are migrated incorrectly, causing revenue leakage or contract non-compliance | Require manual pre-migration validation and sign-off per account for all enterprise/custom-contract accounts before inclusion in any phase, and migrate them only in the final, most-scrutinized phase | Enterprise Billing Operations Manager\n\nRISK: Customer support is overwhelmed by billing-related tickets during a phase, indicating a systemic New System issue | Track billing-related ticket volume per cohort against baseline, and pause the rollout if ticket volume exceeds 150% of baseline for the equivalent user population within any 48-hour window | Customer Support Operations Lead\n\nRISK: Rollback mechanism fails when actually needed, leaving affected users stuck on a broken New System experience | Test rollback in a live \"game day\" exercise on real accounts before each phase gate, and require rollback to complete within a defined SLA (e.g., 4 hours) as an entry criterion for the next phase | Site Reliability Engineering Lead\n\nRISK: Data privacy or access-control misconfiguration in New System exposes billing/PII data incorrectly during dual-run | Conduct a security and access-control review prior to Phase 1, and run automated access-control tests against every cohort before expanding to the next phase | Security Engineering Lead\n\n---\n\n## Halt Metric\n\n**Automatic rollout halt condition:** If the financial reconciliation diff rate between Old System and New System for any active or completed cohort exceeds **0.5% of transactions by count** (measured daily over a rolling 24-hour window) **or** the payment success rate for a migrated cohort drops more than **2 percentage points below the Old System baseline** for that same cohort, the rollout is immediately halted: no further users are migrated into subsequent phases until the root cause is identified, fixed, and the affected cohort's metrics return within threshold for 72 consecutive hours.\n\nPHASES: 6",
+  "response_sha256": "f9bf3df361c574cb0b09447cf2691ea288506e33001b1fc0814932c2a1a4bca3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2610,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3319,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2610,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3319,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2610,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2610
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.048779199999999995,
+    "duration_ms": 40070,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:48:17+00:00",
+  "finished_at": "2026-09-13T04:48:59+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

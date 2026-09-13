@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-E06-r1",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E06",
+  "condition_name": "combo_e06",
+  "repetition": 1,
+  "execution_index": 301,
+  "sample_seed": 6669784865241472478,
+  "prompt_sha256": "587b57e02f1ca8fcf95ecb718d3ff2c67403f4f2e57aa81577d2a58328a3a846",
+  "prompt_chars": 804,
+  "response": "# Incident Response Runbook: Production Database Disk Exhaustion & Write Latency Degradation\n\n**Severity:** SEV-1 (production data path at risk)\n**Trigger condition:** Primary production database disk utilisation ≥ 98% AND write latency ≥ 3x baseline within a 20-minute window\n\n---\n\n## DETECTION\n\n1. **Alert sources** — this incident is typically surfaced by one or more of:\n   - Disk utilisation alert on the primary DB host/volume crossing the 90%/95%/98% thresholds.\n   - Write latency (p95/p99) alert showing a ≥3x deviation from rolling baseline.\n   - Application-layer error rate increase (write timeouts, connection pool exhaustion, `disk full` errors in DB logs).\n2. **Confirm the alert is real, not noise:**\n   - Check the disk utilisation metric on at least two independent sources (e.g., cloud provider console/CloudWatch/Datadog AND `df -h` / `lsblk` on the host) to rule out a monitoring agent glitch.\n   - Confirm write latency trend over the last 20–30 minutes on the DB dashboard; check that it correlates in time with the disk metric, not with an unrelated deploy or traffic spike.\n3. **Declare the incident:**\n   - Open an incident channel/ticket, page the on-call DBA and the on-call SRE.\n   - Record start time, current disk %, current latency figures, and the query used to confirm them. This becomes the incident timeline anchor.\n4. **Identify blast radius:**\n   - Confirm whether this is the primary (writer) node, a specific replica, or a shared storage volume affecting multiple instances.\n   - Note any other services sharing the same disk/volume/filesystem.\n\n---\n\n## IMMEDIATE ACTIONS\n\n> **Ordering constraint (hard rule): No restart, failover, or any data-deleting/data-moving action may be taken until a storage snapshot has been successfully captured and verified. This applies even under pressure to \"just fix it fast\" — a corrupt or lost dataset is a worse outcome than a few extra minutes of degraded latency.**\n\n1. **Freeze risky changes.** Do not run manual `DELETE`, `TRUNCATE`, `VACUUM FULL`, log purges, restarts, or failovers yet. Communicate this freeze to the incident channel immediately so no one acts in parallel.\n2. **Take a storage snapshot first.**\n   - Trigger a point-in-time storage/volume snapshot (e.g., EBS snapshot, cloud disk snapshot, LVM snapshot, or storage-array snapshot) of the affected primary DB volume(s).\n   - If the platform supports application-consistent snapshots, prefer that; otherwise a crash-consistent snapshot is acceptable given the time pressure, but note this in the incident log.\n   - **Verify the snapshot completed successfully** (status = complete/available, non-zero size, no error in the provider console/API) before proceeding to any other step. If the snapshot fails, retry once; if it fails again, escalate to the storage/cloud provider on-call and continue only with read-only diagnostic actions until a snapshot exists.\n3. **Take a lightweight logical backup marker if time allows** (e.g., record current WAL/binlog position, replication LSN) so point-in-time recovery is possible even if the snapshot is crash-consistent.\n4. **Re-confirm disk headroom after snapshot.** Some snapshot mechanisms (e.g., copy-on-write) can temporarily consume additional disk space — re-check utilisation immediately after the snapshot to ensure it hasn't pushed the volume to 100% and caused a full outage.\n5. **Notify stakeholders** (status page / internal channel) that a SEV-1 write-latency incident is in progress, with ETA for next update in 15 minutes.\n\n---\n\n## MITIGATION\n\nOnly proceed with the steps below **after** the snapshot in IMMEDIATE ACTIONS has been confirmed successful.\n\n1. **Identify what is consuming disk space:**\n   - Check for runaway WAL/binlog/redo log growth (often caused by a stalled replica or long-running transaction preventing log recycling).\n   - Check for bloated temp tables, orphaned large objects, or an unexpectedly large index/table from a recent migration.\n   - Check for core dumps, old backup files, or log files left on the same volume as data.\n2. **Relieve immediate pressure, safest options first (each is reversible or additive, not destructive):**\n   - **Expand the volume** if the platform supports online disk expansion (e.g., cloud block storage resize) — this is the preferred first move since it adds capacity without touching existing data.\n   - **Kill/terminate the specific long-running transaction or replication process** that is blocking WAL/log cleanup, if identified — this is reversible and does not delete data.\n   - **Move or compress non-critical files** (old logs, non-current backups) off the volume to a separate disk/object storage — safe because it targets files already known to be non-essential, not live data files.\n   - Throttle or pause non-critical write-heavy batch jobs/ETL processes hitting the primary to reduce further growth and contention.\n3. **Only if the above do not restore sufficient headroom, and only with a second engineer's explicit sign-off:**\n   - Consider deleting clearly identified, already-archived WAL/binlog segments that are confirmed to be backed up elsewhere.\n   - Consider a controlled failover to a healthy, fully-synced replica — permitted here because the storage snapshot has already been captured per the ordering constraint above. Verify replica lag is at or near zero and replica disk headroom is healthy before cutting over.\n   - A restart of the primary database process may only be considered at this point, and only if disk headroom has already been resolved (a restart on a still-full disk risks crash-loop or corruption on recovery).\n4. **Abort / rollback condition (explicit):**\n   - **If, after expanding the volume or clearing space, write latency does not begin trending back toward baseline within 10 minutes, OR if disk utilisation continues climbing despite mitigation, OR if any mitigation step (e.g., killing a transaction, failover) causes replication to break, data inconsistency to appear, or additional errors to surface — STOP immediately.** Do not proceed to further destructive steps (e.g., manual data deletion, forced failover, restart). Instead:\n     - Revert/undo the last action taken if reversible (e.g., resume the paused job, restore the killed connection's intended state, cancel an in-flight failover).\n     - Escalate to the database vendor/platform support and a senior DBA lead.\n     - Fall back to serving read-only traffic from replicas (if available) to protect data integrity while the root cause is investigated further, rather than continuing to force writes against a still-unhealthy primary.\n5. **Confirm recovery:** disk utilisation trending below 85%, write latency back within ~10% of baseline for at least 15 consecutive minutes before declaring mitigation complete.\n\n---\n\n## FOLLOW UP\n\n1. **Post-incident review (within 3 business days):**\n   - Timeline reconstruction from alert to resolution, including exact snapshot timestamp and verification result.\n   - Root cause analysis: what actually drove disk usage to 98% (e.g., log retention misconfiguration, missing autovacuum, unbounded table growth, backup job failure).\n2. **Preventive actions:**\n   - Add or tighten early-warning alerts (e.g., 75%/85% disk thresholds, WAL/log growth-rate alerts) so this triggers well before 98%.\n   - Implement automated disk auto-scaling or auto-expansion policies where the platform supports it.\n   - Review and enforce log/WAL retention and archival policies; ensure temp/log files are not co-located with primary data volumes going forward.\n   - Add a pre-flight check to any migration/deploy process that estimates disk impact.\n3. **Data integrity verification:**\n   - Run consistency checks against the post-incident database state, and confirm the snapshot taken during IMMEDIATE ACTIONS is retained per backup policy in case delayed corruption is discovered.\n4. **Runbook update:**\n   - Update this runbook with actual timings observed (snapshot duration, expansion duration, latency recovery time) to refine future response SLAs.\n   - Confirm on-call access and permissions for volume expansion and snapshotting were sufficient during this incident; close any access gaps found.\n5. **Communication close-out:**\n   - Send final incident summary to stakeholders and status page, including customer impact window and remediation taken.\n\nSECTIONS: 4",
+  "response_sha256": "80ac567c929f4afc38f7b9f0df6ae474b8a594e110e04ba73ae17748ff7bd3f9",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28321,
+    "output_tokens": 2906,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2906,
+        "cache_read_input_tokens": 28321,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0347282,
+    "duration_ms": 38653,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:29:18+00:00",
+  "finished_at": "2026-09-13T04:29:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

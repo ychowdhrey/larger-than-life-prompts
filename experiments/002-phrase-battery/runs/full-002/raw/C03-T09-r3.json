@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T09-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T09",
+  "condition_name": "phrase_t09",
+  "repetition": 3,
+  "execution_index": 800,
+  "sample_seed": 426319476552036499,
+  "prompt_sha256": "1a23dd1c75363d15fe86db0d4ff84fbd097f377f00f7b6fd772ffd5ffefb4f5b",
+  "prompt_chars": 1029,
+  "response": "Four distinct reasoning defects, each independent of the others:\n\n**1. Causal claim from correlational data (webinar attendance → retention)**\nThe memo asserts webinars *cause* higher retention purely from an observed association. Customers who choose to attend an optional webinar are self-selected — they are likely already more engaged, more invested in the product, or earlier/more diligent adopters than non-attendees. That same underlying engagement plausibly drives both \"attends webinar\" and \"stays subscribed,\" with no causal arrow needed between the two. This would cause the company to make attendance *mandatory* for all new customers expecting a 31%-retention lift, but forcing a previously voluntary behavior on unwilling/unengaged customers may not reproduce the effect at all (compliance without genuine engagement often doesn't transfer) — wasting the implementation cost while not moving retention.\n\n**2. Survivorship bias in the sample**\nThe comparison is drawn only from \"the 412 customers who are still active on the Pro plan today\" — i.e., the population is filtered to survivors before retention is measured. Churned webinar-attendees and churned non-attendees are excluded entirely, so the analysis can't actually speak to whether webinars reduce churn; it only describes attributes of people who already didn't churn. This would cause the 31% figure to systematically overstate (or could even mask) webinars' real relationship to churn, because the customers who would show the counterfactual — attended a webinar and churned anyway — are invisible to this dataset by construction.\n\n**3. Multiple-comparisons / data-dredging problem (Central region finding)**\nEighteen attributes were tested against churn, and the one that cleared p = 0.04 was singled out for action. With 18 independent tests at α = 0.05, the chance of at least one false positive by pure chance is roughly 1 − 0.95¹⁸ ≈ 60%, and no correction (e.g., Bonferroni, which would demand roughly p < 0.003 here) was applied. This is a textbook multiple-testing false-positive risk, not a validated finding. This would cause the company to redirect next quarter's spend toward the Central region based on what is likely noise, misallocating budget away from regions/levers that may actually matter and then \"discovering\" next quarter that the effect fails to replicate.\n\n**4. Unattributed / unvalidated quarter-over-quarter change (satisfaction 62%→66%)**\nThe memo credits the entire 4-point rise to \"the new support model\" without any test of statistical significance (no sample size, confidence interval, or baseline variance given) and without ruling out other concurrent explanations (seasonality, pricing changes, product releases, a shift in who was surveyed, etc.). A single before/after comparison with one data point per period cannot distinguish a real program effect from ordinary quarter-to-quarter fluctuation or a confound. This would cause the organization to credit — and keep funding — the support model as a proven success when the true driver is unknown, potentially continuing an ineffective program while ignoring the actual cause of the improvement.\n\nNo other issues were found in the reasoning — the fourth item about satisfaction is the last defect; the numbers themselves, as stated, are not in question, only what is concluded from them.",
+  "response_sha256": "6ccdb9777b39db8e050f96627ee8564fcb5c68d1c1a0c680006b085d3ded59f4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2650,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2931,
+    "output_tokens_details": {
+      "thinking_tokens": 1874
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2650,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2931,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2650,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2650
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0450592,
+    "duration_ms": 37924,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:41:54+00:00",
+  "finished_at": "2026-09-13T04:42:32+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

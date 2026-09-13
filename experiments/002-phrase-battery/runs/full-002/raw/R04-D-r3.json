@@ -1,0 +1,68 @@
+{
+  "sample_id": "R04-D-r3",
+  "run_id": "full-002",
+  "task_id": "R04",
+  "family": "reasoning",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 3,
+  "execution_index": 767,
+  "sample_seed": 6293592975625322279,
+  "prompt_sha256": "97cd52bcdac8ab55e7946be876b86641cadc0951f5cd5266543a600ed8794b43",
+  "prompt_chars": 519,
+  "response": "Working through year by year:\n\n**Year 1:** 10,000.00 × 1.12 = 11,200.00 → minus fee 90.00 = **11,110.00**\n\n**Year 2:** 11,110.00 × 0.88 = 9,776.80 → minus fee 90.00 = **9,686.80**\n\n**Year 3:** 9,686.80 × 1.05 = 10,171.14 → minus fee 90.00 = **10,081.14**\n\nDouble-checking the arithmetic:\n- 10,000 × 1.12 = 11,200; 11,200 − 90 = 11,110 ✓\n- 11,110 × 0.88 = 11,110 − 11,110×0.12 = 11,110 − 1,333.20 = 9,776.80; 9,776.80 − 90 = 9,686.80 ✓\n- 9,686.80 × 1.05 = 9,686.80 + 484.34 = 10,171.14; 10,171.14 − 90 = 10,081.14 ✓\n\nFINAL ANSWER: 10081.14",
+  "response_sha256": "846fa293f99838871f893918d46085ddc07d62d7a5e9a9d82a16b32a0ccc80ad",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28245,
+    "output_tokens": 528,
+    "output_tokens_details": {
+      "thinking_tokens": 180
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 528,
+        "cache_read_input_tokens": 28245,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.010933,
+    "duration_ms": 6132,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:41:07+00:00",
+  "finished_at": "2026-09-13T04:41:14+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

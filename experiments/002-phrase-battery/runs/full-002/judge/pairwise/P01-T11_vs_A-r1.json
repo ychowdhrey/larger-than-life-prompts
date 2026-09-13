@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T11_vs_A-r1",
+  "contrast_id": "T11_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T11",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T11",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans meet all hard requirements, but Response B sequences steps more safely (full backup occurs before continuous replication/CDC setup touches production, whereas Response A sets up the replication pipeline before the backup) and gives the rollback procedure its own explicit numbered step rather than folding it into a combined verification/decision step.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:37:01+00:00"
+}

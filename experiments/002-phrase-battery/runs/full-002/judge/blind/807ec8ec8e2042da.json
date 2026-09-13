@@ -1,0 +1,22 @@
+{
+  "item_id": "807ec8ec8e2042da",
+  "sample_id": "C05-T15-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T15",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug at total==100 (R1), correctly flags that test_cap both fails against the actual implementation and asserts a value that itself violates R2, and correctly notes the missing boundary test, while accurately confirming test_small and test_large are fine (even verifying the floating-point arithmetic) without inventing any false issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:01+00:00"
+}

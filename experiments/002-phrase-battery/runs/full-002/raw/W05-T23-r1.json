@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T23-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T23",
+  "condition_name": "phrase_t23",
+  "repetition": 1,
+  "execution_index": 1104,
+  "sample_seed": 8400370029846834769,
+  "prompt_sha256": "1bb007007f3d3187bbd17ae08eb528f50e97de08bf9fd84c121a356627b0d527",
+  "prompt_chars": 724,
+  "response": "## The problem\n\nOur feature branches routinely live for two to three weeks before merging, and integration pain scales with that lifespan. Last month's payments-refactor branch took four days just to resolve conflicts, and two of those days were spent re-testing logic that had already changed underneath it. We are effectively deferring integration risk to the worst possible moment, then paying for it in a lump sum. Meanwhile, code review is stretched across enormous, hard-to-follow diffs, so reviewers end up approving changes they don't fully understand.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits directly to main at least once a day, guarded by feature flags for anything unfinished, with CI gating every merge.\n\n- Branches live no longer than one day, ideally a few hours, before merging back to main.\n- Incomplete or risky work ships behind feature flags rather than sitting unmerged for weeks.\n- CI must pass, including a fast automated test suite, before any commit lands on main.\n- Code review happens on small, focused diffs within hours, not days.\n- We stand up a shared alert channel for build breaks so failures get fixed immediately, not discovered later.\n\nThis shrinks the size of every change, keeps all twelve of us working against the same reality, and turns integration from a dreaded event into a non-event.\n\n## What could go wrong\n\nThe strongest objection is real, and I want to engage with it rather than wave it away: without long-lived branches, half-finished features live on main, and a careless or forgotten flag can expose broken functionality to users or to teammates who assume that code path is safe. This isn't hypothetical — it's a genuine operational risk that our current model simply doesn't create. It means we need flag-naming conventions, a review step for flag cleanup, and someone accountable for retiring stale flags, before we switch, not after. I don't think this risk outweighs the recurring cost of multi-day merge conflicts and stale reviews, but pretending it doesn't exist would be dishonest, and skipping that groundwork would make the transition worse than the status quo.\n\nWe should also expect a rough first month as habits and review cadence adjust.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "a2f136e359f60e45dea55de315b6e4a9a620b19747775c749ed0cc02283874c2",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28291,
+    "output_tokens": 1415,
+    "output_tokens_details": {
+      "thinking_tokens": 712
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1415,
+        "cache_read_input_tokens": 28291,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.019812200000000002,
+    "duration_ms": 17642,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:49:05+00:00",
+  "finished_at": "2026-09-13T04:49:24+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

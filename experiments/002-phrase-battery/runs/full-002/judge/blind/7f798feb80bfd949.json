@@ -1,0 +1,22 @@
+{
+  "item_id": "7f798feb80bfd949",
+  "sample_id": "P05-T20-r1",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T20",
+  "repetition": 1,
+  "scores": {
+    "task_success": 3,
+    "thoroughness": 4,
+    "constraint_adherence": 4,
+    "error_checking": 2,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "The plan hits every explicit format requirement (RISK lines, halt metric, phase separation from decommissioning, PHASES footer) and shows strong domain depth, but the phase percentages don't add up (0.5% + 10% + 39.5% = 50%, not 100%, despite Phase 3 being labeled 'remaining accounts'), an arithmetic error the response never catches or verifies.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:50+00:00"
+}

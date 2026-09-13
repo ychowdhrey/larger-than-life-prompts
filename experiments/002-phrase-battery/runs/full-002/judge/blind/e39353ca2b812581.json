@@ -1,0 +1,22 @@
+{
+  "item_id": "e39353ca2b812581",
+  "sample_id": "P02-T18-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T18",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a mandatory verified snapshot before any risky action, explicitly forbids restart/failover until after that snapshot, includes a clear abort/rollback condition, and ends with the correct 'SECTIONS: 4' line, while also covering non-obvious details like replica lag checks, WAL/log handling, and safe-to-risky ordering of remediation steps.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:58+00:00"
+}

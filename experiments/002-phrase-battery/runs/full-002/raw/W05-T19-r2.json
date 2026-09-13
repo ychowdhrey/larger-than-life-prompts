@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T19-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 2,
+  "execution_index": 2005,
+  "sample_seed": 6391082562068414218,
+  "prompt_sha256": "813e6218755f6909daea7d7703bae335bc34e62a401167a333999fad3e4e9fcf",
+  "prompt_chars": 736,
+  "response": "## The problem\n\nOur twelve-person team routinely runs five or six feature branches that live for two to four weeks before merging. By the time a branch is ready, main has drifted far enough that integration becomes its own project: merge conflicts spill across files, tests that passed in isolation fail once combined, and the person merging is rarely the person who understands both changes. Release week has become synonymous with firefighting. We are optimizing for local progress on each branch while quietly accumulating integration debt that someone eventually has to pay, usually under deadline pressure.\n\n## The proposal\n\nI propose we adopt trunk-based development: every engineer commits directly to main at least once a day, incomplete work ships behind feature flags rather than staying isolated on a branch, and any remaining branches live for hours, not weeks. This requires three supporting investments:\n\n- A CI pipeline fast and reliable enough that a red main gets fixed or reverted within minutes, not left broken overnight\n- A lightweight feature-flag system so unfinished functionality can reach main safely without reaching users\n- A team norm of small, reviewable commits, with code review turned around within a few hours rather than days\n\nThe payoff is that integration happens continuously in small, cheap increments instead of once, expensively, per release.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development asks people to expose half-finished work in a shared codebase, and if our flag discipline slips, we risk shipping broken or inconsistent behavior, or leaking unfinished features to users. This isn't a hypothetical risk to wave away — it is the actual failure mode of teams that adopt trunk-based development without the testing and flagging discipline it demands, and we should expect a rough first month while those habits form, not a seamless switch.\n\n- Feature flags add their own complexity, and stale flags become clutter if we don't schedule regular cleanup\n- Reviewers must adapt to smaller, more frequent pull requests rather than fewer, larger ones\n\nI would like a decision by the end of next week.",
+  "response_sha256": "84f76f05751b9de57eedd3338f4e753056f208c7a131886e344d9e1bb2883c14",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28296,
+    "output_tokens": 1527,
+    "output_tokens_details": {
+      "thinking_tokens": 876
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1527,
+        "cache_read_input_tokens": 28296,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0209332,
+    "duration_ms": 18897,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:09:43+00:00",
+  "finished_at": "2026-09-13T05:10:03+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

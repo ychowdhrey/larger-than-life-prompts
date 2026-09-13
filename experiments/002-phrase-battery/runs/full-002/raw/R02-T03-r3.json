@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T03-r3",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T03",
+  "condition_name": "phrase_t03",
+  "repetition": 3,
+  "execution_index": 429,
+  "sample_seed": 6122160103629440140,
+  "prompt_sha256": "ee9aa9ab74eee2278fae9525f8c1a94717975556f9073eb4e7a1f387f4253dc4",
+  "prompt_chars": 502,
+  "response": "P(D) = 1/500 = 0.002, P(¬D) = 0.998\nP(+|D) = 0.98 (sensitivity)\nP(+|¬D) = 1 − 0.95 = 0.05 (false positive rate)\n\nUsing Bayes' theorem:\n\nP(D|+) = [P(+|D)·P(D)] / [P(+|D)·P(D) + P(+|¬D)·P(¬D)]\n= (0.98 × 0.002) / (0.98 × 0.002 + 0.05 × 0.998)\n= 0.00196 / (0.00196 + 0.0499)\n= 0.00196 / 0.05186\n≈ 0.037794 → **3.78%**\n\nSo even with a positive test, there's only about a 3.78% chance the person actually has the condition — a classic illustration of how a low base rate can dominate seemingly good test accuracy.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "79d721743e4c029e649a40979a3e4d1e55d78a63b337eefa15bf3fca4362c1ba",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28214,
+    "output_tokens": 596,
+    "output_tokens_details": {
+      "thinking_tokens": 289
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 596,
+        "cache_read_input_tokens": 28214,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0116068,
+    "duration_ms": 7435,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:31+00:00",
+  "finished_at": "2026-09-13T04:32:40+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

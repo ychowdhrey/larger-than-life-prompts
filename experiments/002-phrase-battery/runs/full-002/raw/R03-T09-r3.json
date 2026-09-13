@@ -1,0 +1,68 @@
+{
+  "sample_id": "R03-T09-r3",
+  "run_id": "full-002",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "T09",
+  "condition_name": "phrase_t09",
+  "repetition": 3,
+  "execution_index": 1688,
+  "sample_seed": 12653590135278587613,
+  "prompt_sha256": "f2ba836abcb7d331f49a794d3b609a7a76ce66eca4cf208897db44a63e18534b",
+  "prompt_chars": 690,
+  "response": "**Solution:**\n\n- Seat 1: Dev\n- Seat 2: Ben\n- Seat 3: Ana\n- Seat 4: Eli\n- Seat 5: Chi\n\n**Verification:**\n1. Ben(2) left of Chi(5) ✓\n2. Ana(3) — not seat 1 or 5 ✓\n3. Between Dev(1) and Eli(4): seats 2,3 → exactly two people ✓\n4. Chi(5) not next to Dev(1) ✓\n5. Eli(4) right of Ana(3) ✓\n6. Ana(3) immediately right of Ben(2) ✓\n\nIt was a pleasure working through this with you!\n\nFINAL ANSWER: Dev, Ben, Ana, Eli, Chi",
+  "response_sha256": "52f991ad7d47274aae3ae79a7b329b77c6d9b6971f021492265f29711fd64ffe",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2618,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1445,
+    "output_tokens_details": {
+      "thinking_tokens": 1188
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2618,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1445,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2618,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2618
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0300712,
+    "duration_ms": 13917,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:02:45+00:00",
+  "finished_at": "2026-09-13T05:03:00+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "54e4a3bdd7764ffe",
+  "sample_id": "P01-T06-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T06",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan meets every hard requirement (≤12 numbered steps, rehearsal, post-cutover row-count/checksum verification, stakeholder communications, and a full backup staged before the maintenance window with no earlier destructive step), and the count line matches the actual 12 steps; it also embeds a concrete rollback branch tied to verification failure and addresses realistic migration details like sequence resets and CDC delta thresholds, making it directly actionable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:47+00:00"
+}

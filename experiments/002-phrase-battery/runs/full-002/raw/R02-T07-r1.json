@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T07-r1",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 1,
+  "execution_index": 1046,
+  "sample_seed": 17642881921817297744,
+  "prompt_sha256": "da910f9371503ef6d383baa53e5b1d7c1dbc33511b75dd64795e3e569716ff6a",
+  "prompt_chars": 514,
+  "response": "**Setting up the calculation (Bayes' theorem):**\n\n- Prevalence: P(D+) = 1/500 = 0.002, so P(D−) = 0.998\n- Sensitivity: P(T+|D+) = 0.98\n- Specificity: P(T+|D−) = 1 − 0.95 = 0.05 (false positive rate)\n\n**True positives:** 0.002 × 0.98 = 0.00196\n**False positives:** 0.998 × 0.05 = 0.04990\n\n**Total positives:** 0.00196 + 0.04990 = 0.05186\n\n**Posterior probability:**\nP(D+|T+) = 0.00196 / 0.05186 ≈ 0.037794 → **3.78%**\n\nSo even with a positive test result, there's only about a 3.78% chance the person actually has the condition — because the condition is so rare that false positives from the 5% of the large healthy population vastly outnumber the true positives from the tiny affected population.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "d052343f684b2ca16e4d9ac6f46507f669340115e1c145e248c32f65d37078d4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2491,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 793,
+    "output_tokens_details": {
+      "thinking_tokens": 460
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2491,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 793,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2491,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2491
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0230432,
+    "duration_ms": 9426,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:47:43+00:00",
+  "finished_at": "2026-09-13T04:47:53+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

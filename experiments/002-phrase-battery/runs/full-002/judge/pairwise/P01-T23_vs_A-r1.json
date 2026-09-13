@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T23_vs_A-r1",
+  "contrast_id": "T23_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T23",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy every hard requirement, but A sequences the verification-then-decision-then-rollback logic more cleanly (verify → go-live/rollback decision → reopen or roll back), whereas B places its rollback step after 'reopen traffic' even though rollback is triggered by earlier verification/smoke-test failures, making its numbered sequence read as internally inconsistent. A's rollback step is also more concretely actionable (repoint to intact on-prem DB, restore from pre-cutover backup if needed) versus B's vaguer 're-run the backup for audit purposes.'",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:56+00:00"
+}

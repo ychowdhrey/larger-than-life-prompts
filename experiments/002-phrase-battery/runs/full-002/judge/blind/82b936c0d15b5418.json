@@ -1,0 +1,22 @@
+{
+  "item_id": "82b936c0d15b5418",
+  "sample_id": "P02-T07-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T07",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact required headings and order, places a mandatory storage snapshot before any destructive step, explicitly forbids restart/failover before that snapshot completes, includes a clear abort/rollback condition, and ends with the correct SECTIONS line. It is operationally detailed and realistic (WAL/binlog handling, replica lag checks, autovacuum stalls, snapshot verification gating), making it directly actionable for a real on-call engineer.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:30+00:00"
+}

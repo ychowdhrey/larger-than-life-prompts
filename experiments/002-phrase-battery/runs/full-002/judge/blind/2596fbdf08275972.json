@@ -1,0 +1,22 @@
+{
+  "item_id": "2596fbdf08275972",
+  "sample_id": "P02-T05-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T05",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact required headings in order, places a storage snapshot before any risky action while explicitly forbidding restart/failover pre-snapshot, includes a clear abort/rollback condition, and ends with the correctly-counted SECTIONS line, while also addressing non-obvious edge cases like snapshot infeasibility at near-full disk and safe-to-risky ordering of space-freeing steps.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:29+00:00"
+}

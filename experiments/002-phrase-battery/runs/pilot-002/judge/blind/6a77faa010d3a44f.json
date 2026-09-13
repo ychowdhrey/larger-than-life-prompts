@@ -1,0 +1,22 @@
+{
+  "item_id": "6a77faa010d3a44f",
+  "sample_id": "P03-T08-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T08",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule is fully correct: all precedence, consecutive-day, single-engineer-per-day, and 10-day-window constraints are satisfied, and the output format (including the LAST DAY line) matches the required spec exactly. The reasoning walks through the critical path logically but includes no explicit verification pass checking for engineer double-booking or prerequisite timing beyond the narrative construction.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T04:19:04+00:00"
+}

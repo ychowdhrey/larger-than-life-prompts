@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T15-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 2,
+  "execution_index": 1193,
+  "sample_seed": 2739923883317030892,
+  "prompt_sha256": "0e2637ee5a92933402146b21fd8fac59be2ea4530a3a1ef58d40b59fe2bce9f0",
+  "prompt_chars": 733,
+  "response": "## The problem\n\nOur twelve-person team ships feature branches that live for two to four weeks before merging. By the time we integrate, code has drifted so far from main that merges routinely eat a full day, and the bugs we find then are the hardest kind: interaction bugs between features nobody tested together. Three releases slipped last quarter alone because of conflicts discovered days before ship. We are paying an integration tax that compounds with every branch we open, and it stays invisible until it isn't.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits to main at least daily, behind feature flags for anything not ready for users. Concretely:\n\n- Merge to main daily via short-lived branches (under two days), not sprint-long ones\n- Gate incomplete work behind feature flags instead of hiding it in a branch\n- Require CI green and one review before merge, not before a giant PR\n- Break large features into small, independently mergeable increments\n- Run a two-week pilot with one squad before rolling out team-wide\n\nThis shrinks the blast radius of every change, surfaces conflicts within hours instead of weeks, and keeps main always shippable.\n\n## What could go wrong\n\nThe strongest objection is real: without feature branches, half-built work risks leaking to users, and feature flags add code complexity and a cleanup burden if we aren't disciplined. Teams that adopt trunk-based development without investing in flag hygiene and strong CI often just trade merge pain for flag sprawl and flaky-test noise — that is a legitimate failure mode, not a hypothetical, and I don't want to pretend otherwise. We mitigate it by giving every flag an owner and a removal date at creation, and by hardening CI coverage before rollout rather than discovering gaps after.\n\nThere's also near-term friction worth naming: smaller PRs mean more review overhead per week, and habits built over years of branch-based workflows won't disappear after one team meeting. The pilot exists precisely to surface these costs on a small scale before we commit the whole team, so we adjust the process instead of abandoning it at the first rough week.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "f85bdac20a8bc392aba92d3c2c1af42b71bd4507b2f9fdeb8020923d7804a1ce",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28296,
+    "output_tokens": 1562,
+    "output_tokens_details": {
+      "thinking_tokens": 875
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1562,
+        "cache_read_input_tokens": 28296,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.021283200000000002,
+    "duration_ms": 19565,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:51:13+00:00",
+  "finished_at": "2026-09-13T04:51:34+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

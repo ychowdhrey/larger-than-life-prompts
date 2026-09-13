@@ -1,0 +1,22 @@
+{
+  "item_id": "2b90b1fa42850c94",
+  "sample_id": "P01-T08-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T08",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies all hard requirements (exactly 12 steps, rollback, non-production rehearsal, integrity verification, stakeholder communication, pre-destructive backups) with correct step count reported, and shows non-obvious rigor such as pre-window bulk sync to fit the 2-hour window, keeping the untouched on-prem instance as a rollback fallback, and read-only verification before full traffic restoration.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:48+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T01_vs_A-r2",
+  "contrast_id": "T01_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T01",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T01",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly identify the four core defects (LEFT JOIN turned into INNER JOIN, UTC/local timezone mismatch, integer division truncation, NULL vs 0 for zero-order customers), but Response B adds a genuinely valid extra finding — that NULLs from the unfixed SUM will sort to the top of a DESC ordering in Postgres, misplacing zero-spend customers in a 'top spenders' list — while Response A misses this. Response B also explicitly reasons through and correctly declines to flag the GROUP BY/non-aggregated-columns issue as a defect (since it's valid via functional dependency on Postgres/MySQL 5.7+), whereas Response A raises it as a borderline problem despite conceding it may not actually break anything, which risks reporting an issue not actually present.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:33:22+00:00"
+}

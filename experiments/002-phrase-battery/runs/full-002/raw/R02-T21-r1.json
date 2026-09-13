@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T21-r1",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 1,
+  "execution_index": 104,
+  "sample_seed": 11280425292849579747,
+  "prompt_sha256": "52f4dfbd4e6091d42bc4740445617cbe545a50daa33692daa6533b0f11c72294",
+  "prompt_chars": 526,
+  "response": "**Calculation:**\n\n- Prevalence: P(D) = 1/500 = 0.002, P(¬D) = 0.998\n- Sensitivity: P(+|D) = 0.98\n- Specificity: P(−|¬D) = 0.95 → P(+|¬D) = 0.05\n\nUsing Bayes' theorem:\n\nP(D|+) = [P(+|D)·P(D)] / [P(+|D)·P(D) + P(+|¬D)·P(¬D)]\n\n= (0.98 × 0.002) / (0.98 × 0.002 + 0.05 × 0.998)\n\n= 0.00196 / (0.00196 + 0.0499)\n\n= 0.00196 / 0.05186\n\n= 0.0377941...\n\n= **3.78%**\n\nEven with a fairly good test, because the condition is rare (1/500), most positive results are false positives — only about 1 in 26 people who test positive actually have the condition.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "b396bf4fb4e4bdaf20e4978fc3d64033a486d73fe49241233b9b61f2725c19e9",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2492,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 631,
+    "output_tokens_details": {
+      "thinking_tokens": 311
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2492,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 631,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2492,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2492
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0214272,
+    "duration_ms": 8259,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:24:42+00:00",
+  "finished_at": "2026-09-13T04:24:51+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

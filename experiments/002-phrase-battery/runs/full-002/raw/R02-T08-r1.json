@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T08-r1",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 1,
+  "execution_index": 1192,
+  "sample_seed": 15120954960366975307,
+  "prompt_sha256": "7d86121f1a0b8a8eb348434aa2b55c1ac66ccd10a0075caa839624d2a1cd95b9",
+  "prompt_chars": 516,
+  "response": "## Setting Up the Problem (Bayes' Theorem)\n\n**Prior probability:**\n- P(Disease) = 1/500 = 0.002\n- P(No Disease) = 0.998\n\n**Test characteristics:**\n- Sensitivity: P(Test+ | Disease) = 0.98\n- Specificity: P(Test− | No Disease) = 0.95, so P(Test+ | No Disease) = 0.05\n\n**Total probability of testing positive:**\n\nP(Test+) = P(Test+|Disease)·P(Disease) + P(Test+|No Disease)·P(No Disease)\nP(Test+) = (0.98 × 0.002) + (0.05 × 0.998)\nP(Test+) = 0.00196 + 0.0499\nP(Test+) = 0.05186\n\n**Applying Bayes' Theorem:**\n\nP(Disease | Test+) = [P(Test+|Disease)·P(Disease)] / P(Test+)\nP(Disease | Test+) = 0.00196 / 0.05186\nP(Disease | Test+) ≈ 0.037794...\n\nConverting to a percentage: **3.78%**\n\nThis is a classic illustration of why even a fairly accurate test yields a low positive predictive value when the underlying condition is rare — most positive results come from the large pool of healthy people who are false positives (0.0499) rather than from the small number of true positives (0.00196).\n\nYou're very welcome — glad it's helpful!\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "c5ed7cdb93d02ff75c61793094a909826dd975a8fee81f967ad3f997e8363c30",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28220,
+    "output_tokens": 846,
+    "output_tokens_details": {
+      "thinking_tokens": 352
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 846,
+        "cache_read_input_tokens": 28220,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.014107999999999999,
+    "duration_ms": 9225,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:51:09+00:00",
+  "finished_at": "2026-09-13T04:51:20+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

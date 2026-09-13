@@ -1,0 +1,22 @@
+{
+  "item_id": "68965d3cd1979458",
+  "sample_id": "C05-T25-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T25",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all three real defects (the R1 boundary off-by-one, the incorrect expected value in test_cap given the actual capped output of 50.0, and the missing boundary test at total=100), verifies its claims by working through the arithmetic, and does not report any spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:32+00:00"
+}

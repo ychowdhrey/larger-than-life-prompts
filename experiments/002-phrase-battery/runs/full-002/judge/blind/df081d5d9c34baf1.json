@@ -1,0 +1,22 @@
+{
+  "item_id": "df081d5d9c34baf1",
+  "sample_id": "C02-E05-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E05",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies every real defect (WHERE-on-LEFT-JOIN silently becoming an inner join and violating the zero-order requirement, the UTC-vs-UTC+8 calendar-day mismatch, integer-division truncation of cents, and NULL total_spent/NULL sort placement for zero-order customers), gives correct concrete fixes for each, and explicitly justifies why two plausible-looking issues (GROUP BY functional dependency, missing upper date bound) are not actual bugs, satisfying the 'do not report non-issues' constraint.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:16+00:00"
+}

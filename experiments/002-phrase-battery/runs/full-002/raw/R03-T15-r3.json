@@ -1,0 +1,68 @@
+{
+  "sample_id": "R03-T15-r3",
+  "run_id": "full-002",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 3,
+  "execution_index": 419,
+  "sample_seed": 9790750588576958481,
+  "prompt_sha256": "c232bbd45d373d521b7145ac8dd30663640dcfe5021f36005d771a02d7baa00d",
+  "prompt_chars": 680,
+  "response": "**Solution:** Dev, Ben, Ana, Eli, Chi\n\n**Verification:**\n1. Ben(2) < Chi(5) ✓\n2. Ana is in seat 3, not 1 or 5 ✓\n3. Dev(1) and Eli(4): seats 2,3 lie between them — exactly two people ✓\n4. Chi(5) and Dev(1) are not adjacent ✓\n5. Eli(4) > Ana(3) ✓\n6. Ana(3) is immediately right of Ben(2) ✓\n\nAll six constraints hold, and checking the other branches (Ben/Ana at seats 1-2 or 3-4) shows every alternative violates at least one clue, confirming uniqueness.\n\nFINAL ANSWER: Dev, Ben, Ana, Eli, Chi",
+  "response_sha256": "6f35331a9f080f441e282fffb4d3325e29a4269c869a8beca5b88707315abc7d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2615,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1303,
+    "output_tokens_details": {
+      "thinking_tokens": 1031
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2615,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1303,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2615,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2615
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0286392,
+    "duration_ms": 13356,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:16+00:00",
+  "finished_at": "2026-09-13T04:32:31+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

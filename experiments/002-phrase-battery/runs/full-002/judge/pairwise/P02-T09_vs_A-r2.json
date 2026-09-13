@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T09_vs_A-r2",
+  "contrast_id": "T09_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T09",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the structural and safety requirements, but Response B enforces the snapshot-before-risk ordering more forcefully (a bolded 'do not restart/fail over' rule immediately at the top of IMMEDIATE ACTIONS plus 'gates everything that follows') and supplies phase-specific, quantified abort/rollback conditions (corroboration timeout in DETECTION, snapshot-stall timeout in IMMEDIATE ACTIONS, latency-non-recovery timeout in MITIGATION) that are more actionable than Response A's single rollback condition embedded in MITIGATION.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:12+00:00"
+}

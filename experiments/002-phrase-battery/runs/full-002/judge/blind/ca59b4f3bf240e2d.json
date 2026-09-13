@@ -1,0 +1,22 @@
+{
+  "item_id": "ca59b4f3bf240e2d",
+  "sample_id": "C01-T09-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T09",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default argument, IndexError when limit exceeds list length, ZeroDivisionError on empty input, in-place mutation of caller's list, and the subtle dedup-window shortfall), each with accurate causal explanation and a concrete verifying example, and correctly avoids flagging the intended sort/average behavior as a defect.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:52+00:00"
+}

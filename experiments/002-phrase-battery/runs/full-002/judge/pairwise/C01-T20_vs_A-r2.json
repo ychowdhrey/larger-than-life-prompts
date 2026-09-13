@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T20_vs_A-r2",
+  "contrast_id": "T20_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T20",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T20",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly identify the same five core defects (mutable default, sort side-effect, IndexError from limit, ZeroDivisionError on empty input, and duplicate under-filling of results) with valid, accurate examples, but Response A additionally identifies a distinct, genuine defect that B omits: the function aliases and mutates the caller's own 'seen' list even when one is explicitly passed, independent of the mutable-default issue. This makes A's defect list more complete without introducing any incorrect claims.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:31:47+00:00"
+}

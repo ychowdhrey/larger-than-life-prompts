@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T05_vs_A-r1",
+  "contrast_id": "T05_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T05",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T05",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Response A explicitly sequences the full backup before any step that alters production configuration (enabling logical replication/wal_level, creating slots), satisfying the backup-before-modification requirement cleanly, whereas Response B's backup (step 4) comes after it already 'builds the replication/migration pipeline' (step 3), which configures logical replication on production before the backup is taken. Both plans otherwise cover dry run, integrity verification, stakeholder communication, and rollback comparably well.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:27+00:00"
+}

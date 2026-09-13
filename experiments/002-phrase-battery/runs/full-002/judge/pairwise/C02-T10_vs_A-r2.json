@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T10_vs_A-r2",
+  "contrast_id": "T10_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T10",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the join-becomes-inner-join bug, the UTC/UTC+8 offset error, the integer division truncation, and the NULL-vs-zero spend issue with equal clarity. B adds a genuinely independent, correctly hedged fifth defect (unaggregated c.name/c.signup_date violating strict GROUP BY semantics, working in Postgres only by functional dependency) and explicitly notes what it did NOT flag as a defect and why, directly satisfying the instruction not to report non-issues; A's fifth point is a minor derivative consequence of the already-identified NULL/SUM issue rather than a new root cause.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:27+00:00"
+}

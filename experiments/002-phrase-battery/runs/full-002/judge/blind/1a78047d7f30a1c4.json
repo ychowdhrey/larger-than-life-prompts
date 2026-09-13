@@ -1,0 +1,22 @@
+{
+  "item_id": "1a78047d7f30a1c4",
+  "sample_id": "C02-E02-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E02",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (LEFT JOIN nullified by WHERE, UTC+8 boundary mismatch, integer division truncation, NULL total for zero-order customers), explains the mechanism and consequence of each accurately, and explicitly confirms two non-issues (COUNT(o.order_id) and GROUP BY validity) rather than inventing problems, satisfying the exclusion instruction.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:05+00:00"
+}

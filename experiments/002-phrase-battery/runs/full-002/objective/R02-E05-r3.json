@@ -1,0 +1,82 @@
+{
+  "sample_id": "R02-E05-r3",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "E05",
+  "repetition": 3,
+  "response_sha256": "e571700a48f66767020fb69e035498ddfd3c232198eb4f6d7639ecc2f3504c3d",
+  "objective": {
+    "max_points": 10.0,
+    "earned_points": 10.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": 1.0,
+    "checks": [
+      {
+        "check_id": "answer",
+        "label": "Correct posterior probability",
+        "type": "regex_any",
+        "points": 6.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*3\\.78\\s*%?",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "format",
+        "label": "Final answer line present",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*[0-9]",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "false_positives",
+        "label": "Accounts for false positives among the healthy majority",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched false positive",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "no_naive_98",
+        "label": "Does not report the sensitivity as the answer",
+        "type": "forbidden",
+        "points": 1.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": false,
+        "planted": false,
+        "distractor": true
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 1426,
+    "response_words": 239,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 3,
+    "verification_marker_total": 4,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": 1.0
+  },
+  "scored_at": "2026-09-13T05:15:47+00:00",
+  "evaluation_version": "2.0.0"
+}

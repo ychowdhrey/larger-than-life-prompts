@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T17_vs_A-r3",
+  "contrast_id": "T17_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T17",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly identify the same five defects (LEFT JOIN turned into INNER JOIN via WHERE, missing UTC+8 boundary shift, integer division truncation, NULL total_spent, and NULL sort placement) with equivalent accuracy, but Response B additionally flags a real and relevant sixth defect: c.name and c.signup_date are non-aggregated columns not included in GROUP BY, which is a genuine portability/correctness risk on engines without functional-dependency detection. This makes B more complete without sacrificing correctness.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:39:34+00:00"
+}

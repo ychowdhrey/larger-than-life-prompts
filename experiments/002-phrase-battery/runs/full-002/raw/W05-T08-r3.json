@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T08-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 3,
+  "execution_index": 157,
+  "sample_seed": 2983318259720812606,
+  "prompt_sha256": "7df87991517ea21279255d6df091c2eb7207ea74dc2709e9d8f2ef3f98f92481",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur team of twelve now spends more time integrating code than writing it. Feature branches routinely live for two to three weeks, and every merge back to main has become an event: conflicts pile up, context gets stale, and reviewers face 40-file diffs instead of digestible changes. Last sprint alone, three branches required a full day of conflict resolution before they could even be tested together. We're also shipping slower than we think — code sits finished but unmerged, hidden from CI, hidden from each other, and hidden from the business. The longer a branch lives, the more it diverges, and the more painful the eventual reckoning becomes.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequent changes directly to main (or through branches that live hours, not weeks), behind feature flags where work is incomplete.\n\n- Branches should merge within one business day, ideally a few hours.\n- Incomplete features ship dark, gated by flags, not left hanging in a branch.\n- CI must run on every merge to main, and main must always be releasable.\n- Code review shifts to smaller, faster diffs reviewed same-day.\n- We adopt this incrementally, starting with one squad for two sprints before rolling out further.\n\n## What could go wrong\n\nThe strongest objection is real: without long branches, unfinished or experimental work becomes visible on main, and a bad flag or half-built feature could destabilize production if discipline slips. Teams new to trunk-based development sometimes trade \"merge pain\" for \"flag sprawl,\" accumulating stale flags that nobody cleans up, which creates its own tangle. This is a legitimate risk, not a strawman — it means we need flag hygiene (an owner and expiry date per flag) and stronger automated testing before we cut over, not just good intentions. If we're not willing to invest in that discipline, this proposal will fail. I believe the investment is smaller than what we already pay in merge conflicts.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "ece026046b4e39e056e967b0c1a2ef4e8e919d849391d28cc9a7c2b670e8a077",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2574,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 639,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2574,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 639,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2574,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2574
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0218352,
+    "duration_ms": 12145,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:25:48+00:00",
+  "finished_at": "2026-09-13T04:26:02+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

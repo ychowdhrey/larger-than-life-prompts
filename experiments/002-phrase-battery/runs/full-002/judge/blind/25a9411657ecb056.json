@@ -1,0 +1,22 @@
+{
+  "item_id": "25a9411657ecb056",
+  "sample_id": "C05-T19-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T19",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (> vs >=) at the R1/R3 boundary, correctly recomputes that discount(1000) actually returns 50.0 (not 100.0 as asserted) exposing test_cap as broken and itself violating the R2 cap, and correctly flags the missing boundary test and lack of a valid capping test, all while accurately noting the capping logic itself is sound and the other two tests are correct.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:19+00:00"
+}

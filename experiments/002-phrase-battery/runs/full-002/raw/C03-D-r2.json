@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-D-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 2,
+  "execution_index": 930,
+  "sample_seed": 3938105555142502869,
+  "prompt_sha256": "1c092ad73f2e28adb9e21ac7653c229b0a7e51b479450fa91dc4873203c1bbae",
+  "prompt_chars": 1026,
+  "response": "## Claim 1 — Webinar attendance → retention\n\n**Defect 1: Survivorship bias in the sample.**\nThe analysis is restricted to \"the 412 customers who are still active on the Pro plan today\" — i.e., customers who have *already survived*, with churned customers excluded before the comparison is even run. Retention differences can't be validly measured on a population that was pre-filtered to have already retained. Whatever \"31% higher retention\" is computed from, it isn't a churn-vs-non-churn comparison across the full customer base that ever went through onboarding — it's a comparison within a subset that already excludes the outcome of interest. This makes the headline number of unclear, possibly invalid, meaning, and any inference drawn from it is unreliable.\n\n**Defect 2: Correlation treated as causation (self-selection confound).**\nWebinar attendance is voluntary, not randomly assigned. Customers who choose to attend an onboarding webinar are likely already more engaged, more invested, or more likely to succeed with the product for reasons that have nothing to do with the webinar itself. This confound alone could produce the entire 31% gap. \"Webinars therefore cause higher retention\" does not follow from an observational association — a randomized or controlled comparison (e.g., A/B testing invitation/incentive to attend) would be needed to support a causal claim.\n\n**Defect 3: Extrapolation to a different regime (mandatory vs. voluntary).**\nEven if the association were causal for voluntary attendees, the policy recommendation (\"make it mandatory for all new customers\") assumes the effect transfers to a population that is compelled rather than self-selected. Forcing attendance removes exactly the self-selection mechanism that may be driving the result, so the observed 31% gap gives no real evidence about what mandatory attendance would achieve.\n\n**Defect 4: No indication of statistical significance or subgroup sizes.**\nNo p-value, confidence interval, or attendee/non-attendee counts are given for the 31% figure. Without this, there's no way to tell whether the gap is a reliable signal or noise from a small or unbalanced subgroup.\n\n## Claim 2 — Regional churn and spend\n\n**Defect 5: Multiple-comparisons problem / data dredging.**\nEighteen attributes were tested against churn, and one came back significant at p = 0.04. With 18 independent tests at α = 0.05, the chance of finding at least one \"significant\" result purely by chance is roughly 1 − 0.95¹⁸ ≈ 60%. A p = 0.04 result cherry-picked from 18 tests is exactly what random chance predicts even with no real effect, and would not survive a standard multiple-testing correction (e.g., Bonferroni would require roughly p < 0.0028). Treating this as a solid finding risks acting on noise.\n\n**Defect 6: Correlation treated as causation (region confound).**\nEven setting aside multiple testing, a regional association with churn doesn't mean the region itself — or spend targeted at it — is the causal driver. Region could be a proxy for industry mix, account size, tenure, contract type, or many other factors. Nothing in the data supports that spending in Central would change churn anywhere.\n\n**Defect 7: Recommendation doesn't follow from the finding even at face value.**\nCentral already churns *less* than other regions. Concentrating spend there — rather than on regions with higher churn that plausibly need intervention — is not justified by the data cited. There's no cost-benefit or mechanism argument given for why reinforcing an already-strong region is the better use of funds; this is a non-sequitur between the stated evidence and the stated action.\n\n**Defect 8: No effect size reported.**\nStatistical significance (p = 0.04) says nothing about the magnitude of the churn difference. The effect could be trivially small and not worth reallocating budget over, even if it were real.\n\n## Claim 3 — Satisfaction increase and the support model\n\n**Defect 9: No significance testing on the 4-point change.**\nA move from 62% to 66% is reported as if self-evidently meaningful, with no sample size, margin of error, or significance test. A 4-point swing in a satisfaction survey can easily fall within normal quarter-to-quarter measurement noise.\n\n**Defect 10: Causal attribution from an uncontrolled before/after comparison.**\nThe memo attributes the entire change to \"the new support model\" without ruling out other explanations — seasonality, other concurrent initiatives, changes in the customer mix, or simple reversion to the mean if the prior quarter's 62% was itself a low outlier. Without a control group or some way to isolate the support model's effect, \"shows the new support model is working\" is an unsupported causal leap from a simple pre/post number.",
+  "response_sha256": "13148bfd65f878f952267380e491761792ad37c801157b5eae72e5b3a04e9a0e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28373,
+    "output_tokens": 4938,
+    "output_tokens_details": {
+      "thinking_tokens": 3384
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4938,
+        "cache_read_input_tokens": 28373,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.05505859999999999,
+    "duration_ms": 58102,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:44:42+00:00",
+  "finished_at": "2026-09-13T04:45:41+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

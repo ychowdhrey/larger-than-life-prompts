@@ -1,0 +1,104 @@
+{
+  "sample_id": "C01-T13-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T13",
+  "repetition": 3,
+  "response_sha256": "6c85bf93401cb43aec129c0568f80e0096be98414e0abec9c9ad3930d463e5ea",
+  "objective": {
+    "max_points": 16.0,
+    "earned_points": 16.0,
+    "objective_score": 1.0,
+    "constraint_completion": null,
+    "planted_issue_recall": 1.0,
+    "distractor_avoidance": 1.0,
+    "checks": [
+      {
+        "check_id": "mutable_default",
+        "label": "PLANTED: mutable default argument persists across calls",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched mutable default",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "in_place_sort",
+        "label": "PLANTED: sort() mutates the caller's list",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched in.?place",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "index_error",
+        "label": "PLANTED: IndexError when len(scores) < limit",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched IndexError",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "zero_division",
+        "label": "PLANTED: ZeroDivisionError on empty input",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched ZeroDivisionError",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "distractor_reverse",
+        "label": "DISTRACTOR: did not claim reverse=True is wrong",
+        "type": "forbidden",
+        "points": 2.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": false,
+        "planted": false,
+        "distractor": true
+      },
+      {
+        "check_id": "distractor_mean",
+        "label": "DISTRACTOR: did not claim the mean over all scores is a bug",
+        "type": "forbidden",
+        "points": 2.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": false,
+        "planted": false,
+        "distractor": true
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 2687,
+    "response_words": 427,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 1,
+    "verification_marker_total": 1,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 1,
+    "caveats_marker_total": 1,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": null,
+    "planted_issue_recall": 1.0,
+    "distractor_avoidance": 1.0
+  },
+  "scored_at": "2026-09-13T05:15:39+00:00",
+  "evaluation_version": "2.0.0"
+}

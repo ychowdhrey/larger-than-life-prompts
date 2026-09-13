@@ -1,0 +1,22 @@
+{
+  "item_id": "b360b0f75dbf5ff4",
+  "sample_id": "P01-E02-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E02",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 4,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and includes all five required elements (rehearsal, integrity verification, rollback, stakeholder communication, pre-destructive backup), with thoughtful details like CDC-based replication to shrink the cutover window and LSN/checksum verification; the only nick is that step 2 configures logical replication against production (a config change) before the verified backup in step 4, a minor ordering ambiguity against the 'backup before any modifying step' rule.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:10+00:00"
+}

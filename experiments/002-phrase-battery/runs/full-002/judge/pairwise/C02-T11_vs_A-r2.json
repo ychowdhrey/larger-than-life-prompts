@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T11_vs_A-r2",
+  "contrast_id": "T11_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T11",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both catch the same four core defects (LEFT JOIN defeated by WHERE, UTC/UTC+8 boundary mismatch, integer division truncation, NULL total for zero-order customers), but Response A's explanation of the timezone bug is clean and internally consistent, while Response B's parallel explanation contains a self-contradictory, factually muddled passage (claiming Dec 31 16:00–24:00 UTC orders are 'included' and 'still Dec 31 local' when they are actually excluded and fall on Jan 1 local) before backpedaling to the correct conclusion. Response A's extra point about non-aggregated SELECT columns and Response B's extra point about NULLS-first ordering are both valid, so the tie-breaker is the clarity/correctness of the shared timezone explanation, which favors A.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:21+00:00"
+}

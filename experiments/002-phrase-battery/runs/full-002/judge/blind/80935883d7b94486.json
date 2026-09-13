@@ -1,0 +1,22 @@
+{
+  "item_id": "80935883d7b94486",
+  "sample_id": "C05-E04-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E04",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (`>` vs `>=` at total=100 violating R1), correctly traces through the arithmetic to show test_cap asserts an impossible value (100.0 instead of the actual 50.0, which also violates R2), and correctly flags the missing boundary test at total=100 — all verified by manual trace and with no fabricated issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:37+00:00"
+}

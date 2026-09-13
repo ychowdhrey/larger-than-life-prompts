@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T12-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T12",
+  "condition_name": "phrase_t12",
+  "repetition": 1,
+  "execution_index": 1489,
+  "sample_seed": 2810490314268240674,
+  "prompt_sha256": "e76bd35bf3ace7c5c98afc9226cb76446bee8864fdf66ce995bb75d1e0b2c32f",
+  "prompt_chars": 824,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing to New Billing System\n\n## Overview\nBoth systems will run in parallel throughout the migration. Users are migrated in phases based on read/write cutover to the new system, with the legacy system kept live and untouched as a fallback until well after 100% of users are migrated and stable.\n\n---\n\n## Phase 1: Pilot (2% of users — ~800 users)\n**Entry criterion:** New billing system has passed end-to-end reconciliation testing against a shadow copy of production data for 14 consecutive days with zero unresolved discrepancies, and rollback tooling (re-pointing a user back to the legacy system) has been tested successfully in staging.\n\n**Scope:** Internal accounts, employee accounts, and opted-in low-risk external customers (e.g., monthly invoice total under $50, no active disputes).\n\n**Duration:** 2 weeks minimum.\n\n---\n\n## Phase 2: Early Majority (25% of users — ~10,000 users)\n**Entry criterion:** Phase 1 completes its full duration with the billing-discrepancy rate below 0.1% of transactions, zero critical (Sev-1) incidents, and support ticket volume for billing issues no more than 10% above baseline.\n\n**Scope:** Randomly sampled across customer segments and plan tiers, excluding enterprise/contractual accounts with custom billing terms.\n\n**Duration:** 3–4 weeks, migrated in weekly sub-batches of ~2,500 users to preserve the ability to pause between batches.\n\n---\n\n## Phase 3: General Availability (63% of users — remaining ~25,200 users, including enterprise accounts)\n**Entry criterion:** Phase 2 sustains the same health thresholds as Phase 1 (see halt metric below) for 2 consecutive weeks, finance has signed off on revenue reconciliation totals matching between old and new systems within 0.05%, and enterprise account managers have completed customer-specific billing term validation for their accounts.\n\n**Scope:** All remaining users, including enterprise and custom-contract accounts, migrated in batches of no more than 5,000/week.\n\n**Duration:** 4–5 weeks.\n\n---\n\n## Post-Migration Stabilization Phase (0% new migrations — parallel-run continuation)\n**Entry criterion:** 100% of users migrated and Phase 3 health metrics hold steady for 30 consecutive days.\n\nThis phase runs the legacy system in **read-only parallel mode** for a minimum 60-day burn-in period for audit, dispute resolution, and regulatory reconciliation before any discussion of legacy system decommissioning — which is explicitly out of scope for this rollout plan and must be a separate, later initiative.\n\n---\n\n## Halt Metrics\n\n- **Automatic halt:** If the billing-discrepancy rate (mismatched charges, duplicate charges, or missed invoices) exceeds **0.5% of transactions** in any rolling 24-hour window during any phase, pause all new migrations immediately and freeze the current batch until root-caused.\n- **Automatic halt:** If payment failure rate for migrated users exceeds **2x the legacy system's 30-day baseline failure rate**, pause the rollout.\n- **Automatic halt:** If Sev-1 incidents (billing outage, incorrect charge >$100, data loss) occur more than **1 time per week** during any phase, pause and convene an incident review before resuming.\n\n---\n\n## Risks\n\nRISK: Duplicate charges occur when both systems attempt to bill the same user during the parallel-run window | Implement a distributed lock/source-of-truth flag per account so only one system is authoritative for billing at any time | Billing Platform Engineering Lead\nRISK: Data drift between old and new systems causes reconciliation mismatches (e.g., payment method updates not synced) | Run automated bidirectional reconciliation jobs every 4 hours with alerting on any mismatch above threshold | Data Integrity/Reconciliation Team Lead\nRISK: Enterprise customers with custom contract terms are migrated incorrectly, causing invoicing disputes | Require manual sign-off from account managers per enterprise account before inclusion in Phase 3 | Enterprise Account Management Lead\nRISK: Rollback of a migrated user back to the legacy system fails or causes further data corruption | Test and rehearse rollback procedure for each phase in staging before that phase begins, and cap batch sizes so rollback scope stays small | Site Reliability Engineering (SRE) Lead\nRISK: Customer support is overwhelmed by billing-related tickets during migration | Pre-train support staff on new system behavior and staff up support capacity by 20% during Phases 2 and 3 | Customer Support Operations Manager\n\nPHASES: 3",
+  "response_sha256": "66faf95733d1242272277a5670f632af11b0f8b93bf76019f92a51bfa39e3267",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28320,
+    "output_tokens": 1599,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1599,
+        "cache_read_input_tokens": 28320,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.021658000000000004,
+    "duration_ms": 21790,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:57:59+00:00",
+  "finished_at": "2026-09-13T04:58:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

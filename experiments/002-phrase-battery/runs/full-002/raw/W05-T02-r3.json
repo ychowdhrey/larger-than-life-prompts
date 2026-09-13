@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T02-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T02",
+  "condition_name": "phrase_t02",
+  "repetition": 3,
+  "execution_index": 195,
+  "sample_seed": 10439997510120036916,
+  "prompt_sha256": "9ed9b427f4e50e107d0d0b389bb62c1462410c7f1bb1484070a388e36685f9b8",
+  "prompt_chars": 723,
+  "response": "## The problem\n\nOur team of twelve has drifted into long-lived feature branches, some open for three or four weeks. Merges have become dreaded events: conflicts pile up, integration bugs surface late, and code review turns into an archaeology exercise across hundreds of changed lines instead of a quick check of a small diff. Two releases this quarter slipped because a \"final merge\" surfaced problems nobody had seen coming. We are paying an integration tax, and it is getting more expensive every sprint.\n\n## The proposal\n\nWe should move to trunk-based development: everyone commits small, reviewed changes directly to main at least daily, guarded by feature flags for anything unfinished.\n\n- Branches live no longer than a day or two, ideally just hours.\n- Feature flags let us ship incomplete work safely, decoupling deploy from release.\n- CI must run on every commit to main, not just at merge time, so main stays releasable.\n- Code review shifts to small, fast-turnaround diffs rather than sprawling end-of-branch reviews.\n- We adopt a shared checklist for flag hygiene so flags get cleaned up instead of accumulating as debt.\n\nThis isn't a tooling change so much as a discipline change, and it will require buy-in from everyone, not just the leads.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development assumes strong CI and a culture of small commits, and if either is missing, we risk breaking main constantly and blocking the whole team. With twelve engineers all committing to one branch, a bad commit has blast radius immediately, whereas a broken feature branch only hurts its author. This is a legitimate risk, not a strawman — it's why the proposal explicitly pairs the branching change with mandatory pre-merge CI gates and a rollback-first mindset, and why we should pilot it on one workstream before rolling it out team-wide.\n\nWe should also expect slower initial velocity as people learn to slice work into flag-gated increments, and some resistance from engineers who like the isolation of a branch. Both are manageable with training and a two-week pilot.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "ce4c0ca2c075e6e13ecc3150a11d2052ff93bde9cfac444c33e1449812ff1a41",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2567,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 686,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2567,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 686,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2567,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2567
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.022277199999999997,
+    "duration_ms": 12046,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:26:41+00:00",
+  "finished_at": "2026-09-13T04:26:54+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

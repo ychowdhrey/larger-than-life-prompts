@@ -1,0 +1,68 @@
+{
+  "sample_id": "R03-E01-r3",
+  "run_id": "full-002",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "E01",
+  "condition_name": "combo_e01",
+  "repetition": 3,
+  "execution_index": 630,
+  "sample_seed": 8019230761213092325,
+  "prompt_sha256": "0c6128e9e85be525de8ab724c09488e9d4acd1b6b7c49a90d120a567268b18ce",
+  "prompt_chars": 714,
+  "response": "**Solving:**\n\nConstraint 6 (Ana = Ben+1) combined with constraint 2 (Ana ∈ {2,3,4}) gives three cases for (Ben, Ana): (1,2), (2,3), (3,4).\n\n**Case Ben=1, Ana=2:** Eli must be >2 (constraint 5), so Eli,Dev ∈ {3,4,5}\\{Ana's seat...}. Actually Dev,Eli must avoid seats 1,2, leaving {3,4,5} — max possible difference there is 2, but constraint 3 needs |Dev−Eli|=3. Impossible.\n\n**Case Ben=3, Ana=4:** Eli>4 ⇒ Eli=5. Then |Dev−5|=3 ⇒ Dev=2. Remaining seat 1 goes to Chi. But constraint 1 requires Ben(3) < Chi(1) — false. Impossible.\n\n**Case Ben=2, Ana=3:** Remaining seats {1,4,5} for Chi, Dev, Eli.\n- Constraint 5: Eli>3 ⇒ Eli ∈ {4,5}.\n- Constraint 1: Chi>2 ⇒ Chi ∈ {4,5}.\n- So both Chi and Eli occupy {4,5}, forcing Dev=1.\n- Constraint 3: |Dev−Eli|=3 ⇒ |1−Eli|=3 ⇒ Eli=4 (Eli=5 gives diff 4, fails).\n- Then Chi=5.\n- Check constraint 4: Chi(5) not adjacent to Dev(1) — difference is 4, fine.\n\n**Final arrangement:** Dev(1), Ben(2), Ana(3), Eli(4), Chi(5).\n\n**Verification against all clues:**\n1. Ben(2) < Chi(5) ✔\n2. Ana(3) not in seat 1 or 5 ✔\n3. Dev(1) and Eli(4): seats 2,3 between them = exactly two people ✔\n4. Chi(5) and Dev(1) not adjacent ✔\n5. Eli(4) > Ana(3) ✔\n6. Ana(3) immediately right of Ben(2) ✔\n\nAll constraints satisfied, and the other two branches were shown impossible — solution is unique.\n\nFINAL ANSWER: Dev, Ben, Ana, Eli, Chi",
+  "response_sha256": "fcc498db2407001aa6cb4a45a9da7c85e71e2e20302d9f7059e87c47e9693507",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2623,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2567,
+    "output_tokens_details": {
+      "thinking_tokens": 1750
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2623,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2567,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2623,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2623
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0413112,
+    "duration_ms": 21524,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:37:40+00:00",
+  "finished_at": "2026-09-13T04:38:03+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

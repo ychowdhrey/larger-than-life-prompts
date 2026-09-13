@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T14-r3",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 3,
+  "execution_index": 106,
+  "sample_seed": 8308109237323849849,
+  "prompt_sha256": "3d426462f283f605c65e6a0f9316b0f7d0e817503d0ff3241a247240d0950590",
+  "prompt_chars": 512,
+  "response": "## Setting Up Bayes' Theorem\n\nLet me define the events clearly:\n- **D+** = has the condition, **D−** = doesn't have the condition\n- **T+** = tests positive\n\n**Given information:**\n- Prevalence: P(D+) = 1/500 = 0.002, so P(D−) = 0.998\n- Sensitivity: P(T+|D+) = 0.98\n- Specificity: P(T−|D−) = 0.95, so the false-positive rate is P(T+|D−) = 0.05\n\n**Goal:** Find P(D+|T+)\n\n## Applying Bayes' Theorem\n\n$$P(D+|T+) = \\frac{P(T+|D+) \\cdot P(D+)}{P(T+|D+) \\cdot P(D+) + P(T+|D-) \\cdot P(D-)}$$\n\n**Numerator** (true positives, as a fraction of population):\n$$0.98 \\times 0.002 = 0.00196$$\n\n**Denominator term 2** (false positives, as a fraction of population):\n$$0.05 \\times 0.998 = 0.0499$$\n\n**Total probability of testing positive:**\n$$P(T+) = 0.00196 + 0.0499 = 0.05186$$\n\n**Posterior probability:**\n$$P(D+|T+) = \\frac{0.00196}{0.05186} = 0.0377941\\ldots$$\n\n## Why this feels \"harder than it looks\"\n\nThe trick that people fall for is anchoring on the 98%/95% numbers and expecting the answer to be high. But because the condition is rare (0.2% prevalence), even a small false-positive rate (5%) applied to the huge pool of healthy people (99.8%) generates far more false positives (≈49.9 per 1000 tested) than true positives (≈1.96 per 1000 tested). So among all positives, true cases are a small minority — roughly 1 in 26.5 positives is a real case.\n\nThis is the classic base-rate fallacy trap, and it checks out numerically: no error in the \"obvious\" calculation here — it just *looks* harder than it is because intuition wants to weight sensitivity/specificity over the prevalence, when actually prevalence dominates.\n\n## Final Calculation\n\n$$0.0377941\\ldots \\times 100 = 3.77941\\ldots\\% \\approx 3.78\\%$$\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "bc8337b6d8d2e6457759ba1c7c5d267716f165b000dcc4224b392fdf6f6e4f35",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2493,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1587,
+    "output_tokens_details": {
+      "thinking_tokens": 805
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2493,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1587,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2493,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2493
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.030991200000000003,
+    "duration_ms": 17238,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:24:44+00:00",
+  "finished_at": "2026-09-13T04:25:03+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

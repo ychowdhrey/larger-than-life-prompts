@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-D-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 3,
+  "execution_index": 139,
+  "sample_seed": 16755267040499946622,
+  "prompt_sha256": "90f1ea7ece5bb6c6bc3867ecf528e8340a43d8fb660982e7094952262577ac19",
+  "prompt_chars": 652,
+  "response": "A content delivery network, or CDN, is a way of storing copies of a website's content in many places around the world, so people can load pages faster no matter where they are. Every website has an origin server, the original computer where all the files—images, videos, text—actually live. Without a CDN, every single visitor request travels all the way to that one origin server, which can be slow if the visitor is far away or if many people request the same page at once. A CDN solves this by placing smaller storage points, called edge locations, in cities across the globe. These edge locations keep copies of the most popular content close to where people actually are. Think of it like a chain of neighborhood libraries that each stock the most requested books, so nobody has to travel to the one central national library every time they want to read something popular. When a person requests a page, the nearby edge location checks whether it already has a copy stored. If it does, that success is called a cache hit, and the content gets delivered almost instantly without ever contacting the origin server. If the edge location does not have a fresh copy, it fetches one from the origin, stores it for next time, and delivers it. This system reduces waiting time, spreads out traffic so no single computer gets overwhelmed, and keeps websites running smoothly even during sudden spikes in popularity, such as breaking news or a viral video.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| CDN | A network of storage points spread around the world that hold copies of website content | Makes pages load faster and keeps sites working during traffic surges |\n| Origin server | The original computer where a website's real files are stored | It is the ultimate source of truth that every copy comes from |\n| Edge location | A smaller storage point near a group of people, holding popular content | Shortens the distance data has to travel, cutting load time |\n| Cache hit | When requested content is already stored at a nearby edge location | Delivers content almost instantly without bothering the origin server |",
+  "response_sha256": "cf4fd4f374d2464d417a47a58d18d2a0214c04b42eea3fda50878121e898f7d0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2546,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3090,
+    "output_tokens_details": {
+      "thinking_tokens": 2484
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2546,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3090,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2546,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2546
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.046233199999999995,
+    "duration_ms": 25260,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:25:22+00:00",
+  "finished_at": "2026-09-13T04:25:49+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

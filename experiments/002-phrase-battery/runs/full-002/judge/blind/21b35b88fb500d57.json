@@ -1,0 +1,22 @@
+{
+  "item_id": "21b35b88fb500d57",
+  "sample_id": "P02-T10-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T10",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, gates all destructive/restart/failover actions behind a verified snapshot, includes multiple well-placed abort/rollback conditions, and ends with the correct SECTIONS: 4 line, fully satisfying every hard constraint. It is also operationally thorough and detailed (replication slots, WAL retention, safe-cleanup ordering, failback as a planned action), making it directly actionable for an on-call responder.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:45+00:00"
+}

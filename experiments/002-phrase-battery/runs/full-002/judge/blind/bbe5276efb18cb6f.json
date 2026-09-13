@@ -1,0 +1,22 @@
+{
+  "item_id": "bbe5276efb18cb6f",
+  "sample_id": "C01-T13-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T13",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (mutable default seen, in-place sort mutating caller's list, IndexError when limit exceeds len(scores), ZeroDivisionError on empty scores, and duplicate/seen values shrinking the result window) are real, correctly explained with accurate causes and consequences, verified with a concrete trace-through example, and no false positives are reported.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:20+00:00"
+}

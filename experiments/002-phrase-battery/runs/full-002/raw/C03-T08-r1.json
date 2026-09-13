@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T08-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 1,
+  "execution_index": 2180,
+  "sample_seed": 13674422819524202252,
+  "prompt_sha256": "58ee5b1d03c85077c189e8a5853afdaf37481cd92943badc5d2e8a1eda285b8c",
+  "prompt_chars": 1026,
+  "response": "Here are the defects, one per claim:\n\n**1. Webinar attendance → retention (causal claim)**\n\n- **Selection/confound bias:** Webinar attendance is voluntary. Customers who choose to attend are plausibly more engaged, more invested, or newer/more attentive than non-attendees — the same underlying trait could drive both \"attends webinar\" and \"stays subscribed.\" The 31% gap is consistent with this confound and does not establish that the webinar itself did anything. This is a textbook correlation-causation leap.\n- **Sample restricted to survivors:** The analysis only looks at the 412 customers *still active* today. Churned customers (who may have attended webinars too, or disproportionately not attended) are excluded entirely. You cannot characterize what drives retention by conditioning on having already retained — this survivorship bias can distort or even reverse the apparent relationship relative to what you'd see across the full original cohort (including everyone who ever started as a Pro customer).\n- **Policy recommendation doesn't follow even if the effect were causal:** The observed effect comes from *self-selected* attendees. Making attendance mandatory changes the population (now includes uninterested/unmotivated customers) and the nature of participation (compliance vs. choice). There's no basis for assuming forced attendance reproduces the same retention lift — it could easily produce a smaller effect, no effect, or even a negative one (reactance to a mandatory session).\n\n**2. Central region churn finding (18 attributes tested, p = 0.04)**\n\n- **Multiple-comparisons problem:** Testing 18 attributes and highlighting the one that clears p < 0.05 is classic data dredging. With 18 independent tests at α = 0.05, the chance of at least one false positive by pure chance is roughly 1 − 0.95¹⁸ ≈ 60%. An uncorrected p = 0.04 out of 18 attempts is weak evidence, not \"significant\" — a multiple-testing correction (e.g., Bonferroni, which would require p ≈ 0.003 here) would likely erase it.\n- **No effect size reported/considered:** Even setting aside multiplicity, statistical significance alone doesn't tell you the magnitude of the churn reduction or whether it's large enough to justify reallocating spend.\n- **Possible confound:** Region could be a proxy for something else (industry mix, customer size, tenure) rather than a driver in itself — no adjustment for other variables is mentioned, so \"concentrate spend on Central region\" is not supported as an actionable causal lever.\n\n**3. Satisfaction rise (62% → 66%) attributed to the new support model**\n\n- **No significance/uncertainty check:** There's no indication of sample size, confidence interval, or whether a 4-point move is distinguishable from quarter-to-quarter noise. A shift like this could easily be within normal variance.\n- **No counterfactual/control:** Nothing rules out other explanations for the change (seasonality, pricing changes, product releases, macro factors, even a change in how satisfaction is measured). Attributing the entire movement to \"the new support model\" assumes it's the only thing that changed, which isn't demonstrated.\n- **Minor labeling issue:** Calling a 62%→66% move a \"4% improvement\" conflates percentage points with a percentage change (the actual relative increase is about 6.5%). Not fatal, but imprecise.\n\n**Cross-cutting issue:** All three sections move from an observed association (or a bare percentage change) straight to a causal story and a spending/policy recommendation, without any control group, randomization, or adjustment for confounders anywhere in the memo. That pattern — not any single number — is the core defect running through the document.",
+  "response_sha256": "55eb9082a54594ce7c3cdd4aff55cc90ae239a28741aab5703cf831b137cf57e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28377,
+    "output_tokens": 2734,
+    "output_tokens_details": {
+      "thinking_tokens": 1521
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2734,
+        "cache_read_input_tokens": 28377,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.033019400000000004,
+    "duration_ms": 34010,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:42+00:00",
+  "finished_at": "2026-09-13T05:14:17+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

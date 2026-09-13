@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T02-r1",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T02",
+  "condition_name": "phrase_t02",
+  "repetition": 1,
+  "execution_index": 2104,
+  "sample_seed": 12714497208447812056,
+  "prompt_sha256": "99a50dbcc6d2be537139c81588da3ff9890ac988135a9b30902d37e69429bbb2",
+  "prompt_chars": 635,
+  "response": "A content delivery network is a system of computers spread across many cities that all keep copies of the same website content, so that content loads quickly no matter where a visitor happens to be. Without such a network, every request would travel all the way back to the origin server, which is the original computer where the website's files actually live. That trip can be slow if the origin server is far away. Instead, copies of the content get stored at an edge location, a nearby computer positioned closer to the visitor, often in the same city or region. When a visitor's request finds the needed content already waiting at that nearby computer, it's called a cache hit, meaning no long trip back to the original source was needed at all. Think of it like a chain of bakeries that all sell bread baked at one central factory, but keep fresh loaves stocked on local shelves so customers do not have to travel to the factory itself. This setup reduces waiting time, eases pressure on the origin server, and helps a site stay reachable even during traffic surges or partial outages, since many nearby locations can share the load instead of one single source handling everything alone.\n\n| Term | Plain meaning | Why it matters |\n|------|---------------|-----------------|\n| Origin server | The original computer storing a website's real files | Everything ultimately comes from here if no copy exists elsewhere |\n| Edge location | A nearby computer holding a stored copy of content | Shortens the distance data has to travel, speeding things up |\n| Cache hit | When requested content is already stored nearby | Means faster loading and less strain on the origin server |\n| Content delivery network | The whole network of edge locations working together | Keeps websites fast and reliable for people everywhere |",
+  "response_sha256": "a41c2b00bc7a518d0d8feb698ef89962bc5b3ca39eb2fe12f55f0a240fe1bd6a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28269,
+    "output_tokens": 520,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 520,
+        "cache_read_input_tokens": 28269,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0108578,
+    "duration_ms": 9345,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:11:54+00:00",
+  "finished_at": "2026-09-13T05:12:04+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

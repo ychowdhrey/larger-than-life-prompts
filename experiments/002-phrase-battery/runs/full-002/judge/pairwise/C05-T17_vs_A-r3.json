@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T17_vs_A-r3",
+  "contrast_id": "T17_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both responses catch the same three defects (off-by-one at total=100, the wrong test_cap expectation, and the missing boundary test), but Response B's first finding is self-contradictory: its heading claims the bug 'violates R1 and R3' while its own body then argues it does not violate R3, whereas Response A states the violation (R1 only) consistently and correctly throughout.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:35:02+00:00"
+}

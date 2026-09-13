@@ -1,0 +1,22 @@
+{
+  "item_id": "550b096ae770d98a",
+  "sample_id": "P05-E01-r2",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E01",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan delivers named phases with percentages and entry/exit criteria, correctly separates legacy decommissioning (Phase 5) from the final migration batch (Phase 4), includes properly formatted RISK lines and multiple numeric halt thresholds, and ends with a valid PHASES line; the only soft spot is that the PHASES count implicitly excludes the 0%-user Phase 0, which is defensible but not explicitly justified.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:07+00:00"
+}

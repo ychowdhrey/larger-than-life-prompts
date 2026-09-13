@@ -1,0 +1,22 @@
+{
+  "item_id": "dd99c74db95e92ca",
+  "sample_id": "C05-T25-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T25",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one bug (> vs >=) in the implementation, correctly flags that test_cap's expected value is wrong and would fail against the given code, and correctly notes the missing boundary test at total==100, while accurately confirming the other two tests and the capping logic are correct without inventing false defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:44+00:00"
+}

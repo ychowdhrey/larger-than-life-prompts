@@ -1,0 +1,22 @@
+{
+  "item_id": "2077c0e72a1bcff3",
+  "sample_id": "P03-T11-r2",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T11",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule is fully valid: all prerequisite ordering, consecutive-day, and single-task-per-engineer-per-day constraints are satisfied, the project finishes exactly on Day 10, and the output format (schedule lines plus LAST DAY line) matches the spec exactly. The brief reasoning correctly identifies the parallel opportunities (T2/T3 and T4/T5) but only asserts correctness rather than showing an explicit constraint-by-constraint check.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:19+00:00"
+}

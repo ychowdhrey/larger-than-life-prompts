@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-E02-r1",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 1,
+  "execution_index": 826,
+  "sample_seed": 17555580327787573741,
+  "prompt_sha256": "9f5a9d4d91d4960d93f53a4828df473dc42e3e4b85c9e9e72524ff42e888f8e0",
+  "prompt_chars": 806,
+  "response": "# Incident Response Runbook: Production Database — Critical Disk Utilisation with Elevated Write Latency\n\n**Trigger condition:** Primary production database disk utilisation ≥ 98% AND write latency has increased ~3x within a 20-minute window.\n\n**Severity:** SEV-1 (imminent risk of write failure / outage)\n\n---\n\n## DETECTION\n\n1. Alert sources that should fire for this condition:\n   - Disk utilisation threshold alert (≥90% warning, ≥95% critical, ≥98% page).\n   - Write latency anomaly alert (p95/p99 write latency vs. 20-minute rolling baseline).\n   - Correlated symptoms to confirm this is the incident described (not a false positive):\n     - Increasing disk queue depth / IOPS saturation on the primary's storage volume.\n     - Growth rate of WAL/redo logs, temp tables, or undo/rollback segments.\n     - Replication lag increasing on read replicas or standbys.\n     - Application-side error rates (write timeouts, connection pool exhaustion).\n2. On receiving the page, the on-call responder must:\n   - Acknowledge the alert within the SLA window (e.g., 5 minutes).\n   - Confirm the alert is real by independently checking disk utilisation and write latency dashboards (do not act on a single alert firing without confirmation).\n   - Open an incident channel/ticket and declare SEV-1 if confirmed.\n   - Identify the exact host/instance ID of the primary database and its storage volume ID(s).\n\n---\n\n## IMMEDIATE ACTIONS\n\n**Ordering constraint (must be followed exactly): identify → snapshot → then act.** No step that modifies, deletes, restarts, or fails over the database may occur before a storage snapshot has been successfully taken and verified.\n\n1. **Freeze risky changes.** Immediately halt any in-flight deploys, migrations, schema changes, or manual maintenance jobs targeting this database. Do not run any destructive or corrective command yet.\n2. **Take a storage snapshot of the primary's disk volume(s) before any other action.**\n   - Trigger a point-in-time snapshot via the cloud/storage provider (e.g., EBS snapshot, disk snapshot, SAN snapshot) of every volume backing the database (data volume, WAL/log volume, and any separate temp/undo volume).\n   - Do not proceed to Step 3 until the snapshot request has been accepted/initiated by the storage layer and you have the snapshot ID recorded in the incident channel.\n   - If the snapshot API call fails or times out, retry once; if it fails again, escalate to a senior engineer/DBA immediately and do not proceed with any space-reclaiming or restart action until a snapshot succeeds or an explicit risk-accepted exception is approved by the incident commander and logged.\n3. **Confirm snapshot completion or in-progress-safe state** before taking any action listed in MITIGATION. Most providers allow reads/writes to continue during snapshot creation, so this should not materially delay response, but the snapshot must be *initiated and confirmed accepted* first.\n4. Notify stakeholders (incident channel, status page if customer-facing impact is likely) that a SEV-1 is in progress and a snapshot has been taken as a safety checkpoint.\n\n**Explicit gate:** If you find yourself about to run `DROP`, `TRUNCATE`, `DELETE`, a filesystem cleanup, a restart, or a failover command, and Step 2's snapshot has not completed/been accepted — **STOP**. Complete the snapshot first.\n\n---\n\n## MITIGATION\n\nOnly proceed here once the pre-action snapshot (IMMEDIATE ACTIONS, Step 2) is confirmed.\n\n1. **Identify the disk consumption driver** before choosing a remedy:\n   - Runaway WAL/binlog growth (e.g., stuck replication slot, long-running transaction blocking log recycling).\n   - Bloated tables/indexes, unvacuumed dead tuples, or temp file spill from a bad query plan.\n   - A large batch job, backup process, or logging misconfiguration writing excessively.\n   - Genuine organic growth outpacing provisioned capacity.\n2. **Prefer non-destructive, reversible relief first:**\n   - Expand/grow the storage volume online if the platform supports live resize (preferred — lowest risk, no data touched).\n   - Kill or pause the specific offending query/job/replication slot identified in step 1, rather than broad action.\n   - Move or archive off-database artifacts (old backups, logs) that are safe to relocate, from a location confirmed *not* to be the live data/WAL path.\n3. **If storage expansion is not immediately possible**, and reclaiming space is necessary:\n   - Only remove objects confirmed safe to delete (e.g., verified-orphaned old backup files, rotated logs already shipped off-host) — never data files, WAL segments still needed for replication/recovery, or anything unverified.\n   - Re-check disk utilisation and write latency after each individual action; do not batch multiple destructive actions together.\n4. **Restart or failover of the production database may only be considered at this point** (post-snapshot), and only if:\n   - Non-destructive relief has not stabilised write latency, AND\n   - A DBA or incident commander has explicitly approved the restart/failover, AND\n   - A healthy, lagging-acceptable replica/standby is confirmed available for failover (if failover is the chosen path).\n   - If failing over: confirm replica data currency and replication lag is within acceptable RPO before promoting; do not fail over to a replica with unknown or excessive lag.\n5. **Abort / rollback condition (explicit):**\n   - **Stop and reverse course immediately if:** disk utilisation continues climbing *after* a mitigation action is applied, write latency worsens further, replication breaks, or any data integrity check fails post-action. In this case: halt further remediation steps, do not attempt a second corrective action on top of the first, escalate to the database vendor/senior DBA on-call, and prepare to restore from the pre-action snapshot taken in IMMEDIATE ACTIONS rather than continuing to improvise on the live primary.\n   - Additionally, if at any point you cannot confirm the snapshot from IMMEDIATE ACTIONS succeeded, treat this as a hard stop: do not proceed with any further destructive mitigation until either the snapshot is confirmed or an incident commander formally accepts and logs the risk of proceeding without one.\n\n---\n\n## FOLLOW UP\n\n1. Confirm resolution: disk utilisation back under warning threshold (e.g., <85%) and write latency back within baseline for a sustained period (e.g., 30 minutes).\n2. Verify data integrity and replication health across all replicas/standbys post-incident.\n3. Retain the pre-action snapshot for a defined period (e.g., 7–14 days) in case delayed corruption or data-loss issues surface; document its ID/location in the incident record.\n4. Write a post-incident review covering:\n   - Root cause of the disk growth and latency spike.\n   - Timeline including when the snapshot was taken relative to each subsequent action.\n   - Whether any abort/rollback condition was triggered, and what happened.\n   - Whether alert thresholds fired with enough lead time; adjust thresholds if the 98%/3x-latency point was too close to failure.\n5. File follow-up action items: right-size storage/autoscaling policy, add proactive disk-growth forecasting alerts, review retention/rotation policies for WAL/logs/backups, and address any query or job identified as the growth driver.\n6. Update this runbook with any gaps found during execution (e.g., snapshot took longer than expected, missing automation, unclear ownership).\n\n---\n\nSECTIONS: 4",
+  "response_sha256": "f8838ede8fb099fbe388f30ced795d96889861663cfc54c938d3d435c995c5a1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2596,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2616,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2596,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2616,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2596,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2596
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0416932,
+    "duration_ms": 33990,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:42:32+00:00",
+  "finished_at": "2026-09-13T04:43:07+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

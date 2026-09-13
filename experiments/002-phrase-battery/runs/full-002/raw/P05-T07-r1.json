@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T07-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 1,
+  "execution_index": 221,
+  "sample_seed": 2822973087827661843,
+  "prompt_sha256": "f3ecec73731e7f9db576ddf95e80482cff5de365cc0f3db99ae1fc859987b90a",
+  "prompt_chars": 825,
+  "response": "# Rollout Plan: Migrating 40,000 Users to New Billing System\n\n## Overview\nBoth the old and new billing systems will run in parallel throughout the migration, allowing for gradual cutover, dual-write reconciliation, and fast rollback of individual cohorts without affecting already-migrated users.\n\n---\n\n## Phase 1: Pilot (2% of users — ~800 users)\n**Entry criterion:** New billing system has passed full parity testing in staging (invoicing, tax calculation, payment processing, refunds) against a mirrored copy of production data, and a rollback procedure has been tested end-to-end at least once.\n\n- Select internal/employee accounts and opted-in low-risk external users (e.g., monthly billing, no active disputes).\n- Run dual-write mode: transactions processed on old system, shadow-processed on new system, outputs diffed daily.\n- Manual review of every invoice generated for this cohort during the phase.\n- Duration: minimum 2 weeks or 2 full billing cycles, whichever is longer.\n\n## Phase 2: Expanded Rollout (25% of users — ~10,000 users)\n**Entry criterion:** Phase 1 completes with invoice/charge discrepancy rate below 0.1%, zero critical payment failures, and support ticket volume for migrated users within 1.5x of baseline.\n\n- Migrate a randomized, representative sample across plan types, geographies, and payment methods (credit card, ACH, invoice-based).\n- Move from shadow-processing to live processing on the new system for this cohort; old system retained as fallback for the phase duration.\n- Automated reconciliation job runs every 4 hours comparing charge amounts, billing dates, and tax line items between systems' logs.\n- Duration: minimum 3 weeks.\n\n## Phase 3: General Availability (73% of users — ~29,200 users, completing to 100%)\n**Entry criterion:** Phase 2 completes with discrepancy rate below 0.05%, no unresolved Sev-1/Sev-2 incidents in the prior 14 days, and customer support and finance teams have signed off on new-system reporting accuracy.\n\n- Migrate remaining users in weekly waves of ~15–20% of the total user base to preserve rollback granularity, prioritizing by contract renewal date (migrate accounts furthest from renewal first).\n- Old billing system remains fully operational in read/fallback mode throughout this phase — it is **not** disabled, deprecated, or decommissioned during or immediately after the final migration batch. Decommissioning is a separate, subsequent phase gated on a minimum 60-day stability soak period post-100%-migration with zero critical billing incidents.\n\n---\n\n## Risks\n\nRISK: Payment data or charge discrepancies between old and new systems cause customers to be over- or under-billed | Run automated reconciliation every 4 hours during Phases 2–3 with daily manual spot-checks; auto-freeze new charges for any account showing a mismatch pending finance review | Finance Systems Lead\n\nRISK: New system cannot handle peak transaction volume during month-end billing runs | Load-test new system at 3x expected peak volume before Phase 2 entry; stagger migrated accounts' billing dates across the month during Phase 2 | Platform/Infra Lead\n\nRISK: Customer support is unprepared for new-system-specific billing questions, leading to service degradation | Train support staff and publish internal runbooks before each phase; embed a support liaison in the migration team during Phases 1–2 | Customer Support Manager\n\nRISK: Rollback of a migrated cohort back to the old system results in data loss or duplicate charges | Build and test an idempotent rollback script with a dry-run mode prior to Phase 1; require rollback rehearsal sign-off before Phase 2 entry | Engineering Lead, Billing Platform\n\nRISK: Tax calculation differences between systems create compliance exposure in certain jurisdictions | Run parallel tax-calculation audits per jurisdiction during Phase 1 pilot; require tax/compliance sign-off before expanding to new geographies in Phase 2/3 | Compliance Officer\n\n---\n\n## Halt Criteria\nThe rollout will be immediately paused (no further users migrated to the new system) if any of the following occur:\n\n- **Billing discrepancy rate exceeds 0.5%** of transactions processed on the new system within any rolling 24-hour window.\n- Payment failure rate for migrated users exceeds 2x the baseline failure rate on the old system for more than 6 hours.\n- Any single Sev-1 incident (e.g., duplicate charges, failed payment processing at scale) affecting more than 100 accounts.\n\nA halt triggers an automatic freeze on new migrations, an incident review, and a go/no-go decision from Engineering and Finance leads before resuming.\n\n---\n\nPHASES: 3",
+  "response_sha256": "746ae6c4ff2feae16df4968ec3bf9b46f425e609c285817065ca75823cffd686",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2596,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1612,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2596,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1612,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2596,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2596
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0316532,
+    "duration_ms": 22611,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:27:13+00:00",
+  "finished_at": "2026-09-13T04:27:37+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

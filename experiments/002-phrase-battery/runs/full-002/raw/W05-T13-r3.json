@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T13-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 3,
+  "execution_index": 12,
+  "sample_seed": 17374282615835215130,
+  "prompt_sha256": "70b828ce430a91c7ae256274cc503b02b627cb51cf1a6196f235fa37ebb17c55",
+  "prompt_chars": 750,
+  "response": "## The problem\n\nOur team of twelve now maintains feature branches that routinely live for two to three weeks before merging. By the time a branch reaches review, it has drifted far enough from main that the diff is enormous, the reviewer has lost the thread of individual decisions, and conflicts take hours to untangle. Last sprint, three separate branches touched the same service layer, and reconciling them cost us most of a day right before release. We are optimizing each branch for isolated progress and paying for it collectively at integration time, when it is most expensive to discover problems.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequent changes directly to main, guarded by feature flags for anything incomplete, with CI enforcing that main stays releasable at all times.\n\n- Cap in-progress branches at one day of work before merging back to main.\n- Wrap unfinished features behind flags rather than hiding them in a branch.\n- Require CI to pass before any merge, with no exceptions.\n- Pair or mob on riskier changes instead of isolating them in a branch.\n- Review small diffs same-day so feedback stays cheap and specific.\n\nThis should shrink our integration pain, surface conflicts within hours instead of weeks, and make releases boring again.\n\n## What could go wrong\n\nThe strongest objection is real: without long branches, half-finished work sits on main, and a careless flag or an untested code path could destabilize production or block other engineers. This isn't a hypothetical — it's the exact failure mode trunk-based development is accused of causing. The honest answer is that discipline shifts rather than disappears: we need flag hygiene, stronger CI gates, and a norm that broken main is an emergency, not a Tuesday. If we aren't willing to invest in that discipline, this proposal will fail, and we should say so now rather than discover it in production.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "72c2316f6543f8b63f62af231d17eb8158f3dcac0ed73ee0dfb56c97e4beb64a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2575,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 607,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2575,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 607,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2575,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2575
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0215192,
+    "duration_ms": 11389,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:21:19+00:00",
+  "finished_at": "2026-09-13T04:21:32+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

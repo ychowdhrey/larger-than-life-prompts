@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T18_vs_A-r2",
+  "contrast_id": "T18_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T18",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T18",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the same four core defects (WHERE clause killing the LEFT JOIN, UTC/local-day mismatch, integer division truncation, NULL-vs-zero totals), but B adds a genuinely useful and correct consequence directly tied to this query — that NULL total_spent values will sort to the top under ORDER BY ... DESC in engines like Postgres, misrepresenting zero-spend customers as top spenders. A's extra point (non-aggregated columns without full GROUP BY) is a much weaker addition since A itself concedes it may not actually be broken in the relevant engine, making it a hedged portability note rather than a concrete defect.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:47+00:00"
+}

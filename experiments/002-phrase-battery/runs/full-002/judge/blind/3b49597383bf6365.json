@@ -1,0 +1,22 @@
+{
+  "item_id": "3b49597383bf6365",
+  "sample_id": "C01-T02-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T02",
+  "repetition": 3,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 3,
+    "constraint_adherence": 3,
+    "error_checking": 3,
+    "depth": 3,
+    "usefulness": 4
+  },
+  "reason": "The four core defects (mutable default, unbounded limit causing IndexError, in-place sort mutating caller's list, division by zero) are all real and correctly explained, but the response misses that duplicate values within the top slice cause fewer-than-limit results even on a single isolated call with a fresh 'seen' list, and incorrectly frames this instead as merely 'a consequence of defect 1' rather than an independent design flaw.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:35+00:00"
+}

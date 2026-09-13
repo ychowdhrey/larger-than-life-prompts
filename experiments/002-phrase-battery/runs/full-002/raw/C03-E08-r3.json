@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-E08-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "E08",
+  "condition_name": "combo_e08",
+  "repetition": 3,
+  "execution_index": 1894,
+  "sample_seed": 15383936070319742244,
+  "prompt_sha256": "da98444508dd4e2332699312888fc92bffcf25cb0f11f233e9b167a11365f396",
+  "prompt_chars": 1066,
+  "response": "## Claim 1 — Webinars and retention\n\n**Defect A: Selecting on the outcome (survivorship bias).**\nThe analysis is restricted to the 412 customers \"still active on the Pro plan today.\" That means every customer who already churned — the group most informative about what predicts retention — has been excluded before the comparison is even made. You cannot estimate whether webinar attendance affects retention by conditioning on the fact that people were retained; churned webinar-attendees and churned non-attendees are both invisible in this data. This would cause the true effect (which could be smaller, larger, absent, or even reversed) to be systematically distorted, and the 31% figure to be uninterpretable as an estimate of a webinar effect.\n\n**Defect B: Correlation treated as causation (self-selection confound).**\nAttendance wasn't randomized — customers chose whether to attend. Customers who are more engaged, more invested in the product, or already planning to renew are plausibly *both* more likely to attend a webinar *and* more likely to stay, with no causal link running from the webinar itself. \"Webinars therefore cause higher retention\" doesn't follow from an observed association in self-selected groups. This would cause the company to expect a retention lift that may not actually be driven by the webinar content/experience at all.\n\n**Defect C: Extrapolating the (unproven) effect to a different intervention.**\nEven if attending were causally linked to retention for customers who chose to attend, that says nothing about what happens when attendance is *mandatory*. Compulsory attendance changes who attends and why (motivated volunteers vs. everyone, including uninterested customers), so the observed association — even if it were causal — doesn't license predicting the same effect under a mandate. This would cause the company to invest in a mandatory-webinar program that may not reproduce the retention gain seen in the voluntary group.\n\n**Gap: No significance/uncertainty reporting for this claim.** Unlike the region result, no p-value, confidence interval, or subgroup sizes are given for the 31% figure, so there's no way to tell whether it reflects a real, stable difference or noise from small subgroups.\n\n## Claim 2 — Region and churn\n\n**Defect D: Multiple comparisons without correction.**\nEighteen attributes were tested against churn, and one came back \"significant\" at p = 0.04. With 18 independent tests at α = 0.05, the chance of getting at least one \"significant\" result purely by chance is roughly 1 − 0.95¹⁸ ≈ 60%. A single p = 0.04 result out of 18 tests is exactly what you'd expect from noise even if no attribute actually matters, and no correction (Bonferroni, FDR, etc.) was applied. This would cause the company to reallocate quarterly spend based on what is likely a false positive, wasting budget on a region that may not actually churn less for any real reason.\n\n**Defect E: Implicit cherry-picking.**\nThe memo reports only the one result that cleared p < 0.05 out of 18 tests, without mentioning the other 17 (presumably non-significant) results. Presenting the single \"winner\" as the headline finding, without disclosing how many tests were run to find it, has the same distorting effect as defect D and would mislead a reader into thinking this was a targeted, pre-specified hypothesis rather than one hit from a broad fishing expedition.\n\n## Claim 3 — Satisfaction and the support model\n\n**Defect F: Causal attribution from a single pre/post comparison.**\nSatisfaction moving from 62% to 66% across a quarter is consistent with the new support model helping, but equally consistent with seasonality, an unrelated product change, pricing changes, a shift in the customer mix, or simple quarter-to-quarter noise/regression to the mean (especially if 62% was itself an unusually low starting point). No control group and no other-causes-ruled-out reasoning is offered, so \"shows the new support model is working\" is asserted, not demonstrated. This would cause the company to credit (and keep funding) a change that may have had nothing to do with the observed improvement, while a real cause goes unidentified.\n\n**Defect G: No test of whether the change is meaningful vs. noise.**\nThere's no indication of sample size, variance, or statistical significance for the 62%→66% shift, unlike the region claim which at least reports a p-value. Without that, a 4-point move could easily be within normal quarter-to-quarter fluctuation. This would cause the company to treat routine variation as a confirmed program success.\n\n**Defect H (minor/labeling): \"4% improvement\" conflates percentage points with percent change.**\nGoing from 62% to 66% is a 4 *percentage-point* increase, but a relative increase of about 6.5% (4/62). Calling it \"4% improvement\" blurs these two different quantities. This isn't a wrong underlying number, but the loose phrasing could cause readers to misjudge the actual magnitude of the change (understating it if percentage points were meant as percent, or vice versa when the figure is later cited elsewhere).",
+  "response_sha256": "3866165ea98611cac7ba430928a0392ea60ff2256d91c9be8fae42f96962877d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28385,
+    "output_tokens": 4746,
+    "output_tokens_details": {
+      "thinking_tokens": 3104
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4746,
+        "cache_read_input_tokens": 28385,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.053141,
+    "duration_ms": 56690,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:14+00:00",
+  "finished_at": "2026-09-13T05:08:12+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

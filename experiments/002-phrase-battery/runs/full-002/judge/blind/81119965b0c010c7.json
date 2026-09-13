@@ -1,0 +1,22 @@
+{
+  "item_id": "81119965b0c010c7",
+  "sample_id": "P01-E08-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E08",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all six hard requirements (≤12 steps with exact count reported, rollback, non-prod rehearsal with checksum/row-count validation, post-cutover integrity verification, stakeholder communication, and backups placed before each production-modifying action) while showing genuine technical depth, such as pre-staging the 2TB load via logical replication to fit the 2-hour window and flagging sequence/identity checks after cutover.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:25+00:00"
+}

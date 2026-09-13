@@ -1,0 +1,22 @@
+{
+  "item_id": "910b76ad2e0a9354",
+  "sample_id": "C02-T26-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T26",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all major defects flagged by the schema notes (WHERE-clause defeating the LEFT JOIN, the UTC vs UTC+8 boundary mismatch, integer division truncation, NULL-vs-zero for total_spent, and a secondary GROUP BY portability concern), with accurate consequences and concrete fixes, though the MySQL integer-division claim is somewhat imprecise.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:11+00:00"
+}

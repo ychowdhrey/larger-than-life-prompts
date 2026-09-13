@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T16_vs_A-r1",
+  "contrast_id": "T16_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T16",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T16",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both satisfy all hard requirements (correct headings, snapshot-first gating, no restart/failover before snapshot, and an abort/rollback condition), but Response A's abort condition is more explicit and testable, specifying numeric thresholds (e.g., disk must drop 3-5 percentage points within 10 minutes) rather than B's vaguer 'continues climbing' language, making it easier for a responder to act on unambiguously during a live incident.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:28:49+00:00"
+}

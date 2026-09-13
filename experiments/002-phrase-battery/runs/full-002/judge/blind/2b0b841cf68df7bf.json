@@ -1,0 +1,22 @@
+{
+  "item_id": "2b0b841cf68df7bf",
+  "sample_id": "C01-T01-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T01",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default, in-place mutation of caller's list, missing bounds check, division by zero, and the truncated-window dedup flaw) with accurate causal explanations, even noting the subtle execution-order interaction between the IndexError and ZeroDivisionError cases, and introduces no fabricated issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:13+00:00"
+}

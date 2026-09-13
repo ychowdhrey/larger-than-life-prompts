@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T18_vs_A-r1",
+  "contrast_id": "T18_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T18",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T18",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the hard requirements (three phases with correct percentages/entry criteria, five properly formatted RISK lines, deferred decommissioning, and numeric halt thresholds), but Response B is more operationally rigorous: it ties phase duration to actual billing-cycle events (critical for a billing migration), specifies concrete validation sample sizes and rollback test scale, uses shadow-mode dual-write with idempotency keys/payment locks to concretely prevent double-charging, and adds a wave-based sub-batching scheme for the large final phase plus a compliance/tax-jurisdiction risk that A omits.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:45:42+00:00"
+}

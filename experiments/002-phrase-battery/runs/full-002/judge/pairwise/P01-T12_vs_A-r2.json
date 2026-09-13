@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T12_vs_A-r2",
+  "contrast_id": "T12_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T12",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet the hard requirements, but Response B's step ordering is more temporally coherent: it takes the initial backup before replication setup, starts bulk/CDC sync well ahead of the maintenance window, and only takes the final backup at the start of the window before cutover. Response A numbers its pre-cutover backup (step 6) before beginning continuous replication (step 7), which for a 2 TB database implies the bulk copy would only start right at the maintenance window, undermining the near-zero-downtime cutover it describes.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:31:42+00:00"
+}

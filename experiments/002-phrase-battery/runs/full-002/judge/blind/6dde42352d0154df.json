@@ -1,0 +1,22 @@
+{
+  "item_id": "6dde42352d0154df",
+  "sample_id": "C01-T14-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T14",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies every real defect (index out-of-bounds on the default limit, mutable default argument, in-place mutation of caller's list, zero-division on empty input, and the subtle under-fill bug in the dedup logic) with accurate causal explanations and a concrete verifying example, while cleanly separating a genuine efficiency note from correctness issues and reporting no spurious defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:15+00:00"
+}

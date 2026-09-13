@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-T12-r2",
+  "run_id": "full-002",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T12",
+  "condition_name": "phrase_t12",
+  "repetition": 2,
+  "execution_index": 1234,
+  "sample_seed": 4500416141197776512,
+  "prompt_sha256": "35b38786fcd47c0fddeb658e0b884acf2580bc496b431a0443750fdeaf3cf06c",
+  "prompt_chars": 1255,
+  "response": "**1. Conflicting notice periods for Client-initiated termination (4.1 vs. 4.2)**\n4.1 says *either* party — which includes the Client — may terminate on 30 days' notice, with no carve-out. 4.2 then requires the Client specifically to give \"not less than 45 days'\" notice. As drafted, a Client relying on 4.1 could terminate on 30 days' notice, directly contradicting 4.2's 45-day minimum. This leaves the actual required notice period for a Client-initiated termination undefined, which in turn makes the \"Effective Termination Date\" in 4.4 (and therefore the refund trigger date and the months-remaining count used in Table 4A) impossible to fix with certainty.\n\n**2. Gap in Table 4A for 6 months remaining**\nThe bands are \"9 or more,\" \"7 to 8,\" \"3 to 5,\" and \"fewer than 3.\" There is no band covering exactly 6 months remaining. A termination with 6 months left has no applicable refund rate under the table, even though 4.3 states the refund \"shall\" be calculated in accordance with it.\n\n**3. Arithmetic error in the 40% row of Table 4A**\nFor a $12,000 annual prepayment, 40% should be $4,800, but the table shows $3,600 (which is actually 30% of $12,000). One of the two figures — the \"40%\" rate or the \"3,600\" amount — is wrong, so the clause and its own illustrative table disagree on what the Client is owed at that tier.\n\n**4. \"Pro rata\" characterization in 4.3 is inconsistent with the stepped structure of Table 4A**\n4.3 promises a \"pro rata\" refund, implying an amount proportional to time remaining, but Table 4A applies flat banded rates rather than a continuous proportion: e.g., 3 months remaining and 5 months remaining both receive the same 40% (using the rate as stated, ignoring defect #3), and 9 months remaining yields 80% rather than the 75% (9/12) a true pro rata calculation would produce. Describing the mechanism as \"pro rata\" while implementing it as fixed tiers is an internal inconsistency between the operative clause and the schedule that implements it.",
+  "response_sha256": "fa2b5b1c51d3a5e35bcd1f00afc36af485358d7239a5d8c4570db440681cdfa3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28530,
+    "output_tokens": 3892,
+    "output_tokens_details": {
+      "thinking_tokens": 3171
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3892,
+        "cache_read_input_tokens": 28530,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.04463,
+    "duration_ms": 41321,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:52:17+00:00",
+  "finished_at": "2026-09-13T04:53:00+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

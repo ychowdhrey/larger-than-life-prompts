@@ -1,0 +1,22 @@
+{
+  "item_id": "217971028904bf82",
+  "sample_id": "P01-E06-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E06",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all six hard requirements (≤12 numbered steps, rollback, non-prod dry run, post-cutover integrity checks, stakeholder communication, backup preceding any destructive/modifying step) and is logically sequenced with actionable specifics like replication draining, sequence/row-count checks, and a monitored decommission window, though it doesn't explicitly cross-check itself against the stated constraints.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:10+00:00"
+}

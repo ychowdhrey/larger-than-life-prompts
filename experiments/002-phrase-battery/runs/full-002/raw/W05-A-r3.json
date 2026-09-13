@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-A-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 3,
+  "execution_index": 1724,
+  "sample_seed": 16453962161967236477,
+  "prompt_sha256": "a111ab385a58ee4c9d9b09d3ebf66c4f201a45f68c187de2d1510ad4237226f3",
+  "prompt_chars": 685,
+  "response": "## The problem\n\nOur team of twelve currently develops on long-lived feature branches that often live for two to four weeks before merging. This creates painful integration events: merge conflicts multiply the longer a branch survives, and by the time a branch is ready to merge, it has drifted so far from main that reviewers struggle to reason about the diff. Our last release cycle saw three separate multi-day \"merge weeks\" where the whole team stopped feature work just to reconcile branches. This is not sustainable as we grow.\n\n## The proposal\n\nI propose we move to trunk-based development: all engineers commit small, incremental changes directly to main (or through very short-lived branches merged within a day), protected by feature flags for anything not ready for users. Concretely, this means:\n\n- Branches live no longer than one working day before merging to main\n- Incomplete features ship behind flags rather than staying unmerged\n- CI must run on every merge to main, with a strict \"green trunk\" policy\n- We invest in flag management tooling before rollout, not after\n- We pilot with one squad for two weeks before team-wide adoption\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development demands a level of CI/CD maturity and test coverage we may not yet have. If our test suite has gaps, small unreviewed-in-isolation changes could land on main and break things silently, and without long-lived branches to isolate risk, breakage propagates to everyone immediately. This is a legitimate concern, not a hypothetical one: our current flaky-test rate is around 8%, and trunk-based development would expose that flakiness far more painfully than our current process does. I don't think this should block us, but it does mean our first two weeks should focus on stabilizing CI and fixing flaky tests, not on process change alone. A secondary risk is that feature-flag sprawl becomes its own maintenance burden if we don't set a policy for removing stale flags.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "f1419965ec285b4c5a3be9b933a452188a65910d4e38fad5af8036f947a7f997",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28280,
+    "output_tokens": 624,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 624,
+        "cache_read_input_tokens": 28280,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0119,
+    "duration_ms": 11300,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:03:36+00:00",
+  "finished_at": "2026-09-13T05:03:48+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

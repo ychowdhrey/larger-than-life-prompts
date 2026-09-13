@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T26-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 3,
+  "execution_index": 1368,
+  "sample_seed": 4963281204275294060,
+  "prompt_sha256": "f2379267dabd68726e32e43066d3a445444222d3b29b52792963aa0cb28ea974",
+  "prompt_chars": 1026,
+  "response": "## Defect 1 — Causal claim from correlational data (webinar → retention)\n\n**What's wrong:** The memo observes an association (webinar attendees retain 31% better) and concludes a causal mechanism (\"webinars therefore cause higher retention\"). No experiment (e.g., randomized assignment to webinar vs. no webinar) was run — attendance was self-selected.\n\n**What it causes:** Customers who voluntarily sign up for and attend an onboarding webinar are plausibly more engaged, more invested, or already better-fit customers than those who don't bother. That pre-existing engagement (a confound) could be driving both the decision to attend *and* the decision to stay, with the webinar itself contributing little or nothing. Mandating attendance for everyone would compel a very different population (including previously-disengaged customers) to attend, so the observed 31% lift has no guarantee of transferring — the company could spend real money/effort on mandatory webinars and see no retention benefit at all.\n\n## Defect 2 — Selection bias in the sample itself\n\n**What's wrong:** The analysis is run only on the 412 customers \"still active on the Pro plan today\" — i.e., the survivors. Churned customers are excluded before the comparison is even made.\n\n**What it causes:** Conditioning the analysis on already having survived (a downstream outcome) can distort or invert the true relationship between webinar attendance and churn. Any retention/churn comparison should be computed over the full cohort that ever started the Pro plan (attendees vs. non-attendees, including those who left), not just among those who happen to still be there. As reported, the 31% figure doesn't actually establish what it's being used to justify.\n\n## Defect 3 — Multiple comparisons without correction (Central region)\n\n**What's wrong:** 18 attributes were tested against churn, and the one that happened to cross p = 0.04 was singled out as \"significant.\" No correction (Bonferroni, FDR, etc.) was applied for testing 18 hypotheses.\n\n**What it causes:** At α = 0.05 with 18 independent tests, the probability of getting at least one \"significant\" result by chance alone is roughly 1 − (0.95)^18 ≈ 60%, not 5%. This is a textbook multiple-comparisons/data-dredging problem — the Central region finding is quite likely to be noise rather than a real effect. Reallocating next quarter's spend based on it risks investing in a pattern that won't replicate, at the expense of regions/actions that might actually matter.\n\n## Defect 4 — No causal justification for the regional spend recommendation\n\n**What's wrong:** Even setting aside Defect 3, \"Central region churns less\" is an observed association across an unspecified set of regional/customer differences (industry mix, contract size, account age, sales channel, etc.), not evidence that *spending more* in Central will reduce churn further or replicate whatever is producing the association elsewhere.\n\n**What it causes:** Directing spend toward Central on this basis conflates \"this region currently has low churn\" with \"spend in this region is what drives low churn,\" which can lead to reinforcing an already-fine segment while under-investing in regions that actually need (and could respond to) intervention.\n\n## Defect 5 — Percentage points reported as \"%\"\n\n**What's wrong:** Satisfaction moving from 62% to 66% is a 4 **percentage-point** increase, which is a ~6.5% relative increase, not a \"4% improvement.\" The memo uses \"4%\" ambiguously/incorrectly for a percentage-point change.\n\n**What it causes:** This kind of conflation understates the relative magnitude here, but more generally invites miscommunication and inconsistent tracking over time (e.g., stacking percentage-point changes as if they were compounding percentages).\n\n## Defect 6 — Naive pre/post attribution with no significance test or control\n\n**What's wrong:** The 62%→66% shift is attributed entirely to \"the new support model\" based on a single before/after comparison in one quarter, with no statistical significance test, no confidence interval, no control group, and no ruling out of other explanations (seasonality, other concurrent initiatives, survey sample changes, or ordinary quarter-to-quarter noise).\n\n**What it causes:** A 4-point swing could easily fall within normal quarter-to-quarter variation, especially if the underlying survey sample is modest — treating it as proof \"the new support model is working\" risks crediting (or continuing to fund) an intervention that had no real effect, while missing the actual cause of any genuine change.",
+  "response_sha256": "96b241a17f8f83eedd7224bb4984ac6bd40e78dbfda656cfe5a87815cef21dd3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28370,
+    "output_tokens": 3305,
+    "output_tokens_details": {
+      "thinking_tokens": 1832
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3305,
+        "cache_read_input_tokens": 28370,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.038728,
+    "duration_ms": 40423,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:55:08+00:00",
+  "finished_at": "2026-09-13T04:55:49+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

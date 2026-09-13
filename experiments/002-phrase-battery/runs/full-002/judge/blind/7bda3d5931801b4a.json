@@ -1,0 +1,22 @@
+{
+  "item_id": "7bda3d5931801b4a",
+  "sample_id": "C02-T15-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T15",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (WHERE clause defeating the LEFT JOIN, UTC/local-day misalignment, NULL vs 0 for SUM, integer division truncation, unaggregated GROUP BY columns) are correctly identified with accurate causal explanations and a working corrected query, with only a trivial boundary-second imprecision in the timezone example (23:59:59 vs 00:00:00) marring an otherwise carefully self-checked analysis that also correctly confirms COUNT(o.order_id) is not a defect.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:06+00:00"
+}

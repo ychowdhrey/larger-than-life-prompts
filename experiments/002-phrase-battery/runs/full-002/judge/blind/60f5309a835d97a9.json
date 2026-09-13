@@ -1,0 +1,22 @@
+{
+  "item_id": "60f5309a835d97a9",
+  "sample_id": "P02-E01-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E01",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All four required headings appear in order, the snapshot-first rule is stated explicitly and enforced before any restart/failover, an explicit abort/rollback condition is included, and the response ends with the correctly-formatted 'SECTIONS: 4' line; the content is also operationally detailed and realistic (e.g., stuck replication slots, snapshot-failure edge cases, resolution criteria).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:01+00:00"
+}

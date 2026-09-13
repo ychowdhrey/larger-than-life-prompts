@@ -1,0 +1,22 @@
+{
+  "item_id": "ae367b7fa32d08ce",
+  "sample_id": "C01-T16-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T16",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default argument, tie-induced result shrinkage, IndexError on short lists, ZeroDivisionError on empty input with limit=0, and in-place list mutation) with accurate concrete examples, and avoids flagging the intended sort/average behavior as a bug.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:34+00:00"
+}

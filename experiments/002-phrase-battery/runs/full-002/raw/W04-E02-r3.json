@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-E02-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 3,
+  "execution_index": 82,
+  "sample_seed": 17921836402610499640,
+  "prompt_sha256": "a307352da2fd564f203490659adf9582b2e882bd6f4ddeab576273405fbc6603",
+  "prompt_chars": 704,
+  "response": "A content delivery network, or CDN, is a system that helps websites load quickly no matter where a visitor is located. Normally, every request for a webpage, image, or video travels all the way back to the origin server — the single main computer where the website's files are originally stored. If that server is far away, pages load slowly, and if many people request the same content at once, the server can become overwhelmed. A CDN solves this by placing copies of website content on many smaller servers scattered around the world, called edge locations, because they sit at the \"edge\" of the network, closer to where people actually are. When someone visits a site, their device connects to the nearest edge location instead of the distant origin server. Think of it like a chain of neighborhood libraries that each keep popular books in stock, so people don't need to travel to one central library across the country every time they want to read something. If the nearby edge location already has a copy of the requested content stored and ready, that's called a cache hit, and the content is delivered almost instantly. If it doesn't have a copy yet, the edge location fetches it once from the origin server, saves a copy for next time, and then delivers it. Over time, this dramatically reduces loading delays, lowers the strain on the original server, and keeps websites working smoothly even during huge surges in traffic, since the load gets spread across many locations instead of one.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The main computer that holds the website's original files | It is the ultimate source of truth, but relying on it alone can be slow and easily overloaded |\n| Edge location | A smaller server placed closer to where visitors actually are | It shortens the distance data must travel, making pages load faster |\n| Cache hit | When requested content is already stored at a nearby edge location | It allows near-instant delivery without contacting the origin server |\n| Cache miss | When the nearby edge location does not yet have a copy of the content | It triggers a one-time fetch from the origin server so future requests become cache hits |",
+  "response_sha256": "6e901e10d1a93d5c324bee8ffdfacc99022578b96ba56a1b702f51f09a08a6de",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2562,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 3136,
+    "output_tokens_details": {
+      "thinking_tokens": 2505
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2562,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3136,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2562,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2562
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0467572,
+    "duration_ms": 26282,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:24:20+00:00",
+  "finished_at": "2026-09-13T04:24:47+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

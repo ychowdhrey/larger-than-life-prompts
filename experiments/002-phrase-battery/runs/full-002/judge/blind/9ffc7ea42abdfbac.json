@@ -1,0 +1,22 @@
+{
+  "item_id": "9ffc7ea42abdfbac",
+  "sample_id": "P02-T13-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T13",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact required headings in order, gates all risky actions behind a completed/verified snapshot, explicitly forbids restart/failover before the snapshot, and includes multiple well-reasoned abort/escalation conditions, while also addressing non-obvious causes like stuck replication slots and WAL retention.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:43+00:00"
+}

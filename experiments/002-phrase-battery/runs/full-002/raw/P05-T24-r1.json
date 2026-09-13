@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T24-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T24",
+  "condition_name": "phrase_t24",
+  "repetition": 1,
+  "execution_index": 2200,
+  "sample_seed": 9925090505955429960,
+  "prompt_sha256": "0403d6fe237b9e42f7db0abb546d91d8daa7fd9accf983657c4be5ca2b3e5071",
+  "prompt_chars": 817,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nBoth the legacy and new billing systems will run in parallel throughout the migration (\"dual-run\"). Users are migrated in batches by phase, with reconciliation checks run between systems before advancing. No decommissioning of the legacy system occurs until well after the final user batch has been migrated and validated.\n\n---\n\n## Phase 1: Canary (2% of users — ~800 users)\n\n**Entry criterion:** New billing system has passed end-to-end integration testing in staging, including invoice generation, payment capture, refunds, and tax calculation, with a signed-off test report; rollback procedure has been tested at least once in staging.\n\n- Select 800 low-risk, internal/opt-in or low-ARR users.\n- Run both systems in parallel (shadow mode: new system processes real transactions, legacy remains source of truth for statements).\n- Reconcile every transaction daily between old and new systems.\n- Duration: minimum 5 business days before advancing.\n\n## Phase 2: Early Majority (20% of users — ~8,000 users)\n\n**Entry criterion:** Phase 1 completed with zero unresolved billing discrepancies, no critical/severity-1 incidents, and reconciliation mismatch rate below 0.1% of transactions over the full canary window.\n\n- Expand to a representative cross-section of user segments (plan tiers, geographies, payment methods).\n- New system becomes source of truth for migrated users; legacy system retained read-only for support/reference.\n- Customer support briefed and on standby with a dedicated escalation channel.\n- Duration: minimum 10 business days before advancing.\n\n## Phase 3: General Availability (78% of users — ~31,200 users)\n\n**Entry criterion:** Phase 2 completed with reconciliation mismatch rate below 0.1%, support ticket volume related to billing not exceeding 1.5x the pre-migration baseline, and finance sign-off on revenue recognition accuracy for Phase 2 cohort.\n\n- Migrate all remaining users in scheduled sub-batches (e.g., 10 batches of ~3,000–4,000) to preserve ability to pause between batches.\n- Legacy system remains fully operational in parallel for the duration of this phase and for a defined post-migration observation window afterward.\n- Final batch completion triggers a separate, subsequent decommissioning phase (not part of Phase 3) — legacy system deletion/disabling is explicitly out of scope until a post-migration stability period (minimum 30 days) has passed with no critical issues.\n\n---\n\n## Halt Metric\n\nIf the daily reconciliation mismatch rate between old and new billing systems exceeds **0.5% of processed transactions** in any 24-hour period during any phase, the rollout is halted immediately, no further users are migrated into the active phase, and the incident is triaged before resuming.\n\n---\n\n## Risks\n\nRISK: Duplicate or missed charges during dual-run due to both systems processing the same invoice | Implement idempotency keys and a transaction reconciliation job running every 4 hours with automated alerting on mismatches | Billing Engineering Lead\nRISK: Data mapping errors (e.g., incorrect proration, tax jurisdiction, or currency conversion) corrupting migrated user billing profiles | Run automated field-level validation against a golden dataset for every migrated batch before activation | Data Migration Engineer\nRISK: Customer support overwhelmed by billing disputes during peak migration phase | Pre-train support staff, publish an internal runbook, and stagger batch sizes to keep ticket volume within capacity | Customer Support Manager\nRISK: Payment processor webhook failures causing missed payment status updates in the new system | Add dead-letter queue with automatic retry and manual replay tooling, monitored 24/7 during active migration windows | Platform Reliability Engineer\nRISK: Regulatory/compliance exposure from incorrect tax or invoice records during the transition | Engage compliance/finance review before each phase advances and retain dual audit trails until decommissioning | Finance & Compliance Lead\n\nPHASES: 3",
+  "response_sha256": "c87406994b98522a00093d93ebcc6e3ef679ec8ea1a2b9ff1ab7193475b80def",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28318,
+    "output_tokens": 1381,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1381,
+        "cache_read_input_tokens": 28318,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0194776,
+    "duration_ms": 19299,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:14:26+00:00",
+  "finished_at": "2026-09-13T05:14:46+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

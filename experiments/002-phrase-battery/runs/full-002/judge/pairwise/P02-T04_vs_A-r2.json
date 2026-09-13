@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T04_vs_A-r2",
+  "contrast_id": "T04_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T04",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both fully satisfy the structural and safety requirements, but Response B is more operationally rigorous: it adds a distinct abort condition for the detection phase itself (stand down if the spike can't be corroborated by a second source), gates failover more carefully on replica health/lag, and includes more concrete, actionable specifics (growth-rate-to-full estimate, explicit timeouts for snapshot/latency checks, backpressure/ETL throttling) that make the runbook easier to execute under pressure.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:23+00:00"
+}

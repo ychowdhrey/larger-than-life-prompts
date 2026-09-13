@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T09-r3",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T09",
+  "condition_name": "phrase_t09",
+  "repetition": 3,
+  "execution_index": 257,
+  "sample_seed": 9926275630188060699,
+  "prompt_sha256": "967d0eedf868bada60cc4de8038843fc210c096c9b90307a3ee0f9febadc57d0",
+  "prompt_chars": 757,
+  "response": "# Incident Response Runbook: Primary Production Database — Critical Disk Utilisation & Write Latency Degradation\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 98%; write latency has tripled versus 20-minute baseline.\n\n**Severity:** SEV-1 (imminent risk of write failure / outage)\n\n---\n\n## DETECTION\n\n1. Confirm the alert is real, not a monitoring glitch:\n   - Cross-check disk utilisation on at least two sources (e.g., cloud provider console/metrics AND host-level `df -h` / `du` on the DB node).\n   - Confirm write latency trend over the last 20–30 minutes using the APM/metrics dashboard (e.g., p50/p95/p99 write latency), not a single spike.\n2. Identify scope:\n   - Is this the primary only, or are replicas also affected?\n   - Is disk growth linear (slow leak) or sudden (bulk write, runaway job, log explosion)?\n3. Page the on-call database engineer and incident commander (IC). Open an incident channel/ticket and start a timeline log — every action taken from this point forward must be timestamped in that log.\n4. Check recent deploys, migrations, batch jobs, or config changes in the last 1–2 hours that could correlate with the onset.\n\n**Exit criteria for this section:** Incident confirmed as genuine, IC assigned, timeline started. Proceed to IMMEDIATE ACTIONS.\n\n---\n\n## IMMEDIATE ACTIONS\n\n> **Guardrail: Do not restart, reboot, fail over, or resize the primary database, and do not delete any files or data, until a storage snapshot has completed successfully.** Any action carrying data-loss risk is blocked until the snapshot below is confirmed.\n\n1. **Take a storage snapshot of the primary database volume now**, before any remediation step that touches data or the instance state:\n   - Trigger a point-in-time snapshot via your cloud provider/storage layer (e.g., EBS snapshot, disk snapshot, SAN snapshot) or an equivalent consistent backup mechanism.\n   - If the platform supports application-consistent snapshots (e.g., quiescing writes briefly, or using a DB-native tool), prefer that over a raw crash-consistent snapshot.\n   - **Wait and verify the snapshot reaches a completed/available state** before continuing. Record the snapshot ID/timestamp in the incident log.\n2. While the snapshot is in progress, in parallel (read-only, non-destructive):\n   - Identify what is consuming disk: check data directory size, WAL/redo log size, temp table space, and orphaned/old backup files.\n   - Check for runaway transactions or long-running queries holding locks/generating large WAL (`pg_stat_activity`, `SHOW PROCESSLIST`, or equivalent) — note them, do not kill yet.\n   - Confirm current free space in GB and the rate of consumption (GB/min) to estimate time-to-full.\n3. Once the snapshot is confirmed complete, notify the incident channel: \"Snapshot complete — safe to proceed with remediation.\"\n\n**Abort/rollback condition:** If the snapshot fails, times out, or cannot be confirmed complete, **do not proceed to any destructive or state-changing action** (no restart, failover, deletion, or resize). Stop, escalate to the database platform/vendor support and senior on-call, and continue only with strictly non-destructive relief (e.g., throttling incoming write traffic at the application layer) until a valid snapshot exists or an alternative verified backup is confirmed available.\n\n---\n\n## MITIGATION\n\nPerform these only after the snapshot from IMMEDIATE ACTIONS has been confirmed complete.\n\n1. **Reclaim space (least risky first):**\n   - Purge rotated/old log files and non-critical temp files that are safe to delete (confirmed not needed for recovery).\n   - Archive and clear old WAL/binlog segments already shipped to replicas/backup storage.\n   - Drop or vacuum bloated tables/indexes if a known, non-critical cause has been identified (e.g., `VACUUM FULL` on a table known to be safe — note this can itself be I/O-intensive; assess risk first).\n2. **Expand capacity if space cannot be reclaimed fast enough:**\n   - Perform an online disk/volume expansion if the platform supports it without downtime (e.g., cloud volume resize + filesystem grow).\n   - If online expansion is not possible, only now consider a controlled failover to a healthy, low-disk-utilisation replica — and only after: (a) the primary snapshot is confirmed complete, (b) the replica is confirmed in sync (replication lag ≈ 0) and has adequate free disk, and (c) the IC has explicitly approved the failover.\n3. **Reduce write pressure:**\n   - Throttle or pause non-critical write-heavy jobs, batch imports, or feature flags generating high write volume.\n   - Enable application-level backpressure/rate limiting on write endpoints if latency continues to degrade.\n4. Re-check disk utilisation and write latency every 5 minutes after each action; log the effect of each step.\n\n**Abort/rollback condition:** If, after any mitigation step, disk utilisation increases further, write latency continues to worsen, replication lag on the failover target grows instead of shrinking, or any data corruption/integrity error appears — **stop the current action immediately**, do not proceed to the next step, notify the IC, and restore/roll back using the confirmed snapshot taken in IMMEDIATE ACTIONS rather than attempting further live changes.\n\n---\n\n## FOLLOW UP\n\n1. Confirm resolution: disk utilisation back under the safe threshold (e.g., < 80%) and write latency back to baseline for at least 30 sustained minutes.\n2. Verify data integrity post-incident (row counts, checksums, or application-level sanity checks) before declaring full recovery.\n3. Preserve the snapshot taken during this incident for a defined retention period (e.g., 7–30 days) in case delayed corruption or data-loss is discovered.\n4. Write a post-incident review (PIR) covering:\n   - Root cause of the disk growth (e.g., missing log rotation, runaway job, undersized volume, lack of alerting headroom).\n   - Timeline of detection-to-resolution with the timestamped log from this incident.\n   - Whether the snapshot/abort conditions were followed correctly.\n5. File follow-up action items with owners and due dates:\n   - Add/adjust alerting thresholds (e.g., alert at 75%/85% disk, not just 98%).\n   - Implement automated log/WAL rotation and disk-space monitoring.\n   - Consider autoscaling storage or a standing higher-capacity volume for the primary.\n6. Update this runbook with any gaps discovered during execution.\n\n---\n\nSECTIONS: 4",
+  "response_sha256": "0e1cc73dd8315855791987a348e84242e496eec17e2584c008c7ae34d90cebb1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2583,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2313,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2583,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2313,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2583,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2583
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0386112,
+    "duration_ms": 29402,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:28:13+00:00",
+  "finished_at": "2026-09-13T04:28:43+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

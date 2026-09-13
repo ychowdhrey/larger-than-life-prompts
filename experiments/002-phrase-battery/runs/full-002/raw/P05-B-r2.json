@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-B-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 50,
+  "sample_seed": 1814256222107405343,
+  "prompt_sha256": "2ebce5bca0d4fdb32367768d3ab45e99d35c7c9e828553126be762803effaff7",
+  "prompt_chars": 798,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the legacy billing system to the new billing system in controlled phases, while both systems run concurrently (dual-run mode) to allow safe fallback at every stage. The old system remains fully operational and authoritative for unmigrated users throughout, and is not touched (disabled, decommissioned, or deleted) until well after the final user batch has been migrated and independently verified.\n\n---\n\n## Phase 1: Pilot (2% of users — 800 users)\n\n**Entry criterion:** New billing system has passed full integration testing in staging, including parallel invoice-generation reconciliation against the old system for at least 30 days of simulated billing cycles with 100% invoice-total parity; rollback procedure has been tested end-to-end in a staging environment; on-call and support teams have been briefed and runbooks published.\n\n**Scope:** Internal accounts and opted-in low-risk external customers (e.g., free-tier or month-to-month, non-enterprise accounts). No annual-contract or high-ARR accounts included.\n\n**Duration:** 2 full billing cycles minimum.\n\n**Exit criterion to proceed:** Billing accuracy ≥99.95% against reconciliation, no unresolved critical (P1) defects, support ticket volume for migrated cohort within 1.5x baseline.\n\n---\n\n## Phase 2: Expansion (25% of users — 10,000 users)\n\n**Entry criterion:** Phase 1 exit criteria met and signed off by Billing Engineering Lead and Customer Support Lead; any P1/P2 defects found in Phase 1 have been fixed and verified; dual-write reconciliation job running automatically with alerting configured.\n\n**Scope:** Broader mix of customer segments and plan types (monthly and annual, small-to-mid size accounts), selected via stratified random sampling to ensure representative coverage of plan types, payment methods, and geographies.\n\n**Duration:** 2–3 full billing cycles minimum, staggered in weekly waves of ~2,500 users to limit blast radius of any single defect.\n\n**Exit criterion to proceed:** Billing accuracy ≥99.95% sustained across all waves, payment failure rate for migrated cohort within 0.5 percentage points of legacy baseline, no more than 1 rollback event triggered during the phase.\n\n---\n\n## Phase 3: General Availability / Full Migration (73% of users — 29,200 users)\n\n**Entry criterion:** Phase 2 exit criteria met; finance/accounting sign-off on tax, invoicing, and revenue-recognition parity; enterprise and high-ARR accounts have had a dedicated dry-run reconciliation pass; customer communications (advance notice per contractual/regulatory requirements) sent to remaining users.\n\n**Scope:** All remaining users, migrated in successive waves (e.g., 5–10 waves of 3,000–6,000 users), prioritizing lower-complexity accounts first and enterprise/custom-contract accounts last, with an explicit manual review gate before the final wave.\n\n**Duration:** 4–6 billing cycles, wave-paced with go/no-go checks between each wave.\n\n**Exit criterion to proceed to decommission planning:** 100% of users migrated, two consecutive full billing cycles with billing accuracy ≥99.99% and zero unresolved P1 defects, finance sign-off on closed-book reconciliation for the final cycle.\n\n---\n\n## Post-Migration Phase (separate from migration phases — old system retained)\n\nAfter Phase 3 completes and is verified, the old billing system is kept running in a read-only/archival state for a minimum of 2 full billing cycles (for dispute resolution, audits, and historical reporting) before any decommissioning, disabling, or deletion work is scoped as its own separate, subsequent project with its own approval gate. No deletion, disabling, or decommissioning of the old system occurs within Phase 3 or during the final migration batch.\n\n---\n\n## Risks\n\nRISK: Duplicate or missed charges during dual-run reconciliation | Implement automated daily reconciliation job comparing invoices/charges between old and new systems with alerting on any mismatch; freeze the affected account's billing pending manual review | Billing Engineering Lead\nRISK: Payment gateway or tokenized card data fails to migrate correctly, causing failed payments | Pre-validate card tokenization mapping in staging with production-like data; run a card-token dry-run batch and require 100% token match before any wave proceeds | Payments Platform Lead\nRISK: Customer-facing invoice discrepancies erode trust and increase churn | Provide customer support with side-by-side invoice comparison tooling and proactive credit/refund authority for discrepancies under a defined threshold | Customer Support Lead\nRISK: Old system and new system drift out of sync due to a missed dual-write event | Use a message queue with guaranteed delivery and idempotency keys for all billing events written to both systems; monitor queue lag and dead-letter counts | Platform Reliability (SRE) Lead\nRISK: Enterprise accounts with custom contract terms are migrated incorrectly, causing revenue leakage | Require manual finance review and sign-off for every enterprise/custom-contract account before inclusion in any wave | Finance Operations Lead\n\n---\n\n## Halt Metric\n\nIf billing accuracy (successfully reconciled charges as a percentage of total charges) for any migrated cohort drops below **99.9%** over a rolling 24-hour window, or the payment failure rate for the migrated cohort exceeds the legacy baseline by more than **1.0 percentage point** in any single billing cycle, the rollout is halted immediately, no further users are migrated into the next wave, and the on-call Billing Engineering Lead triggers the rollback/remediation runbook before resuming.\n\nPHASES: 3",
+  "response_sha256": "41fb85a424dba384c32973912119122a9ec98d88b7465613bc7f4eb423e48c62",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2590,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1974,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2590,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1974,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2590,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2590
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0352492,
+    "duration_ms": 26968,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:23:30+00:00",
+  "finished_at": "2026-09-13T04:23:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

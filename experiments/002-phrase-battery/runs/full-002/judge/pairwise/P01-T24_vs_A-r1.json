@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T24_vs_A-r1",
+  "contrast_id": "T24_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T24",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements with comparable technical depth, but Response A sequences the rollback decision immediately after verification and before traffic is reopened, which is logically consistent as a runbook. Response B places its rollback step (step 11) after the step that already reopens traffic to all users (step 10), even though the step's own text says it should trigger 'before/at step 10' — a self-contradictory ordering that would confuse an operator following the numbered steps in sequence.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:30:50+00:00"
+}

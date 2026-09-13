@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T15-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 1,
+  "execution_index": 392,
+  "sample_seed": 5460322353576367262,
+  "prompt_sha256": "0e2637ee5a92933402146b21fd8fac59be2ea4530a3a1ef58d40b59fe2bce9f0",
+  "prompt_chars": 733,
+  "response": "## The problem\n\nOur twelve-person team is losing days every sprint to merge pain, and it's getting worse.\n\n- Feature branches routinely live two to four weeks, and by the time we merge, main has drifted enough that \"integration\" means a half-day of conflict resolution and re-testing.\n- Bugs surface only at merge time, when the context that would make them cheap to fix has evaporated, so senior engineers re-derive decisions instead of shipping new work.\n\n## The proposal\n\nSwitch to trunk-based development: everyone commits to main at least daily, behind feature flags when work is incomplete, with CI gating every merge.\n\n- Feature flags decouple \"merged\" from \"released,\" so incomplete work stays invisible to users without blocking teammates from building on top of it.\n- A stricter CI gate — fast automated tests plus mandatory review within two hours — becomes our new safety net in place of branch isolation.\n\n## What could go wrong\n\nThe strongest objection is real: without long-lived branches, half-finished features live directly in main, and a careless flag can leak broken functionality to production or silently entangle unrelated work. Teams that adopt trunk-based development without disciplined flag hygiene don't eliminate risk, they just trade merge-conflict pain for a messier main branch and accidental exposure. That's a legitimate cost, not a strawman, and we shouldn't pretend otherwise. To manage it, we'd need a flag-naming convention, a designated owner for every flag, and a weekly review to kill stale ones — without that discipline, this becomes a liability rather than a fix.\n\n- To de-risk the transition, we'll pilot with one squad for a month before rolling out team-wide, so we can validate that our flag discipline actually holds before betting the whole team on it.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "d6380fd8deef77eb1c0c6e2b30e1dc4bb7b4362789fc613434e9ff37a9a39399",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2570,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1484,
+    "output_tokens_details": {
+      "thinking_tokens": 899
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2570,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1484,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2570,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2570
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.030269200000000003,
+    "duration_ms": 18099,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:31:45+00:00",
+  "finished_at": "2026-09-13T04:32:04+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

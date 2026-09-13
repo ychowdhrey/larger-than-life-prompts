@@ -1,0 +1,22 @@
+{
+  "item_id": "673ab60c001373ef",
+  "sample_id": "C01-T05-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T05",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default argument, in-place sort side effect, IndexError from unbounded limit, ZeroDivisionError on empty input, and the subtler within-call duplicate-suppression bug), accurately explains each cause and consequence, and even reasons correctly about which error fires first in overlapping edge cases without introducing any false claims.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:35+00:00"
+}

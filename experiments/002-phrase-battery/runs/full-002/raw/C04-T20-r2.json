@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-T20-r2",
+  "run_id": "full-002",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 2,
+  "execution_index": 1154,
+  "sample_seed": 6932691575964287197,
+  "prompt_sha256": "1694ac9c5ae8fd7cabb2d31483503c2a71abc28b55150cb6000eb03cb7e3e2bd",
+  "prompt_chars": 1252,
+  "response": "## Defects Found\n\n**1. Conflicting notice periods for Client-initiated termination (4.1 vs. 4.2)**\nClause 4.1 sets a uniform 30-day notice period for termination by either party. Clause 4.2 then requires the Client specifically to give \"not less than 45 days\" notice. These are irreconcilable: a Client who terminates on exactly 30 days' notice is simultaneously compliant with 4.1 and in breach of 4.2. The agreement never states that 4.2 overrides 4.1 as a special case (e.g., \"notwithstanding clause 4.1\"), so a reader cannot tell which notice period actually governs Client-initiated termination. This also has a knock-on effect on 4.3/4.4/4.6, since the \"Effective Termination Date\" and the resulting refund calculation and payment deadline depend on knowing which notice period validly applied.\n\n**2. Arithmetic error in Table 4A (40% row)**\nFor the \"3 to 5 months remaining\" band, the table states a refund rate of 40% but computes the illustrative refund on a $12,000 prepayment as $3,600. Forty percent of $12,000 is $4,800; $3,600 is actually 30% of $12,000. The stated percentage and the stated dollar figure do not match, so it is impossible to tell whether the intended rate is 40% (and the dollar column is wrong) or 30% (and the rate column is wrong). (By contrast, the 80% row correctly yields $9,600 and the 60% row correctly yields $7,200, confirming this row is the outlier/error rather than a different methodology.)\n\n**3. Gap in Table 4A's coverage — no band for 6 months remaining**\nThe bands are \"9 or more,\" \"7 to 8,\" \"3 to 5,\" and \"fewer than 3.\" Every integer value is covered except **6**. A termination occurring with exactly 6 months of prepaid term remaining falls into no row of the table, leaving the refund rate for that scenario completely undefined even though 4.3 makes the refund mandatory (\"the Client is entitled to a pro rata refund... calculated in accordance with Table 4A\").\n\n**4. Mischaracterization of the refund as \"pro rata\" in 4.3**\nClause 4.3 describes the refund as \"pro rata,\" which means strictly proportional to the time remaining. Table 4A, however, applies discrete, stepped bands (e.g., a jump from 60% at 7-8 months to 80% at 9+ months, with no smooth scaling), which is a tiered schedule, not a pro rata one. This terminology mismatch is more than cosmetic: it creates ambiguity as to whether Table 4A is merely illustrative of a true pro rata calculation (in which case the bands would need to be interpolated, and the gap at 6 months would be resolved by interpolation) or whether the bands are the exhaustive, exclusive method of calculation (in which case \"pro rata\" is simply the wrong label and the gap at 6 months remains unresolved). This interacts directly with defect 3.\n\n**Not defects (per your framing):** references to Clause 6 (4.5) and Schedule 1 (4.6) are to material that exists elsewhere in the full agreement and are not internal inconsistencies.",
+  "response_sha256": "026be2707c600cfa81537a4f2ccd5509089e9df20d7bf3e2d881d3cce3892bba",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28530,
+    "output_tokens": 3643,
+    "output_tokens_details": {
+      "thinking_tokens": 2575
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3643,
+        "cache_read_input_tokens": 28530,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.04214,
+    "duration_ms": 39913,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:50:11+00:00",
+  "finished_at": "2026-09-13T04:50:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

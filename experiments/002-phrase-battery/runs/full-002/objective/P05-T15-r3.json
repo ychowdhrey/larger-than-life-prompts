@@ -1,0 +1,104 @@
+{
+  "sample_id": "P05-T15-r3",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T15",
+  "repetition": 3,
+  "response_sha256": "68649785aa10c8b137f7a6c28fdb0376262b67796ea5e1b35439b2990a2ff46a",
+  "objective": {
+    "max_points": 12.0,
+    "earned_points": 12.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "phases_line",
+        "label": "PHASES line present",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched PHASES\\s*:\\s*\\d+",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "risk_lines",
+        "label": "At least three risk lines in the required three field format",
+        "type": "count_matches",
+        "points": 4.0,
+        "passed": true,
+        "detail": "found 6 (allowed 3..None)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "phase_count",
+        "label": "At least three named phases",
+        "type": "count_matches",
+        "points": 2.0,
+        "passed": true,
+        "detail": "found 14 (allowed 3..None)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "percentages",
+        "label": "Phases carry user percentages",
+        "type": "count_matches",
+        "points": 2.0,
+        "passed": true,
+        "detail": "found 13 (allowed 3..None)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "entry_criteria",
+        "label": "States entry criteria for phases",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched entry criteri",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "halt_threshold",
+        "label": "States a numeric threshold that would halt the rollout",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched (?:halt|stop|pause|abort|roll ?back).{0,120}\\d+(?:\\.\\d+)?\\s*%",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 7359,
+    "response_words": 1016,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:47+00:00",
+  "evaluation_version": "2.0.0"
+}

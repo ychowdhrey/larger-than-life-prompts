@@ -1,0 +1,68 @@
+{
+  "sample_id": "R04-T06-r3",
+  "run_id": "full-002",
+  "task_id": "R04",
+  "family": "reasoning",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 3,
+  "execution_index": 1792,
+  "sample_seed": 8955306082256271465,
+  "prompt_sha256": "8b8bfa32f3ccd808254fef2986b42860946789f2840f802c7bc9f53807aa0ef7",
+  "prompt_chars": 519,
+  "response": "Let me verify step by step:\n\n- Start: 10,000.00\n- Year 1: 10,000.00 × 1.12 = 11,200.00; minus fee 90.00 = 11,110.00\n- Year 2: 11,110.00 × 0.88 = 9,776.80; minus fee 90.00 = 9,686.80\n- Year 3: 9,686.80 × 1.05 = 10,171.14; minus fee 90.00 = 10,081.14\n\nAll arithmetic double-checked (11,110×0.88 = 9,776.80; 9,776.80−90 = 9,686.80; 9,686.80×1.05 = 10,171.14; 10,171.14−90 = 10,081.14).\n\nFINAL ANSWER: 10081.14",
+  "response_sha256": "c216730ebc46e3afda84bc7a82fbc159caeac1c309cc62dd4be520c31416ba69",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28243,
+    "output_tokens": 366,
+    "output_tokens_details": {
+      "thinking_tokens": 115
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 366,
+        "cache_read_input_tokens": 28243,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0093126,
+    "duration_ms": 4976,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:04:59+00:00",
+  "finished_at": "2026-09-13T05:05:05+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

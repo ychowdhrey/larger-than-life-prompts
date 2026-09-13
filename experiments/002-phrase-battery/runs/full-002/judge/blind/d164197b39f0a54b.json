@@ -1,0 +1,22 @@
+{
+  "item_id": "d164197b39f0a54b",
+  "sample_id": "C05-E02-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E02",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (`>` vs `>=`) against R1, correctly recomputes discount(1000) as 50.0 to show test_cap's expected 100.0 is wrong and would fail, and correctly notes the missing boundary test at total=100 masks the bug, without inventing any spurious defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:30+00:00"
+}

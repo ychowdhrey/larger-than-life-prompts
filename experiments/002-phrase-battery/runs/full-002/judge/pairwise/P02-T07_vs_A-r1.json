@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T07_vs_A-r1",
+  "contrast_id": "T07_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T07",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the structural and safety hard requirements, but Response B's abort/rollback condition is more concrete (specifies restoring from the snapshot and other actual reversal steps) and it adds practically useful details like snapshotting to a separate volume when disk is critically full, throttling writes as a non-destructive stopgap, and post-mitigation data-integrity/checksum validation, making it slightly more actionable for a real incident.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:37:18+00:00"
+}

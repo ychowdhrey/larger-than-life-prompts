@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T07-r2",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 2,
+  "execution_index": 334,
+  "sample_seed": 4539541965563680573,
+  "prompt_sha256": "e1f3b82d37028e8259a4b160236e903c50ce13b9741449e16e34ee8325010a77",
+  "prompt_chars": 622,
+  "response": "Here are the defects in `top_scores`:\n\n**1. Mutable default argument (`seen=[]`) — the most serious bug**\nDefault argument values are evaluated once, at function-definition time, and the *same* list object is reused on every call that doesn't pass `seen` explicitly. Since the body does `seen.append(...)`, that one list is mutated and persists across calls.\n- **Effect:** A score that appeared in an *earlier, unrelated* call will silently be treated as \"already seen\" and excluded from `result` in a *later* call, even though the two calls have nothing to do with each other. Callers relying on default behavior get results that depend on call history/order, not just on the current `scores` argument — a classic stateful-default-argument bug. It also means the list grows forever across calls (unbounded memory growth) since nothing ever clears it.\n\n**2. `IndexError` when `limit` exceeds the number of scores**\nThe loop does `for i in range(0, limit): ... scores[i]`, indexing directly with no check that `scores` actually has `limit` elements.\n- **Effect:** Calling `top_scores([10, 20, 30])` with the default `limit=5` raises `IndexError: list index out of range` because the list only has 3 elements but index 3 and 4 are accessed.\n\n**3. `ZeroDivisionError` on an empty `scores` list**\n`average = sum(scores) / len(scores)` divides by `len(scores)` unconditionally.\n- **Effect:** Calling `top_scores([])` raises `ZeroDivisionError: division by zero` instead of returning something sensible (e.g., `0` or `None`). (Note: this would also hit the `IndexError` above first, but even if `limit` were 0, the division still fails on empty input.)\n\n**4. In-place sort mutates the caller's original list**\n`scores.sort(reverse=True)` sorts `scores` in place rather than working on a copy (e.g., via `sorted(scores, reverse=True)`).\n- **Effect:** The caller's original list is silently reordered as a side effect of calling this function. If the caller still needs the original (unsorted) order elsewhere, that data is lost/corrupted without any indication this function would do that.\n\n**5. Duplicate values within the same input can shrink the result below `limit`**\nThe `seen` filter operates during the single pass over the top `limit` items, so if the top slice itself contains duplicate values (e.g., `[90, 90, 80, 70, 60]`), the second `90` is skipped as \"already seen\" (it was just added to `seen` moments earlier in the same call).\n- **Effect:** `result` can end up with fewer than `limit` entries even when `scores` has at least `limit` elements available, because a legitimate repeated score is treated as a duplicate to be excluded rather than as a distinct entry to keep.\n\nThese five are genuine defects. The descending sort and averaging over all scores are working as intended, so I have not listed those as problems.",
+  "response_sha256": "88ad822ef04f27fdb3bf33d910981636d7d10cdded8003905036a291218ed970",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28266,
+    "output_tokens": 2290,
+    "output_tokens_details": {
+      "thinking_tokens": 1326
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2290,
+        "cache_read_input_tokens": 28266,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0285572,
+    "duration_ms": 26263,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:30:18+00:00",
+  "finished_at": "2026-09-13T04:30:45+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

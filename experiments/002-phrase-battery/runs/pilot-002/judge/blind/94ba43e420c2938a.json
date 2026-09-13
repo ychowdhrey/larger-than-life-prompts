@@ -1,0 +1,22 @@
+{
+  "item_id": "94ba43e420c2938a",
+  "sample_id": "R01-T25-r1",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T25",
+  "repetition": 1,
+  "scores": {
+    "task_success": 1,
+    "thoroughness": 2,
+    "constraint_adherence": 5,
+    "error_checking": 1,
+    "depth": 2,
+    "usefulness": 1
+  },
+  "reason": "The arithmetic is wrong: 15:40 UTC + 13h25m rolls over only one day (to 05:05 UTC on 4 March 2027), not two, so the correct arrival is 2027-03-04 05:05, not 2027-03-05 05:05 as stated; the response follows the required output format but gives a confidently incorrect final answer with no verification step to catch the date error.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T04:20:33+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "6d94732041853c4e",
+  "sample_id": "P01-T20-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T20",
+  "repetition": 1,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 4,
+    "constraint_adherence": 3,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "The plan is well-structured, stays within 12 numbered steps, and covers backup-before-write-freeze, rehearsal, rollback, and stakeholder communication, but its 'Data integrity verification' step (9) occurs before the application traffic cutover (step 10) rather than after it, so the explicit requirement for post-cutover integrity verification is not clearly satisfied.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:41+00:00"
+}

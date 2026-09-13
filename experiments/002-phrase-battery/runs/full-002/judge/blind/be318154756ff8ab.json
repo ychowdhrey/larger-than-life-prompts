@@ -1,0 +1,22 @@
+{
+  "item_id": "be318154756ff8ab",
+  "sample_id": "C02-E05-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E05",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE clause nullifying the LEFT JOIN, NULL vs zero from SUM, integer division truncation, and the UTC/UTC+8 boundary mismatch), explains the causal mechanism and concrete impact for each, offers correct fixes, and reports no spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:02+00:00"
+}

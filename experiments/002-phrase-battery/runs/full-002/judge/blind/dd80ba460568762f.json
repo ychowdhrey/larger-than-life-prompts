@@ -1,0 +1,22 @@
+{
+  "item_id": "dd80ba460568762f",
+  "sample_id": "P01-T17-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T17",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 steps and includes all required elements (rehearsal, rollback, post-cutover integrity verification, stakeholder communication, backup before any destructive step) in a logically sound sequence using a replication-based low-downtime approach. It shows solid technical depth (CDC/logical replication, checksum/sequence/index checks, staged rollback logic) though it doesn't explicitly cross-check itself against the requirements beyond the final step count line.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:21+00:00"
+}

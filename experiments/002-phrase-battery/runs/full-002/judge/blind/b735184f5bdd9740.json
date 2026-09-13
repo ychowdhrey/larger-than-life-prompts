@@ -1,0 +1,22 @@
+{
+  "item_id": "b735184f5bdd9740",
+  "sample_id": "P01-T20-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T20",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 numbered steps at exactly 12, rollback, staging rehearsal, post-cutover row-count/checksum verification, multiple stakeholder communications, and a full backup preceding the cutover) while using a realistic logical-replication/CDC approach to fit 2 TB into a 2-hour window, making it technically actionable and internally consistent.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:34+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T15-r2",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 2,
+  "execution_index": 878,
+  "sample_seed": 14487802304867917086,
+  "prompt_sha256": "9477c650702593ace111556db48658b13ab0d2aa717fc96c7c0ba3aaa761a864",
+  "prompt_chars": 645,
+  "response": "A content delivery network solves a simple problem: the internet has distance, and distance creates delay. Every website normally lives on one machine somewhere in the world, called the origin server, which holds the real, original copy of everything on that site. If every visitor worldwide had to fetch data from that single origin server, someone far away would wait much longer than someone nearby. A content delivery network fixes this by scattering copies of that content across many smaller computers placed in cities all over the globe. Each of these outposts is called an edge location because it sits at the \"edge\" of the network, close to where people actually are, rather than back at the distant origin. Think of it like a chain of neighborhood bakeries that all sell bread baked from one central recipe, so nobody has to travel across the entire country just for a loaf. When someone requests a page and the nearest edge location already has a stored copy ready to serve, that's called a cache hit — the request gets answered instantly and locally, without ever contacting the origin. Only when an edge location lacks a fresh copy does it need to check back with the origin server, which takes a little more time. This system is why videos start playing almost immediately, why pages load quickly regardless of where a person happens to be, and why the original server does not collapse under the weight of every request worldwide arriving at once.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The single main computer holding the true, original content | Everything ultimately traces back here if no copy exists elsewhere |\n| Edge location | A smaller server placed near end users, holding copies of content | Shortens the physical distance data must travel |\n| Cache hit | A request answered by a nearby copy instead of the origin | Delivers speed and reduces strain on the origin |\n| Content delivery network | The whole system of connected edge locations working together | Turns one slow, distant server into a fast, worldwide service |",
+  "response_sha256": "80a017ae13e04625a299ed5152d6428a70edf65dca6e52f187c8de5565d752a5",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28272,
+    "output_tokens": 599,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 599,
+        "cache_read_input_tokens": 28272,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0116484,
+    "duration_ms": 10176,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:43:37+00:00",
+  "finished_at": "2026-09-13T04:43:48+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

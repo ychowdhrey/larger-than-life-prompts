@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T20-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 3,
+  "execution_index": 778,
+  "sample_seed": 6874111708702134980,
+  "prompt_sha256": "c7f6a886dde029426a462298d9ff1ceb9ce22b38b1d7ce10e5aea81a6214208e",
+  "prompt_chars": 1020,
+  "response": "## Defect list\n\n### 1. Webinar attendance → retention (correlation treated as causation)\n\n**What's wrong:** This is an observational comparison among self-selected customers, not a controlled experiment. Customers who choose to attend a voluntary onboarding webinar are systematically different from those who don't — more engaged, more invested in the product, more likely to have committed budget/headcount to succeed with it. That underlying engagement is a confounder that plausibly drives *both* webinar attendance and retention.\n\n**What it would cause:** The memo leaps straight to \"webinars therefore cause higher retention\" and recommends making attendance *mandatory*. If the true driver is pre-existing engagement rather than the webinar content itself, forcing attendance on disengaged customers won't replicate the effect — you'd be dragging reluctant attendees into a session that doesn't change their underlying propensity to churn, wasting the effort and possibly irritating customers with a new mandatory requirement, without moving retention at all.\n\n**What's also wrong:** The population analyzed is customers who are *currently active* on the Pro plan. Restricting the sample to survivors before comparing \"retention\" between subgroups is a form of survivorship/selection bias — churned customers (who might have had very different attendance rates) are excluded entirely. This makes it unclear the 31% figure even measures what it claims to measure, independent of the causation problem above.\n\n### 2. Central region churn (multiple comparisons / data dredging)\n\n**What's wrong:** Eighteen attributes were tested against churn, and one came back significant at p = 0.04. This is a classic multiple-comparisons problem. With 18 independent tests at the conventional α = 0.05 threshold, the probability of at least one false positive by chance alone is roughly 1 − 0.95¹⁸ ≈ 60%, not 5%. No correction (Bonferroni, Holm, FDR, etc.) was applied, and p = 0.04 is not far from the 0.05 threshold, which is exactly the range most vulnerable to being a chance finding when many attributes are screened.\n\n**What it would cause:** Treating this as a real, reliable effect and reallocating next quarter's marketing/success spend toward the Central region risks chasing statistical noise — money moved away from regions where it may have real impact, based on a \"signal\" that a correction for multiple testing might well erase.\n\n**What's also wrong (separate from the multiple-testing issue):** Even if the regional effect is real, statistical significance says nothing about *why* Central churns less or whether spend is the lever that would extend or reproduce that effect elsewhere. \"Concentrate spend in Central\" assumes a causal, actionable mechanism that was never established — the low churn could be due to regional factors (market maturity, competition, customer mix) that additional spend wouldn't influence at all, and that don't need *more* spend precisely because they're already performing well.\n\n### 3. Satisfaction increase attributed to the new support model\n\n**What's wrong:** A 4-percentage-point change (62% → 66%) is asserted to be caused by the new support model with no evidence ruling out other explanations: normal survey sampling variation (no confidence interval, sample size, or significance test is given for this figure), seasonal effects, other product or pricing changes that quarter, changes in survey methodology or respondent mix, or simple regression to the mean if last quarter was unusually low. Correlation in time (support model launched, satisfaction rose) is being read as proof of causation without any control period or comparison group.\n\n**What it would cause:** Crediting the support model with an effect that might be noise or due to an unrelated cause could lead to over-investing in or expanding a program that isn't actually responsible for the improvement, while the true driver (if any) goes unidentified and unaddressed.\n\n---\n\n**Not a defect:** The memo doesn't misstate any number — each figure (31%, p = 0.04, 62%→66%) is presented as reported. The failures are entirely in the *inferential leaps* from those numbers to causal claims and resource-allocation recommendations.",
+  "response_sha256": "ededeff801b6551905b9fb310a4dd814cb698ca476021803b8a00918635059e1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28372,
+    "output_tokens": 3718,
+    "output_tokens_details": {
+      "thinking_tokens": 2393
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3718,
+        "cache_read_input_tokens": 28372,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0428584,
+    "duration_ms": 47235,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:41:22+00:00",
+  "finished_at": "2026-09-13T04:42:10+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

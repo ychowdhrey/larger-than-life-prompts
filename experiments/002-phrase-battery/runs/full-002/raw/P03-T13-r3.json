@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-T13-r3",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 3,
+  "execution_index": 2161,
+  "sample_seed": 13826984742145613587,
+  "prompt_sha256": "518fe71394c0576add839410ea4a6954096acd0aae244c6f51f4c2a316db3c36",
+  "prompt_chars": 1112,
+  "response": "Reasoning: The critical dependency chain is T1→T2→T4→T6 (2+2+3+3=10 days), so this path alone consumes the entire 10-day window and must run back-to-back on one engineer with zero gaps. The other chain T1→T3→T5 (2+2+2=6 days after T1) has slack and can be handled by the second engineer in parallel, finishing before T6 needs its inputs. Assign the critical chain (T1, T2, T4) to E1, and T3, T5 to E2, then place T6 on E2 (free earliest, since E1 finishes T4 on day 7 but E2 finishes T5 on day 6 — either works, T6 assigned to E2) starting the first day after both T4 and T5 are done.\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E2 | T6\nDAY 9 | E2 | T6\nDAY 10 | E2 | T6\n\nLAST DAY: 10",
+  "response_sha256": "d0d2b60ff6ee26c8e5e6c567f1849c902406842ff010579d7c6956e33f45ff6f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28480,
+    "output_tokens": 1370,
+    "output_tokens_details": {
+      "thinking_tokens": 917
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1370,
+        "cache_read_input_tokens": 28480,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0194,
+    "duration_ms": 15306,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:19+00:00",
+  "finished_at": "2026-09-13T05:13:35+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

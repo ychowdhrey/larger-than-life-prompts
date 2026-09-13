@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-E03-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "E03",
+  "condition_name": "combo_e03",
+  "repetition": 3,
+  "execution_index": 1110,
+  "sample_seed": 16855210667223830549,
+  "prompt_sha256": "6a4fde58f0318ab4a84c0e4314e135c390a769469bb156844c61281dbd1b4032",
+  "prompt_chars": 776,
+  "response": "## The problem\n\nOur team of twelve engineers has drifted into long-lived feature branches, some open for three or four weeks before merging. Merge conflicts have become routine, integration surprises show up late, and code review turns into wading through hundreds of changed lines instead of a focused conversation. Two releases this quarter slipped specifically because a branch merge revealed incompatibilities that had been invisible for weeks. We are optimizing for the comfort of isolated work and paying for it in integration risk.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits directly to main, or through branches that live under a day, gated by feature flags for anything not ready to ship. Concretely:\n\n- Adopt feature flags so incomplete work can merge safely without exposing it to users\n- Set a team norm that branches live no longer than one working day before merging back\n- Invest in CI so main stays green and every merge is verified automatically\n- Break large features into small, independently mergeable increments\n- Run a two-week pilot with one squad before rolling out to the full team\n\nThis makes integration constant and small instead of occasional and large, and it gives everyone visibility into what teammates are building in near real time.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development demands discipline and tooling we don't fully have yet: without solid automated test coverage, frequent merges to main risk breaking it more often than our current process does, and a broken main blocks everyone rather than one branch owner. This is a real risk, not a strawman — our CI suite has known gaps, particularly around the billing service, and closing them should be treated as a prerequisite, not an afterthought. Feature flags also add code complexity and a cleanup burden if we don't retire them promptly, and some engineers will find committing unfinished work to main uncomfortable at first, regardless of flags. These costs are manageable but real, and the pilot should surface them concretely before we commit the whole team to the change.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "5e8f8a88fd40213bd03239fc29eef5bdded57975b8cf6d13c756122af451b4fd",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28306,
+    "output_tokens": 1415,
+    "output_tokens_details": {
+      "thinking_tokens": 779
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1415,
+        "cache_read_input_tokens": 28306,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0198152,
+    "duration_ms": 17472,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:49:21+00:00",
+  "finished_at": "2026-09-13T04:49:39+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

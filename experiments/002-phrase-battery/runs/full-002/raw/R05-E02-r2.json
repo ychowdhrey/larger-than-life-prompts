@@ -1,0 +1,68 @@
+{
+  "sample_id": "R05-E02-r2",
+  "run_id": "full-002",
+  "task_id": "R05",
+  "family": "reasoning",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 2,
+  "execution_index": 1353,
+  "sample_seed": 3558118294936737730,
+  "prompt_sha256": "c6e3f30ae3dccdd14a12c030a7cce09a8054e81d56465405ea08c427327fa332",
+  "prompt_chars": 306,
+  "response": "**401**\n\nWorking:\n- Divisible by 3: ⌊1000/3⌋ = 333\n- Divisible by 5: ⌊1000/5⌋ = 200\n- Divisible by 15 (3∩5): ⌊1000/15⌋ = 66\n- Divisible by 3 or 5: 333 + 200 − 66 = 467\n\nNow remove those also divisible by 7 (i.e., divisible by (3 or 5) **and** 7):\n- Divisible by 21 (3∩7): ⌊1000/21⌋ = 47\n- Divisible by 35 (5∩7): ⌊1000/35⌋ = 28\n- Divisible by 105 (3∩5∩7): ⌊1000/105⌋ = 9\n- Divisible by 7 and (3 or 5): 47 + 28 − 9 = 66\n\nFinal count: 467 − 66 = **401**\n\nFINAL ANSWER: 401",
+  "response_sha256": "1231d44a10bddcde1b90a2fe06cd102cb5448ee427446e1c0ed1026e91b2a4fd",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28169,
+    "output_tokens": 656,
+    "output_tokens_details": {
+      "thinking_tokens": 345
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 656,
+        "cache_read_input_tokens": 28169,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0121978,
+    "duration_ms": 7552,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:54:46+00:00",
+  "finished_at": "2026-09-13T04:54:55+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

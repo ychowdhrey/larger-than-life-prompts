@@ -1,0 +1,22 @@
+{
+  "item_id": "0d4377863c2d52b2",
+  "sample_id": "C01-T22-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T22",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (mutable default arg, missing bounds check on limit, division by zero, in-place mutation of caller's list, and the subtle within-call dedup bug with ties) are genuine and correctly explained with causal consequences and a concrete example, while correctly excluding the two stated intended behaviors; the only weakness is a slightly muddled aside about whether IndexError or ZeroDivisionError fires first on an empty list.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:10+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T13_vs_A-r2",
+  "contrast_id": "T13_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T13",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T13",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both identify the same five defects, but Response A is more precise: it gives a concrete before/after example for the mutable-default bug and correctly pinpoints the exact edge case (limit=0, empty scores) needed to actually trigger the ZeroDivisionError given that the IndexError normally masks it, whereas Response B's account of that interaction is vaguer and misses that edge case.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:56+00:00"
+}

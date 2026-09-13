@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T01-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T01",
+  "condition_name": "phrase_t01",
+  "repetition": 3,
+  "execution_index": 1497,
+  "sample_seed": 18255791242844500353,
+  "prompt_sha256": "bfecefd1ed4e48b15227fd5a99e5fc36b35b1db530f2150266ce882f4fa66e4f",
+  "prompt_chars": 800,
+  "response": "# Billing System Migration Rollout Plan\n**Scope:** Migrate 40,000 existing users from the legacy billing system to the new billing system, with both systems running in parallel throughout the migration window.\n\n## Overview\n\nThe migration runs in three phases, moving from a small low-risk cohort to full production scale. The legacy system remains fully operational (read/write, generating invoices, processing payments for unmigrated users) through every phase described below. Decommissioning the old system is explicitly **out of scope** for this plan and must be scheduled as a separate, subsequent phase after 100% of users have been on the new system for a stabilization period (minimum 30 days) with no rollback events.\n\n---\n\n## Phase 1: Canary (2% of users, ~800 accounts)\n\n**Entry criterion:** New billing system has passed full parity testing in staging (invoice generation, tax calculation, payment processing, dunning/retry logic, and reporting all reconciled against the old system for a sample of 30 days of historical data), and a rollback procedure has been tested end-to-end in a staging environment.\n\n**Cohort selection:** Internal employee accounts and opted-in low-ARR customers on monthly (not annual) billing cycles, to limit blast radius and revenue exposure.\n\n**Duration:** Minimum 2 full billing cycles (covers at least one full invoice + payment collection cycle).\n\n**Activities:**\n- Dual-write validation: transactions processed on new system, shadow-compared against what old system would have produced.\n- Manual reconciliation of every invoice generated in this cohort.\n- On-call rotation staffed specifically for billing anomalies.\n\n---\n\n## Phase 2: Expansion (25% of users, ~10,000 accounts)\n\n**Entry criterion:** Phase 1 completed with zero critical billing discrepancies (defined as invoice amount, tax, or payment method mismatches), rollback procedure confirmed unnecessary or successfully exercised at least once in a controlled test, and support ticket volume from Phase 1 cohort within 1.5x of baseline.\n\n**Cohort selection:** Randomized selection stratified across customer segments (plan tier, geography, payment method) to surface edge cases (e.g., international tax rules, ACH vs. card, multi-currency) before full rollout.\n\n**Duration:** Minimum 2 full billing cycles.\n\n**Activities:**\n- Automated reconciliation jobs comparing new-system output to old-system shadow calculations for every transaction (not just samples).\n- Weekly go/no-go review with finance and support leads.\n- Expand on-call coverage; publish internal status dashboard.\n\n---\n\n## Phase 3: General Availability (73% of users, ~29,200 accounts, final batch)\n\n**Entry criterion:** Phase 2 completed with automated reconciliation showing a discrepancy rate below the halt threshold (see Metrics below) sustained for the full duration of Phase 2, finance sign-off on revenue recognition accuracy, and customer support fully trained/staffed for full-volume ticket load.\n\n**Cohort selection:** All remaining users, migrated in sub-waves (e.g., 5 waves of ~15% each) rather than a single cutover, to preserve the ability to pause between waves without re-triggering the full phase entry criteria.\n\n**Duration:** Migration executed over 2–4 weeks in sub-waves; monitoring continues for minimum 30 days post-completion before the old system is considered for a separate decommissioning phase.\n\n**Note:** The old billing system remains live, staffed, and able to process payments/invoices for any user throughout Phase 3 and for the full post-migration stabilization window. Decommissioning is a distinct, later phase gated on its own entry criteria (100% migrated + 30-day stability + finance/audit sign-off).\n\n---\n\n## Halt Metric\n\n**If the invoice discrepancy rate (mismatched amount, tax, or payment status between old and new system shadow comparisons) exceeds 0.5% of transactions in any rolling 24-hour window, the rollout is halted immediately** — no further users are migrated into the active phase until root cause is identified and fixed, and previously migrated users in the current wave are evaluated for rollback.\n\nAdditional secondary triggers for halt/review (not required numeric thresholds, but tracked):\n- Failed payment rate for migrated cohort exceeds 2x the rate of the equivalent unmigrated cohort.\n- Customer-reported billing support tickets exceed 3x baseline volume for the migrated cohort.\n\n---\n\n## Risks\n\nRISK: Duplicate or missed charges during dual-system operation due to a user being processed by both systems in the same billing cycle | Implement a hard \"source of truth\" flag per account so only one system executes payment collection at a time, with automated pre-flight checks blocking any run against an account flagged as migrated on the old system or vice versa | Billing Platform Engineering Lead\nRISK: Tax and currency calculation differences between old and new systems cause under- or over-billing at scale once Phase 3 begins | Run shadow-mode calculation comparisons for 100% of transactions through Phase 2 and require zero unresolved tax-calculation discrepancies before entering Phase 3 | Finance/Revenue Operations Lead\nRISK: Customer support is overwhelmed by billing confusion (e.g., duplicate invoices, unfamiliar portal) during the largest migration wave in Phase 3 | Stagger Phase 3 into sub-waves of ~15%, pre-notify affected customers, and staff support with dedicated billing-migration escalation queue sized to projected ticket volume | Customer Support Operations Manager\nRISK: Rollback from new system back to old system is untested at scale and fails when actually needed | Execute a full rollback rehearsal (not just a plan review) for at least one wave in each of Phase 1 and Phase 2 before proceeding to the next phase | Site Reliability Engineering Lead\nRISK: Decommissioning the old system is pursued prematurely alongside the final migration batch, leaving no fallback if late-discovered issues affect already-migrated users | Treat decommissioning as a separate phase with its own 30-day stabilization entry criterion, requiring explicit sign-off from Engineering, Finance, and Support leads independent of the Phase 3 completion sign-off | VP of Engineering\n\nPHASES: 3",
+  "response_sha256": "a2991382f103466adc594bc837455c4600847989328827412b3c0569637b5f41",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28314,
+    "output_tokens": 2112,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2112,
+        "cache_read_input_tokens": 28314,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0267868,
+    "duration_ms": 26885,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:58:18+00:00",
+  "finished_at": "2026-09-13T04:58:46+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

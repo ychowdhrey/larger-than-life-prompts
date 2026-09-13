@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-E08-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E08",
+  "condition_name": "combo_e08",
+  "repetition": 1,
+  "execution_index": 1541,
+  "sample_seed": 7272768059640923491,
+  "prompt_sha256": "bc47995cd72d6a703371ef820f5112915a6c6cbea31f2daacceba3549486d50f",
+  "prompt_chars": 905,
+  "response": "## Defects Found\n\n**1. Implementation violates R1 at the boundary (total == 100)**\n\n```python\nif total > 100:\n```\n\nR1 says orders with a total **of 100 or more** get the discount, i.e. the condition should be `total >= 100`. As written, `discount(100)` falls through to `return 0.0` instead of returning `10.0`. This is an off-by-one/boundary bug that directly contradicts R1.\n\n**2. `test_cap` asserts the wrong expected value**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nFor `total = 1000`: `d = 1000 * 0.10 = 100.0`, then `min(100.0, 50.0) = 50.0`. So `discount(1000)` actually returns `50.0`, not `100.0`. This assertion is simply incorrect and would fail when run against the given implementation. It's also self-contradictory with R2 — a test meant to verify the 50.00 cap asserts a result (100.0) that itself exceeds the cap, so even a naive/uncapped implementation would wrongly appear \"confirmed\" if this assertion happened to pass. As written, it just fails.\n\n**3. No test covers the R1 boundary (total == 100)**\n\nNone of the three tests call `discount(100)`. Since this is exactly the boundary condition R1 describes (\"100 or more\"), its omission means the test suite fails to catch defect #1 above — the suite would pass (once `test_cap` is fixed) despite the boundary bug being present.\n\n## Not defects (checked, found correct)\n- `test_small` (`discount(50) == 0.0`): correct per R3.\n- `test_large` (`discount(200) == 20.0`): `200 * 0.10 = 20.0`, under the cap — correct.\n- The capping logic itself (`min(d, 50.0)`) correctly implements R2 for values where it's actually exercised correctly (e.g., it would correctly cap `discount(1000)` at `50.0`, just not what the test currently asserts).",
+  "response_sha256": "465aa20a8fe7bf1ff5f10504d29d4008ac461220cd61a9fd0dcba923500c115c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28370,
+    "output_tokens": 1956,
+    "output_tokens_details": {
+      "thinking_tokens": 1291
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1956,
+        "cache_read_input_tokens": 28370,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.025237999999999997,
+    "duration_ms": 21585,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:59:24+00:00",
+  "finished_at": "2026-09-13T04:59:46+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

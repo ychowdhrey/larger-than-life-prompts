@@ -1,0 +1,68 @@
+{
+  "sample_id": "R01-T06-r2",
+  "run_id": "full-002",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 2,
+  "execution_index": 975,
+  "sample_seed": 7529284561438788517,
+  "prompt_sha256": "483b25ab7d213b038ff011f177b3c5517aa61fb15426349b296c99edbf84bc70",
+  "prompt_chars": 457,
+  "response": "**Step 1 – Convert departure time to UTC**\nDeparture: 23:40 on 3 March 2027, Kuala Lumpur time (UTC+8)\nUTC time = 23:40 − 8:00 = **15:40 UTC on 3 March 2027**\n\n**Step 2 – Add flight duration**\n15:40 + 13:25:\n- 15:40 + 13:00 = 28:40 → i.e. 04:40 the next day (28:40 − 24:00)\n- 04:40 + 0:25 = **05:05**\n\nSo arrival in UTC = 05:05 on 4 March 2027.\n\n**Step 3 – Convert to London local time**\nLondon is UTC+0 on this date (before the UK's clocks go forward, which happens on the last Sunday of March), so local time = UTC time.\n\nArrival: **05:05 on 4 March 2027**\n\n**Verification:**\n- Time zone offset: KL UTC+8, correctly subtracted 8 hours.\n- Duration addition: 40 min + 25 min = 65 min = 1h05m; 23h + 13h + 1h(carry) = 37h → 37h05m past midnight of 3 March = 1 day 13h05m → 3 March + 1 day = 4 March, at 13:05... let me recheck via a second method to be safe.\n\nSecond method: Departure local 23:40 (day 3). Add 13h25m in local KL clock first, then convert.\n23:40 + 13:25 = 37:05 → 37:05 − 24:00 = 13:05, one day later → 4 March 13:05 KL time (UTC+8).\nConvert to UTC+0: 13:05 − 8:00 = 05:05 on 4 March 2027. ✔ Matches Step 1–2 result.\n\nBoth methods agree: arrival is 05:05 on 4 March 2027, London local time.\n\nFINAL ANSWER: 2027-03-04 05:05",
+  "response_sha256": "c310cb77980bb909a85188cf0c894d93e8fd4dfe722310ac9b5aa033b8e1a297",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28240,
+    "output_tokens": 965,
+    "output_tokens_details": {
+      "thinking_tokens": 331
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 965,
+        "cache_read_input_tokens": 28240,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.015302000000000001,
+    "duration_ms": 12990,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:45:56+00:00",
+  "finished_at": "2026-09-13T04:46:10+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

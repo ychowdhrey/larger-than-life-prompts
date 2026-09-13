@@ -1,0 +1,22 @@
+{
+  "item_id": "9b4a3aa55fbc1c33",
+  "sample_id": "C05-E05-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E05",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one bug (> vs >=) violating R1, correctly flags that test_cap both fails when run and asserts a value that itself violates R2, and adds a well-reasoned note about missing boundary coverage, all without inventing any spurious defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:54+00:00"
+}

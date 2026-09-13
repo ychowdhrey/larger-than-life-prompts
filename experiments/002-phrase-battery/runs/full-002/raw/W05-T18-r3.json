@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T18-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T18",
+  "condition_name": "phrase_t18",
+  "repetition": 3,
+  "execution_index": 1586,
+  "sample_seed": 17605825916867336243,
+  "prompt_sha256": "984102d40bd88f5bf8cf28aa582e93d26f5a376092a6a3ea5544eb991e655479",
+  "prompt_chars": 750,
+  "response": "## The problem\n\nOur team of twelve has drifted into long-lived feature branches, some open for three or four weeks before merge. Integration has become the most dangerous part of every release: merges routinely produce conflicts that take a full day to resolve, and bugs introduced by drift between branches surface only after merge, when the original context is cold. Two releases this quarter slipped specifically because of merge conflicts and post-merge regressions. We are paying an integration tax that compounds with every day a branch stays open, and it is getting worse as the team grows.\n\n## The proposal\n\nI propose we move to trunk-based development: all engineers commit small, reviewed changes directly to main at least daily, guarded by feature flags for anything incomplete. Concretely:\n\n- Branches live no more than one to two days before merging to main.\n- Incomplete or risky work ships behind feature flags rather than sitting unmerged.\n- CI must pass on every commit to main, with a fast (under 10 minute) pipeline as a prerequisite.\n- Pull requests stay small enough to review within an hour.\n- We run a two-week pilot with one squad before rolling out team-wide.\n\nThis shrinks the integration window from weeks to hours, surfaces conflicts while context is fresh, and gives us a shippable main at all times.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands feature-flag discipline and CI investment we don't fully have today. If flags are sloppy or CI is flaky, we could ship half-finished code straight to main and make things worse, not better. This is a legitimate risk, not a strawman — it's why the pilot and the CI speed requirement come first, not after. If the pilot squad can't keep main green, we pause and fix tooling before expanding. A secondary risk is reviewer bottleneck from higher commit frequency, which smaller PRs should offset but we should watch closely.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "505a75b92a946311e16bb85af015aa5e1be0785079d7b5ccd4f7196cec0b0f05",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28298,
+    "output_tokens": 682,
+    "output_tokens_details": {
+      "thinking_tokens": 60
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 682,
+        "cache_read_input_tokens": 28298,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012483600000000001,
+    "duration_ms": 13040,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:00:32+00:00",
+  "finished_at": "2026-09-13T05:00:47+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

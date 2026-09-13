@@ -1,0 +1,22 @@
+{
+  "item_id": "c8c88c2f0d84fdc0",
+  "sample_id": "P01-T15-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T15",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (12-step cap accurately reported, rollback with two failure scenarios, staging dry run/rehearsal, checksum+row-count+sequence verification, multi-point stakeholder communication, and a pre-window backup gating any risky action) while also engaging non-obvious details like replication lag, LSN tracking, and backup restore testing, making it directly actionable for a real migration.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:14+00:00"
+}

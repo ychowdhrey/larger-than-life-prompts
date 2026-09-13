@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T11_vs_A-r1",
+  "contrast_id": "T11_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T11",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy the hard requirements equally well, but Response B introduces an explicit 'Phase 4: Legacy Decommission' inside its plan while still declaring 'PHASES: 3', creating an internal inconsistency about how many phases the plan actually contains. Response A keeps post-migration decommissioning entirely outside its phase numbering, so its stated phase count and its named phases align cleanly, and it also ties one of its risks (enterprise custom contracts) directly to its Phase 3 sub-batching strategy, showing slightly tighter cohesion between risks and phase design.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:45:48+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T18_vs_A-r1",
+  "contrast_id": "T18_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T18",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but B's rollback step is more internally consistent (it correctly notes on-prem is untouched since the write freeze, so rollback is a clean repoint) whereas A's rollback references replaying transactions from an undefined 'logs/queue' that was never set up elsewhere in the plan. B also separates freeze-writes and cutover into distinct steps, giving clearer execution guidance for the maintenance window.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:31+00:00"
+}

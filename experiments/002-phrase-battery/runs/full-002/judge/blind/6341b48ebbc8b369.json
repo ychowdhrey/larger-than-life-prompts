@@ -1,0 +1,22 @@
+{
+  "item_id": "6341b48ebbc8b369",
+  "sample_id": "C01-T19-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T19",
+  "repetition": 2,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default, in-place sort mutation, IndexError, ZeroDivisionError, and tie-related dedup shortfall) with accurate causal explanations, but its worked example for defect 5 (top_scores([10,10,9,8,7], limit=3) → [10,9,8]) is arithmetically wrong (the actual result is [10,9]), indicating the response did not verify its own illustrative claim before presenting it.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:59+00:00"
+}

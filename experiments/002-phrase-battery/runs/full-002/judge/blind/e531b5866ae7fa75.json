@@ -1,0 +1,22 @@
+{
+  "item_id": "e531b5866ae7fa75",
+  "sample_id": "P01-T09-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T09",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (exactly 12 steps, rollback, rehearsal, post-cutover integrity check via row counts/checksums, stakeholder communication, and backups placed correctly before any destructive step) and ends with the required STEP COUNT line. It shows solid technical depth (logical replication to minimize the window, LSN/WAL sync verification, sequence checks, go/no-go abort deadline) and is directly actionable as a runbook, though it doesn't explicitly validate its own timing assumptions against the two-hour window beyond mentioning the rehearsal should confirm it.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:52+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "1291f514da683834",
+  "sample_id": "C02-T24-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T24",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all the defects invited by the schema notes (WHERE clause defeating the LEFT JOIN, UTC vs UTC+8 boundary miscalculation with correct arithmetic, integer division truncation) and adds two accurate cascading defects (NULL vs 0 in SUM, resulting sort-order distortion), each with correct causal reasoning and a concrete fix, without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:54+00:00"
+}

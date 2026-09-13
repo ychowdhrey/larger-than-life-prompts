@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T12_vs_A-r1",
+  "contrast_id": "T12_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T12",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T12",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Response A explicitly schedules the initial 2 TB bulk load ahead of the maintenance window with its own dedicated step, whereas Response B never clearly states when the full initial data copy happens (it's folded vaguely into pipeline setup), leaving a practical gap for a migration of this size. A also gives a cleaner separation between initial pre-cutover validation and post-cutover verification, and names a purpose-built diff tool (pg_comparator) alongside checksums, making it slightly more actionable overall.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:28:32+00:00"
+}

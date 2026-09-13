@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T16-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T16",
+  "condition_name": "phrase_t16",
+  "repetition": 1,
+  "execution_index": 673,
+  "sample_seed": 3034784589850337425,
+  "prompt_sha256": "f573b8615a3e7b2ed73bb3e0ec0a32e1446275604b457c52266517862677fc94",
+  "prompt_chars": 767,
+  "response": "## The problem\n\nOur team of twelve is regularly losing days to merge conflicts, and integration surprises that only surface after a branch has lived for weeks. Feature branches routinely stay open for two to three weeks, drifting far enough from main that merging becomes its own project. We've had at least three production incidents this quarter traced directly to last-minute integration work nobody had time to test properly. Code review also suffers: reviewers face 40-file diffs instead of small, digestible changes, so review quality drops even as review time goes up. The root cause is structural, not a matter of individual discipline — long-lived branches delay integration, and delayed integration hides risk until the worst possible moment.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: everyone commits small, frequent changes directly to main (or via branches that live hours, not weeks), guarded by feature flags for anything incomplete. This requires:\n\n- A CI pipeline fast and reliable enough to gate every merge within minutes\n- Feature flags as the default mechanism for shipping incomplete work safely\n- A team norm of commits sized for same-day review and merge\n- Pairing or mobbing for the first two weeks to spread the new habits\n- A rollback runbook so a bad merge to main is a five-minute fix, not a crisis\n\nThis shortens feedback loops, surfaces integration problems immediately, and makes releases boring — which is exactly what we want the night before a production deploy.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development can put half-finished work in front of the whole team constantly, and without disciplined flag hygiene, main can become unstable rather than more stable. If our CI is flaky or slow, we'll simply be committing broken code faster instead of catching it sooner — the practice amplifies whatever testing culture already exists. I take this seriously; it's why the CI investment isn't optional here, it's the precondition. If we can't get CI reliable first, we should delay the rollout, not the discipline.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "e46b6e977337ed49ed5e10f72df9b1528d762090acf310e37a5369d09c4cfc8b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28301,
+    "output_tokens": 675,
+    "output_tokens_details": {
+      "thinking_tokens": 16
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 675,
+        "cache_read_input_tokens": 28301,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0124142,
+    "duration_ms": 12333,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:38:51+00:00",
+  "finished_at": "2026-09-13T04:39:04+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

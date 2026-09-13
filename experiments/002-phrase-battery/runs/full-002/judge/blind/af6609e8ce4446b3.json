@@ -1,0 +1,22 @@
+{
+  "item_id": "af6609e8ce4446b3",
+  "sample_id": "P01-T26-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T26",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 steps, rollback, dry run, integrity verification, stakeholder communication, pre-destructive backups) and correctly formats the final STEP COUNT line, while using a technically sound logical-replication approach suited to the tight 2-hour window; it loses a little depth for not explicitly addressing sequence resynchronization before cutover despite flagging it in verification.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:51+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T01_vs_A-r1",
+  "contrast_id": "T01_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T01",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T01",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the hard requirements, but Response B gives more concrete, actionable abort/rollback conditions (an unverified/failed snapshot as a hard blocker, plus a specific failover-lag rollback that ties directly to the data-loss risk), and its callout rule at the top of IMMEDIATE ACTIONS makes the snapshot-first constraint harder to miss under pressure. Response A is equally thorough but its single abort condition is more generic and less tied to specific failure points in the plan.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:53+00:00"
+}

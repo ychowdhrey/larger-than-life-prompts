@@ -1,0 +1,22 @@
+{
+  "item_id": "8ced27daaec72c38",
+  "sample_id": "P01-T10-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T10",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all hard requirements (≤12 steps, exactly 12; backup before any destructive action; dry run on staging; post-cutover row-count/checksum verification; stakeholder communication; explicit rollback trigger) with correct ordering and a properly formatted STEP COUNT line. It engages with non-obvious details like CDC lag draining, sequence/index validation, and warm fallback retention, making it directly actionable for a real migration team.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:57+00:00"
+}

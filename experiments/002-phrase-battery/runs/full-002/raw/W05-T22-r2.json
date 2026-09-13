@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T22-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T22",
+  "condition_name": "phrase_t22",
+  "repetition": 2,
+  "execution_index": 600,
+  "sample_seed": 9648752858578870629,
+  "prompt_sha256": "57da0153aac28beedcdc6b360d4122a9638103dfd0bf82a661a553000235e3f8",
+  "prompt_chars": 732,
+  "response": "## The problem\n\nOur team of twelve now maintains feature branches that routinely live for two to three weeks before merging. By the time they land, they've drifted so far from main that merges regularly break the build, and reviewers are stuck evaluating thousands of lines of change at once instead of reviewing ideas while they're still fresh. Integration risk isn't reduced by isolation — it's stockpiled, and we pay for it all at once, usually right before a release.\n\n## The proposal\n\nWe should move to trunk-based development: everyone commits small, frequent changes directly to main (or through branches lasting under a day), guarded by feature flags for anything incomplete. This means:\n\n- Branches live less than 24 hours before merging back to main\n- Incomplete work ships behind feature flags, not behind long-lived branches\n- CI must pass on every commit to main, with fast, reliable automated tests\n- Code review shifts to smaller, same-day pull requests instead of sprawling end-of-cycle diffs\n- We designate one engineer per week as \"build sheriff\" to fix breakages within the hour\n\nThis shortens feedback loops, surfaces integration problems immediately when they're cheap to fix, and lets us ship continuously rather than in painful merge-day bursts.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands mature test automation and feature-flag discipline we don't fully have yet. If our CI suite is slow or flaky, breaking main becomes a constant tax on everyone rather than an occasional one, and twelve engineers blocked by a red build is worse than twelve isolated branches. This is a legitimate risk, not a strawman — we should invest in CI speed and flag infrastructure in parallel with the rollout, and pilot the approach on one team or one service first rather than flipping the switch org-wide.\n\nThere's also a cultural risk: engineers accustomed to \"finishing\" work in private branches may feel exposed committing unfinished code to main, even behind flags. That's a real adjustment, not just a preference, and we should acknowledge it openly during rollout rather than wave it away.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "749706e0fbed2255c168a8137f52c95e543b9d94e0da64b9dcceca4c0dde9f08",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2568,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 690,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2568,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 690,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2568,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2568
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0223212,
+    "duration_ms": 11991,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:37:00+00:00",
+  "finished_at": "2026-09-13T04:37:13+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

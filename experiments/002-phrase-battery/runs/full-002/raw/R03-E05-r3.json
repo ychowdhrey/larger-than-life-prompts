@@ -1,0 +1,68 @@
+{
+  "sample_id": "R03-E05-r3",
+  "run_id": "full-002",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "E05",
+  "condition_name": "combo_e05",
+  "repetition": 3,
+  "execution_index": 159,
+  "sample_seed": 16867783797580647344,
+  "prompt_sha256": "87d637406cc81d83e5a20e4778121165765a2cb6916e5c1b3e2275873f77e13f",
+  "prompt_chars": 768,
+  "response": "**Solution:**\n\nTesting the constraints systematically:\n\nFrom clue 6 (Ana = Ben+1) and clue 2 (Ana ≠ 1,5), possible (Ben,Ana) pairs are (1,2), (2,3), (3,4).\n\nFrom clue 3, Dev and Eli must be exactly 3 seats apart: {1,4} or {2,5}.\n\n- **(Ben,Ana)=(1,2):** remaining seats {3,4,5} for Chi/Dev/Eli — no pair among these is 3 apart. Invalid.\n- **(Ben,Ana)=(3,4):** remaining seats {1,2,5}; Dev/Eli must be {2,5}, Chi=1. But clue 1 needs Ben(3)<Chi(1) — fails. Invalid.\n- **(Ben,Ana)=(2,3):** remaining seats {1,4,5}; Dev/Eli must be {1,4}, Chi=5. Clue 4 says Chi(5) not adjacent to Dev, so Dev≠4 → Dev=1, Eli=4.\n\nCheck all constraints for Dev=1, Ben=2, Ana=3, Eli=4, Chi=5:\n1. Ben(2) < Chi(5) ✓\n2. Ana=3, not 1 or 5 ✓\n3. Dev(1) and Eli(4): seats 2,3 between them — exactly two people ✓\n4. Chi(5) not adjacent to Dev(1) ✓\n5. Eli(4) > Ana(3) ✓\n6. Ana(3) = Ben(2)+1 ✓\n\nAll constraints satisfied, and this is the only surviving case — solution is unique.\n\nFINAL ANSWER: Dev, Ben, Ana, Eli, Chi",
+  "response_sha256": "55b25333231c72fbb7d4d279a7855c2d0c07b205e55094950959e6c9cd6533da",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28361,
+    "output_tokens": 1905,
+    "output_tokens_details": {
+      "thinking_tokens": 1306
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1905,
+        "cache_read_input_tokens": 28361,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.024726200000000004,
+    "duration_ms": 16249,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:25:49+00:00",
+  "finished_at": "2026-09-13T04:26:06+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

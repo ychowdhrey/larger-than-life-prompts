@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-D-r1",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 1,
+  "execution_index": 1224,
+  "sample_seed": 8897653315940534361,
+  "prompt_sha256": "ff7aa1527a5077919f3ba7ea16a74e7707aafd7113d449a91740ffb445c7fd54",
+  "prompt_chars": 829,
+  "response": "# Migration Plan: 2 TB On-Premises PostgreSQL → Managed Cloud Database\n\n**Constraints assumed:** 2 TB dataset, ~4,000 DAU, single 2-hour Sunday maintenance window. Strategy: use logical replication/CDC to pre-sync the bulk of the 2 TB *before* the window, so the window is only used for final catch-up, verification, and cutover (a 2 TB full dump/restore alone would likely exceed 2 hours).\n\n1. **Assessment and design.** Inventory schema, extensions, custom types, large objects, sequences, and total size (2 TB). Choose a low-downtime migration method (e.g., logical replication via `pglogical`/native logical replication, or a managed CDC tool such as AWS DMS) so most data transfers before the window. Select and size the target managed instance (CPU/RAM/storage/IOPS) to match or exceed current production load, and define success/rollback criteria in writing.\n\n2. **Provision and configure the target.** Create the managed database instance, configure networking (VPN/VPC peering/private endpoint), TLS, roles/permissions, parameter groups, and extensions to match production. Confirm the target can reach the application tier and vice versa.\n\n3. **Initial stakeholder communication.** Notify stakeholders and users of the planned migration, the confirmed Sunday maintenance window, expected impact (brief downtime/read-only mode), and a support contact — sent at least several days in advance.\n\n4. **Stand up a non-production rehearsal environment.** Restore a full backup of production into an isolated staging environment (masking sensitive data as needed) representing both the source and target topology.\n\n5. **Dry run / migration rehearsal.** Execute the entire planned migration runbook end-to-end against the staging copy: schema migration, bulk load, replication setup, cutover script, and verification queries. Record timings, fix issues, and refine the runbook so the live cutover fits inside the 2-hour window.\n\n6. **Document the rollback procedure.** Define explicit rollback triggers (e.g., integrity check failure, replication lag not closing, application errors post-cutover) and the exact steps: keep the on-prem primary untouched and available throughout the window, revert application connection strings/DNS to the on-prem database, re-enable writes there, and discard/pause the cloud target — restorable from the pre-cutover backup (step 8) if needed. Have this runbook printed/ready before the window opens.\n\n7. **Establish continuous replication.** Start logical replication/CDC from the on-prem primary to the cloud target ahead of the maintenance window and let it catch up to near-zero lag over the following days, minimizing what must be synced live.\n\n8. **Final reminder and pre-window backup.** 24–48 hours before, and again at window start, remind stakeholders/users of the exact start time. Immediately before taking any action that modifies or halts production, **take and verify a full backup (or snapshot) of the on-prem production database** — this is the backup of record for rollback and precedes all subsequent destructive/modifying steps, including eventual decommissioning.\n\n9. **Open the maintenance window: freeze writes and finalize sync.** Put the application into read-only/maintenance mode, stop writes to the on-prem database, let replication drain to zero lag, then stop replication and mark the source as the frozen point-in-time.\n\n10. **Data integrity verification.** Compare source and target: row counts per table, checksums/hashes (e.g., `pg_checksums`, `md5`/`sha256` aggregates per table, or `pg_dump --schema-only` diff plus row-level checksum sampling), sequence values, and index/constraint counts. Proceed only if all checks match; otherwise invoke the rollback procedure from step 6.\n\n11. **Cutover and smoke test.** Repoint the application's connection strings/DNS to the managed cloud database, run smoke tests (login, key transactions, reporting queries), then exit maintenance mode to restore full traffic. If smoke tests or verification fail at any point, execute the rollback procedure immediately, reverting to the on-prem source within the remaining window.\n\n12. **Post-migration monitoring and decommission.** Monitor performance, error rates, and replication/backup jobs on the cloud database for 24–72 hours; communicate successful completion to stakeholders. Keep the on-prem server as a fallback (do not delete) until sign-off, then decommission it.\n\nSTEP COUNT: 12",
+  "response_sha256": "09e8a502b488aa275cd67556b018e94fff063897cc927767beb05d678b8bb4f0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28320,
+    "output_tokens": 3477,
+    "output_tokens_details": {
+      "thinking_tokens": 1995
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3477,
+        "cache_read_input_tokens": 28320,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.040438,
+    "duration_ms": 42016,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:51:55+00:00",
+  "finished_at": "2026-09-13T04:52:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

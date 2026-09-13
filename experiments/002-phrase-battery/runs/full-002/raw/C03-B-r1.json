@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-B-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 1,
+  "execution_index": 305,
+  "sample_seed": 13201600960458200298,
+  "prompt_sha256": "348c9cc0c2bb0899aedb6111742e38784e6b3d08e583979f59e4bc20c65c720f",
+  "prompt_chars": 997,
+  "response": "## Webinar attendance → retention (paragraph 1)\n\n**1. Selection on the outcome / restricted sample.**\nThe analysis only includes the 412 customers *still active* on Pro today — churned customers are excluded entirely before the comparison is even made. This conditions the sample on the very outcome (survival) that \"retention\" is supposed to measure, so it's unclear what the 31% figure is actually comparing, and the comparison could be biased in either direction (e.g., if webinar attendance correlates with tenure, survivors who attended may simply be an artifact of who's had time to attend one).\n\n**2. Correlation treated as causation.**\nCustomers who choose to attend an optional webinar are self-selected — plausibly more engaged, more invested, or already inclined to stay — for reasons that have nothing to do with the webinar itself. No control group, randomization, or adjustment for confounders is described, so \"webinars cause higher retention\" is not supported by an observed association alone.\n\n**3. Extrapolating a voluntary-attendance effect to a mandatory policy.**\nEven granting some real effect, it was measured among people who *chose* to attend. Forcing attendance changes who's in the \"attended\" group (including customers who would never have opted in) and there's no reason to expect the same effect size, or even the same sign, would hold under compulsion. The recommendation applies the finding to a population it was never estimated on.\n\n## Central region churn (paragraph 2)\n\n**4. Multiple comparisons / p-hacking.**\n18 attributes were tested and the one that happened to clear p = 0.04 was reported. With 18 independent tests at α = 0.05, the chance of at least one false positive by luck alone is roughly 1 − 0.95¹⁸ ≈ 60%. No correction (Bonferroni, FDR, holdout validation) is mentioned, so this \"finding\" is more likely than not to be noise rather than a real regional effect.\n\n**5. No effect size given.**\nOnly a p-value is reported, not the magnitude of the churn difference. A statistically detectable effect can still be small and commercially irrelevant; without an effect size there's no basis to judge whether reallocating spend is worthwhile even if the effect were real.\n\n**6. Non-sequitur in the recommended action.**\nThe finding, taken at face value, says Central *already* churns less than other regions — i.e., it needs the intervention least. Concentrating spend there doesn't follow from that premise; nothing in the data speaks to expected return on additional spend in a low-churn region versus, say, shoring up higher-churn regions where there's more room to improve. The action doesn't logically follow from the stated finding, independent of the statistical validity problem in #4.\n\n## Satisfaction increase (paragraph 3)\n\n**7. Causal attribution without a counterfactual.**\nA single before/after number (62% → 66%) is attributed to \"the new support model\" with no control group, no prior trend line, and no ruling out of other explanations (seasonality, other concurrent initiatives, changes in who responded to the survey). A one-group pre/post comparison cannot establish that the support model caused the change.\n\n**8. No significance/noise check.**\nNo sample size, confidence interval, or significance test accompanies the 4-point shift, so there's no way to tell whether it's distinguishable from ordinary quarter-to-quarter survey variation.\n\n**9. Percentage-point vs. percent conflation.**\nCalling a rise from 62% to 66% a \"4% improvement\" blurs a 4-*percentage-point* increase with a 4% *relative* increase — the actual relative increase is about 6.5%. This is a reporting-precision defect that risks under- or over-stating the size of the change to readers.",
+  "response_sha256": "c8e0a8585b5e26ab8505993bbe618f3954fc4a438d441656d5438208e353acf3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2642,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 4613,
+    "output_tokens_details": {
+      "thinking_tokens": 3405
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2642,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4613,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2642,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2642
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0618472,
+    "duration_ms": 53173,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:29:22+00:00",
+  "finished_at": "2026-09-13T04:30:16+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

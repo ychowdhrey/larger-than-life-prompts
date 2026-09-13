@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T23-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T23",
+  "condition_name": "phrase_t23",
+  "repetition": 3,
+  "execution_index": 2165,
+  "sample_seed": 6369109982000671329,
+  "prompt_sha256": "74916dd351e3d3a1784dd8a9f3b922c3a0777e3a7fc1a027434c99cc4204f538",
+  "prompt_chars": 636,
+  "response": "A content delivery network is a system that helps websites load faster by storing copies of files—like images, videos, and web pages—in many locations around the world, instead of keeping everything in one place. The original, complete version of a website lives on what is called an origin server, a single computer (or cluster of computers) owned by the website's operator. Because that server might be far from many visitors, loading directly from it can be slow. To fix this, the network places smaller storage points called edge locations in cities across the globe, much closer to where people actually are. When someone requests a page, the network checks whether a nearby edge location already has a saved copy; if it does, that moment is called a cache hit, and the content is delivered instantly from nearby storage rather than traveling the full distance to the origin server. If no copy exists yet, the request travels further, the origin server provides the content, and a copy is stored at that edge location for next time. Think of it like a chain of neighborhood libraries that each keep popular books on hand, so readers do not need to travel to the one central library that holds every title ever printed. Over time, as more people request the same content, more edge locations end up holding copies, so cache hits become more common and pages load faster overall for nearly everyone, everywhere.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The single main computer holding the full, original website | It is the ultimate source of truth when no other copy is available |\n| Edge location | A smaller storage point placed close to visitors, in many cities worldwide | It shortens the distance content must travel, speeding up delivery |\n| Cache hit | A moment when a saved copy is already available at a nearby edge location | It means near-instant delivery without contacting the origin server |\n| Cache miss | A moment when no saved copy exists nearby yet | It causes a slower first request while a copy is fetched and stored for later use |",
+  "response_sha256": "5c388678e7ab414a742072e01d1afecb81b25cd6f3548e01a77c64100ba66cb3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28267,
+    "output_tokens": 3105,
+    "output_tokens_details": {
+      "thinking_tokens": 2511
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3105,
+        "cache_read_input_tokens": 28267,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0367074,
+    "duration_ms": 25683,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:20+00:00",
+  "finished_at": "2026-09-13T05:13:47+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

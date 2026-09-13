@@ -1,3 +1,9 @@
 __pycache__/
 *.pyc
 *.tmp
+
+# Mock runs are synthetic output from the offline stand-in backend. They exist to validate
+# the pipeline end to end at full scale for zero cost, and every record they write is tagged
+# backend="mock" precisely so it can never be mistaken for data. Committing thousands of
+# synthetic generations next to real ones invites exactly that mistake.
+experiments/*/runs/mock-*/

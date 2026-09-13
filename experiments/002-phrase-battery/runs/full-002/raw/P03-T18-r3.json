@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-T18-r3",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T18",
+  "condition_name": "phrase_t18",
+  "repetition": 3,
+  "execution_index": 567,
+  "sample_seed": 12452590238797372422,
+  "prompt_sha256": "c1ea61be26c8c31d3d0bd0e029fc13c76c56f487f8fa59e45cccdd68167c2d83",
+  "prompt_chars": 1112,
+  "response": "Reasoning: Critical path is T1→T2→T4→T6 = 2+2+3+3 = 10 days, so T1, T2, T4, T6 must run back-to-back with no gaps on one engineer (E1). The other branch T1→T3→T5 (feeding into T6) can run in parallel on E2 once T1 finishes, with slack to spare.\n\n- E1: T1 (Day1-2), T2 (Day3-4, after T1 done), T4 (Day5-7, after T2 done), T6 (Day8-10, after T4 and T5 done)\n- E2: idle Day1-2, T3 (Day3-4, after T1 done), T5 (Day5-6, after T3 done), idle Day7-10\n\nCheck T6 prerequisites: T4 finishes Day7, T5 finishes Day6 → T6 starts Day8. ✓ Fits within Day10.\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "0e8716940deffff1dea79b008dee0fbc85ad806550b3cd3f15eaafb81887d71c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28477,
+    "output_tokens": 1171,
+    "output_tokens_details": {
+      "thinking_tokens": 671
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1171,
+        "cache_read_input_tokens": 28477,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0174094,
+    "duration_ms": 12855,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:36:09+00:00",
+  "finished_at": "2026-09-13T04:36:23+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

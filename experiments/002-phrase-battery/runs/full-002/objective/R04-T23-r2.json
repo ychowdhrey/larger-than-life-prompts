@@ -1,0 +1,71 @@
+{
+  "sample_id": "R04-T23-r2",
+  "task_id": "R04",
+  "family": "reasoning",
+  "condition_id": "T23",
+  "repetition": 2,
+  "response_sha256": "478c5f04b3ae2a137755af54d55b47f7ddbdf47cdcdaf2fd99bd3b390a9e456b",
+  "objective": {
+    "max_points": 9.0,
+    "earned_points": 9.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "answer",
+        "label": "Correct final balance",
+        "type": "regex_any",
+        "points": 6.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*1?0,?081\\.14",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "format",
+        "label": "Final answer line present",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched FINAL\\s*ANSWER\\s*:\\s*[0-9]",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "intermediate",
+        "label": "Shows a correct year 1 or year 2 balance",
+        "type": "regex_any",
+        "points": 1.0,
+        "passed": true,
+        "detail": "matched 11,?110(?:\\.0+)?\\b",
+        "constraint": false,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 191,
+    "response_words": 49,
+    "coverage": 0.5,
+    "coverage_hits": 2,
+    "coverage_possible": 4,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:48+00:00",
+  "evaluation_version": "2.0.0"
+}

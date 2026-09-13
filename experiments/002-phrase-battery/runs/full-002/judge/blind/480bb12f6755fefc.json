@@ -1,0 +1,22 @@
+{
+  "item_id": "480bb12f6755fefc",
+  "sample_id": "C05-T18-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T18",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the off-by-one boundary bug (>100 vs >=100 per R1), correctly recomputes test_cap's actual output (50.0, not 100.0) and notes its expected value also violates R2, flags the missing boundary test at total=100, and correctly confirms the other two tests are valid without inventing extra issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:18+00:00"
+}

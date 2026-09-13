@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T11_vs_A-r3",
+  "contrast_id": "T11_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T11",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T11",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the structural requirements (four correctly ordered headings, snapshot-before-risk gating, no restart/failover before snapshot, and explicit abort/rollback conditions), but Response B gives more production-safe mitigation guidance—explicitly forbidding ad-hoc drops of tables under incident pressure and restricting deletions to items already approved in a prior cleanup ticket—whereas Response A allows drop/truncate of 'disposable' tables based on a quick second-engineer confirmation mid-incident, which is riskier practice. B's abort/rollback condition is also broader, covering latency, error rate, replication lag, disk trend, and snapshot integrity together with a clear escalation path.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:32:06+00:00"
+}

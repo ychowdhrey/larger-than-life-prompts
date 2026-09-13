@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T14_vs_A-r1",
+  "contrast_id": "T14_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T14",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T14",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Response A more carefully sequences the mandatory pre-modification backup ahead of any production-altering step (explicitly gating logical replication setup on the backup), whereas Response B configures the replication/CDC pipeline against production in step 3 before the full backup in step 4, weakening compliance with the backup-before-modification rule. A also gives more concrete, technically accurate detail on maintaining an untouched rollback source and LSN-consistent cutover.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:55+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-E02-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "E02",
+  "condition_name": "combo_e02",
+  "repetition": 3,
+  "execution_index": 362,
+  "sample_seed": 16912006798968106051,
+  "prompt_sha256": "d5a1dc47be583860b4d21079393a8cffe0f03e2e2afbd5f1eff62d73d9e416ae",
+  "prompt_chars": 792,
+  "response": "## The problem\n\nOur team of twelve engineers is losing velocity to long-lived feature branches. Branches routinely live for two to three weeks, and merge conflicts have become a weekly occurrence that eats entire afternoons. Integration happens late, so defects surface only when branches finally collide with main, at which point the cost of fixing them has multiplied. Code review also suffers: reviewers face 800-line diffs instead of small, digestible changes, so review quality drops and review latency grows. Meanwhile, our CI pipeline tests branches in isolation, giving us false confidence that masks integration bugs until release week, when they're most expensive to fix.\n\n## The proposal\n\nI propose we adopt trunk-based development, in which every engineer commits directly to main at least once per day, behind feature flags where necessary.\n\n- Break work into small, independently mergeable increments, and merge to main daily rather than accumulating divergence over weeks.\n- Use feature flags to hide incomplete functionality in production, decoupling deployment from release.\n- Require CI to pass on every commit to main, catching integration failures within hours, not weeks.\n- Cap any branch's lifetime at 48 hours, enforced by a CI check that flags older branches.\n- Pair this with a lightweight review process so small diffs turn around within a few hours rather than days.\n\nThis should cut our average lead time and reduce the multi-day \"merge hell\" episodes that currently follow most releases.\n\n## What could go wrong\n\nThe strongest objection is that committing incomplete work to main daily risks destabilizing the one branch everyone depends on, especially for work that genuinely takes weeks, like a schema migration or a new subsystem. This is a real risk, not a strawman: feature flags add code complexity and discipline overhead, and a careless flag can leak unfinished behavior to users. We should mitigate this with flag hygiene reviews and a rollback runbook, but we shouldn't pretend the risk disappears entirely.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "fbd9c3b5093df311a4a3d450969664872f1fd28f5cad5d2b81a799e4af6cb7d8",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28312,
+    "output_tokens": 4568,
+    "output_tokens_details": {
+      "thinking_tokens": 3917
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4568,
+        "cache_read_input_tokens": 28312,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.05134639999999999,
+    "duration_ms": 37754,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:31:01+00:00",
+  "finished_at": "2026-09-13T04:31:40+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "4a305d1c367481a5",
+  "sample_id": "C02-T17-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T17",
+  "repetition": 1,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "Correctly identifies all real defects (WHERE-turns-LEFT-JOIN-into-INNER, UTC+8 boundary mismatch, integer division truncation, NULL-sort-after-COALESCE, and a well-caveated GROUP BY dialect issue) with correct fixes, but the timezone explanation includes a factual slip claiming the one-sided filter 'includes 8 hours of the prior local day,' which isn't true for a lower-bound-only WHERE clause.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:43+00:00"
+}

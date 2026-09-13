@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T17-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T17",
+  "condition_name": "phrase_t17",
+  "repetition": 1,
+  "execution_index": 1018,
+  "sample_seed": 14328922367207283797,
+  "prompt_sha256": "c9f6e38bce393737de53ef5373a27726c476d94c39b3dcee683c7152a1dddc37",
+  "prompt_chars": 1010,
+  "response": "## Defects in the memo's reasoning\n\n### 1. Webinar attendance and retention\n\n**Defect A — Selection bias in the sample itself.** The analysis is run only on the 412 customers \"still active on the Pro plan today\" — i.e., the sample is already filtered down to survivors. Churned customers are excluded before the comparison is even made. Any retention/churn comparison needs to include the people who left; conditioning on \"still active\" first and then comparing subgroups within that survivor pool can distort or even invert the true relationship between webinar attendance and churn. This alone makes the 31% figure unreliable as an estimate of a webinar effect on retention.\n\n**Defect B — Correlation treated as causation.** Even setting aside Defect A, attending a voluntary onboarding webinar is not randomly assigned. Customers who choose to attend are plausibly more engaged, more invested, or otherwise different from those who don't — and that same engagement could independently drive both attendance and retention. The memo asserts \"webinars therefore cause higher retention\" with no control for this obvious confound (e.g., no comparison to similar non-attendees, no randomized holdout). This would cause the company to overestimate the webinar's actual effect.\n\n**Defect C — Extrapolating from a self-selected group to a mandatory policy.** The observed 31% gap (whatever its true size) comes from customers who *chose* to attend. Forcing all new customers to attend does not guarantee the same effect, because the mechanism driving the correlation may be the customer's underlying motivation/engagement, not the webinar content itself. A policy built on this data could be rolled out and fail to move retention at all, since mandatory attendance changes the composition of \"attendees\" from self-selected engaged customers to a mixed population.\n\n### 2. Central region and churn\n\n**Defect D — Multiple comparisons / p-hacking.** Eighteen attributes were tested against churn, and the one that happened to cross the conventional p < 0.05 threshold (p = 0.04) was singled out and acted upon. With 18 independent tests at the 0.05 level, the chance of at least one false positive by chance alone is roughly 1 − 0.95¹⁸ ≈ 60%, and p = 0.04 does not survive even a simple Bonferroni correction (which would require p < ~0.0028 for significance). There is no indication a correction was applied. This is a textbook case of an isolated, marginal result being reported as if it were a robust finding — the \"Central region effect\" is quite plausibly noise, and reallocating spend on this basis risks wasting budget on a nonexistent effect.\n\n### 3. Satisfaction increase and the support model\n\n**Defect E — Causal attribution without ruling out alternatives.** The memo attributes the entire 62%→66% change to \"the new support model,\" but no counterfactual, control group, or account of other concurrent changes (seasonality, product changes, pricing, staffing, sample composition shifts, etc.) is offered. A single quarter-over-quarter movement is also consistent with normal fluctuation or regression to the mean, especially with no mention of whether the change is statistically significant (sample size, confidence interval) or whether the same change occurred in prior quarters absent any support-model change. Asserting \"this shows the new support model is working\" is not supported by the number alone.\n\n**Minor defect F — Percentage-point vs. percent conflation.** Going from 62% to 66% is a 4 *percentage-point* increase, not a \"4% improvement\" (a true 4% relative improvement would be 62% → ~64.5%). This is a labeling issue rather than a computational error (the underlying numbers are correct as stated), but it overstates the apparent size of the change and could mislead readers comparing it to other percentage figures in the memo.\n\n---\n\n**Summary:** Every one of the memo's three conclusions commits some version of the same core error — treating an observed association (in a biased or under-corrected sample) as sufficient grounds for a causal claim and a resulting spending/policy decision — compounded in Section 1 by survivorship-style selection bias and an unjustified leap from a voluntary subgroup to a mandatory policy, and in Section 2 by an uncorrected multiple-comparisons problem.",
+  "response_sha256": "66a7ac917568a372a6cb5e3d7cccfa9d819630b23fed8dcc3f85d2d5278c1f12",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28368,
+    "output_tokens": 3729,
+    "output_tokens_details": {
+      "thinking_tokens": 2349
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3729,
+        "cache_read_input_tokens": 28368,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0429676,
+    "duration_ms": 44704,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:46:56+00:00",
+  "finished_at": "2026-09-13T04:47:42+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

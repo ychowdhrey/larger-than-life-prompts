@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T04_vs_A-r3",
+  "contrast_id": "T04_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T04",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T04",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly identify the same core defects (mutable default, in-place sort mutation, IndexError, ZeroDivisionError, and dropped ties), but Response B adds a genuine, distinct defect that A misses: even when a caller intentionally passes their own `seen` list, the function still mutates it via `.append`, silently altering caller state beyond the well-known mutable-default issue. B's explanation of the dedup under-fill bug is also more precise, tying it explicitly to the loop never scanning past index limit-1 for replacements.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:33+00:00"
+}

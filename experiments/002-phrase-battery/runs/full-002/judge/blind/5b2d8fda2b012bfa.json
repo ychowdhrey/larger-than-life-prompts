@@ -1,0 +1,22 @@
+{
+  "item_id": "5b2d8fda2b012bfa",
+  "sample_id": "C05-E08-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E08",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real R1 boundary bug (total>100 vs >=100), correctly recomputes discount(1000) to show test_cap's expected value of 100.0 is wrong (actual capped result is 50.0), and correctly notes the missing boundary test at total==100, with no fabricated defects and accurate confirmation of the passing tests.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:53+00:00"
+}

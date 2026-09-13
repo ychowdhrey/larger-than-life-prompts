@@ -1,0 +1,22 @@
+{
+  "item_id": "2fb2ba66d37dd73a",
+  "sample_id": "C05-T17-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T17",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all three real defects (the >100 vs >=100 boundary bug violating R1, the wrong expected value in test_cap that would fail on execution, and the missing boundary test at total==100), verifies each with concrete arithmetic, and reports no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:55+00:00"
+}

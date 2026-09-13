@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T26-r3",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 3,
+  "execution_index": 1652,
+  "sample_seed": 13247106173354832460,
+  "prompt_sha256": "687dd9cc9c0c7d0fcf37fb27fbde9728575aa37a3c033b905fb94ec1d613134f",
+  "prompt_chars": 865,
+  "response": "## Defects found\n\n**1. Off-by-one boundary error in the implementation (violates R1)**\n\n```python\nif total > 100:\n```\n\nR1 says a total of **100 or more** gets the discount, but the code only applies it when total is *strictly greater than* 100. For `total == 100`, the condition is `False`, so `discount(100)` returns `0.0` instead of the required `10.0`.\n\n*Consequence:* Any order totaling exactly 100 is silently denied the discount it's entitled to.\n\n**2. `test_cap` asserts the wrong expected value (contradicts R2, and doesn't even match the implementation)**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nFor `total = 1000`, `d = 1000 * 0.10 = 100.0`, then `min(d, 50.0) = 50.0`. So the implementation actually returns `50.0` here, not `100.0`. The test's expected value of `100.0` is inconsistent with R2 (\"never more than 50.00\") and inconsistent with what the code under test produces.\n\n*Consequence:* This test fails when run — it's simply wrong, and as written it does **not** verify the 50.00 cap at all (it asserts a value that violates the cap requirement).\n\n**3. Missing boundary test for R1's \"100 or more\" threshold**\n\nThere is no test for `discount(100)`. Given the off-by-one bug above, a test at exactly 100 is exactly what would have caught it. Its absence means the test suite doesn't actually verify the stated boundary condition in R1.\n\n**4. No test correctly verifies the 50.00 cap (R2)**\n\nSince `test_cap` uses the wrong expected value, R2 is effectively untested — there is no passing assertion anywhere in the suite that confirms the discount is capped at 50.00.\n\n## Not defects (for clarity)\n- `test_small` (50 → 0.0) correctly reflects R3.\n- `test_large` (200 → 20.0) is correct: `200 * 0.10 = 20.0`, under the cap.\n- The `min(d, 50.0)` capping logic itself is correctly implemented for R2 — the only problem is the test asserting the wrong number against it.",
+  "response_sha256": "17ab03244e9aac761511220e92d41cb324b94ef159ab10f9634792a6caec95ab",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28355,
+    "output_tokens": 1781,
+    "output_tokens_details": {
+      "thinking_tokens": 1058
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1781,
+        "cache_read_input_tokens": 28355,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.023485,
+    "duration_ms": 21193,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:02:00+00:00",
+  "finished_at": "2026-09-13T05:02:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

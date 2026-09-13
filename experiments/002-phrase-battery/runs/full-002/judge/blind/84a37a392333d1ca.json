@@ -1,0 +1,22 @@
+{
+  "item_id": "84a37a392333d1ca",
+  "sample_id": "C02-A-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "A",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE clause nullifying the LEFT JOIN, UTC vs UTC+8 boundary mismatch, integer division truncation, and NULL-vs-zero for zero-order customers with its ordering side effect), explains the concrete mechanism and consequence for each with verifying examples, supplies correct fixes, and reports no spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:48+00:00"
+}

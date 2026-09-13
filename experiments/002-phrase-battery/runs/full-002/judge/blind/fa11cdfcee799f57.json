@@ -1,0 +1,22 @@
+{
+  "item_id": "fa11cdfcee799f57",
+  "sample_id": "C05-T13-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T13",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one bug in the implementation (`>` vs `>=` violating R1 at total=100), correctly catches that test_cap asserts 100.0 when the code actually returns 50.0 (a real failing test), and correctly notes the missing boundary test that lets the off-by-one bug go undetected, while accurately clearing the two passing tests and the capping logic as non-defective.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:47+00:00"
+}

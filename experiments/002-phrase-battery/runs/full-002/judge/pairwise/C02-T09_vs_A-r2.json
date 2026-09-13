@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T09_vs_A-r2",
+  "contrast_id": "T09_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T09",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T09",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the same four core defects (INNER-JOIN-via-WHERE, UTC/+8 boundary, NULL total_spent, integer division) with equally correct explanations, but their fifth points differ in accuracy: Response A claims the missing GROUP BY columns would fail under MySQL's ONLY_FULL_GROUP_BY, which is actually not true when grouping by a primary key (MySQL, like Postgres, recognizes the functional dependency), making it a reported problem that isn't really present. Response B's fifth point—that NULL total_spent values would sort first under ORDER BY DESC—is a concrete, correct consequence of the query as written and doesn't misstate engine behavior.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:28:49+00:00"
+}

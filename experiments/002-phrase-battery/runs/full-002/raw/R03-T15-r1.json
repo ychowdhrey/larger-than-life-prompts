@@ -1,0 +1,68 @@
+{
+  "sample_id": "R03-T15-r1",
+  "run_id": "full-002",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 1,
+  "execution_index": 1819,
+  "sample_seed": 948700018941993952,
+  "prompt_sha256": "c232bbd45d373d521b7145ac8dd30663640dcfe5021f36005d771a02d7baa00d",
+  "prompt_chars": 680,
+  "response": "**Solution:**\n\nTesting Ana's possible positions (2, 3, or 4, since she can't be at 1 or 5) against constraint 6 (Ana = Ben+1):\n\n- **Ana=2, Ben=1:** Remaining seats {3,4,5} must hold Chi, Dev, Eli — but Dev/Eli need a seat-gap of 3, impossible within a 3-seat range. Eliminated.\n- **Ana=4, Ben=3:** Chi must be right of Ben(3), so Chi=5 (only option left). Then Eli must be right of Ana(4), forcing Eli=5 too — conflict with Chi. Eliminated.\n- **Ana=3, Ben=2:** Remaining seats {1,4,5} for Chi, Dev, Eli. Chi must be >2, so Chi∈{4,5}. The only Dev/Eli pair with a gap of 3 available in {1,4,5} is (Dev=1, Eli=4), leaving Chi=5.\n\nChecking this final arrangement — **Dev=1, Ben=2, Ana=3, Eli=4, Chi=5** — against all six clues:\n1. Ben(2) < Chi(5) ✓\n2. Ana(3) ≠ 1,5 ✓\n3. Dev(1) and Eli(4) have seats 2,3 between them — exactly two people ✓\n4. Chi(5) not adjacent to Dev(1) ✓\n5. Eli(4) > Ana(3) ✓\n6. Ana(3) = Ben(2)+1 ✓\n\nAll constraints satisfied, and it's the only arrangement that survives — confirming uniqueness.\n\nFINAL ANSWER: Dev, Ben, Ana, Eli, Chi",
+  "response_sha256": "d6b0a6e571bb12535e5decc515f5b43a3bcf2c2c0164921e20c66db33edf9aed",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28341,
+    "output_tokens": 1905,
+    "output_tokens_details": {
+      "thinking_tokens": 1318
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1905,
+        "cache_read_input_tokens": 28341,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.024722200000000003,
+    "duration_ms": 17139,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:05:31+00:00",
+  "finished_at": "2026-09-13T05:05:50+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

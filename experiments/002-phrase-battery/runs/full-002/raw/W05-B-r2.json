@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-B-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 2,
+  "execution_index": 523,
+  "sample_seed": 5471874403479307974,
+  "prompt_sha256": "1ab164ccf11830b61447e9fb1c51e23e81c80eceadee9c82603b2acd49b3af00",
+  "prompt_chars": 711,
+  "response": "Subject: Moving to Trunk-Based Development\n\n## The problem\n\nOur feature branches routinely live for two to four weeks before merging. By the time we integrate, diffs are large, conflicts are painful, and reviewers are asked to evaluate hundreds of changed lines at once, which means review quality drops right when it matters most. Twice this quarter a release was delayed because a late-discovered merge conflict touched code three other branches had also modified. We're a twelve-person team, but our branch structure behaves like twelve isolated teams that reconcile only at the end, which is exactly backwards from how a team this size should work.\n\n## The proposal\n\nI propose we adopt trunk-based development: everyone commits small, frequent changes directly to main (or through very short-lived branches merged within a day), gated by feature flags for anything not ready for users.\n\n- Merge to main at least once per day per engineer, with changes kept small enough to review in under fifteen minutes\n- Use feature flags to hide incomplete work in production rather than isolating it in a branch\n- Require CI to pass (tests plus linting) before any merge, with a fast pipeline (under ten minutes) so this isn't a bottleneck\n- Pair or mob on riskier changes instead of splitting them into a solo branch that drifts from main\n- Run a two-week pilot with one squad before rolling out team-wide, so we catch process gaps early\n\n## What could go wrong\n\nThe strongest objection is real: without long-lived branches, half-finished features are exposed to more of the codebase, and a bad commit to main can block everyone immediately rather than staying contained. Feature flags add their own complexity and technical debt if we don't clean them up, and our current CI pipeline isn't fast or reliable enough to support multiple merges per day without becoming a bottleneck itself. This isn't a hypothetical risk — it's the main reason trunk-based development fails at some organizations. Our mitigation is to invest in CI reliability and flag hygiene before wide rollout, and the two-week pilot is designed specifically to surface these failures on a small scale before we commit the whole team.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "f63ad650ee8b3e8a7a6927349279674f4d05c4835999a0764adb7e0a75a3cec4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28291,
+    "output_tokens": 694,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 694,
+        "cache_read_input_tokens": 28291,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012602200000000001,
+    "duration_ms": 12646,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:35:18+00:00",
+  "finished_at": "2026-09-13T04:35:31+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

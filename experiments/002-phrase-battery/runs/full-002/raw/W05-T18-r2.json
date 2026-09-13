@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T18-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T18",
+  "condition_name": "phrase_t18",
+  "repetition": 2,
+  "execution_index": 2120,
+  "sample_seed": 14369432552278269044,
+  "prompt_sha256": "984102d40bd88f5bf8cf28aa582e93d26f5a376092a6a3ea5544eb991e655479",
+  "prompt_chars": 750,
+  "response": "## The problem\n\nOur team of twelve is spending more time reconciling code than writing it. Feature branches now live for two to four weeks before merging, and every merge day has become an event: reviewers face thousand-line diffs, conflicts pile up across overlapping branches, and integration bugs surface only after the fact, far from the change that caused them. Two consequences stand out:\n\n- Merge conflicts and last-minute integration failures now consume roughly a day per developer per sprint, based on our last three retrospectives.\n- Because branches diverge from main for weeks, nobody has confidence that main actually reflects a working, integrated system until release week — which is precisely when we can least afford surprises.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequent changes directly to main (or through branches that live hours, not weeks), gated by feature flags for anything not ready for users. Concretely:\n\n- Adopt a feature-flag system so incomplete work can merge to main safely and be toggled off in production.\n- Set a team norm that branches are merged or abandoned within one business day, enforced through CI checks that block stale branches.\n- Invest two weeks upfront in strengthening automated tests and a fast CI pipeline, since trunk-based development depends on catching regressions immediately rather than at merge time.\n\n## What could go wrong\n\nThe strongest objection is real: without long-lived branches, half-finished features are exposed to whoever reads main, and a bad flag configuration could ship incomplete work to production. This isn't a hypothetical — teams have shipped broken flags before. The honest answer is that this risk is manageable, not eliminated: it requires disciplined flag hygiene, a flag-review step in code review, and a culture where \"merged\" no longer means \"released.\" That's a real behavioral shift, not just a tooling change, and it will take deliberate coaching in our first month.\n\nWe should also expect short-term friction as engineers relearn habits around smaller commits and flag discipline, and a brief dip in velocity while CI is hardened.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "babc46ceca0d4829d3129f6e4aadd3c07094602e42e3eb43b19d32214611e63f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28298,
+    "output_tokens": 936,
+    "output_tokens_details": {
+      "thinking_tokens": 266
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 936,
+        "cache_read_input_tokens": 28298,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.015023600000000002,
+    "duration_ms": 15021,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:12:16+00:00",
+  "finished_at": "2026-09-13T05:12:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

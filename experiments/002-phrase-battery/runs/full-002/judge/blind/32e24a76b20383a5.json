@@ -1,0 +1,22 @@
+{
+  "item_id": "32e24a76b20383a5",
+  "sample_id": "P01-T16-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T16",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (12-step cap, rollback, rehearsal, post-cutover integrity checks via row counts/checksums, stakeholder comms, and backups before any prod-modifying step) with a coherent, technically sound sequence using logical replication to fit the 2-hour window. It is actionable and specific, though it could go slightly deeper on time-budgeting within the window and post-migration monitoring specifics.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:16+00:00"
+}

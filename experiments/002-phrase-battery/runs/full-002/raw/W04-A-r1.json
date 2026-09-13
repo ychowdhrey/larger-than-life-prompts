@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-A-r1",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 1,
+  "execution_index": 471,
+  "sample_seed": 13876994956944490005,
+  "prompt_sha256": "8f2cc4827e1ccf2400ba684ca492c49d59432432e87f95e595a2b985f9c315d1",
+  "prompt_chars": 597,
+  "response": "A content delivery network solves a simple problem: a website's main storage, called the origin server, might sit in one country, while people trying to view that site are scattered across the world. The farther a request has to travel to that single origin server, the slower a page feels. To fix this, copies of the site's content get placed on many smaller servers positioned closer to different populations, each called an edge location. When someone requests a page and a nearby edge location already holds a saved copy, that's called a cache hit, meaning the answer can be delivered instantly without contacting the distant origin at all. Think of it like a chain of neighborhood libraries stocking popular books close to readers, instead of forcing every reader to travel to one central national library. Only when a nearby location lacks the requested content does a request travel back to the origin server, fetch the material, and store a copy nearby for next time. This system reduces delay, spreads out traffic so no single server gets overwhelmed, and keeps things running even if one location has trouble, since others can step in. It quietly powers the fast loading of videos, images, and web pages across the globe every day.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The original source storing all the real content | Everything ultimately comes from here if nothing closer has it |\n| Edge location | A smaller server placed near a group of users | Shortens the distance content must travel |\n| Cache hit | A successful delivery from a stored nearby copy | Makes loading feel instant and reduces strain on the origin |\n| Latency | The delay between a request and its response | Lower delay creates a smoother, faster experience |",
+  "response_sha256": "226ad75dfffe6f21a6ccd787a78f0e801e40f87b80cb36c9f1b486f485c2c2bc",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2530,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 514,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2530,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 514,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2530,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2530
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.020409200000000002,
+    "duration_ms": 9962,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:33:54+00:00",
+  "finished_at": "2026-09-13T04:34:05+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

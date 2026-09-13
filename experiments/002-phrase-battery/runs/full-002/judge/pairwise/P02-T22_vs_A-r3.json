@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T22_vs_A-r3",
+  "contrast_id": "T22_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T22",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T22",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both fully satisfy the hard requirements, but Response B enforces the snapshot-before-action rule more rigorously (explicitly forbidding destructive cleanup, not just restart/failover, before the snapshot completes) and offers sharper technical diagnosis by tying runaway WAL/binlog growth to both the disk and latency symptoms simultaneously, whereas Response A's MITIGATION section mislabels destructive actions like dropping/truncating tables as 'non-destructive' reclamation, a minor internal inconsistency.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:27:30+00:00"
+}

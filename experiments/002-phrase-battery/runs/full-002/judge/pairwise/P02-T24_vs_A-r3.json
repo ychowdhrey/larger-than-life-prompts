@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T24_vs_A-r3",
+  "contrast_id": "T24_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T24",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T24",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet all hard constraints, but Response A structures mitigation more safely by explicitly preferring non-destructive space recovery and online resize over deleting/dropping data, whereas Response B's mitigation opens with dropping/truncating tables before offering the safer resize option. Response A's abort/rollback guidance is also more thorough and clearly delineated, giving concrete escalation paths (snapshot failure, near-100% disk, failed failover) rather than a single denser paragraph.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:28:53+00:00"
+}

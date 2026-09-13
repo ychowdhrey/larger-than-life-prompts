@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T07-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 2,
+  "execution_index": 1778,
+  "sample_seed": 156541886459015469,
+  "prompt_sha256": "1e55ddb11dd3a39135901be7376b1daaf6b97607dd8d91bc5ff70897e55b2f68",
+  "prompt_chars": 1024,
+  "response": "Here are the defects in the memo's reasoning:\n\n**1. Webinar attendance → retention (causal claim from observational data)**\n- **What's wrong:** The 31% retention gap is a correlation among *already-active* Pro customers, but the memo claims webinars *cause* higher retention and recommends mandating them. This ignores selection/confounding: customers who voluntarily attend an onboarding webinar are likely more engaged, more motivated, or better-fit for the product to begin with — traits that independently predict retention. No randomization or control for confounders is described.\n- **What it would cause:** Mandating webinars for all new customers could easily fail to reproduce the 31% effect, since forcing attendance on disengaged customers doesn't give them the underlying trait (engagement/motivation) that actually drove retention. Money and effort could be spent on a policy that does nothing.\n\n**2. Survivorship bias in the sample**\n- **What's wrong:** The analysis only looks at the 412 customers \"still active on the Pro plan today\" — i.e., it excludes everyone who already churned. This is a survivorship-biased sample: it cannot actually measure \"retention\" properly, since the outcome variable (staying vs. churning) is filtered on before the comparison is made. Any relationship measured only within survivors can be distorted or even reversed relative to the true effect on the full population.\n- **What it would cause:** The 31% figure could be an artifact of who happened to survive rather than a real effect of webinars on retention, making both the causal claim and the policy recommendation unreliable regardless of the confounding issue above.\n\n**3. Multiple comparisons / p-hacking on the region finding**\n- **What's wrong:** They tested 18 different attributes against churn and found one (Central region) significant at p = 0.04. With 18 independent tests at α = 0.05, the expected number of false positives by chance alone is roughly 0.9 — i.e., finding \"significance\" somewhere is likely even if nothing is really going on. No correction for multiple comparisons (e.g., Bonferroni, FDR) is mentioned, and p = 0.04 is only marginally under the conventional 0.05 threshold, making it especially weak evidence in this context.\n- **What it would cause:** Following this, the company could reallocate spend to the Central region based on what is plausibly noise, wasting budget on a non-existent regional effect while neglecting other regions that may need attention.\n\n**4. Satisfaction \"increase\" without any test of statistical/practical significance**\n- **What's wrong:** A move from 62% to 66% is presented as evidence the new support model \"is working,\" but no information is given about sample size, variance, measurement error, or whether this change is statistically distinguishable from noise or seasonal/quarterly fluctuation. Nor is there any attempt to rule out other causes (other initiatives, seasonality, changes in customer mix) — i.e., correlation between the timing of the new support model and a metric change is treated as proof of causation.\n- **What it would cause:** The company could credit (and further invest in) the \"new support model\" for a change that might be random fluctuation or driven by something else entirely, while the real driver of any genuine improvement goes unidentified.\n\n**Not a defect:** The numbers themselves aren't disputed (the prompt says so), and I'm not flagging things like sample size of 412 as inherently too small, since no error bars are given to evaluate that — the issue is specifically the reasoning leaps described above.",
+  "response_sha256": "b6f86275599727f1e632189616120a7737642f73bf6100aee86baff771f3535b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28374,
+    "output_tokens": 1127,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1127,
+        "cache_read_input_tokens": 28374,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0169488,
+    "duration_ms": 16572,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:04:43+00:00",
+  "finished_at": "2026-09-13T05:05:01+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

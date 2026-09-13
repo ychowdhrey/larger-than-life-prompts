@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T19_vs_A-r1",
+  "contrast_id": "T19_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T19",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy every hard requirement, but Response B gives more concrete, actionable guidance: it explicitly addresses snapshotting to a separate volume when the near-full disk itself constrains snapshot capacity, specifies concrete rollback steps (restore from snapshot, resume paused jobs only if safe, verify integrity on a scratch instance) rather than just escalation, and adds post-mitigation data-integrity/replica-consistency checks in FOLLOW UP that Response A omits.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:31:10+00:00"
+}

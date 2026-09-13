@@ -1,0 +1,22 @@
+{
+  "item_id": "78a0f9c8cc4e767e",
+  "sample_id": "C02-E06-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E06",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all the real defects (WHERE clause negating the LEFT JOIN, UTC vs UTC+8 day-boundary mismatch, integer division truncation, NULL-vs-zero SUM, NULL ordering fallout, and non-aggregated GROUP BY columns) with accurate technical reasoning and concrete fixes, without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:37+00:00"
+}

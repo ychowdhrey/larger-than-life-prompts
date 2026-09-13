@@ -1,0 +1,22 @@
+{
+  "item_id": "b34d2d0dd66c0538",
+  "sample_id": "P01-E01-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E01",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all hard requirements (≤12 numbered steps, rollback with clear triggers, non-production rehearsal, explicit post-cutover row-count/checksum verification, multiple stakeholder communications, and backups placed immediately before any destructive/modifying production action) and ends with the required STEP COUNT line. It also addresses realistic complexities like replication lag, keeping on-prem as a fallback, and phased rollback scenarios, making it directly actionable by a DBA team.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:51+00:00"
+}

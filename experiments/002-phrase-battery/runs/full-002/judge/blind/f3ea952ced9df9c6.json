@@ -1,0 +1,22 @@
+{
+  "item_id": "f3ea952ced9df9c6",
+  "sample_id": "P01-T17-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T17",
+  "repetition": 1,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 3,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits the length cap, rollback, dry run, backup-before-destructive-step, and stakeholder communication requirements, but the dedicated 'data integrity verification' step (8) occurs before the actual cutover (step 9), so the explicit post-cutover checksum/row-count check is only weakly represented as a secondary 'lightweight spot-check' inside the go-live step, partially undercutting that specific requirement. Aside from this ordering issue, the plan is detailed, logically sequenced, and directly actionable for a real migration.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:30+00:00"
+}

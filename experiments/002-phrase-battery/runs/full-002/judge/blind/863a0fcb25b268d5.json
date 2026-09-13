@@ -1,0 +1,22 @@
+{
+  "item_id": "863a0fcb25b268d5",
+  "sample_id": "P01-T23-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T23",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 steps, matching STEP COUNT line, rollback, dry run, post-cutover integrity checks via row counts/checksums, stakeholder communication, and backup preceding any destructive change) while using a technically sound replication-based cutover with specific mechanisms (LSN checkpoint, replication lag validation, per-table checksums, sequence/index checks). It lacks any explicit self-verification of the requirements or contingency edge cases (e.g., what if replication lag never reaches zero within the window), but is otherwise directly actionable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:47+00:00"
+}

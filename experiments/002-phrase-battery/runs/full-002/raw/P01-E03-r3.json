@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-E03-r3",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E03",
+  "condition_name": "combo_e03",
+  "repetition": 3,
+  "execution_index": 828,
+  "sample_seed": 10872979222641052666,
+  "prompt_sha256": "33514d193f38d90bc85728252413b6b450a8deb4e6ded35bb0aea8a8a3c392b7",
+  "prompt_chars": 865,
+  "response": "# PostgreSQL 2 TB Migration Plan: On-Prem → Managed Cloud\n\n1. **Assess and prepare target environment**: Provision the managed cloud PostgreSQL instance (matching or exceeding source version, extensions, collation, and locale settings). Size compute/storage/IOPS for 2 TB plus growth headroom, configure networking/VPC peering or VPN, security groups, and set up parameter groups to mirror on-prem `postgresql.conf` tuning. Set up monitoring/alerting on the new instance.\n\n2. **Baseline the source database**: Record row counts, table sizes, index list, and checksums (e.g., `pg_checksums` or per-table hash aggregates) for critical tables on the on-prem production database. Document current replication/backup configuration and application connection strings.\n\n3. **Take a full backup of production before any further action**: Perform a full logical (`pg_dump`) and physical (base backup / snapshot) backup of the on-prem database, verify backup integrity by test-restoring to a scratch instance, and store copies in at least two locations.\n\n4. **Stand up continuous replication for a low-downtime cutover**: Configure logical replication (e.g., `pglogical`, native logical replication, or a CDC tool like AWS DMS) from on-prem to the cloud target, or restore the backup and enable streaming replication, so the target can catch up incrementally ahead of the maintenance window.\n\n5. **Dry run / rehearsal on non-production data**: Clone production schema and a representative (anonymized if needed) subset or full copy to a staging environment, execute the entire migration runbook (backup, restore/replication, cutover, verification, rollback) end-to-end, timing each step to confirm it fits within the two-hour window, and fix any issues found.\n\n6. **Communicate with stakeholders and users**: Announce the scheduled Sunday maintenance window (start/end time, expected read-only or downtime period, impact to the 4,000 DAUs) at least one week in advance via status page/email/in-app banner, with reminders 24 hours and 1 hour before, and a designated incident channel for the migration team.\n\n7. **Freeze writes and take a final pre-cutover backup**: At the start of the maintenance window, put the application into maintenance/read-only mode, quiesce all write traffic, and take one last full backup (or confirm final WAL/logical replication catch-up point) so there is a clean, consistent recovery point immediately before cutover.\n\n8. **Perform final sync and cutover**: Let replication drain to zero lag (or restore the final backup if not using replication), stop the source database from accepting writes, verify the target has caught up completely, and repoint application connection strings/DNS/config to the managed cloud database.\n\n9. **Verify data integrity post-cutover**: Compare row counts, table sizes, and checksums/hash aggregates (from step 2's baseline) between source and target for all critical tables, validate sequence values, foreign key constraints, and run a smoke-test suite of representative application queries/transactions.\n\n10. **Resume application traffic and monitor**: Take the application out of maintenance mode, monitor error rates, query latency, replication/connection health, and resource utilization on the new managed instance closely for the first several hours; keep the on-prem instance intact (read-only, not decommissioned) as a fallback.\n\n11. **Rollback procedure (execute if verification fails or critical issues arise during/after cutover)**: If integrity checks fail or severe errors occur, immediately revert application connection strings/DNS back to the on-prem database (which was never decommissioned and remains consistent up to the freeze point in step 7), notify stakeholders of the rollback, restore from the pre-cutover backup if the on-prem instance was modified, and postpone cutover for root-cause analysis before rescheduling.\n\n12. **Post-migration wrap-up**: After a stable observation period (e.g., 1–2 weeks) with no rollback needed, decommission or archive the on-prem database, remove temporary replication links, update documentation/runbooks, and send a final completion notice to stakeholders.\n\nSTEP COUNT: 12",
+  "response_sha256": "7fd329e0bd0dc0a588d83508b0d5d8c8acf1c9af51cf0fad4f0a97e9b375d3d4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28330,
+    "output_tokens": 1363,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1363,
+        "cache_read_input_tokens": 28330,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0193,
+    "duration_ms": 18920,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:42:34+00:00",
+  "finished_at": "2026-09-13T04:42:54+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

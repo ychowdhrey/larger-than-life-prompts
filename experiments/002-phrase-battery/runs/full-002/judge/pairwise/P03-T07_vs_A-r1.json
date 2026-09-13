@@ -1,0 +1,19 @@
+{
+  "pair_id": "P03-T07_vs_A-r1",
+  "contrast_id": "T07_vs_A",
+  "task_id": "P03",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T07",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T07",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both schedules are logically valid and satisfy all constraints (prerequisites, one task per engineer per day, 10-day limit), but Response B's reasoning is internally consistent (it states the critical chain runs back-to-back on one engineer and then keeps T1→T2→T4→T6 all on E1), whereas Response A's reasoning claims the critical chain must run with no gaps on one engineer but then hands T6 off to E2, creating a confusing justification for an otherwise valid schedule.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:45+00:00"
+}

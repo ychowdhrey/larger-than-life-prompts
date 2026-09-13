@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T10-r2",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T10",
+  "condition_name": "phrase_t10",
+  "repetition": 2,
+  "execution_index": 331,
+  "sample_seed": 3946461678480673348,
+  "prompt_sha256": "a905aa4e00f8d60a08ec087a07a1dd792231fee5f67d68e07f51ee0a9583e0e0",
+  "prompt_chars": 606,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`)**\nDefault argument values are evaluated once, at function-definition time, and the same list object is reused for every call that doesn't explicitly pass `seen`. This means `seen` silently persists and accumulates across separate, unrelated calls to `top_scores`. A score seen in one call will be treated as \"already seen\" and excluded from `result` in a later, completely independent call — causing scores that legitimately belong in the new top-N list to be silently dropped. This also makes the function not thread-safe/not reentrant in ways callers won't expect.\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\n`list.sort()` sorts the list object itself rather than returning a sorted copy. Since `scores` is the exact object passed in by the caller, this reorders the caller's original list as a side effect. Any code outside this function that relied on the original ordering of that list will see it silently changed after calling `top_scores`.\n\n**3. `IndexError` when `limit` exceeds the number of scores**\nThe loop does `for i in range(0, limit): ... scores[i] ...` without checking `limit` against `len(scores)`. If `limit` (default 5) is greater than the number of elements in `scores` (e.g., only 3 scores are supplied), `scores[i]` will raise an `IndexError` once `i` reaches `len(scores)`, crashing the function.\n\n**4. `ZeroDivisionError` when `scores` is empty**\n`average = sum(scores) / len(scores)` divides by `len(scores)` with no guard for an empty list. If `scores` is `[]`, this raises `ZeroDivisionError` (and would also hit defect #3 first, since `range(0, limit)` would try to index into the empty list).\n\n**5. Duplicate values among the top `limit` scores cause fewer than `limit` results to be returned**\nThe loop only ever inspects the first `limit` positions of the sorted list (`range(0, limit)`) and skips a position when its value is already in `seen` (e.g., a tie between two scores). It does not extend the scan further down the list to compensate for a skipped duplicate. So if, say, the top 5 sorted scores are `[100, 100, 90, 80, 70]`, the second `100` is skipped for being a duplicate, and `result` ends up with only 4 entries (`[100, 90, 80, 70]`) instead of the 5 distinct top scores that actually exist in `scores` (e.g. `70` should have been followed by the next distinct value, not omitted). The function under-returns whenever there are duplicate values within the top `limit` slice, even though enough distinct scores exist elsewhere in the list.",
+  "response_sha256": "63f9fefbf7fdcb02f0fa982cf07632db78f781ca4cbbccf1d53b3a475d3ef163",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2534,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2564,
+    "output_tokens_details": {
+      "thinking_tokens": 1675
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2534,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2564,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2534,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2534
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.040925199999999995,
+    "duration_ms": 28184,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:30:16+00:00",
+  "finished_at": "2026-09-13T04:30:46+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

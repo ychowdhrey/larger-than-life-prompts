@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T19-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 3,
+  "execution_index": 2050,
+  "sample_seed": 9256674942621015516,
+  "prompt_sha256": "813e6218755f6909daea7d7703bae335bc34e62a401167a333999fad3e4e9fcf",
+  "prompt_chars": 736,
+  "response": "## The problem\n\nOur team of twelve currently ships through long-lived feature branches, some open for two to four weeks before merge. Merge conflicts have become routine, integration typically happens the day before release, and QA regularly discovers issues that trace back to divergence between branches rather than to the features themselves. Two releases this quarter slipped specifically because of multi-day merge and rebase efforts. We are spending engineering time reconciling code instead of writing it, and the delay between \"code written\" and \"code integrated\" hides problems until they are expensive to fix.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits to main at least once a day, incomplete work ships behind feature flags, and branches live for hours, not weeks. This isn't a radical rewrite of our workflow — it changes when we integrate, not how we design or review code. Concretely:\n\n- Adopt feature flags for any change that can't be completed within a single day, so main stays releasable at all times.\n- Require CI to pass on every commit to main, with a fast (under ten minutes) test suite as a gate.\n- Cap any working branch at 48 hours before it must merge or be abandoned.\n- Pair or mob on larger changes so multiple people can contribute directly to trunk without a long-lived branch per person.\n- Run a two-week pilot with one squad before rolling out team-wide.\n\n## What could go wrong\n\nThe strongest objection is that frequent small merges to a shared main increase the risk of half-finished or subtly broken code reaching production, especially without mature feature-flag discipline. That risk is real: flags add complexity, and a forgotten flag is its own bug class. We should treat flag hygiene and cleanup as an explicit responsibility, not an afterthought, and expect the first month to be bumpier before it gets better.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "2f297fd7cadfb607800dbca093bfac04b423ca62205778a8dcb709bfe6d4996a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28296,
+    "output_tokens": 698,
+    "output_tokens_details": {
+      "thinking_tokens": 104
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 698,
+        "cache_read_input_tokens": 28296,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0126432,
+    "duration_ms": 11722,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:10:43+00:00",
+  "finished_at": "2026-09-13T05:10:56+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

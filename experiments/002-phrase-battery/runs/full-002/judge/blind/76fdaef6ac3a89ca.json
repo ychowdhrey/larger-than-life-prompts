@@ -1,0 +1,22 @@
+{
+  "item_id": "76fdaef6ac3a89ca",
+  "sample_id": "P02-E03-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E03",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four headings in order, gates the snapshot before any destructive step, explicitly requires snapshot completion before any restart/failover, includes a clear abort/rollback condition, and ends with the correctly formatted SECTIONS line, all while showing detailed operational depth (WAL/log purge safety, crash-consistent snapshot timing, replication-lag checks). It lacks only an explicit final self-audit confirming it meets each stated hard requirement.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:19+00:00"
+}

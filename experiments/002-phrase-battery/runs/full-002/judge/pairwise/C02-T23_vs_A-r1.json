@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T23_vs_A-r1",
+  "contrast_id": "T23_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T23",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T23",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly identify and explain the same four core defects (WHERE-clause join filtering, UTC vs UTC+8 boundary, integer division truncation, and NULL sums from COALESCE-less aggregation) with comparable accuracy and clarity. Response A additionally flags the non-standard GROUP BY (selecting c.name/c.signup_date without full grouping), a genuine portability defect that would break the query on stricter engines like SQL Server, making its defect list more complete without introducing any incorrect claims.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:10+00:00"
+}

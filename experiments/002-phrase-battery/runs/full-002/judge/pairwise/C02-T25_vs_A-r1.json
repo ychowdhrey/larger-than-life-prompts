@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T25_vs_A-r1",
+  "contrast_id": "T25_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T25",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T25",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly identify the same four core defects (LEFT JOIN turned into INNER JOIN by the WHERE clause, UTC vs UTC+8 boundary mismatch, integer division truncation, and NULL-vs-zero SUM) with equally accurate explanations and fixes, but Response A additionally flags the valid GROUP BY issue (c.name and c.signup_date are unaggregated and not grouped), which is a real portability/correctness defect on stricter engines that Response B omits entirely.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:29:26+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "ce53003bd31015a4",
+  "sample_id": "P02-T12-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T12",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All four required headings appear in order, the snapshot is explicitly mandated before any destructive action and before failover, an abort/rollback condition is clearly stated, and the SECTIONS: 4 line matches the format exactly; the runbook is also operationally detailed and realistic (e.g., handling snapshot failure under I/O saturation, safe-deletion checks for WAL/binlog, replica lag checks before failover).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:44+00:00"
+}

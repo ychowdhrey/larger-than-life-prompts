@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-A-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 2,
+  "execution_index": 61,
+  "sample_seed": 16999522000110016798,
+  "prompt_sha256": "8089cc52136149aaf3746caa0a30a0a28611b73de88c74774b49c8123ea07a52",
+  "prompt_chars": 971,
+  "response": "## Defects in the memo's reasoning\n\n**1. Correlation mistaken for causation (webinar → retention)**\nAttending a webinar is not randomly assigned. Customers who choose to show up are probably more engaged, more invested in the product, or earlier adopters of best practices — any of which could independently explain higher retention. The memo asserts \"webinars therefore cause higher retention\" from a simple group comparison, with no control for this self-selection. Consequence: the causal claim is unsupported, and the estimated 31% effect is likely inflated by the confound.\n\n**2. Survivorship bias in the sample**\nThe analysis only includes the 412 customers \"still active on the Pro plan today\" — churned customers are excluded entirely before the comparison is made. Conditioning the sample on the very outcome (retention) you're trying to explain distorts the comparison: you can't cleanly attribute differences in retention to webinar attendance when everyone left in the dataset has, by construction, already been retained. Consequence: the 31% figure doesn't measure what it claims to measure and can't be trusted as an estimate of webinar impact on churn.\n\n**3. Policy recommendation doesn't follow even if the correlation were causal**\nMandating attendance changes *who* attends (unmotivated customers now included) and *how* they attend (compliance vs. genuine interest). The observed effect comes from voluntary attendees; nothing shows forced attendance would reproduce it. Consequence: rolling out mandatory webinars could yield a much smaller effect than projected, wasting the investment.\n\n**4. Multiple-comparisons problem (region result)**\nTesting 18 attributes against churn and flagging one hit at p = 0.04 is a classic multiple-testing trap. With 18 independent tests at α = 0.05, the chance of finding at least one \"significant\" result by pure chance is roughly 1 − (0.95)^18 ≈ 60%. No correction (e.g., Bonferroni, which would require p < ~0.0028 here) is applied. Consequence: the \"Central region churns less\" finding is quite likely a false positive from data dredging, not a real effect.\n\n**5. Correlation mistaken for causation (region → churn)**\nEven setting aside the multiple-comparisons issue, a regional correlation with churn doesn't imply that *spending* in that region would improve retention elsewhere or that region is the causal driver rather than a proxy for something else (customer mix, account size, competitive environment, tenure, etc.). Consequence: concentrating spend on Central region may not produce any retention gain, since the driver of the observed difference is unidentified.\n\n**6. Satisfaction change treated as meaningful without any test of significance**\nThe 62%→66% shift is reported as evidence the \"new support model is working,\" but no sample size, confidence interval, or significance test is given. A 4-point quarter-over-quarter move in a satisfaction metric can easily fall within normal sampling or seasonal variation. Consequence: the memo may be crediting the support model for what is actually noise.\n\n**7. Post hoc ergo propter hoc on the satisfaction change**\nEven if the 4-point rise is real, the memo attributes it solely to the new support model without ruling out other things that changed the same quarter (pricing, product updates, seasonality, macro factors) and without any control/baseline comparison. Consequence: credit may be misattributed, leading to continued investment in a change that isn't actually responsible for the improvement.",
+  "response_sha256": "0a8625960fd3fbec311f6a88da694c6aff4baaad743999f2ce74592724ee72b6",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28357,
+    "output_tokens": 2744,
+    "output_tokens_details": {
+      "thinking_tokens": 1614
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2744,
+        "cache_read_input_tokens": 28357,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0331154,
+    "duration_ms": 34165,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:23:51+00:00",
+  "finished_at": "2026-09-13T04:24:27+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

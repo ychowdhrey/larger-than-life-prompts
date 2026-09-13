@@ -1,0 +1,22 @@
+{
+  "item_id": "20ba776ec1229f58",
+  "sample_id": "P01-D-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "D",
+  "repetition": 1,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 3,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits nearly every hard requirement (12 steps, rollback, rehearsal, stakeholder comms, pre-destructive backup) with good technical depth on using replication to fit a 2TB migration in a 2-hour window, but the data integrity verification (step 10) occurs before the cutover/repoint step (step 11) rather than after cutover as explicitly required.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:05+00:00"
+}

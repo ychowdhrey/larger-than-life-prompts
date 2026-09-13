@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T18-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T18",
+  "condition_name": "phrase_t18",
+  "repetition": 3,
+  "execution_index": 1738,
+  "sample_seed": 10046735680974017725,
+  "prompt_sha256": "27dd9f2503cbccb4dee95ff49a11b382f9c967b8ee2669db4c816415a5a5521a",
+  "prompt_chars": 1036,
+  "response": "Four distinct defects, one per numbered claim below.\n\n**1. Webinar/retention: survivorship bias (selection on the outcome)**\n- **What's wrong:** The analysis restricts the sample to the 412 customers who are *already* still active on the Pro plan — i.e., the sample is pre-filtered to people who already succeeded on the very outcome (retention) being studied. Churned customers are excluded entirely, so the \"31% higher retention\" comparison is being computed inside a population that has already been selected for retention, not across the full cohort of who started as a Pro customer.\n- **What it causes:** Any estimate of webinar effect drawn this way is systematically distorted (typically inflated), because the group that would show the strongest test of the hypothesis — customers who churned — never enters the calculation. Conclusions and any downstream sizing of the \"effect\" can't be trusted until the analysis includes churned customers too.\n\n**2. Webinar/retention: correlation treated as causation**\n- **What's wrong:** Even ignoring (1), webinar attendance is self-selected, not randomly assigned. Customers who choose to attend an onboarding webinar are plausibly more engaged/motivated to begin with, and that underlying motivation (a confound) could drive both higher webinar attendance and higher retention independently. Nothing in the memo rules this out (no randomization, no control for engagement, no A/B test) — yet it jumps straight to \"webinars therefore cause higher retention.\"\n- **What it causes:** Making attendance mandatory for all new customers assumes forcing an unmotivated customer to attend will reproduce the same lift seen in customers who *chose* to attend. If motivation is the real driver, mandatory attendance may produce little or no retention benefit, wasting the operational cost of running/enforcing mandatory webinars.\n\n**3. Central-region churn: multiple comparisons without correction**\n- **What's wrong:** 18 different attributes were tested against churn, and the one that happened to cross p=0.04 is being reported as if it were a targeted, pre-specified test. With 18 independent tests at α=0.05, the chance that *at least one* comes back \"significant\" purely by chance is roughly 1-(0.95)^18 ≈ 60%, not 4%. No multiple-comparison correction (Bonferroni, FDR, etc.) or replication is mentioned.\n- **What it causes:** The Central-region effect is quite likely a statistical artifact of searching through 18 variables rather than a real driver of churn. Concentrating next quarter's spend there on this basis risks misallocating budget toward a pattern that won't recur.\n\n**4. Satisfaction increase: causal attribution without significance testing or ruling out alternative explanations**\n- **What's wrong:** The 62%→66% move is attributed to \"the new support model\" with no statistical test of whether a 4-point shift is distinguishable from ordinary quarter-to-quarter variation (no sample size, confidence interval, or significance test given), and no consideration of other concurrent factors (seasonality, pricing changes, other initiatives, macro conditions) that could equally explain the change. This is again a correlation-to-causation leap, this time compounded by an unverified claim that the move is even a real signal rather than noise.\n- **What it causes:** The organization may credit the new support model with a win it didn't earn (or a change that's within noise), leading to continued investment in something unproven while the actual cause of any real improvement — or an unrelated real problem — goes unidentified.",
+  "response_sha256": "eaaabea8b30d4f487959594cf708dd62ace93923ea921e8d1672ada12614511b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28375,
+    "output_tokens": 4062,
+    "output_tokens_details": {
+      "thinking_tokens": 2914
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4062,
+        "cache_read_input_tokens": 28375,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.04629899999999999,
+    "duration_ms": 48689,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:03:57+00:00",
+  "finished_at": "2026-09-13T05:04:47+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

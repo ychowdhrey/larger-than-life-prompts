@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T19-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 2,
+  "execution_index": 993,
+  "sample_seed": 13709257627904489160,
+  "prompt_sha256": "c88979e6cde9aa1a814136367c747d6e8cc216b5d5051fe629f0457ab9a08bf7",
+  "prompt_chars": 1022,
+  "response": "## Claim 1 — Webinar attendance → retention\n\n**1. Survivorship bias in the sample itself.** The analysis is restricted to \"the 412 customers who are still active on the Pro plan today\" — i.e., churned customers are excluded from the dataset before the comparison is even made. Any retention/churn driver analysis needs the full cohort (attendees and non-attendees, including those who left) to compute a valid retention rate. Conditioning on \"still active\" and then splitting by webinar attendance can produce a spurious or distorted gap purely as an artifact of who survived to be counted, independent of any real effect of webinars.\n\n**2. Correlation treated as causation.** Webinar attendance is self-selected, not randomized. Customers who bother to attend an onboarding webinar are plausibly more engaged, more invested in the product, or earlier/more diligent adopters — any of which could independently drive higher retention. The memo asserts \"webinars therefore cause higher retention\" with nothing to rule out this confound (no randomization, no controls for engagement/firmographics, no matching).\n\n**3. Extrapolating a voluntary-attendee effect to a mandatory population.** Even if the association were causal for the kind of customer who currently opts in, that doesn't imply the same effect for customers who would only attend because it's compulsory. Forced attendance changes the composition of attendees (now includes disengaged customers) and could dilute or even reverse the effect. The recommendation assumes the effect transfers unchanged to a completely different (universal, compulsory) population.\n\n**4. No significance/sample-size reporting.** Unlike the churn claim, no p-value, confidence interval, or subgroup sizes are given for the 31% figure. Without them there's no way to tell whether this is a robust effect or noise from a small subgroup — an odd asymmetry given the rigor (such as it is) applied elsewhere in the memo.\n\n## Claim 2 — Central region and churn\n\n**5. Multiple-comparisons problem, uncorrected.** Testing 18 attributes at the conventional α = 0.05 threshold gives a high chance of at least one false positive by chance alone even if nothing real is going on — roughly 1 − 0.95¹⁸ ≈ 60%. A single result at p = 0.04, found among 18 tests with no correction (e.g., Bonferroni, which would require p < ~0.0028) is exactly the pattern expected from noise, not evidence of a real regional effect. Treating it as a solid finding is very likely a false positive.\n\n**6. Causal/actionability leap.** Even setting aside the multiplicity problem, \"Central region churns less\" is a correlation with no proposed mechanism. It could reflect account size, industry mix, tenure, or contract type rather than anything geographic or anything responsive to marketing/support spend. Recommending that spend be *concentrated* there assumes both that the effect is real and that it is caused by something spend can influence — neither is established.\n\n## Claim 3 — Satisfaction 62% → 66%\n\n**7. No test of whether a 4-point move is distinguishable from noise.** There's no confidence interval, sample size, or comparison to typical quarter-to-quarter variability. A 4-point swing in a satisfaction metric is often within normal survey-to-survey noise (especially with non-census sampling or response-rate changes), so \"the new support model is working\" outruns what a single point-in-time comparison can support.\n\n**8. Post hoc causal attribution.** The rise is attributed to \"the new support model\" with no attempt to rule out concurrent alternative explanations (seasonality, pricing/product changes, a change in who responded to the survey, general market conditions). Timing coincidence is not evidence of causation.\n\n**9. Percentage points mislabeled as percent.** Going from 62% to 66% is a 4-*percentage-point* increase, not a \"4% improvement\" — the relative increase is actually about 6.5%. This is a labeling error in the reasoning (not in the raw numbers, which are correct) that can mislead readers about the true magnitude of change, either understating or overstating it depending on how it's later quoted.",
+  "response_sha256": "e48486f0aa19821a45707888db76664e1bf4574b0f0b744126609267d16a3b36",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28373,
+    "output_tokens": 4337,
+    "output_tokens_details": {
+      "thinking_tokens": 2986
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4337,
+        "cache_read_input_tokens": 28373,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0490486,
+    "duration_ms": 53001,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:46:22+00:00",
+  "finished_at": "2026-09-13T04:47:16+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

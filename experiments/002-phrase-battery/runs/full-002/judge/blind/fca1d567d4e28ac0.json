@@ -1,0 +1,22 @@
+{
+  "item_id": "fca1d567d4e28ac0",
+  "sample_id": "P01-T25-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T25",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (12 numbered steps, rollback, rehearsal, post-cutover integrity verification, stakeholder communication, backups placed before any data-affecting step) and the trailing step count line matches exactly, while also showing real domain insight such as CDC-based replication to shrink the cutover window, timing validation during the rehearsal, and keeping on-prem untouched as a rollback safety net.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:50+00:00"
+}

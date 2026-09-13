@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T12-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T12",
+  "condition_name": "phrase_t12",
+  "repetition": 1,
+  "execution_index": 1868,
+  "sample_seed": 7442869924652277269,
+  "prompt_sha256": "9b54e90226d4077bc2fd35abe04d05409cbdfdb0b1fe1718f3d884bc07ea1575",
+  "prompt_chars": 737,
+  "response": "## The problem\n\nOur team of twelve is spending too much time fighting integration pain instead of shipping. Feature branches routinely live for two to three weeks, and by the time they're ready to merge, they've drifted far enough from main that merges eat entire afternoons. Code review happens too late to be useful — reviewers face a 900-line diff instead of a focused change — and bugs introduced by integration surface days after the actual mistake was made, when nobody remembers the context. We're also duplicating effort: two engineers this quarter built overlapping utility functions because neither could see the other's in-progress branch. The result is slower delivery, not more careful delivery.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequent changes directly to main (or through branches that live less than a day), gated by automated tests and feature flags for anything not ready for users.\n\n- Merge conflicts shrink dramatically because divergence never has time to accumulate.\n- Code review shifts to small, fast, same-day diffs instead of sprawling end-of-cycle reviews.\n- Feature flags let us decouple \"merged\" from \"released,\" so incomplete work stays invisible to users without blocking integration.\n- CI must run fast and reliably, since it becomes the safety net every commit passes through.\n- We'll need a two-week ramp-up to build flagging infrastructure and align on commit discipline before flipping the switch.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands strong test coverage and fast CI, and ours isn't there yet. Our test suite has known gaps, and a flaky or slow pipeline could mean broken code lands on main regularly, which is worse than the problem we're solving. I don't think this objection is wrong — it just points to a prerequisite, not a dead end. We should invest in CI reliability and coverage in the gaps that matter most (payments and auth first) before or alongside the transition, and be honest that if CI can't be trusted within a month, we pause and fix that first. There's also a cultural risk: engineers accustomed to isolated branches may feel exposed committing unfinished work to main, even behind flags, and that discomfort is worth naming rather than steamrolling.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "a9d836e5e5b2c17aa9c8dd6cc7f11319be5ac6e0a20ba3f18f8822971180df1d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28295,
+    "output_tokens": 728,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 728,
+        "cache_read_input_tokens": 28295,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012943,
+    "duration_ms": 13195,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:06:38+00:00",
+  "finished_at": "2026-09-13T05:06:53+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "bcd2b58d332d8f05",
+  "sample_id": "C01-E06-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E06",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default argument, IndexError on short lists, ZeroDivisionError on empty input, in-place mutation of caller's list, and within-call duplicate suppression) with accurate mechanisms, concrete effects, and a verifying example, while reporting no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:02+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E01-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E01",
+  "condition_name": "combo_e01",
+  "repetition": 2,
+  "execution_index": 68,
+  "sample_seed": 15880232491409128504,
+  "prompt_sha256": "ab3c4915968c30f89b3ce64373ed5b34f7a88654e9078e5eb83ab5bdb0a820df",
+  "prompt_chars": 854,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the old billing system (\"Legacy\") to the new billing system (\"Nova\") in controlled phases. Both systems will run concurrently throughout the migration (\"dual-run\"), allowing side-by-side validation, fast rollback of individual cohorts, and no forced cutover until confidence is established. Legacy remains fully operational and authoritative-for-fallback through every user-migration phase; its retirement is handled only after all users are migrated and a stabilization/audit period has passed.\n\n---\n\n## Phase 0 — Internal & Synthetic Validation (0% of real users)\n\n**Scope:** No real customer accounts. Internal test accounts, synthetic load-test users, and employee \"dogfood\" accounts on Nova.\n\n**Entry criterion to start:** Nova billing system has passed independent QA sign-off, including successful parallel invoice/charge reconciliation against Legacy for at least 2 weeks of synthetic traffic with 100% data parity, and rollback tooling (ability to revert a single account to Legacy-of-record within 15 minutes) has been demonstrated in a game-day exercise.\n\n**Exit criterion:** Zero critical defects open for 5 consecutive business days; reconciliation mismatch rate = 0% across synthetic accounts.\n\n---\n\n## Phase 1 — Canary (1% of users, ~400 accounts)\n\n**Scope:** ~400 real users, drawn from low-risk segments only: internal-tagged friendly customers, free/trial-tier accounts, and accounts with no active disputes or high-value contracts. Explicitly excludes enterprise accounts, accounts in active dunning/collections, and accounts with custom billing terms.\n\n**Entry criterion to start:** Phase 0 exit criteria met, plus written go/no-go sign-off from Billing Engineering, Finance, and Support leads; support runbooks and escalation paths for Nova published.\n\n**Exit criterion:** 5 business days at target volume with billing-discrepancy rate ≤ 0.1% (see halt metric below), no P1/P2 incidents attributable to Nova, and support ticket volume for migrated cohort within 1.5x of Legacy baseline.\n\n---\n\n## Phase 2 — Early Majority (15% of users, ~6,000 accounts)\n\n**Scope:** Broader mix of segments including standard paid subscription tiers across multiple geographies/currencies and payment methods (cards, ACH, invoiced net-30), but still excluding the highest-complexity enterprise contracts.\n\n**Entry criterion to start:** Phase 1 exit criteria met; all P1/P2 issues found in Phase 1 fixed and verified; finance has reconciled Phase 1 revenue reports between Legacy and Nova with < 0.1% variance for one full billing cycle.\n\n**Exit criterion:** 7 business days at target volume with billing-discrepancy rate ≤ 0.1%, payment success rate within 0.5 percentage points of Legacy baseline for the same cohort, and no unresolved P1 incidents.\n\n---\n\n## Phase 3 — General Availability / Majority Rollout (50% of users, ~20,000 accounts)\n\n**Scope:** Remaining standard accounts across all supported geographies, currencies, and payment methods; enterprise accounts with standard (non-custom) contract terms are now included.\n\n**Entry criterion to start:** Phase 2 exit criteria met; customer support staffing scaled up for expected ticket volume; automated reconciliation dashboards operating in real time (not batch) with alerting configured.\n\n**Exit criterion:** 10 business days at target volume with billing-discrepancy rate ≤ 0.1%, and a full monthly billing cycle closed on Nova for this cohort with finance sign-off.\n\n---\n\n## Phase 4 — Final Batch (remaining ~34% of users, ~13,600 accounts, cumulative 100%)\n\n**Scope:** All remaining accounts, including highest-complexity enterprise contracts, custom billing arrangements, and any accounts deliberately held back in earlier phases (e.g., accounts with active disputes, resolved and re-queued).\n\n**Entry criterion to start:** Phase 3 exit criteria met; each remaining enterprise/custom account has an individually reviewed migration checklist signed off by an account manager; a dedicated white-glove support rotation is staffed for the migration window.\n\n**Exit criterion:** All 40,000 accounts fully migrated and processing live charges on Nova; billing-discrepancy rate ≤ 0.1% sustained for 10 business days; two consecutive full billing cycles closed cleanly on Nova with finance reconciliation sign-off.\n\n---\n\n## Phase 5 — Legacy Decommission (post-migration; 0% incremental user migration)\n\n**Note:** This phase begins only after Phase 4's exit criteria are fully met and a minimum 60-day stabilization/audit window has passed with no reopened migration incidents. Legacy is kept running in read-only/archival mode during this window for audit, dispute resolution, and regulatory retention purposes before any decommissioning steps (data archival, environment teardown, contract cancellation with the old vendor) begin. This phase is intentionally separated from Phase 4 so that decommissioning never occurs in the same phase as the final batch of user migration.\n\n**Entry criterion to start:** Phase 4 exit criteria met; 60-day stabilization window elapsed with zero critical rollback events; legal/finance retention requirements documented and archival plan approved.\n\n---\n\n## Rollback Strategy\n\nBecause both systems run concurrently, each phase supports per-account rollback to Legacy-of-record: Legacy remains the system of record for any account not yet fully migrated, and migrated accounts can be flagged back to Legacy billing within 15 minutes if a critical defect is found, with reconciliation of any charges made on Nova during the affected window.\n\n---\n\n## Halt Metrics (numeric thresholds)\n\n- **Billing discrepancy rate > 0.5%** (mismatches between Nova-calculated and Legacy-shadow-calculated charges for the same billing event, measured hourly) → **halt rollout immediately**, freeze the current phase's user count, and do not advance to the next phase or add new accounts until root-caused and fixed.\n- Additional supporting thresholds that also trigger a halt: payment failure rate for a migrated cohort exceeding Legacy baseline by more than 2 percentage points over any rolling 24-hour period; or more than 3 P1 incidents attributable to Nova within a single 7-day window.\n\n---\n\n## Risks\n\nRISK: Duplicate or double charges occur when both Legacy and Nova process the same billing event during dual-run | Implement idempotency keys shared across both systems and a real-time reconciliation job that flags and auto-refunds duplicates within 1 hour | Billing Engineering Lead\nRISK: Currency, tax, or proration calculation differences between Legacy and Nova cause silent revenue leakage or overcharging | Run shadow-mode parallel calculation and diffing for every account for at least one full billing cycle before migrating it, with Finance sign-off on variance reports | Finance Controller\nRISK: Enterprise customers with custom contract terms are migrated incorrectly, damaging key accounts | Exclude custom-contract accounts from automated phases; require individual migration checklists and account-manager sign-off before migration (handled in Phase 4) | Enterprise Account Management Lead\nRISK: Support team is overwhelmed by ticket volume spikes during larger phases, delaying resolution of billing errors | Pre-scale support staffing ahead of each phase based on prior phase ticket-volume-per-1000-accounts, and maintain a dedicated escalation queue for billing-migration issues | Customer Support Manager\nRISK: Legacy system is decommissioned or degraded prematurely while some accounts still depend on it for disputes or historical data | Keep Legacy in full read/write mode through all user-migration phases and in read-only archival mode for a minimum 60-day post-migration window before any decommissioning step begins | Infrastructure/Platform Owner\nRISK: Data migration errors (e.g., incorrect payment method tokens, stale card data) cause failed charges after cutover for a batch of users | Validate payment method tokenization and perform a $0/small test-charge authorization check for each account within 24 hours before flipping it to Nova as system of record | Payments Integration Engineer\n\nPHASES: 5",
+  "response_sha256": "04da3bf2cbe3d63a3b6ef51725662b2b88d030945f9bb10ae600e26d092a3582",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2603,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2874,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2603,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2874,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2603,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2603
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0443012,
+    "duration_ms": 36213,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:24:05+00:00",
+  "finished_at": "2026-09-13T04:24:42+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

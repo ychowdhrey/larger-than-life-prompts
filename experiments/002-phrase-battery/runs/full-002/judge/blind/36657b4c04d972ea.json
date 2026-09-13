@@ -1,0 +1,22 @@
+{
+  "item_id": "36657b4c04d972ea",
+  "sample_id": "C02-T10-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T10",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all the substantive defects implied by the schema notes (WHERE clause defeating the LEFT JOIN, UTC vs UTC+8 boundary mismatch, integer division truncation, NULL total for zero-order customers) with accurate causal explanations and concrete fixes, and appropriately hedges the GROUP BY point as engine-dependent rather than asserting a universal bug. It stays within scope and avoids fabricated issues, making it directly actionable for someone fixing the query.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:22+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "7c9cb117156d34bc",
+  "sample_id": "C05-T16-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T16",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-boundary bug (>100 vs >=100 violating R1), correctly catches that test_cap asserts 100.0 when the actual capped result is 50.0 (a real test failure), and correctly notes the missing boundary coverage at total=100, all without inventing false defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:01+00:00"
+}

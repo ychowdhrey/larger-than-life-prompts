@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T21_vs_A-r3",
+  "contrast_id": "T21_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T21",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet the hard requirements, but B sequences backup-before-destructive-action more rigorously (backup before rehearsal, then another backup precisely at the point writes are stopped before cutover) and adds a rehearsal-refinement step and staged stakeholder reminders, making it a more actionable and safer runbook than A, whose step 11 awkwardly merges reopening traffic with the rollback procedure.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:44:00+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "bc0b5016aed06c2a",
+  "sample_id": "P02-T12-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T12",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, clearly sequences a storage snapshot before any risky action, never permits restart or failover before the snapshot completes, and includes multiple explicit abort/rollback conditions with concrete triggers and reversal steps; it ends with the correct 'SECTIONS: 4' line.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:38+00:00"
+}

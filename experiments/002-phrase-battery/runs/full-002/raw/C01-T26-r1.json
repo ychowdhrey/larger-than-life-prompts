@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T26-r1",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 1,
+  "execution_index": 1547,
+  "sample_seed": 16784027699448739440,
+  "prompt_sha256": "fd5a523a183866d733579077cdcae43cf0da76baf520f3feee70c7b71b13d4cb",
+  "prompt_chars": 624,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`)**\nDefault argument values are evaluated once, when the function is defined — not on every call. That single list object is shared across all calls that don't explicitly pass `seen`. Consequence: values appended to `seen` in one call persist into later, unrelated calls. A score seen in an earlier call will silently be excluded from the result of a later call (treated as a \"duplicate\" even though it's a different invocation), and the list grows without bound for the lifetime of the program (a memory leak). This is the most serious defect.\n\n**2. Sorting mutates the caller's list in place**\n`scores.sort(reverse=True)` sorts `scores` in place rather than working on a copy. Consequence: the caller's original list is silently reordered as a side effect of calling this function, which can break other code that relied on the list's original order (or is simply surprising/undocumented behavior).\n\n**3. No bounds check on `limit` vs. the length of `scores`**\n`for i in range(0, limit)` unconditionally iterates `limit` times and indexes `scores[i]`. Consequence: if `len(scores) < limit` (e.g., only 3 scores but `limit=5`), this raises `IndexError: list index out of range`.\n\n**4. Division by zero when `scores` is empty**\n`average = sum(scores) / len(scores)` divides by `len(scores)` with no check for an empty list. Consequence: calling the function with `scores=[]` raises `ZeroDivisionError`.\n\n**5. Legitimate tied/duplicate scores are incorrectly collapsed**\nThe `seen` check (`if scores[i] not in seen`) filters out any score value already recorded — including duplicates that occur naturally within the *same* call (e.g., two different players both scoring 100). Consequence: when there are ties among the top values, the second and later occurrences of the same value are skipped, so `result` ends up shorter than `limit` even when `scores` contains enough entries to fill it. This conflates \"already-returned value\" with \"duplicate score,\" which loses valid data.",
+  "response_sha256": "9e8db066be9996f5b59b809806d02859c953758d0fcbbe8b19e37c6843c844a5",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28262,
+    "output_tokens": 2100,
+    "output_tokens_details": {
+      "thinking_tokens": 1423
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2100,
+        "cache_read_input_tokens": 28262,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026656399999999997,
+    "duration_ms": 24178,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:59:33+00:00",
+  "finished_at": "2026-09-13T04:59:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-D-r3",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "D",
+  "condition_name": "explicit_effort",
+  "repetition": 3,
+  "execution_index": 1321,
+  "sample_seed": 13010126874648306276,
+  "prompt_sha256": "2598761c9ac29941f33ea9e94e87efd4a7b7539a29ce9880e36deb8d9d07e074",
+  "prompt_chars": 624,
+  "response": "## Defects found\n\n**1. Mutable default argument `seen=[]`**\nDefault argument values are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't explicitly pass `seen`. Effect: state leaks across calls. A score returned as a \"top score\" in one call will be silently treated as already-seen and excluded from `result` in a later, unrelated call — even though nothing in that later call's own `scores` list would justify excluding it. Callers get inconsistent results depending on call history, not just on the arguments they passed.\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\n`list.sort()` sorts in place and reorders the object the caller passed in, not a copy. Effect: after calling `top_scores(my_list)`, `my_list` itself is now sorted descending — a side effect on the caller's data that has nothing to do with computing top scores/average, and can break other code that relies on the original ordering of that list.\n\n**3. No check that `limit` does not exceed `len(scores)`**\nThe loop does `for i in range(0, limit): scores[i]` with no bound relative to the list's actual length. Effect: `IndexError: list index out of range` whenever there are fewer scores than `limit` — which happens easily with the default `limit=5` and any input of fewer than 5 scores.\n\n**4. No handling of an empty (or `limit=0`) input for the average**\n`average = sum(scores) / len(scores)` divides by `len(scores)` unconditionally. Effect: `ZeroDivisionError` when `scores` is empty. This is reachable independently of defect #3 — e.g. `top_scores([], limit=0)` skips the loop entirely (since `range(0, 0)` is empty) and fails on the division.\n\n**5. Duplicate/tied values within the top `limit` window are dropped without backfilling**\nThe `seen` check is also applied *within* a single call to values that are genuinely tied for a top spot, not just to values seen in prior calls. Effect: if two of the top `limit` scores in the same call happen to be equal (e.g. `scores = [90, 90, 80, 70, 60]`, `limit=5`), the second `90` is treated as a duplicate and skipped, and the loop does not look further down the sorted list to compensate. `result` ends up with fewer than `limit` entries (4 instead of 5) even though enough distinct-position scores existed to fill it.",
+  "response_sha256": "f45f7b3a2bebeb7b5ab9007460fc2452b8b09e587c4548eca4d5af2bb68a99cb",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28265,
+    "output_tokens": 4527,
+    "output_tokens_details": {
+      "thinking_tokens": 3731
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4527,
+        "cache_read_input_tokens": 28265,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.05092699999999999,
+    "duration_ms": 49303,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:54:01+00:00",
+  "finished_at": "2026-09-13T04:54:51+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

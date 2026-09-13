@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T17_vs_A-r1",
+  "contrast_id": "T17_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both responses identify the same four core defects (WHERE clause defeating the LEFT JOIN, UTC vs UTC+8 boundary, integer division truncation, and NULL-vs-zero with sort implications) with equivalent fixes, but Response A's timezone explanation contains a factual slip — it claims the query 'instead includes 8 hours of the prior local day,' which is backwards (the extra hours included, if any, would fall at the end of the next local day, not the prior one), whereas Response B's timezone explanation is precise and free of that error. Response A's bonus point about GROUP BY functional dependency is a reasonable hedge but doesn't offset the inaccuracy in its main timezone reasoning.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:49+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T21-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 1,
+  "execution_index": 1532,
+  "sample_seed": 16036196837365785550,
+  "prompt_sha256": "1b3bcd64ab8a20c986a14126226d709b51dd014b55f3fe58d2748dc80b4c10d1",
+  "prompt_chars": 837,
+  "response": "# Billing System Migration Rollout Plan\n**40,000 users | Old + new systems running in parallel**\n\n## Overview\n\nMigration proceeds in four named phases, moving from internal validation through to full cutover, with the old system kept alive as a fallback well past the final user batch. Each phase gates on explicit entry criteria measured against the previous phase's results, not on calendar time.\n\n---\n\n## Phase 1: Canary (0.25% — ~100 users)\n\n**Entry criterion:** New billing system has passed end-to-end reconciliation testing in staging against a mirrored production dataset, with 100% invoice-amount parity on 10,000 synthetic test accounts, and rollback tooling (re-pointing a user back to the old system) has been tested successfully at least 5 times.\n\n**Population:** Internal employee accounts and consenting volunteer customers (mix of plan types) — not real-money-sensitive customers.\n\n**Activities:** Dual-write/dual-run both systems for this cohort; compare invoices, payment postings, and dunning events line-by-line. Manual review of every discrepancy.\n\n**Duration:** Minimum 2 full billing cycles before advancing.\n\n---\n\n## Phase 2: Early Adopters (5% — ~2,000 users)\n\n**Entry criterion:** Phase 1 completed 2 full billing cycles with zero unresolved financial discrepancies (see halt metric below) and support ticket volume from migrated users did not exceed 1.5x the baseline rate for non-migrated users.\n\n**Population:** Randomly sampled across plan tiers and geographies, excluding enterprise/high-ARR accounts and any account currently in an active dispute or dunning cycle.\n\n**Activities:** Continue parallel-run reconciliation but shift to automated diffing with human review only on flagged exceptions. Begin monitoring customer-facing symptoms (failed payments, duplicate charges) via support and payment-gateway webhooks, not just backend logs.\n\n**Duration:** Minimum 1 full billing cycle before advancing.\n\n---\n\n## Phase 3: General Availability Ramp (35% — ~14,000 users)\n\n**Entry criterion:** Phase 2 sustained a payment failure delta of less than 0.1 percentage points versus the old-system control group for a full billing cycle, and finance has signed off on ledger reconciliation for all Phase 1–2 migrated accounts.\n\n**Population:** Broad rollout by cohort (e.g., billing-anniversary date buckets) to spread cutover load evenly across the month; enterprise and high-ARR accounts still excluded and migrated only in Phase 4 with dedicated white-glove support.\n\n**Activities:** Reduce dual-write reconciliation sampling to a statistical subset (e.g., 10% of transactions) rather than full parity checking, given volume. Automated anomaly alerting becomes primary detection mechanism.\n\n**Duration:** Minimum 1 full billing cycle before advancing.\n\n---\n\n## Phase 4: Full Cutover — Final Batch (59.75% — ~23,900 users, including all remaining and enterprise accounts)\n\n**Entry criterion:** Phase 3 held the halt-metric thresholds below their limits for two consecutive billing cycles, enterprise account contacts have been individually notified at least 30 days in advance, and a dedicated incident-response rotation is staffed for the cutover window.\n\n**Population:** All remaining users, including enterprise/high-ARR accounts.\n\n**Activities:** Migrate remaining users in scheduled sub-waves by billing-anniversary date. The old system remains fully operational in read/fallback mode for at least one full billing cycle after the last user is migrated, to handle late-arriving disputes, chargebacks, and reconciliation of the final cycle billed on the old system. Decommissioning the old system is explicitly **out of scope for this plan** and must be a separate, subsequent phase gated on its own criteria (e.g., zero fallback invocations for 60 days, completed financial audit of the full migration).\n\n---\n\n## Halt / Rollback Metrics\n\nRoll back the current phase and freeze further migration immediately if, at any point during a phase:\n\n- **Payment failure rate** for migrated users exceeds **2% above** the concurrent baseline failure rate on the old system, measured over any rolling 24-hour window.\n- **Invoice amount discrepancy** (new system vs. expected/reconciled amount) is detected on more than **0.5%** of invoices in any billing run.\n- **Duplicate charge incidents** exceed **5 confirmed cases** in any 24-hour period, regardless of percentage.\n\nAny single trigger pauses new migrations into the current phase; already-migrated users are not automatically rolled back but are placed under enhanced monitoring pending root-cause analysis.\n\n---\n\n## Risks\n\nRISK: Duplicate or missed charges during dual-run window due to both systems attempting to bill the same invoice | Implement a single source-of-truth billing-lock flag per account so only one system is authoritative for charge execution at any time, with automated reconciliation alerts on conflicts | Payments Engineering Lead\nRISK: Data drift between old and new customer/plan records causes incorrect pricing after migration | Run automated nightly parity checks on plan, pricing, and entitlement data between both systems throughout all phases, blocking migration of any account with an unresolved diff | Data Integrity Team\nRISK: Enterprise customers experience invoice format or payment terms changes that breach contractual SLAs | Migrate enterprise accounts only in the final phase with individualized pre-migration review and 30-day advance notice, plus a dedicated account manager check-in | Enterprise Customer Success Lead\nRISK: Support team is overwhelmed by migration-related tickets, delaying detection of real financial issues | Stand up a dedicated migration support queue with escalation paths and staff it proportionally to each phase's user count before that phase begins | Customer Support Operations Manager\nRISK: Rollback path itself is broken or untested when actually needed under production load | Require a successful rollback drill (with real traffic shadowing) as an explicit gate before advancing out of Phase 1, and re-test rollback tooling before each subsequent phase | Site Reliability Engineering Lead\n\nPHASES: 4",
+  "response_sha256": "138e2a4c70934cdfde9e94f1c90afb21a0b6edc644405b161392bb74ec010342",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28323,
+    "output_tokens": 2088,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2088,
+        "cache_read_input_tokens": 28323,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0265486,
+    "duration_ms": 28334,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:59:09+00:00",
+  "finished_at": "2026-09-13T04:59:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

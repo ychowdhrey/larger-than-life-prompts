@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T19_vs_A-r2",
+  "contrast_id": "T19_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T19",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T19",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet all hard requirements (snapshot-first, no restart/failover before snapshot, correct section order), but Response B's abort/rollback conditions are more concrete and actionable (specific lag/disk thresholds, 5-minute reassessment windows, explicit restore-from-snapshot instructions), and its runbook adds practical rigor (IC/Scribe assignment, concrete commands like pg_stat_activity and VACUUM FULL, a time-to-full reassessment step) that make it slightly more usable as an actual incident procedure.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:04+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T06_vs_A-r3",
+  "contrast_id": "T06_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T06",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both hit all four required headings, gate restart/failover behind a snapshot, and include abort conditions, but Response A's MITIGATION section explicitly permits destructive cleanup (deleting temp/log/WAL files) once the snapshot is merely 'in progress,' weakening the snapshot-before-data-loss-risk requirement, whereas Response B requires the snapshot to be fully confirmed complete before any reclamation, resize, or failover step, more strictly and consistently honoring that hard constraint.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:37:20+00:00"
+}

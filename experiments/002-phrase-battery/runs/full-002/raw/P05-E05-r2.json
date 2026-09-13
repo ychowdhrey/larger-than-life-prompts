@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-E05-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "E05",
+  "condition_name": "combo_e05",
+  "repetition": 2,
+  "execution_index": 359,
+  "sample_seed": 6192333526193291158,
+  "prompt_sha256": "23559faf491dc6ce5600a9f50e2640a4f59bca688b157a55c4f7b1202297af8a",
+  "prompt_chars": 908,
+  "response": "# Billing System Migration — Rollout Plan\n**Scope:** Migrate 40,000 existing users from the legacy billing system (\"Old\") to the new billing system (\"New\"). Both systems run concurrently (dual-run) for the duration of the rollout.\n\n---\n\n## Guiding Principles\n\n- Old billing system remains fully operational, untouched, and authoritative-fallback for any user not yet cut over.\n- No irreversible action against Old (deletion, disabling, decommissioning, or removal of write access) occurs until at least one full billing cycle after 100% of users are confirmed successfully migrated and validated on New — and never within the same phase as the final migration batch.\n- Every phase requires an explicit sign-off against its entry criterion before it begins; no phase auto-starts on a timer alone.\n- Rollback to Old must remain possible for any migrated cohort throughout the rollout.\n\n---\n\n## Phase Overview\n\n| Phase | Name | % of Users | Approx. User Count |\n|---|---|---|---|\n| 1 | Canary | 1% | ~400 |\n| 2 | Early Adopter Expansion | 15% | ~6,000 |\n| 3 | Majority Rollout | 50% | ~20,000 |\n| 4 | Full Cutover (Remaining) | 34% | ~13,600 |\n\n(Four named phases total — satisfies \"at least three.\")\n\n---\n\n### Phase 1 — Canary (1%, ~400 users)\n\n**Entry criterion:** New billing system has passed a full end-to-end dry run against a shadow/mirrored copy of production data with 0 reconciliation discrepancies over a 7-day shadow-run window, and rollback tooling has been tested successfully in staging.\n\n**Cohort selection:** Internal test accounts and opted-in low-risk users (no active disputes, no enterprise/custom contracts, month-to-month plans only).\n\n**Actions:**\n- Migrate account, payment method tokens, and subscription state to New.\n- Run both systems in parallel for this cohort for 3 full billing cycles; Old remains authoritative fallback.\n- Daily manual reconciliation of invoices, charges, and balances between Old and New for this cohort.\n\n**Exit criterion (to advance to Phase 2):** Zero critical billing discrepancies for 3 consecutive billing cycles; all halt-metric thresholds (see below) stayed green for the full phase duration.\n\n---\n\n### Phase 2 — Early Adopter Expansion (15%, ~6,000 users)\n\n**Entry criterion:** Phase 1 exit criterion met AND a documented rollback of at least one Phase 1 user was executed successfully as a live-fire drill (not just staging).\n\n**Cohort selection:** Broaden to standard self-serve plans across varied geographies/currencies and payment methods (cards, ACH, wallets) to surface edge cases; still exclude enterprise/custom-contract accounts.\n\n**Actions:**\n- Automate reconciliation checks (replace fully manual checks from Phase 1 with automated diffing, human review of flagged exceptions only).\n- Enable customer support playbooks and staff training for New-specific billing questions.\n- Run parallel billing for 2 full billing cycles.\n\n**Exit criterion (to advance to Phase 3):** Automated reconciliation mismatch rate stays below 0.1% of transactions for 2 consecutive billing cycles; support ticket volume attributable to migration stays within 1.5x of pre-migration baseline.\n\n---\n\n### Phase 3 — Majority Rollout (50%, ~20,000 users)\n\n**Entry criterion:** Phase 2 exit criterion met AND on-call/support capacity confirmed scaled to handle this cohort size AND finance sign-off on reconciliation accuracy to date.\n\n**Cohort selection:** All remaining standard accounts, including higher-value accounts, but still excluding enterprise/custom-contract accounts, which move in Phase 4 with extra manual review.\n\n**Actions:**\n- Migrate in sub-batches of ~5,000/week rather than all at once, with reconciliation checkpoints between sub-batches.\n- Continue parallel run for 1 full billing cycle per sub-batch before the next sub-batch begins.\n- Old system remains fully live and authoritative fallback throughout — no decommissioning steps of any kind occur in this phase.\n\n**Exit criterion (to advance to Phase 4):** All sub-batches clear reconciliation with mismatch rate < 0.1%; no unresolved Sev-1/Sev-2 billing incidents open.\n\n---\n\n### Phase 4 — Full Cutover / Remaining Users (34%, ~13,600 users)\n\n**Entry criterion:** Phase 3 exit criterion met AND enterprise/custom-contract accounts have had a dedicated manual contract-mapping review completed (since these carry non-standard pricing logic).\n\n**Cohort selection:** All remaining users, including enterprise/custom-contract accounts, migrated last due to complexity.\n\n**Actions:**\n- Final batch migration, again in sub-batches for the largest/most complex accounts.\n- Parallel run continues for at least 1 full billing cycle post-migration for this batch, same as prior phases.\n- **Old system is NOT touched for deletion/disabling/decommissioning during this phase or in the batch that completes the final migration.** Decommissioning of Old is explicitly deferred to a separate, subsequent \"Phase 5 — Legacy Decommission\" (out of scope for this migration rollout plan, gated on a minimum of one additional full billing cycle of 100%-on-New validation plus a formal data-retention/compliance sign-off).\n\n**Exit criterion (rollout complete):** 100% of users successfully migrated and reconciled for 1 full billing cycle with mismatch rate < 0.1% and no open Sev-1 incidents.\n\n---\n\n## Halt / Rollback Metrics (numeric thresholds)\n\nThe rollout is automatically **halted** (no further users migrated into the next batch/phase, and active investigation begins) if any of the following occur at any point:\n\n- **Billing discrepancy rate > 0.5%** of transactions in any 24-hour window (reconciliation mismatch between Old and New for migrated users).\n- **Failed payment/charge rate on New increases by more than 20% relative to the pre-migration baseline** for the same cohort, measured over a rolling 24-hour window.\n- **Customer-reported billing incidents exceed 10 in any single 24-hour period** for the currently-migrating cohort.\n- **Reconciliation job failure or data-sync lag between Old and New exceeds 15 minutes** for more than 3 consecutive sync cycles.\n\nAny single breach triggers an automatic halt and a rollback decision review within 1 hour; migration does not resume until root cause is identified and a fix or mitigation is verified.\n\n---\n\n## Risks\n\nRISK: Payment method tokens fail to migrate or map incorrectly between old and new payment processor vaults, causing failed charges | Run a token-mapping validation pass in shadow mode before each phase and reconcile a 100% sample of tokens for Phase 1, statistical sampling thereafter | Payments Engineering Lead\n\nRISK: Double-billing or double-charging customers during the dual-run period due to both systems independently triggering charges | Enforce a single source-of-truth charge-trigger flag per user (only one system is ever the \"active charger\" for a given user at a time) and add automated duplicate-charge detection with alerting | Billing Platform Engineering Lead\n\nRISK: Enterprise/custom-contract pricing logic is not fully replicated in the new system, causing incorrect invoices for high-value accounts | Require manual contract-mapping review and sign-off for every enterprise account before Phase 4, plus a parallel invoice comparison for at least 2 cycles before contract accounts go live-only on New | Revenue/Finance Operations Lead\n\nRISK: Customer support is overwhelmed by billing confusion or errors during a phase, degrading customer trust and increasing churn | Scale support staffing and train on New-specific issues ahead of each phase, and use ticket-volume threshold (1.5x baseline) as an automatic pause trigger | Customer Support Operations Lead\n\nRISK: Rollback path for already-migrated users is untested or breaks under real load, leaving no safe way back to Old if New fails | Execute a live-fire rollback drill on real (opted-in) users at the end of Phase 1 before proceeding, and re-test rollback tooling before each subsequent phase | Site Reliability Engineering Lead\n\n---\n\nPHASES: 4",
+  "response_sha256": "7cfcbdd0150d75e19568839e35b9e482cdb08bb269c6dd909080aa7db46c40ac",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2615,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2872,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2615,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2872,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2615,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2615
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0443292,
+    "duration_ms": 34312,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:30:54+00:00",
+  "finished_at": "2026-09-13T04:31:30+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

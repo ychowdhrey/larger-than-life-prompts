@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-T14-r1",
+  "run_id": "pilot-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 1,
+  "execution_index": 13,
+  "sample_seed": 11627860312981162166,
+  "prompt_sha256": "28896b668f1b3a5c45148930e8cbb91f8fbf2592baa7546f7bd48a2fa9d968d6",
+  "prompt_chars": 1098,
+  "response": "**Analysis**\n\nTotal work = 2+2+2+3+2+3 = 14 engineer-days, well within 2×10 = 20 available — so capacity isn't the constraint, the dependency chain is.\n\nLongest dependency chain (critical path): T1 → T2 → T4 → T6 = 2+2+3+3 = **10 days**. This exactly consumes the entire window, so it *is* tight — but it's not impossible, since the other branch (T1 → T3 → T5) is shorter (2+2+2=6) and can run in parallel on the second engineer without ever blocking the critical chain.\n\nPlan: put the entire critical chain on E1 back-to-back with zero idle days, and run T3/T5 on E2 in parallel, finishing well before T6 needs them.\n\n- E1: T1(1–2) → T2(3–4) → T4(5–7) → T6(8–10) — fully packed, no idle days.\n- E2: T3(3–4, right after T1 finishes) → T5(5–6, right after T3 finishes) → idle rest of the time.\n- T6 needs both T4 (done end of day 7) and T5 (done end of day 6) — both satisfied before day 8, so T6 starts day 8 exactly on schedule.\n\nThis fits everything into exactly 10 days, so the claim that it can't finish within 10 days is false.\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "94d4a66a34876d95d22a257e504084ec71ea8cf1e5efd8289ab92fa13b83a305",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2752,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2608,
+    "output_tokens_details": {
+      "thinking_tokens": 1959
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2752,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2608,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2752,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2752
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0422372,
+    "duration_ms": 25475,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:16:42+00:00",
+  "finished_at": "2026-09-13T04:17:08+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

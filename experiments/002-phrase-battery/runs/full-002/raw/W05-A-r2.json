@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-A-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 2,
+  "execution_index": 1045,
+  "sample_seed": 1255509092582921679,
+  "prompt_sha256": "a111ab385a58ee4c9d9b09d3ebf66c4f201a45f68c187de2d1510ad4237226f3",
+  "prompt_chars": 685,
+  "response": "## The problem\n\nOur team of twelve has been running long-lived feature branches for over a year, and the cost is showing up everywhere. Branches routinely live for two to three weeks before merging, and by the time they land, they've drifted so far from main that integration itself becomes a multi-day project. Merge conflicts have gone from a minor nuisance to a recurring source of lost work and introduced bugs. Code review suffers too: reviewers face 40-file diffs representing weeks of work, so review becomes a rubber stamp rather than a real check. Meanwhile, nobody has a reliable picture of what's actually close to done, because \"done\" is hidden inside a branch nobody else has looked at. We are shipping less predictably and with more risk than a team our size should tolerate.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: everyone commits directly to main (or through same-day branches), gated by feature flags for anything not ready for users. Concretely:\n\n- All branches merge to main within 24 hours of creation, no exceptions without a documented reason.\n- Incomplete or risky work ships behind feature flags rather than staying isolated on a branch.\n- CI must pass on every commit to main, and a broken main is treated as a top priority to fix.\n- Code review shifts to small, frequent diffs reviewed within hours, not days.\n- We invest two weeks upfront in flag tooling and CI reliability before flipping the switch team-wide.\n\n## What could go wrong\n\nThe strongest objection is real: without long-lived branches, half-finished features are exposed on main, and a flag that's misconfigured or forgotten could expose broken functionality to users or teammates relying on that code path. This isn't a hypothetical—teams that adopt trunk-based development without disciplined flag hygiene do see incidents from stale or tangled flags. I take this seriously; it's why the proposal includes upfront investment in flag tooling and a review step for flag cleanup, not just a policy change. We should also expect short-term friction as people relearn habits, and a small risk that CI becomes a bottleneck if it's flaky. These are manageable with the safeguards above, but they're not free, and I'd rather name that cost now than pretend the transition is risk-free.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "2d7b07ebb4d7aedb5c7abc627c7996395a98eea81d3c6718b5ed44e0f104b874",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2554,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 737,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2554,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 737,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2554,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2554
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.022735199999999997,
+    "duration_ms": 12892,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:47:43+00:00",
+  "finished_at": "2026-09-13T04:47:57+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

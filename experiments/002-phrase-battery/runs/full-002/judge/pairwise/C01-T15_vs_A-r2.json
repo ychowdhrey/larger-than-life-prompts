@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T15_vs_A-r2",
+  "contrast_id": "T15_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T15",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T15",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the same core defects, but Response B is more precise and complete: it separates the caller's-owned-seen mutation from the mutable-default issue, adds the limit=0 edge case where ZeroDivisionError fires without the IndexError masking it, and cleanly distinguishes the tie-dropping dedup bug from the missing-backfill consequence rather than conflating them as A does. Its concrete code examples with expected outputs also make the claims easier to verify.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:09+00:00"
+}

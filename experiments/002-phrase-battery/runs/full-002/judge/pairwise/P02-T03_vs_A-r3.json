@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T03_vs_A-r3",
+  "contrast_id": "T03_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T03",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet the hard requirements equally well, but Response B's abort/rollback condition is more concrete (explicitly directs restoring from the pre-action snapshot rather than just halting), and its runbook adds practically valuable elements A lacks — assigning IC/Scribe roles, staging emergency reclamation commands in advance, and a post-incident data-integrity check against the snapshot/replicas — making it marginally more actionable and safety-conscious overall.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:46:20+00:00"
+}

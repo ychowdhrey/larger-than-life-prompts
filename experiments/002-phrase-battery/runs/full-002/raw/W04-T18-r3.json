@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T18-r3",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T18",
+  "condition_name": "phrase_t18",
+  "repetition": 3,
+  "execution_index": 80,
+  "sample_seed": 1618781008295069471,
+  "prompt_sha256": "5a87c90e5c624388b678eb25376d79644962b2a8f7a18d1bbe72135b1950fb3d",
+  "prompt_chars": 662,
+  "response": "A content delivery network, or CDN, is a system of computers spread across many cities that store copies of websites so people can load pages faster. Without one, every visitor's request travels all the way to the origin server, the original computer where a website's files are permanently stored. That trip can be slow if the origin server sits far away. A CDN fixes this by placing copies of the content in an edge location, a small storage point positioned close to where people actually are. When a request arrives, the nearby edge location checks whether it already holds a copy of what is needed; finding one is called a cache hit, and it means the answer can be delivered instantly without contacting the origin server at all. Think of it like a chain of neighborhood libraries holding copies of popular books, so nobody has to travel to the one central publishing house every time a book is wanted. Only when a copy is missing, called a cache miss, does the nearby location fetch it once from the origin server and then store it for next time. This arrangement reduces waiting time, spreads out traffic so no single computer gets overwhelmed, and keeps websites working smoothly even during busy periods or when many people visit from different parts of the world at once.\n\n| Term | Plain meaning | Why it matters |\n|------|---------------|-----------------|\n| Origin server | The original computer storing a website's real files | It is the ultimate source that all copies come from |\n| Edge location | A storage point near a group of visitors | It shortens the distance data has to travel |\n| Cache hit | A request answered from a nearby stored copy | It makes pages load noticeably faster |\n| Cache miss | A request that finds no stored copy nearby | It triggers one fetch from the origin server for future use |",
+  "response_sha256": "ff0c0ac8466594049dadb445d89ff25cb7f61c5815c3260de48fc63b4b0845a7",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2548,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 531,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2548,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 531,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2548,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2548
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0206512,
+    "duration_ms": 9220,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:24:16+00:00",
+  "finished_at": "2026-09-13T04:24:27+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

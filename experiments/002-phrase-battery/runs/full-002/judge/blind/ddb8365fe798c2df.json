@@ -1,0 +1,22 @@
+{
+  "item_id": "ddb8365fe798c2df",
+  "sample_id": "C02-T01-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T01",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All four defects cited (WHERE-clause nulling the LEFT JOIN, UTC vs UTC+8 boundary, integer division truncation, NULL sums corrupting the DESC sort) are real and correctly diagnosed with correct fixes, though the timezone explanation is muddled by a mid-sentence self-correction and it omits the portability risk of grouping only by customer_id while selecting non-aggregated columns.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:43+00:00"
+}

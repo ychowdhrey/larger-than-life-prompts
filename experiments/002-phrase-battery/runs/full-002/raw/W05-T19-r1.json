@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T19-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 1,
+  "execution_index": 953,
+  "sample_seed": 14568379502596377081,
+  "prompt_sha256": "813e6218755f6909daea7d7703bae335bc34e62a401167a333999fad3e4e9fcf",
+  "prompt_chars": 736,
+  "response": "## The problem\n\nOur team of twelve now regularly carries four or five long-lived feature branches at once, some open for three or more weeks. Merges have become dreaded events: last month's pricing-engine merge took two engineers a full day to resolve conflicts, and it shipped a regression that a shorter-lived branch would likely have caught in CI within hours. We are effectively integrating in big, risky batches instead of continuously, which is the opposite of what our test suite and deploy pipeline were designed for.\n\n- Average branch lifetime is 18 days, and merge conflicts now consume roughly 6 engineering hours per week across the team.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits directly to main (or through branches that live under two days), gated by feature flags for incomplete work and a mandatory CI check before merge.\n\n- All new work lands behind a feature flag, so incomplete features never block a release.\n- Branches are capped at two days; anything longer gets split into smaller commits.\n- CI must pass on every merge to main, with no exceptions, including for hotfixes.\n\nThis keeps main always releasable, surfaces integration problems while they're still small, and lets us deploy daily instead of in anxious, infrequent batches.\n\n## What could go wrong\n\nThe strongest objection is real: without long-lived branches, half-finished or experimental work is visible on main, and a careless flag left enabled could expose broken functionality to users. Feature flags also add code complexity and a cleanup burden if we don't retire them promptly. I don't think this risk is dismissible, but it's manageable — we already use flags for our mobile rollout, and the discipline of removing stale flags is a process fix, not a reason to keep long branches.\n\nA second concern is that engineers accustomed to isolated branches may feel exposed committing directly to main; that's a cultural shift requiring pairing and code review support during the transition.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "411c6b7d1a5141144e782b0f72aa0225369e0de7dab7363761138c591ab4e2d5",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2570,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 682,
+    "output_tokens_details": {
+      "thinking_tokens": 57
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2570,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 682,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2570,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2570
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.022249199999999997,
+    "duration_ms": 12122,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:45:29+00:00",
+  "finished_at": "2026-09-13T04:45:42+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

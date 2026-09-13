@@ -1,0 +1,22 @@
+{
+  "item_id": "562b4e00f20e936f",
+  "sample_id": "C05-E06-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E06",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (>100 vs >=100 violating R1 at total=100), correctly catches that test_cap asserts 100.0 when the capped implementation actually returns 50.0, and correctly flags the missing boundary test at total=100, while accurately validating test_small and test_large as correct without inventing extra issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:56+00:00"
+}

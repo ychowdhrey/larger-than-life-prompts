@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-E05-r2",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "E05",
+  "condition_name": "combo_e05",
+  "repetition": 2,
+  "execution_index": 1092,
+  "sample_seed": 4338257495393094709,
+  "prompt_sha256": "5f8ad77622c02bbd1160d9e487466919f64b90396a3fd361a811fdbf28e866a5",
+  "prompt_chars": 1183,
+  "response": "## Reasoning\n\n**Dependency chain and durations:**\n- T1 (2d) → T2 (2d) → T4 (3d) → T6 (3d): chain length = 2+2+3+3 = 10 days\n- T1 (2d) → T3 (2d) → T5 (2d) → T6 (3d): chain length = 2+2+2+3 = 9 days\n\nSince T1 is a single task worked by one engineer, and T6 needs *both* T4 and T5 finished, the longest chain (T1→T2→T4→T6 = 10 days) sets the floor — the project cannot finish before Day 10. So the schedule must be tight, with T2/T4/T6 back-to-back on one engineer and no slack anywhere on that chain.\n\n**Plan:**\n- Days 1–2: E1 does T1 (only one engineer can work a single task; E2 idle).\n- Day 2 end: T1 done. T2 and T3 can both start Day 3 (strictly after Day 2).\n- Days 3–4: E1 does T2, E2 does T3 (parallel, both finish Day 4).\n- Day 4 end: T2 and T3 done. T4 (needs T2) and T5 (needs T3) can both start Day 5.\n- Days 5–7: E1 does T4 (3 days, finishes Day 7).\n- Days 5–6: E2 does T5 (2 days, finishes Day 6); E2 idle Day 7.\n- Day 7 end: both T4 and T5 done. T6 can start Day 8 (strictly after Day 7).\n- Days 8–10: E1 does T6 (3 days, finishes Day 10).\n\n**Verification of every rule:**\n- Each task assigned to exactly one engineer: T1→E1, T2→E1, T3→E2, T4→E1, T5→E2, T6→E1. ✓\n- Consecutive days per task: T1(1-2), T2(3-4), T3(3-4), T4(5-7), T5(5-6), T6(8-10) — all consecutive blocks. ✓\n- No engineer double-booked on a day: E1's days (1,2,3,4,5,6,7,8,9,10) each map to exactly one task; E2's days (3,4,5,6) each map to exactly one task. ✓\n- Prerequisite timing: T2/T3 start Day 3, strictly after T1 ends Day 2 ✓. T4 starts Day 5, strictly after T2 ends Day 4 ✓. T5 starts Day 5, strictly after T3 ends Day 4 ✓. T6 starts Day 8, strictly after T4 ends Day 7 and T5 ends Day 6 ✓.\n- All tasks fit within Day 1–10: last task (T6) ends exactly on Day 10. ✓\n\n## Schedule\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "c3796a0e98ba08bcad14027eaef95ae068be88e61299fa5854dd25a2c7a94809",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28495,
+    "output_tokens": 2557,
+    "output_tokens_details": {
+      "thinking_tokens": 1424
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2557,
+        "cache_read_input_tokens": 28495,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.031273,
+    "duration_ms": 23897,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:48:50+00:00",
+  "finished_at": "2026-09-13T04:49:15+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

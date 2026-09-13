@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T19-r2",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 2,
+  "execution_index": 1083,
+  "sample_seed": 6205063206218443198,
+  "prompt_sha256": "a8e6070124404bf556ba86a051ebb46ea0167581e51cdd163938972f226a5b5a",
+  "prompt_chars": 648,
+  "response": "A content delivery network, or CDN, helps websites load quickly no matter where a visitor happens to be. Every website's files—images, videos, text—normally live on one computer called the origin server, which is the original storage location for all that content. If everyone had to fetch files from that single server, people far away would wait longer, since data still takes time to travel long distances. A CDN solves this by copying popular files onto many computers scattered around the world, called edge locations, because they sit at the \"edge,\" close to where people actually are. When someone requests a file and it's already stored nearby, that's called a cache hit—the request gets answered instantly from the nearby copy instead of the distant original. Think of it like a chain of bakeries that all sell bread baked at one central factory, but keep fresh loaves stocked in local shops so customers don't have to travel to the factory every time. If a local shop happens to be out of a particular loaf, it quickly grabs one from the factory, stores a copy for next time, and hands it over—slightly slower that one time, but fast for everyone after. This system reduces waiting time, prevents the origin server from getting overwhelmed by traffic, and keeps things running smoothly even during busy periods or when many people request the same content at once.\n\n| Term | Plain meaning | Why it matters |\n|------|---------------|-----------------|\n| Origin server | The original computer storing a website's files | It's the ultimate source of truth when nothing else has a copy |\n| Edge location | A nearby computer holding copies of popular files | It shortens the distance data has to travel |\n| Cache hit | A request answered by a nearby copy | It means near-instant loading with no long trip needed |\n| Cache miss | A request that isn't found nearby and must reach the origin | It shows when the system needs to fetch and store a fresh copy |",
+  "response_sha256": "acf5a0e6e67adc87a12963e2020d45c750902428d446f7cd1eb45d22c4a48d27",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28272,
+    "output_tokens": 578,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 578,
+        "cache_read_input_tokens": 28272,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0114384,
+    "duration_ms": 10456,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:48:33+00:00",
+  "finished_at": "2026-09-13T04:48:44+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "b76d2cf738e1e2ac",
+  "sample_id": "C01-E03-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E03",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (mutable default argument, cross-call and within-call over-deduplication, IndexError on limit>len(scores), ZeroDivisionError on empty input, and in-place mutation via sort) are real and correctly explained with consequences, including the non-obvious interaction between defects and a concrete example, with no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:16:38+00:00"
+}

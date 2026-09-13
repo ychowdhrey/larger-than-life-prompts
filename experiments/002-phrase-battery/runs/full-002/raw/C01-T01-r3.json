@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T01-r3",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T01",
+  "condition_name": "phrase_t01",
+  "repetition": 3,
+  "execution_index": 1367,
+  "sample_seed": 803251825256874132,
+  "prompt_sha256": "f8b614c9296d32cadb23d61fbb700e8fb47d493c169e35a3b2e487a3fe0d9a82",
+  "prompt_chars": 597,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`)**\nDefault arguments are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't pass `seen` explicitly. This means:\n- State leaks across unrelated calls — scores seen in one call will silently suppress identical scores in a later, completely unrelated call.\n- The list grows forever across the life of the program (a slow memory leak) and is never reset.\n\nThis is likely to produce wrong/inconsistent `result` lists depending on call history, and is the classic \"mutable default argument\" trap.\n\n**2. `IndexError` when `limit` exceeds the number of scores**\nThe loop is `for i in range(0, limit): ... scores[i]`, with no bound tied to `len(scores)`. If `scores` has fewer elements than `limit` (including the default `limit=5` with a shorter input list), indexing `scores[i]` will raise `IndexError: list index out of range`.\n\n**3. `ZeroDivisionError` on empty input**\n`average = sum(scores) / len(scores)` divides by `len(scores)` unconditionally. If `scores` is an empty list, this raises `ZeroDivisionError`. (Computing the mean over all scores is stated as intended — the defect is the missing guard for the empty-list case, not the averaging logic itself.)\n\n**4. Unwanted in-place mutation of the caller's list**\n`scores.sort(reverse=True)` sorts the list the caller passed in, in place, rather than working on a copy (e.g. `sorted(scores, reverse=True)`). Any other code holding a reference to that same list will see its order silently changed as a side effect of calling `top_scores`, which can cause subtle bugs elsewhere in the caller's program.\n\n**5. Deduplication logic can under-fill the result**\nThe loop only ever looks at the first `limit` positions of the sorted list (`range(0, limit)`), but skips a position whenever that value is already in `seen` — it does not extend the scan to compensate. So if there's a duplicate/tie among the top `limit` entries, `result` ends up shorter than `limit` even when there are additional, lower-ranked distinct scores later in `scores` that could have filled it out. Example: `scores=[5,5,5,3,2], limit=3` (fresh `seen`) yields `result=[5]` instead of `[5,3,2]`.",
+  "response_sha256": "b4d5dc1a1f1c8b38c8154655dfd07c866c873984e1b8ed2eddb0e7113d8ccc9a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28258,
+    "output_tokens": 2635,
+    "output_tokens_details": {
+      "thinking_tokens": 1845
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2635,
+        "cache_read_input_tokens": 28258,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0320056,
+    "duration_ms": 29662,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:55:06+00:00",
+  "finished_at": "2026-09-13T04:55:37+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "cdaf4d4e8f95062d",
+  "sample_id": "P02-T15-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T15",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a verified storage snapshot before any destructive action, explicitly defers restart/failover until after snapshot confirmation and replica-lag checks, includes multiple concrete abort/rollback conditions, and ends with the correct 'SECTIONS: 4' line matching the actual section count.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:48+00:00"
+}

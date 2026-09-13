@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T23_vs_A-r1",
+  "contrast_id": "T23_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T23",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the >/>= boundary bug, the wrong expected value in test_cap, and the missing test at total=100, but Response A additionally flags the missing boundary test at total=500 (where the 50.00 cap is first reached), a legitimate coverage gap that Response B omits, making A's defect list more complete without introducing inaccuracies.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:32:44+00:00"
+}

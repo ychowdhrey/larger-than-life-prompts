@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-E07-r2",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E07",
+  "condition_name": "combo_e07",
+  "repetition": 2,
+  "execution_index": 984,
+  "sample_seed": 9044716365074619178,
+  "prompt_sha256": "fd0f73f51ecb827da5be6d1afba0f62e569be5542ccdd8be434a5e7b05e695c1",
+  "prompt_chars": 670,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`)**\nDefault arguments are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't explicitly pass `seen`. Because the function `.append()`s into it, state leaks across unrelated calls: scores seen in an earlier call will silently be excluded from the result of a later call (they get skipped by `scores[i] not in seen`), even though `scores` is a fresh list each time. This makes the function's output depend on call history, not just on its arguments — a classic hidden-state bug.\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\n`list.sort()` sorts in place and returns `None`. This means the object the caller passed in is reordered as a side effect. If the caller keeps a reference to that list and expects it to retain its original order afterward, that assumption is silently violated. (Sorting itself is intended; doing it destructively on the caller's object is the defect.)\n\n**3. `IndexError` when `limit` exceeds the number of scores**\nThe loop is `for i in range(0, limit): ... scores[i] ...` with no bound check against `len(scores)`. If `scores` has fewer than `limit` elements (e.g. 3 scores with the default `limit=5`), indexing `scores[i]` raises `IndexError: list index out of range` and the function crashes instead of just returning whatever scores are available.\n\n**4. `ZeroDivisionError` on an empty `scores` list**\n`average = sum(scores) / len(scores)` divides by `len(scores)`, which is `0` when `scores` is empty, raising `ZeroDivisionError`. (This is also reached before the loop would even matter, since `limit` iterations with an empty list would already fail via defect #3.)\n\n**5. Deduplication only looks at the first `limit` sorted entries, so it can return fewer than `limit` results even when enough unique scores exist**\nThe loop checks uniqueness only across `scores[0..limit-1]` — it never looks further down the sorted list to make up for duplicates it skips. Example: `scores = [10, 10, 10, 9, 8]`, `limit = 3` → after sorting, indices 0-2 are all `10`; the first `10` is added, the next two are skipped as already `seen`, and the loop ends. `result` comes back as `[10]` instead of the top 3 *unique* scores `[10, 9, 8]`, even though those values are present in the list just past index 2. The function never extends its scan to compensate for skipped duplicates.",
+  "response_sha256": "78eef9748ae4d111121678e0b19ed4ef78e4b07f7c63210d54519e6f52e842e1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2552,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2786,
+    "output_tokens_details": {
+      "thinking_tokens": 1946
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2552,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2786,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2552,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2552
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.043217200000000004,
+    "duration_ms": 31381,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:46:05+00:00",
+  "finished_at": "2026-09-13T04:46:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

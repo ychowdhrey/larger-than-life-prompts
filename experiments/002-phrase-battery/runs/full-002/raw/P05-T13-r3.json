@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T13-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 3,
+  "execution_index": 1582,
+  "sample_seed": 13056873706465574597,
+  "prompt_sha256": "be876a8cbadb3c3c497bb2b7b0c40f44d230b68bd1d59261f901a7c81c2090bc",
+  "prompt_chars": 837,
+  "response": "# Billing System Migration Rollout Plan\n### 40,000 Users — Old and New Systems Running in Parallel\n\n## Overview\n\nThis plan migrates 40,000 users from the legacy billing system to the new billing system using a phased rollout. Both systems remain live and operational throughout the migration, allowing rollback at any point prior to full cutover. The old system is **not** decommissioned as part of this plan — decommissioning is explicitly deferred to a separate, later initiative that begins only after the final migration phase has been stable in production for a defined soak period.\n\n---\n\n## Phase 1: Canary (0.5% — ~200 users)\n\n**Entry criterion:** New billing system has passed full integration testing in staging, including parallel invoice-generation reconciliation against the old system for at least 2 full billing cycles with 0 unresolved discrepancies; rollback procedure has been tested end-to-end in staging.\n\n**Population:** Internal employee accounts and opted-in volunteer customers on simple (non-usage-based) pricing plans only.\n\n**Duration:** Minimum 2 full billing cycles.\n\n**Goals:** Validate core billing flows (invoice generation, payment capture, dunning) against real production data volume and edge cases at low blast radius.\n\n---\n\n## Phase 2: Early Adopters (10% — ~4,000 users)\n\n**Entry criterion:** Phase 1 completed its full duration with invoice accuracy ≥ 99.9%, payment failure rate delta vs. old system ≤ 0.1 percentage points, zero critical (Sev-1) incidents, and all Sev-2 issues from Phase 1 resolved or have documented mitigations.\n\n**Population:** Randomly sampled users stratified across plan types (usage-based, tiered, annual, monthly) and geographies, excluding highest-value enterprise accounts.\n\n**Duration:** Minimum 2 full billing cycles.\n\n**Goals:** Validate system behavior across plan diversity and confirm support/ops tooling scales beyond the canary group.\n\n---\n\n## Phase 3: General Availability Ramp (40% — ~16,000 users)\n\n**Entry criterion:** Phase 2 completed its full duration with invoice accuracy ≥ 99.9%, customer-reported billing ticket volume no more than 1.2x the Phase 2 baseline rate, support team formally signs off on runbook readiness, and finance has reconciled Phase 2 revenue postings against the old system with < 0.05% variance.\n\n**Population:** Broader general customer base migrated in weekly waves (e.g., 10% of total per week), prioritized by lowest account complexity first.\n\n**Duration:** 4 weeks (weekly sub-waves), with a 48-hour bake period between waves before proceeding.\n\n**Goals:** Prove the system at meaningful scale and load while retaining the ability to pause between waves.\n\n---\n\n## Phase 4: Full Migration (49.5% — ~19,800 users, remaining accounts)\n\n**Entry criterion:** Phase 3 completed in full with invoice accuracy ≥ 99.9%, no open Sev-1/Sev-2 incidents, finance reconciliation variance < 0.05%, and explicit written sign-off from Billing, Finance, and Customer Support leads.\n\n**Population:** All remaining accounts, including highest-complexity and highest-value enterprise accounts, migrated in prioritized batches with white-glove support for top-tier accounts.\n\n**Duration:** 2–3 weeks.\n\n**Note on decommissioning:** The old billing system remains fully running, read-accessible, and able to receive rollback traffic through the end of Phase 4 and for a mandatory 90-day parallel-run/soak period afterward. Any proposal to disable, delete, or decommission the old system is a **separate, subsequent phase (Phase 5: Legacy Decommission)** that does not begin until the soak period is complete and a dedicated go/no-go review has occurred. Phase 5 is intentionally out of scope for the user-migration rollout described above.\n\n---\n\n## Risks\n\nRISK: Invoice miscalculation causes customers to be over- or under-billed | Run parallel shadow-billing reconciliation between old and new systems for every account before and during migration, with automated diffing and alerting on any mismatch | Billing Engineering Lead\nRISK: Payment gateway tokenization mismatch causes failed or duplicate charges during cutover | Migrate and validate stored payment methods/tokens in a dry-run against the payment processor's sandbox before each phase, with dual-write reconciliation | Payments Platform Lead\nRISK: Customer support is overwhelmed by billing disputes and confusion during migration waves | Staff a dedicated migration support queue, publish customer-facing migration comms in advance, and staff up support capacity ahead of each phase per the ramp schedule | Customer Support Manager\nRISK: Data migration script corrupts or drops subscription/entitlement data for a subset of accounts | Run migrations in idempotent, resumable batches with pre/post record-count and checksum validation, and keep the old system as source of truth until sign-off | Data Migration Engineer\nRISK: Regulatory/tax compliance calculations differ between old and new systems, causing incorrect tax remittance | Engage compliance/tax team to audit new system's tax engine against old system outputs for all applicable jurisdictions before Phase 2 begins | Compliance Lead\n\n---\n\n## Halt Criteria (Automatic Rollback Trigger)\n\nThe rollout must be **immediately paused** and the affected batch rolled back to the old billing system if, at any point during a phase:\n\n- **Invoice accuracy drops below 99.5%** (measured as correctly-generated invoices ÷ total invoices generated, sampled hourly) — the primary numeric halt threshold, or\n- Payment failure rate for migrated users exceeds the old system's baseline failure rate by more than 0.5 percentage points over any rolling 24-hour window, or\n- Any single Sev-1 incident occurs that is attributable to the new billing system.\n\nA halt requires sign-off from the Billing Engineering Lead before the next phase or wave may resume.\n\n---\n\nPHASES: 4",
+  "response_sha256": "339633ec84de9096bb798fe69e5dec3db0e237235ca0954f8829d2b5a63ecbc4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28326,
+    "output_tokens": 2056,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2056,
+        "cache_read_input_tokens": 28326,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0262292,
+    "duration_ms": 25947,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:00:22+00:00",
+  "finished_at": "2026-09-13T05:00:49+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

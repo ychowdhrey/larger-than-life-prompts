@@ -1,0 +1,22 @@
+{
+  "item_id": "02c2522fed7c1610",
+  "sample_id": "C02-T06-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T06",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE-clause turning the LEFT JOIN into an INNER JOIN, UTC vs UTC+8 boundary skew with correctly computed offset, integer division truncation, and the resulting NULL total_spent/COUNT interaction after fixing the join), gives concrete accurate fixes and examples, and explicitly rules out non-issues (COUNT(o.order_id), GROUP BY functional dependency, ORDER BY alias) without inventing false problems.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:10+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "5d0d63f05bf2b8c7",
+  "sample_id": "P02-T02-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T02",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, gates any destructive action behind a confirmed storage snapshot, explicitly forbids restart/failover before that snapshot, includes multiple concrete abort/rollback conditions, and ends with the correct SECTIONS: 4 line, while also addressing realistic DBA concerns like WAL purge safety, replica lag checks, and severity-based escalation.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:24+00:00"
+}

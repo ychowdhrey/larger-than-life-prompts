@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T13_vs_A-r2",
+  "contrast_id": "T13_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T13",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy every hard requirement with 12 clearly structured steps, but Response B is slightly more operationally rigorous: it separates the rehearsal from a distinct 'fix issues and get sign-off' step, adds explicit lag monitoring/alerting for replication, more clearly sequences when bulk sync begins relative to the maintenance window, and its rollback step additionally covers restoring from backup if source-side corruption occurred, not just repointing traffic.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:19+00:00"
+}

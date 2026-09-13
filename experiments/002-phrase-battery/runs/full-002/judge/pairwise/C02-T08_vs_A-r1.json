@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T08_vs_A-r1",
+  "contrast_id": "T08_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T08",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both identify the same four defects with essentially equivalent fixes, but Response A's UTC/UTC+8 example is precise and actually demonstrates orders being wrongly excluded (local 00:00–08:00 Jan 1 mapping to UTC times before the literal), whereas Response B's chosen example (an order at 2025-12-31 20:00 local) is in fact correctly excluded by the query as written, so it fails to illustrate the bug it claims to show.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:43:37+00:00"
+}

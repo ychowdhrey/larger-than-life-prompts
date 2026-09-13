@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T18-r3",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T18",
+  "condition_name": "phrase_t18",
+  "repetition": 3,
+  "execution_index": 217,
+  "sample_seed": 9337351361306461719,
+  "prompt_sha256": "1969fbc524784e5a2712b96be3df04f88de434ae8902f220e80da7e916d714a1",
+  "prompt_chars": 859,
+  "response": "Here are the defects I found in this query:\n\n**1. The WHERE clause silently turns the LEFT JOIN into an INNER JOIN**\n`WHERE o.created_at >= '2026-01-01'` is applied *after* the LEFT JOIN. For a customer with no matching orders, `o.created_at` is NULL, and `NULL >= '2026-01-01'` evaluates to NULL/unknown — not true — so the row is dropped by the WHERE clause. This eliminates every customer with zero orders (or with orders only before the cutoff), directly violating the stated requirement that customers with no orders must still appear with a count of zero. The date predicate needs to be moved into the `ON` clause of the join so it filters which orders are joined, not which result rows survive.\n\n**2. The date filter doesn't account for the UTC+8 reporting timezone**\n`created_at` is stored in UTC, but `'2026-01-01'` is compared directly against it, which means the cutoff is interpreted as 2026-01-01 00:00 **UTC**. The team wants calendar-day boundaries in UTC+8, where local midnight on 2026-01-01 is actually 2025-12-31 16:00 UTC. As written, the filter excludes orders placed between 16:00 and 24:00 UTC on Dec 31 that are actually on Jan 1 in local time (and analogously shifts every subsequent day boundary by 8 hours). This causes orders near midnight to be counted on the wrong local calendar day.\n\n**3. Integer division truncates the cents**\n`total_cents` is an INTEGER, and `SUM(o.total_cents) / 100` divides by the integer literal `100`. On databases where integer/integer division truncates (e.g., PostgreSQL, SQL Server), this drops the fractional dollars — e.g., a sum of 1999 cents becomes `19` instead of `19.99`. It needs to divide by `100.0` (or cast to numeric/decimal) to preserve cents as a decimal amount.\n\n**4. `total_spent` is NULL rather than 0 for no-order customers, which corrupts the sort**\nOnce the join is fixed so zero-order customers appear, `SUM(o.total_cents)` for those rows returns NULL (SUM over no rows), not 0. Combined with `ORDER BY total_spent DESC`, NULLs are ordered according to the engine's default NULL-sort rule — in PostgreSQL, for example, NULLs sort first in a DESC ordering — which would push all zero-order customers to the top of a report meant to rank top spenders, instead of to the bottom. Wrapping the sum in `COALESCE(SUM(o.total_cents), 0)` avoids both the NULL display value and the unpredictable sort placement.",
+  "response_sha256": "1c46f228dc443831abb93cea35dabef23c66735a76490cd9b23e3e9d828054da",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2665,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 5141,
+    "output_tokens_details": {
+      "thinking_tokens": 4227
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2665,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5141,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2665,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2665
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.06721919999999999,
+    "duration_ms": 51905,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:27:08+00:00",
+  "finished_at": "2026-09-13T04:28:01+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "a2386891c5658d29",
+  "sample_id": "P01-T05-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T05",
+  "repetition": 1,
+  "scores": {
+    "task_success": 3,
+    "thoroughness": 4,
+    "constraint_adherence": 3,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "The plan meets the step-count, rollback, dry-run, stakeholder-communication, and pre-destructive-backup requirements, but its data-integrity verification (step 9) is sequenced before the actual cutover (step 10, connection repointing) rather than after it as explicitly required, and post-cutover monitoring (step 11) checks error rates/latency rather than row counts or checksums. Aside from this misplacement, the plan is technically sound and actionable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:53+00:00"
+}

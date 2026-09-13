@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T04-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T04",
+  "condition_name": "phrase_t04",
+  "repetition": 3,
+  "execution_index": 736,
+  "sample_seed": 13411319925781848003,
+  "prompt_sha256": "4565eddcf2c9e45d85a6546a9a978c0c76b3d29830b7eaf3e90d4c904aca811a",
+  "prompt_chars": 825,
+  "response": "# Billing System Migration Rollout Plan\n### 40,000 Users — Legacy → New Billing System (Dual-Run Enabled)\n\n## Overview\n\nThis plan migrates 40,000 existing users from the legacy billing system to the new billing system in three named phases, using a percentage-based, criteria-gated approach. Because both systems can run concurrently, the legacy system remains fully operational (read/write of record for unmigrated accounts, read-only reconciliation source for migrated accounts) throughout all phases and is **not** touched for decommissioning during this plan — decommissioning is explicitly deferred to a separate, later initiative.\n\n---\n\n## Phase 1: Canary (5% of users — 2,000 users)\n\n**Entry criterion:** New billing system has passed a full end-to-end test suite in staging (invoicing, proration, tax calculation, payment retries, refunds) with zero critical defects, and a rollback procedure has been tested at least once in staging within the prior 7 days.\n\n**Population:** Internal accounts and opted-in low-risk external users (e.g., monthly self-serve plans, no active disputes, no enterprise contracts).\n\n**Duration:** Minimum 5 business days before considering advancement, regardless of metrics looking clean.\n\n**Activities:**\n- Enable dual-write: transactions post to both old and new systems.\n- Run automated daily reconciliation between systems (invoice totals, payment status, subscription state).\n- Support team briefed and on standby with an escalation path specific to migration issues.\n\n---\n\n## Phase 2: Expansion (35% of users — 14,000 users, cumulative 40%)\n\n**Entry criterion:** Phase 1 completed its full minimum duration with the halt metric (below) never triggered, reconciliation mismatch rate stayed under 0.1% of transactions, and no Sev1/Sev2 billing incidents were attributed to the new system.\n\n**Population:** Broader mix of plan types (annual, multi-seat, usage-based), excluding highest-value enterprise accounts.\n\n**Duration:** Minimum 7 business days.\n\n**Activities:**\n- Increase reconciliation frequency to near-real-time (hourly batch).\n- Expand customer support scripting/FAQ for billing questions during dual-run.\n- Begin dry-run migration rehearsals for the remaining enterprise/high-complexity accounts (without cutting them over yet).\n\n---\n\n## Phase 3: Full Rollout (60% of users — 24,000 users, cumulative 100%)\n\n**Entry criterion:** Phase 2 completed its full minimum duration with the halt metric never triggered, reconciliation mismatch rate stayed under 0.1%, customer-reported billing complaints did not exceed the Phase 2 baseline by more than 20%, and all remaining enterprise/high-complexity accounts have completed a successful dry-run migration.\n\n**Population:** All remaining users, including enterprise and highest-complexity accounts, migrated in the final batch.\n\n**Duration:** Minimum 10 business days of stabilization and dual-run reconciliation after the final batch completes, before any conversation about legacy system decommissioning begins. Decommissioning planning is out of scope for this rollout plan and must be proposed and approved as a separate, subsequent phase.\n\n**Activities:**\n- Final batch cutover, staged in waves within the phase (e.g., by account size or contract renewal date) to avoid a single big-bang moment even within this phase.\n- Full reconciliation and financial close comparison against legacy system for at least one full billing cycle.\n- Formal sign-off from Finance and Support before this plan is considered complete.\n\n---\n\n## Risks\n\nRISK: Reconciliation mismatches between old and new systems cause incorrect customer invoices | Run automated hourly reconciliation with alerting on any variance, and hold a phase gate requiring mismatch rate under 0.1% before advancing | Billing Engineering Lead\nRISK: Payment processor integration behaves differently under the new system, causing failed or duplicate charges | Run shadow/dual-write mode before enabling live charges on the new system per cohort, and enforce idempotency keys on all payment calls | Payments Platform Owner\nRISK: Enterprise accounts with custom contract terms are migrated incorrectly, causing revenue leakage or contract breach | Exclude enterprise accounts from Phases 1–2, require a successful dry-run migration per enterprise account before Phase 3 cutover | Enterprise Billing Manager\nRISK: Customer support is overwhelmed by billing confusion during dual-run, leading to poor customer experience | Brief support team ahead of each phase, provide phase-specific FAQ/scripts, and staff an escalation channel dedicated to migration tickets | Customer Support Lead\nRISK: Data migration script errors corrupt subscription state (e.g., wrong renewal dates, lost discounts) | Require dry-run migration with automated diffing against source records for every account before it is cut over live | Data Migration Engineer\n\n---\n\n## Halt Metric\n\n**Halt the rollout immediately** if the transaction reconciliation mismatch rate between the old and new billing systems exceeds **0.5%** of processed transactions in any rolling 24-hour window, or if failed-payment rate for migrated users rises more than **50% relative to the pre-migration baseline** for that cohort. Halting means: freeze further migrations at the current percentage, do not roll back already-migrated users unless data integrity is in question, and convene Billing Engineering, Payments, and Support leads within 4 hours to assess root cause before resuming.\n\n---\n\nPHASES: 3",
+  "response_sha256": "6f99e49ae3778ea6466c6bdf6d624720efd87d33789cfadb0eb98f62a79c85a3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28322,
+    "output_tokens": 1865,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1865,
+        "cache_read_input_tokens": 28322,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0243184,
+    "duration_ms": 24015,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:40:31+00:00",
+  "finished_at": "2026-09-13T04:40:56+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

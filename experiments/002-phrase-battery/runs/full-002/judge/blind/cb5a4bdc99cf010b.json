@@ -1,0 +1,22 @@
+{
+  "item_id": "cb5a4bdc99cf010b",
+  "sample_id": "C02-T22-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T22",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies both schema-motivated defects (WHERE clause defeating the LEFT JOIN, and the UTC-vs-UTC+8 boundary being off by 8 hours in the correct direction with a valid fix) plus two additional genuine bugs (NULL total_spent from SUM over empty groups, integer division truncating cents), each with accurate explanations of consequences and correct fixes, and it correctly refrains from flagging the GROUP BY usage as an issue with sound justification.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:52+00:00"
+}

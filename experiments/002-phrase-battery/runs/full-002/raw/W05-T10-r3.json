@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T10-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T10",
+  "condition_name": "phrase_t10",
+  "repetition": 3,
+  "execution_index": 1228,
+  "sample_seed": 17001065158849650971,
+  "prompt_sha256": "c295d8477b15e4c097199a6832ea5464c08e7b33e2d8c9e79c387eb2fc245117",
+  "prompt_chars": 722,
+  "response": "**Memo: Moving to Trunk-Based Development**\n\n## The problem\n\nOur feature branches routinely live two to four weeks before merging. By the time they land, they've drifted far enough from main that integration eats entire sprints in conflict resolution and re-testing. Last quarter, three releases slipped specifically because of merge conflicts discovered days before ship dates, not because the underlying features were unready. We're a team of twelve people working across five active branches at any given time — that's five diverging realities of the codebase, and the cost of reconciling them compounds with every day a branch stays open.\n\nThe deeper issue is feedback latency. Bugs introduced by long-lived branches surface weeks after the responsible code was written, when the context has evaporated and the fix is expensive. CI on a stale branch tells you almost nothing about whether your code works with what teammates shipped yesterday.\n\n## The proposal\n\n- Merge to main at least once per day, using feature flags to hide incomplete work from users rather than hiding it in a branch.\n- Require every merge to pass the full CI suite before landing, with a hard rule that a broken main gets fixed before any new work merges.\n- Break large features into small, independently mergeable increments reviewed within hours, not days.\n- Pair this with a two-week trial period, with a retro at the end to decide whether to continue.\n- Designate one engineer per week as \"build sheriff\" responsible for keeping main green.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands stronger test coverage and discipline than we currently have, and without it, a broken main can block all twelve engineers simultaneously — a far worse outage than one stale branch today. This is a legitimate risk, not a strawman, and it means we should not flip the switch until we've audited our CI reliability and flag infrastructure first. If our test suite is flaky, this change will amplify pain before it reduces it.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "f10e6b7335921ecb03c3feae5f80e73d9c5d36bf94be1537ccd297897cf9e44d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28291,
+    "output_tokens": 625,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 625,
+        "cache_read_input_tokens": 28291,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.011912200000000001,
+    "duration_ms": 11473,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:52:06+00:00",
+  "finished_at": "2026-09-13T04:52:19+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

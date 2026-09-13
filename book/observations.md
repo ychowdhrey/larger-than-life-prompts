@@ -4,6 +4,106 @@ Capture one concise observation after every completed experiment.
 
 The purpose of this file is not to draft polished chapters. It is to preserve what each experiment taught while the result is still fresh.
 
+## Experiment 002
+
+**Full run, 2026-09-13. 2,220 generations, 37 arms, 25 new phrases across 9 families.
+Nothing worked, and the most valuable number in it is about the instrument.**
+
+Twenty-six treatment arms, sixty generations each, against three shared controls on the same
+task set Experiment 001 used. **Zero demonstrated effects in either direction.** Every arm
+Neutral.
+
+The three findings worth keeping are none of them about a phrase.
+
+### 1. The candidate pattern from Experiment 001 reversed
+
+001 closed with one candidate: *the active ingredient in appended text is instruction
+content, not tone*, because condition D was the only thing that moved. This battery re-ran
+A, B and D verbatim alongside the new phrases. `D_vs_A` on the primary outcome was **+0.100
+in 001 and -0.150 here**. On the objective score D's lead over the control shrank from +0.031
+to +0.008 and B overtook it.
+
+Same sentence, same tasks, same model, opposite sign. The candidate was one run's noise.
+
+This is the argument for batteries over one-phrase experiments, and it is not an argument
+about efficiency. A single experiment has no way to see this. It took re-running a known
+control next to new arms to find out that the known control's result was not stable, and
+that cost three arms out of thirty-seven.
+
+### 2. The noise floor is bigger than the effects
+
+Between the two runs, on byte-identical text: the empty control moved **+0.167** on blind
+judge task success, generic encouragement moved **+0.034** on the objective score, and D
+moved -0.083 and -0.018. Almost every treatment effect in the battery is smaller than that.
+
+Nothing in this repository measured that before, because nothing had ever run the same
+condition twice. It should be measured directly — one control arm, several `run_id`s — before
+another phrase is tested, because any effect smaller than it is uninterpretable.
+
+### 3. "Worse than the control" was an artefact, and the second instrument caught it
+
+25 of 26 arms scored below the empty control on the primary outcome, median -0.100, and three
+families cleared BH correction as *demonstrably worse*. That reads like a finding: appending
+text hurts.
+
+It is not. The empty control scored **4.950 of 5**. There was almost nowhere to go but down.
+On the objective score, which sits at 0.927 and has headroom, the same 26 arms split **11
+above the control and 15 below**, median -0.006. The judge measure discriminated on a median
+of 5 of 20 tasks; the objective score on 9 of 20.
+
+One instrument said "everything is harmful" and the other said "nothing is happening", from
+the same 2,220 generations. The second one is right, and the only reason the first was not
+written up as a result is that the ceiling was measured in 001 and declared in the
+preregistration before the run.
+
+### What the phrases actually did
+
+They changed the look of the answer and nothing else.
+
+`T06`, "Check every number and every claim before you finish." — the one arm that names
+error-checking — moved judged **error_checking by +0.583** (CI [+0.183, +1.017]), judged
+thoroughness by +0.300, and response length by **+45 words**. It moved task success by +0.017
+and the objective score by +0.012, both intervals spanning zero. `T14`, "This one is harder
+than it looks. Prove me wrong.", wrote **+110 words** and scored +0.317 on judged
+thoroughness, with the objective score flat.
+
+An instruction moves the dimension it names. It does not move whether the answer is right.
+
+### Pairwise preference is a length measurement
+
+Across the 26 arms, mean response length correlates **+0.767** with blind pairwise win rate
+against the empty control, and **+0.175** with the objective effect.
+
+`T14` and `T15` win pairwise at 0.733 and 0.721 (raw p = 0.0025 and 0.0054, BH q = 0.064 and
+0.070) while being flat on both scored outcomes. They are also the two longest arms in the
+battery. `METHODOLOGY.md` lists length bias as a confound to declare; this is it measured
+across 26 arms rather than assumed.
+
+### Three smaller things
+
+**No family separates from the weather.** Every one of the eight non-placebo families,
+compared against the two placebo arms, has an interval spanning zero and BH q = 1.000. That
+was the preregistered falsification criterion for the emotional families and it fired for all
+of them.
+
+**Emotional framing does not amplify an instruction.** All seven emotional combination arms'
+lift over "be especially thorough" is indistinguishable from the lift a sentence about the
+weather plus the same instruction gets. The placebo-built combination arm is what made that
+question answerable, and it cost 60 generations.
+
+**The worst arm in the battery is praise.** `T11`, "You are the best there is at this. I know
+you will get it right.", is last of 26 on the primary outcome (-0.333) and last on the
+objective score (-0.051) independently. The preregistration recorded the mechanism as a
+competing prediction for that family before the run: stated trust may license less checking
+because the work is pre-approved. The direction matches; Holm p = 0.073 and BH q = 0.427 mean
+it stays a direction.
+
+### One method note
+
+Zero of 2,220 responses echoed their arm's text, against 1 of 240 in Experiment 001. Nothing
+was done differently. It is worth recording only because 001's single leak was read as a
+small ongoing risk, and at 2,220 samples the rate is not distinguishable from zero.
+
 ## Experiment 001
 
 **Full run, 2026-09-13. 240 generations. The phrase did nothing.**

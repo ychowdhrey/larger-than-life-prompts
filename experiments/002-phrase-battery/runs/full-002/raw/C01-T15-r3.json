@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T15-r3",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 3,
+  "execution_index": 625,
+  "sample_seed": 11513903135934126381,
+  "prompt_sha256": "8fb9029e99ab084704561997bcfbc7a3981597c0c34d8988c2dc3ca9a0d92742",
+  "prompt_chars": 617,
+  "response": "## Defects found\n\n**1. Mutable default argument (`seen=[]`) — the most serious bug**\nDefault argument values in Python are evaluated once, at function-definition time, and the same list object is reused on every call that doesn't pass `seen` explicitly. So `seen` silently persists and accumulates across *separate, unrelated calls*.\nEffect: call `top_scores(class_a_scores)` then `top_scores(class_b_scores)` — any value that happened to be in class A's top 5 will be treated as \"already seen\" and silently dropped from class B's result, even though it's a perfectly valid top score for class B. Results become dependent on call history, not just on the input `scores`, and the list grows without bound for the lifetime of the process (a slow memory leak). This is very hard to catch with a single ad-hoc test since it only shows up on the second call.\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\n`list.sort()` sorts in place and returns `None`; it reorders the exact list object the caller passed in, as a side effect, in addition to returning data via `result`/`average`.\nEffect: any code that holds a reference to the original list and expected it to keep its original order (e.g. insertion order, chronological order) will find it silently reordered after calling this function. This is a hidden side effect on top of a normal-looking \"compute and return\" function, and it can corrupt state or produce confusing bugs elsewhere in the program that has nothing to do with `top_scores`'s stated job.\n\n**3. `IndexError` when `scores` has fewer elements than `limit`**\nThe loop does `for i in range(0, limit): ... scores[i] ...` with no check that `len(scores) >= limit`.\nEffect: this is trivially triggered even with the *default* arguments — e.g. `top_scores([10, 7, 3])` (only 3 scores, default `limit=5`) raises `IndexError: list index out of range` on the 4th iteration. Any call where the input has fewer entries than the requested/default limit crashes instead of just returning as many scores as are available.\n\n**4. `ZeroDivisionError` on an empty `scores` list**\n`average = sum(scores) / len(scores)` divides by `len(scores)` unconditionally.\nEffect: if `scores == []`, this raises `ZeroDivisionError: division by zero`. (Note this path is only reached when `limit <= 0`, since with the default `limit=5` an empty list triggers defect #3's `IndexError` first — but both crashes are real and reachable for different inputs, so they're distinct defects, not the same bug.)\n\n**5. Deduplication silently shrinks the result instead of backfilling**\nThe loop only ever looks at indices `0` through `limit-1` of the sorted list. If two of those top `limit` positions have equal values, the duplicate is skipped (via the `seen` check) but nothing takes its place from further down the list.\nEffect: `top_scores([10, 10, 9, 8, 7, 6], limit=5)` (imagine `seen` fresh, ignoring defect #1) sorts to `[10, 10, 9, 8, 7, 6]` and returns only `[10, 9, 8, 7]` — 4 elements — even though there are clearly 5 distinct scores (`10, 9, 8, 7, 6`) available in the input. So \"top 5\" can silently come back as fewer than 5 even when enough distinct values exist, because the function never extends its scan past index `limit-1` to compensate for a skipped duplicate.\n\n## Not defects (confirmed correct / explicitly intended)\n- Sorting `scores` in descending order — intended.\n- `average` being computed over *all* scores rather than just the top `limit` — intended, per the prompt.\n- Using true division for `average` — correct in Python 3, no integer-division issue.",
+  "response_sha256": "b6a89377c1c2201b739e9f544a50e5aad06d9a05d46f59d567c946fd20da1d8c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2539,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 4875,
+    "output_tokens_details": {
+      "thinking_tokens": 3620
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2539,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4875,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2539,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2539
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0640552,
+    "duration_ms": 56559,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:37:29+00:00",
+  "finished_at": "2026-09-13T04:38:26+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

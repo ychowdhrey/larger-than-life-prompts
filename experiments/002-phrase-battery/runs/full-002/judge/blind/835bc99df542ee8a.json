@@ -1,0 +1,22 @@
+{
+  "item_id": "835bc99df542ee8a",
+  "sample_id": "P02-T25-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T25",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact required headings in order, places a mandatory snapshot before any risky action, explicitly forbids restart/failover before the snapshot, includes multiple concrete abort/rollback conditions, and ends with the correct SECTIONS line, while also engaging with realistic sub-issues like WAL bloat, replica lag checks, and safe transaction termination.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:14+00:00"
+}

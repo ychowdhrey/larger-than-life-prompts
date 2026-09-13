@@ -1,0 +1,19 @@
+{
+  "pair_id": "P03-T01_vs_A-r1",
+  "contrast_id": "T01_vs_A",
+  "task_id": "P03",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T01",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T01",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both schedules satisfy all constraints and produce a valid 10-day plan, but Response A's reasoning is internally inconsistent (it argues the critical chain T1→T2→T4→T6 must run back-to-back on one engineer to avoid handoff delays, then hands T6 to a different engineer anyway), whereas Response B's reasoning and final schedule agree, keeping the whole critical chain on E1.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:35:53+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T11_vs_A-r1",
+  "contrast_id": "T11_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T11",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet the hard requirements equally well, but Response B keeps IMMEDIATE ACTIONS strictly non-destructive (throttling writes via feature flags/backpressure rather than already attempting volume expansion), adds a concrete replica-disk-headroom check and IC sign-off gate before failover, and gives a more actionable rollback procedure and post-incident data-integrity verification, making it slightly more operationally rigorous than Response A.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:49:04+00:00"
+}

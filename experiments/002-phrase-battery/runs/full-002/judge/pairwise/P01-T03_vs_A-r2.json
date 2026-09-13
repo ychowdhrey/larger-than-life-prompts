@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T03_vs_A-r2",
+  "contrast_id": "T03_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T03",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "Tie",
+  "winner_condition": null,
+  "treatment_won": null,
+  "tie": true,
+  "reason": "Both plans hit exactly 12 steps and satisfy every hard requirement (backup-before-modification ordering, rehearsal, integrity checks, stakeholder communication, rollback) with essentially the same technical approach and the same minor issues (e.g., installing replication tooling before the baseline backup, and using pg_checksums for cross-server comparison). B adds a useful post-rehearsal fix/sign-off step, while A gives clearer separation between freezing writes and cutover; these are offsetting, minor stylistic differences rather than a substantive quality gap.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:29:40+00:00"
+}

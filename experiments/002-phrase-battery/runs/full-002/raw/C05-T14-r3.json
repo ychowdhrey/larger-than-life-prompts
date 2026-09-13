@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T14-r3",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 3,
+  "execution_index": 1730,
+  "sample_seed": 9225468348552957753,
+  "prompt_sha256": "e025871908e1823b58e293dc06b3ff5027c5eb0ce29b37f0ee932fa69302cc50",
+  "prompt_chars": 861,
+  "response": "Confirmed — there are real defects here, not just cosmetic ones. Let me show the arithmetic.\n\n## Defect 1: Off-by-one at the boundary (violates R1)\n\n```python\nif total > 100:\n```\n\nR1 says an order **totaling 100 or more** gets the discount. The code uses strict `>`, so `total == 100` falls through to `return 0.0`.\n\n- `discount(100)` → `100 > 100` is `False` → returns `0.0`\n- Required by R1: `100 * 0.10 = 10.0`\n\nThis is a genuine violation of R1 for the boundary value itself, not an edge case outside the spec.\n\n## Defect 2: `test_cap` asserts a value that contradicts the implementation (and contradicts R2)\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nTrace the actual implementation on `total = 1000`:\n\n```\nd = 1000 * 0.10 = 100.0\nreturn min(d, 50.0)   # = 50.0\n```\n\n`discount(1000)` returns **50.0**, not 100.0. So `test_cap` as written does not pass against this implementation — it's simply wrong, `assert 50.0 == 100.0` fails.\n\nThis isn't just a broken test in isolation — it actively conflicts with R2. R2 requires the discount to *never exceed 50.00*. A test that expects `100.0` for a $1000 order is asserting a value that itself violates R2. If someone \"fixed\" the code to make this test pass (e.g., dropped the `min()` cap), the implementation would then violate R2 for large orders. So this test, as given, is pulling in the opposite direction from R2 rather than verifying it.\n\n## Defect 3: No test covers the R1 boundary, so Defect 1 goes undetected\n\nThe three tests use `50`, `200`, and `1000` — none test `total == 100` exactly. Given R1's explicit \"100 or more\" wording, the boundary is exactly the value most likely to have an off-by-one error (and does, per Defect 1), yet it's untested. The suite would report all green (once `test_cap`'s expected value is fixed) while the R1 boundary bug ships silently.\n\n## What checks out fine\n\n- `test_small` (`discount(50) == 0.0`): correct, matches R3.\n- `test_large` (`discount(200) == 20.0`): `200 * 0.10 = 20.0`, `min(20.0, 50.0) = 20.0` — correct, and no float-rounding artifact here (`200 * 0.1 == 20.0` is exact in IEEE-754 double).\n- The cap mechanism `min(d, 50.0)` itself is structurally correct for R2 — it's only `test_cap`'s hardcoded expected value that's wrong, not the capping logic.\n\n## Summary\n\n| # | Location | Issue | Requirement violated |\n|---|----------|-------|----------------------|\n| 1 | `if total > 100:` | Should be `>= 100`; total of exactly 100 gets no discount | R1 |\n| 2 | `test_cap` | Expects `100.0`, but code returns `50.0` for `discount(1000)`; the expected value itself would violate the cap if the code were changed to satisfy it | R2 (as encoded in the test) |\n| 3 | Test suite overall | No test at `total == 100`, missing the exact boundary named in R1 | Coverage gap enabling #1 |\n\nSo: one real off-by-one bug in the implementation, and one genuinely incorrect/self-contradictory assertion in the test suite — plus the coverage gap that let the boundary bug slip through.",
+  "response_sha256": "1249941ff153fe6926fa68fb38942665bf9fb23c09d169eb7ba79e0fa1f084d8",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2635,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 4074,
+    "output_tokens_details": {
+      "thinking_tokens": 2883
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2635,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4074,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2635,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2635
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.056429200000000006,
+    "duration_ms": 44683,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:03:47+00:00",
+  "finished_at": "2026-09-13T05:04:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T10_vs_A-r2",
+  "contrast_id": "T10_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T10",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T10",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements with 12 clearly ordered steps, but Response B contains an internal contradiction: step 3 claims the backup is taken 'before any replication setup touches production replication slots/config,' yet step 2 already installed and configured replication between on-prem and cloud, which necessarily touches production. Response A avoids this inconsistency by framing its backup as the safety net for 'any further' destructive action, and also adds a useful change-freeze step before the window.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:26:59+00:00"
+}

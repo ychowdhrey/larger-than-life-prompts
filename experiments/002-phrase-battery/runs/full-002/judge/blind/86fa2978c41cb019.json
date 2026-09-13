@@ -1,0 +1,22 @@
+{
+  "item_id": "86fa2978c41cb019",
+  "sample_id": "P01-T09-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T09",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (exactly 12 numbered steps, dry run, integrity verification with row counts/checksums, stakeholder communication, rollback, and backups placed before destructive/bulk operations) and uses a realistic logical-replication approach suited to a 2TB database within a 2-hour window, though the rollback step's placement after 'resume traffic' is a minor logical inconsistency.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:57+00:00"
+}

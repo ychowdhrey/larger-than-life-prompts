@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-T08-r2",
+  "run_id": "full-002",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 2,
+  "execution_index": 1821,
+  "sample_seed": 3391984327628329263,
+  "prompt_sha256": "8eca10e76a8c0dcf6dcec5bc9b6cd6257ea782c52f67f0452d381306f749b758",
+  "prompt_chars": 1258,
+  "response": "Here are the internal inconsistencies and errors I found in this extract:\n\n**1. Conflicting notice periods (4.1 vs. 4.2)**\n4.1 gives *either* party a 30-day notice right, but 4.2 requires the Client specifically to give \"not less than 45 days\" notice. These directly contradict each other for the case of Client-initiated termination: is 30 days sufficient (per 4.1, which covers \"either party\") or is 45 days required (per 4.2)? As written, a Client that gives 30 days' notice can point to 4.1 as compliant while the counterparty can point to 4.2 as a breach. This also poisons downstream provisions that depend on knowing the actual termination date (see point 5).\n\n**2. Gap in Table 4A — no band for 6 months remaining**\nThe bands are \"9 or more,\" \"7 to 8,\" \"3 to 5,\" and \"fewer than 3.\" There is no tier covering exactly 6 months remaining, so a termination with 6 months left has no defined refund rate. This would force a dispute or arbitrary interpolation at the point the clause is actually applied.\n\n**3. Arithmetic error in the 40% row of Table 4A**\nFor a $12,000 annual prepayment: 80% → $9,600 ✓ and 60% → $7,200 ✓ are both correct. But 40% of $12,000 is $4,800, not the $3,600 shown. $3,600 actually corresponds to a 30% rate. So either the percentage or the dollar figure in that row is wrong, and as written the two columns contradict each other.\n\n**4. \"Pro rata\" language is inconsistent with the actual (banded) refund structure**\n4.3 promises a \"pro rata refund,\" which implies an amount proportional to time remaining. But Table 4A pays a flat rate per band regardless of the exact number of months within it — e.g., 9, 10, 11, or 12 months remaining all yield the same 80% ($9,600), rather than a scaled amount. That is a stepped/tiered schedule, not a pro rata one, so the characterization in 4.3 doesn't match the mechanism in the table it points to.\n\n**5. \"Effective Termination Date\" is used but never defined**\n4.4 starts the 14-day refund clock from the \"Effective Termination Date,\" but this capitalized term is not defined anywhere in 4.1–4.3 (unlike Clause 6 and Schedule 1, which the task confirms exist elsewhere). Combined with the 30-day/45-day conflict in point 1, it's unclear whether this date is 30 or 45 days after notice, leaving the start of the refund-payment clock genuinely ambiguous rather than just a missing cross-reference.",
+  "response_sha256": "2797f521517b0c8ec3e84414df522dcda319e8d1947d82b45703db656f5656cc",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28535,
+    "output_tokens": 4498,
+    "output_tokens_details": {
+      "thinking_tokens": 3618
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4498,
+        "cache_read_input_tokens": 28535,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.050691,
+    "duration_ms": 48825,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:05:33+00:00",
+  "finished_at": "2026-09-13T05:06:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "4c00cd0066a66cdf",
+  "sample_id": "P02-T20-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T20",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a verified storage snapshot before any restart/failover, explicitly forbids restart/failover pre-snapshot, includes multiple concrete abort/rollback conditions, and ends with the correct 'SECTIONS: 4' line, while also addressing subtle operational details (WAL/binlog safety, snapshot headroom issues, replication lag checks) that make it directly actionable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:03+00:00"
+}

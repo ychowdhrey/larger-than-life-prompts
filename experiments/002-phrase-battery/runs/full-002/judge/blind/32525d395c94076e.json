@@ -1,0 +1,22 @@
+{
+  "item_id": "32525d395c94076e",
+  "sample_id": "C02-T09-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T09",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all core defects (WHERE-clause killing the LEFT JOIN, missing UTC+8 boundary conversion with correct arithmetic, integer division truncation) plus the downstream consequences (NULL total_spent and resulting NULL sort order), each with accurate mechanism and a concrete fix, without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:27+00:00"
+}

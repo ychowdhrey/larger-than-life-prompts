@@ -1,0 +1,22 @@
+{
+  "item_id": "34d6b00117ce778d",
+  "sample_id": "C01-T09-r1",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T09",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 4,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default arg, missing bound check causing IndexError, division by zero on empty input, in-place mutation of caller's list, and the subtler within-call dedup bug that drops tied scores) with accurate causal explanations, while correctly not flagging the sort/average behavior the task said was intentional; it loses a point for constraint adherence because it tacks on an irrelevant, context-less closing remark unrelated to the defect-listing task.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:53+00:00"
+}

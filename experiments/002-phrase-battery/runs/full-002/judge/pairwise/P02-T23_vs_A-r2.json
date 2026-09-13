@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T23_vs_A-r2",
+  "contrast_id": "T23_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T23",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T23",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet the hard requirements, but Response B sequences steps more safely by freezing risky changes before the snapshot and explicitly enumerating every action deferred until snapshot confirmation, and its abort/rollback condition is more comprehensive, covering both snapshot failure and a downstream failure during mitigation (broken replication) rather than only a latency-not-improving case.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:36:12+00:00"
+}

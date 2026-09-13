@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T22-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T22",
+  "condition_name": "phrase_t22",
+  "repetition": 3,
+  "execution_index": 1555,
+  "sample_seed": 16944547921371526855,
+  "prompt_sha256": "b6efcb164db4852c61de43fa1e37e978d650b44ac70464d6365246e541bf1774",
+  "prompt_chars": 1018,
+  "response": "Here is a defect-by-defect review of the memo's reasoning (not the underlying numbers, which are stipulated to be accurate).\n\n**1. Webinar → retention: correlation treated as causation (self-selection confound)**\nWhat's wrong: The memo infers that webinars *cause* higher retention purely from an observed association. But which customers choose to attend an optional onboarding webinar is not random — customers who are already more engaged, better organized, or more invested in the product are plausibly more likely both to attend a webinar *and* to stick around, regardless of the webinar's content. Attendance may simply be a marker of a customer type that retains well, not a driver of retention.\nWhat it causes: If you make attendance mandatory, you change *who* attends (now including previously-unmotivated customers who wouldn't have opted in). If the original effect was really about customer type rather than webinar content, forcing attendance on everyone may produce little or no retention gain — the memo could spend real budget/operational effort on a policy that doesn't replicate the observed 31% gap.\n\n**2. The comparison group is built by conditioning on the outcome (survivorship bias)**\nWhat's wrong: The analysis starts from \"the 412 customers who are still active on the Pro plan today\" and then compares \"retention\" between webinar attendees and non-attendees *within that already-retained group*. But retention/churn is a property of the full cohort (active + churned); once you restrict to only customers who did not churn, you've selected on the outcome you're trying to explain. Churned non-attendees and churned attendees have been excluded entirely, so the 412-customer sample cannot legitimately support a claim about *rates* of retention differing by webinar attendance.\nWhat it causes: The stated \"31% higher retention\" figure is not actually measuring what it claims to measure — it's derived from a population that has already had the variation of interest (churn vs. non-churn) filtered out, which can produce a spurious or distorted association in either direction, undermining the entire basis for the mandatory-webinar recommendation.\n\n**3. Multiple comparisons / data dredging on the region finding**\nWhat's wrong: The memo tested 18 different attributes against churn and treats the one that hit p = 0.04 as a real effect. With 18 independent tests at the conventional α = 0.05 threshold, the probability of finding at least one \"significant\" result by chance alone is roughly 1 − 0.95¹⁸ ≈ 60%, even if none of the attributes actually matters. No correction (Bonferroni, FDR, holdout/replication sample) is mentioned.\nWhat it causes: Reallocating next quarter's spend to the Central region is likely chasing statistical noise rather than a real regional effect. If it's a false positive, the spend produces no measurable churn benefit, and the actually-informative attributes (if any exist among the other 17) go uninvestigated.\n\n**4. Satisfaction increase attributed to the new support model without ruling out other explanations**\nWhat's wrong: A 4-percentage-point quarter-over-quarter move (62%→66%) is asserted to demonstrate the new support model \"is working,\" but no comparison is made to normal quarter-to-quarter variance, no confidence interval or sample size is given, and no alternative explanations (seasonality, other concurrent initiatives, changes in survey methodology or response population, regression to the mean) are excluded. There is also no control/comparison group that didn't get the new support model.\nWhat it causes: Continued investment or expansion of the new support model may be justified on a change that is within ordinary noise or driven by something else entirely, wasting resources or delaying identification of the actual cause (positive or negative).\n\nNo other defects (e.g., disputing the accuracy of the reported numbers themselves) are present beyond these four reasoning failures.",
+  "response_sha256": "6f5dfbee86008d7e0b35e9f985ad2bb5c6922c418ff5dcfcde4edfc9594c36ec",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28371,
+    "output_tokens": 4925,
+    "output_tokens_details": {
+      "thinking_tokens": 3700
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4925,
+        "cache_read_input_tokens": 28371,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.054928199999999996,
+    "duration_ms": 58832,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:59:46+00:00",
+  "finished_at": "2026-09-13T05:00:46+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

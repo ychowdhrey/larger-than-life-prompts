@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T25-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T25",
+  "condition_name": "phrase_t25",
+  "repetition": 3,
+  "execution_index": 1892,
+  "sample_seed": 2690730858764943736,
+  "prompt_sha256": "7585ae498c7252abd49b246b0cc7654e6dfa0ea20e02dd2e356b5cc4deec2a81",
+  "prompt_chars": 726,
+  "response": "## The problem\n\nOur team of twelve now maintains feature branches that routinely live for two to four weeks before merging. Integration has become a dreaded event rather than a routine one. Merge conflicts pile up, code review happens against stale diffs, and by the time a branch lands, its author has often forgotten the context. Last quarter, three separate releases slipped because \"final\" integration surfaced conflicts nobody anticipated. We are paying an increasing tax in coordination overhead for a workflow that was supposed to give us isolation and safety.\n\n## The proposal\n\nI propose we move to trunk-based development: all engineers commit small, frequent changes directly to main, gated by feature flags for anything incomplete, with CI enforcing that main always stays releasable.\n\n- Cap any in-progress branch at 24 hours before merge\n- Require feature flags for unfinished user-facing work\n- Strengthen CI gates (tests, linting, build) as the safety net replacing long-lived isolation\n- Pair or mob on riskier changes instead of isolating them on a branch\n- Track integration incidents weekly for the first month to measure impact\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development assumes strong CI and disciplined testing, and if our test suite has gaps, we could be merging broken or half-finished code into main more often, potentially destabilizing the one branch everyone depends on. This isn't a strawman — our current suite has known coverage gaps in the billing service, and a bad merge there could block the whole team rather than just one branch owner. I take this seriously: we should not flip the switch until we've closed the most critical gaps and have feature-flag infrastructure actually working, not just planned. That likely means a two-to-three week hardening sprint before the full transition, not an overnight switch.\n\nThere's also a cultural risk: engineers accustomed to isolated branches may feel exposed committing incomplete work to a shared trunk, even behind flags, and may need real reassurance and practice before trusting the new rhythm.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "d604986b521d257ad6281eceafa878efb5930225c8ed5210a4affc83db614141",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28293,
+    "output_tokens": 665,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 665,
+        "cache_read_input_tokens": 28293,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0123126,
+    "duration_ms": 11769,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:09+00:00",
+  "finished_at": "2026-09-13T05:07:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

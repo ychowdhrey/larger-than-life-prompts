@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-E04-r2",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E04",
+  "condition_name": "combo_e04",
+  "repetition": 2,
+  "execution_index": 1354,
+  "sample_seed": 4985047702934057421,
+  "prompt_sha256": "9b9df406a96c42464838e7dc7e4ac26331fe5ea0dc5650a02a651936593122ce",
+  "prompt_chars": 893,
+  "response": "# PostgreSQL Migration Plan: On-Prem → Managed Cloud (2 TB, ~4,000 DAU)\n\n1. **Assess and provision the target.** Inventory the on-prem instance (PostgreSQL version, extensions, roles, custom functions, indexes, connection count). Provision a managed cloud instance (e.g., RDS/Cloud SQL/Azure Database for PostgreSQL) matching or exceeding version/extensions, sized for current load plus headroom, in a network configuration (VPC/VPN/peering) that gives the application low-latency access.\n\n2. **Stand up continuous replication.** Configure logical replication or a CDC tool (e.g., pglogical, AWS DMS, Debezium) to perform an initial full load from on-prem to the cloud target and then stream ongoing changes. This runs in the background with no production impact and no downtime yet.\n\n3. **Communicate with stakeholders (initial notice).** Announce the migration, the target Sunday maintenance window (with exact start/end times and expected max duration ≤2 hours), and expected user impact (read-only or full outage) via email, status page, and in-app banner. Get sign-off from engineering/ops leadership.\n\n4. **Take a full backup of production** (baseline `pg_basebackup`/snapshot), and verify it restores successfully to a scratch instance. This backup is required before the rehearsal touches any copy of production data and serves as the first restore point.\n\n5. **Dry run / rehearsal on non-production data.** Using the verified backup, restore a full copy to a staging environment and a staging clone of the cloud target. Execute the entire cutover runbook end-to-end (final sync, app config switch, smoke tests, verification queries, rollback trigger) against this non-production copy, timing each step and fixing any issues found. Repeat until the rehearsal completes reliably within the 2-hour window.\n\n6. **Finalize the runbook and send the reminder.** Incorporate rehearsal fixes into the runbook. 24–48 hours before the window, send a reminder to stakeholders/users confirming the exact window, expected impact, and a status-page link for live updates during the cutover.\n\n7. **Open the maintenance window with a fresh full backup.** Immediately before any step that modifies or destroys production data, take a fresh full backup/snapshot of the production database and confirm it completed successfully. This is the primary rollback point for the live cutover.\n\n8. **Freeze writes and finish sync.** Put the application into maintenance mode (block or queue writes), let replication lag drop to zero, and run the final incremental sync so source and target are in lockstep.\n\n9. **Cut over.** Repoint application connection strings/DNS/secrets to the managed cloud database, restart application services, and run automated smoke tests (connectivity, auth, key transactions).\n\n10. **Verify data integrity.** Compare row counts and checksums (e.g., per-table `COUNT(*)`, `pg_checksums`, or hash aggregates like `md5(array_agg(...))`) between source and target, validate sequence values, index counts, and constraint integrity, and run application-level read/write smoke tests. Only proceed to reopen traffic if verification passes.\n\n11. **Rollback procedure (execute only if verification/smoke tests fail).** Re-point the application back to the on-prem database (left untouched and still live throughout steps 8–10), take it out of maintenance mode, and confirm service restoration. If on-prem data was altered post-freeze, restore it from the Step 7 backup instead. Notify stakeholders/users immediately of the rollback and revised timeline, then diagnose the failure offline before re-attempting cutover.\n\n12. **Close out and monitor.** If verification passed, exit maintenance mode, monitor performance/errors/replication-free operation on the cloud database for 24–72 hours, communicate successful completion to stakeholders/users, and only after confirmed stability decommission the on-prem instance (retaining the Step 7 backup per data-retention policy before removal).\n\nSTEP COUNT: 12",
+  "response_sha256": "f271e71f919bb060055271aa8c4e54542cd8bbe4446a6f6395abccf378939b4b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28340,
+    "output_tokens": 2738,
+    "output_tokens_details": {
+      "thinking_tokens": 1395
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2738,
+        "cache_read_input_tokens": 28340,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.033052000000000005,
+    "duration_ms": 32905,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:54:46+00:00",
+  "finished_at": "2026-09-13T04:55:20+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

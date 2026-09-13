@@ -1,0 +1,22 @@
+{
+  "item_id": "e73a15c8ec7b4421",
+  "sample_id": "C05-E07-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E07",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-boundary bug (total==100 wrongly gets no discount) and the real error in test_cap (expected 100.0 when the correctly-capped result is 50.0), verifies these by computing actual values against the code, and flags valid coverage gaps without inventing any false defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:56+00:00"
+}

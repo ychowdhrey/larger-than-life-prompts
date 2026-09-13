@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T19-r2",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 2,
+  "execution_index": 926,
+  "sample_seed": 9185406235548976354,
+  "prompt_sha256": "a259cddd78c18253c4005fa6c26249d864a7ceec36e902033a2ba6d8b30fdf6f",
+  "prompt_chars": 861,
+  "response": "## Defects Found\n\n**1. Off‑by-one boundary error in the implementation (violates R1)**\n\n```python\nif total > 100:\n```\n\nR1 states an order with a total of **100 or more** gets the discount, i.e. the condition should be `total >= 100`. As written, `total == 100` falls through to `return 0.0`. So an order of exactly 100 gets **no discount**, contradicting R1 (and also making R3's boundary — \"below 100\" — inconsistent with the code's actual boundary, since 100 itself is wrongly treated like a sub‑100 order).\n\n- **Cause:** strict `>` instead of `>=`.\n- **Effect:** `discount(100)` returns `0.0` instead of the required `10.0`.\n\n**2. `test_cap` asserts a value that violates R2 and doesn't match the implementation's actual output**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nFor `total = 1000`, `d = 1000 * 0.10 = 100.0`, and the code computes `min(d, 50.0) = 50.0`. So:\n- The implementation (correctly, per R2) returns `50.0`.\n- The test asserts `100.0`.\n\nThis test **will fail** when run against the given implementation, and more importantly it encodes the wrong requirement — asserting a discount of 100.0 directly contradicts R2's \"never more than 50.00\" cap. This is a defect in the test, not the implementation's capping logic.\n\n**3. Missing boundary test at total = 100 (test-coverage gap)**\n\nNone of the three tests exercise `total == 100`. This is precisely the boundary where R1 and R3 meet, and it's exactly the case that exposes defect #1 (`total > 100` vs `total >= 100`). Without this test, the off-by-one bug goes undetected.\n\n**4. No correct test actually verifies the R2 cap behavior**\n\nBecause `test_cap` uses the wrong expected value (100.0 instead of 50.0), there is effectively no passing test in the suite that correctly confirms the 50.00 cap is enforced. (A corrected version would be `assert discount(1000) == 50.0`, and ideally also a case like `total = 500` where `total * 0.10` exactly equals the cap.)\n\n## Not defects (for clarity)\n- `test_small` (`discount(50) == 0.0`) is correct per R3.\n- `test_large` (`discount(200) == 20.0`) is correct given the implementation and requirements (200 ≥ 100, 10% = 20.0, under the cap).\n- The capping logic itself (`min(d, 50.0)`) correctly implements R2 — only the boundary condition (`>` vs `>=`) and the `test_cap` assertion are wrong.",
+  "response_sha256": "a786c7d7ba5658d38981dd08b03ed9c84e51587e2443e4cabf31105d8e85a70f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28358,
+    "output_tokens": 2330,
+    "output_tokens_details": {
+      "thinking_tokens": 1425
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2330,
+        "cache_read_input_tokens": 28358,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.028975600000000004,
+    "duration_ms": 25885,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:44:35+00:00",
+  "finished_at": "2026-09-13T04:45:02+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "c169603d95296fb4",
+  "sample_id": "C02-T24-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T24",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (WHERE clause negating the LEFT JOIN, UTC/local timezone mismatch on the date boundary, integer division truncating cents, NULL vs 0 for SUM on zero-order customers, and non-standard GROUP BY portability), explains the mechanism and consequence for each with accurate SQL semantics, and proposes correct fixes without inventing spurious issues; the only weakness is the slightly overgeneralized claim that 'most SQL engines' truncate integer division, when major engines like MySQL and Oracle actually return decimal results.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:02+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T16_vs_A-r3",
+  "contrast_id": "T16_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T16",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T16",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both identify the same four real defects with equivalent, correct fixes, but Response B additionally verifies and explicitly rules out two plausible false positives (COUNT(o.order_id) vs COUNT(*), and grouping by customer_id while selecting name/signup_date), which better satisfies the instruction not to report non-existent problems while showing more thorough verification; B's phrasing on NULL sort order is also appropriately engine-agnostic rather than overclaiming a specific behavior.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:25:15+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "36733ebfef7719fe",
+  "sample_id": "C01-T18-r3",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T18",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all five real defects (mutable default arg, IndexError on large limit, ZeroDivisionError on empty input, dedup shrinking the result instead of backfilling, and in-place mutation of the caller's list) with accurate causal explanations and no fabricated issues, including a concrete example trace for the subtler dedup bug.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:18:44+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T26-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 2,
+  "execution_index": 1967,
+  "sample_seed": 1243923919348519469,
+  "prompt_sha256": "6ec3c709595c42ffa8f279280308ff9420932072f2fde555fb7cec1048da18fa",
+  "prompt_chars": 740,
+  "response": "Subject: Moving to Trunk-Based Development\n\n## The problem\n\nOur feature branches now live for two to four weeks before merging, and integration pain scales with that lifespan. Merge conflicts routinely eat half a day, code review happens against stale diffs that no longer reflect main, and QA finds bugs caused by interactions between branches nobody tested together. We're a team of twelve working in a shared codebase, but our workflow is optimized for isolation, not integration — and the cost shows up right before every release, when three or four large branches land in the same week and something breaks.\n\n## The proposal\n\nMove to trunk-based development: everyone commits small, incremental changes directly to main at least once a day, guarded by feature flags for anything incomplete or risky.\n\n- Cap branch lifetime at under 24 hours; anything longer gets split into smaller commits.\n- Wrap unfinished features in flags so main is always deployable.\n- Require green CI on every merge to main, with tests run on each commit, not just at merge time.\n- Pair or mob on any change too large to land in a day, rather than branching it off.\n- Track flag debt explicitly so temporary flags don't become permanent clutter.\n\nThis shrinks the blast radius of any single change and surfaces integration problems within hours instead of weeks.\n\n## What could go wrong\n\nThe strongest objection is real: without long branches, half-built features are exposed on main, and a mismanaged flag can leak broken functionality to users or entangle the codebase in conditional complexity. Teams that adopt flags casually often end up with dozens of stale flags nobody remembers to remove, which is its own form of technical debt. We should take this seriously rather than wave it away — it means we need a flag lifecycle policy (owner, expiry date, removal ticket) from day one, not as an afterthought.\n\nThere's also a real ramp-up cost: our CI needs to be fast and reliable enough to support many small merges a day, and some engineers will need to unlearn branch habits.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "8703493424ceec10b29664042e58fec1500a83f7000a777bd6c0d7511c409d7a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28293,
+    "output_tokens": 652,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 652,
+        "cache_read_input_tokens": 28293,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012182599999999998,
+    "duration_ms": 11367,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:08:50+00:00",
+  "finished_at": "2026-09-13T05:09:03+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

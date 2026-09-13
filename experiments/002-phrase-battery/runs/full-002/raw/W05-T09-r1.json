@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T09-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T09",
+  "condition_name": "phrase_t09",
+  "repetition": 1,
+  "execution_index": 874,
+  "sample_seed": 4896951652425353549,
+  "prompt_sha256": "29fa1e364c7f0cfcb29fa2ca6a1dfdac0d19a06370f80a215a9a83400d43c960",
+  "prompt_chars": 743,
+  "response": "## The problem\n\nOur team of twelve has drifted toward long-lived feature branches, some open for two or three weeks. Merges have become dreaded events: conflicts pile up, integration bugs surface late, and code review happens on giant diffs nobody can meaningfully evaluate. We routinely lose a day or more per release cycle just untangling merges. Worse, the longer a branch lives, the more it diverges from what everyone else is doing, which defeats the purpose of working as one team.\n\n## The proposal\n\nI propose moving to trunk-based development: everyone commits small, frequent changes directly to main (or through branches that live less than a day), protected by feature flags for anything incomplete. Concretely:\n\n- Adopt feature flags so unfinished work can ship to main without being user-visible, decoupling deployment from release.\n- Require CI to pass on every commit to main, with a fast pipeline (under ten minutes) so small commits don't create friction.\n- Set a team norm of merging at least once per day per active task, breaking large efforts into reviewable increments.\n- Pair this with mandatory pre-merge code review on small diffs rather than post-hoc review on massive branches.\n- Run a two-week pilot with one squad before rolling out team-wide, so we can fix problems before they scale.\n\nThis should shrink integration pain, surface bugs earlier, and make our codebase's actual state visible to everyone at all times.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development raises the risk of shipping half-finished or broken work to main, especially for a team not yet disciplined about feature flags and small commits. If someone commits sloppy, flag-less code, we could destabilize main for everyone, whereas an isolated branch at least contains the damage. This is a real risk, not a hypothetical one, and it's the main reason some engineers prefer branch isolation. We address it by strengthening CI gates and mandating flags for anything not release-ready, but this only works if we actually enforce it consistently, and the first few weeks will require extra discipline and review vigilance while habits form.\n\nThere's also a real learning curve, and productivity may dip during the pilot. I think that's a worthwhile trade for the recurring costs we pay today.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "c4a5417844f570a73024af87b7d3052a5ed43d98c40028b80d9bd5c4571012a5",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28299,
+    "output_tokens": 731,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 731,
+        "cache_read_input_tokens": 28299,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0129738,
+    "duration_ms": 12535,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:43:29+00:00",
+  "finished_at": "2026-09-13T04:43:43+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

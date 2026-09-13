@@ -1,0 +1,22 @@
+{
+  "item_id": "a2e1b21007a7db60",
+  "sample_id": "P01-E02-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E02",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan meets every hard requirement (12 numbered steps, rehearsal on staging data, post-cutover row-count/checksum verification, stakeholder communications, pre-cutover backup before any destructive action, and a concrete rollback tied to the backup) and correctly ends with the required STEP COUNT line. It also shows real domain depth by rejecting a naive dump/restore for 2 TB in favor of continuous replication with LSN-based cutover to fit the two-hour window, making it directly actionable by a DBA team.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:03+00:00"
+}

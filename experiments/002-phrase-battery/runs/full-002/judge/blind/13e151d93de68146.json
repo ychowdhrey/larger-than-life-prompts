@@ -1,0 +1,22 @@
+{
+  "item_id": "13e151d93de68146",
+  "sample_id": "C05-T01-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T01",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all three real defects (the >100 vs >=100 boundary violating R1, the missing test at total=100, and test_cap's wrong expected value of 100.0 when the actual capped result is 50.0), explains the concrete consequences of each, and reports no false positives while correctly verifying the passing tests.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:10+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "321c9ce0ff1173ed",
+  "sample_id": "C05-E07-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E07",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the off-by-one boundary bug (>100 vs >=100), correctly computes that test_cap's expected value of 100.0 is wrong given the implementation's actual min(100.0,50.0)=50.0 output, and correctly flags the missing boundary test at total=100, with no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:48+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "e33e2766f9d453f5",
+  "sample_id": "P05-T01-r3",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T01",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement precisely: three named phases with percentages and entry criteria, five correctly formatted RISK lines, a clear numeric halt threshold (0.5% discrepancy rate), explicit separation of decommissioning from the final migration batch, and an exact closing 'PHASES: 3' line. It also shows real domain depth (dual-write conflicts, shadow-mode reconciliation, staggered sub-waves, rollback rehearsal) making it directly actionable, though it doesn't explicitly narrate a self-verification pass against the constraints.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:41:29+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-E06-r3",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E06",
+  "condition_name": "combo_e06",
+  "repetition": 3,
+  "execution_index": 1645,
+  "sample_seed": 864017311890643859,
+  "prompt_sha256": "8c13fb7670ba8cc4fb179f6fadd3d2ba53576b2c40601f924df262f8092d1965",
+  "prompt_chars": 915,
+  "response": "## Defects Found\n\n**1. Boundary bug in the implementation (violates R1) — `total > 100` should be `total >= 100`**\n\nR1 states an order with a total of **100 or more** gets the discount. The code uses a strict `>`, so `discount(100)` falls through to the `return 0.0` branch. An order totaling exactly 100 gets no discount instead of the required 10.0. This is a direct violation of R1, and none of the provided tests exercise this boundary, so it goes undetected.\n\n**2. `test_cap` asserts the wrong value — contradicts R2 and the implementation itself**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nFor `total = 1000`, `d = 1000 * 0.10 = 100.0`, and the implementation caps it via `min(d, 50.0)`, so the actual return value is `50.0`, not `100.0`. This assertion will **fail** when run — it's not merely a weak test, it's an incorrect one. It also reflects a misunderstanding of R2 (\"never more than 50.00\"): the correct expected value for the cap test is `50.0`. As written, the test suite does not actually pass, and it doesn't provide a valid check that the 50.00 cap works.\n\n**3. Missing test coverage for the R1/R3 boundary at total == 100**\n\nThere is no test for `discount(100)`. Since R1 and R3 split precisely at 100 (\"100 or more\" vs. \"below 100\"), this is the exact case that needed a test — and had one existed, it would have caught defect #1.\n\n## Not defects (checked and found fine)\n- `test_small` (`discount(50) == 0.0`) correctly reflects R3.\n- `test_large` (`discount(200) == 20.0`) is consistent with R1 and the implementation.\n- The capping logic itself (`min(d, 50.0)`) correctly implements R2's intent for totals where it's actually reached (e.g., it would correctly return 50.0 for total=1000 if the test's expected value were fixed).",
+  "response_sha256": "14651bba9152929ed9a6b11d6951bdaeae98a348d10c3a8e827499bfe98fa960",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28373,
+    "output_tokens": 2439,
+    "output_tokens_details": {
+      "thinking_tokens": 1772
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2439,
+        "cache_read_input_tokens": 28373,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0300686,
+    "duration_ms": 26918,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:01:51+00:00",
+  "finished_at": "2026-09-13T05:02:19+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

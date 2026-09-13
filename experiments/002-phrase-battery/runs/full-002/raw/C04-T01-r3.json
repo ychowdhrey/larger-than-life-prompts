@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-T01-r3",
+  "run_id": "full-002",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T01",
+  "condition_name": "phrase_t01",
+  "repetition": 3,
+  "execution_index": 607,
+  "sample_seed": 5289312492304828868,
+  "prompt_sha256": "11aeae73547672753fb591e30ab0e715e4a446f993e731d126950e00d46c564f",
+  "prompt_chars": 1231,
+  "response": "Here are the internal inconsistencies and errors in this extract:\n\n**1. Conflicting notice periods for Client-initiated termination (Clause 4.1 vs 4.2)**\n- Clause 4.1 states that *either party* may terminate on 30 days' written notice.\n- Clause 4.2 then requires the Client specifically to give *not less than 45 days'* notice.\n- These directly contradict each other: 4.1 says 30 days suffices for a Client termination (since the Client is one of \"either party\"), while 4.2 says the Client needs at least 45 days. As drafted, a Client could point to 4.1 to argue 30 days is sufficient, while the counterparty could invoke 4.2 to argue the termination is invalid/premature at 30 days. This would cause genuine disputes over whether a given notice was valid and, downstream, over what the \"Effective Termination Date\" actually is (which in turn affects the refund calculation under 4.3/4.4).\n\n**2. Gap in Table 4A's refund bands — no rate for exactly 6 months remaining**\n- The bands given are \"9 or more,\" \"7 to 8,\" \"3 to 5,\" and \"fewer than 3.\"\n- A case of exactly 6 months remaining falls into no band at all. This leaves the refund rate undefined for that scenario, causing a dispute or requiring an off-contract interpretation whenever termination happens with 6 months left.\n\n**3. Arithmetic inconsistency in the 40% refund row**\n- The table states a 40% refund rate for \"3 to 5\" months remaining, with a worked example of $3,600 on a $12,000 annual prepayment.\n- 40% of $12,000 is $4,800, not $3,600. $3,600 is actually 30% of $12,000.\n- So either the rate (40%) or the example figure ($3,600) is wrong — they are internally inconsistent, and a Client relying on the percentage would expect $1,200 more than the table's stated dollar figure.\n\nNo other defects were found: the references to Clause 6 (4.5) and Schedule 1 (4.6) are appropriately out of scope per the instructions, the 80%/60%/0% rows compute correctly against $12,000, and there is no numbering gap or duplication in 4.1–4.6.",
+  "response_sha256": "332e5c25dbe7401d06b28cfd33c34c8cac4ada0788e2d76b5f7eb91a5c18c343",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28524,
+    "output_tokens": 3468,
+    "output_tokens_details": {
+      "thinking_tokens": 2729
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3468,
+        "cache_read_input_tokens": 28524,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0403888,
+    "duration_ms": 37143,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:37:09+00:00",
+  "finished_at": "2026-09-13T04:37:48+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

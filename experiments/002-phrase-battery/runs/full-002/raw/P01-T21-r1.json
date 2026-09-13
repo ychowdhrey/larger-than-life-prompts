@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-T21-r1",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 1,
+  "execution_index": 824,
+  "sample_seed": 17980390062845354497,
+  "prompt_sha256": "dc14fd3f2c0a4d6f00c1dc912c082c451317f2729919253bcff48a94bd62c521",
+  "prompt_chars": 839,
+  "response": "# PostgreSQL 2 TB Migration Plan (On-Prem → Managed Cloud)\n\n1. **Assess and prepare**: Inventory schema, extensions, custom functions/triggers, and PostgreSQL version compatibility with the target managed service. Size the target instance for 2 TB + growth headroom, provision it, configure networking/VPC/security groups, and set up logical or physical replication tooling (e.g., pglogical, native logical replication, or a managed migration service). Establish monitoring and alerting on the new instance.\n\n2. **Communicate the schedule**: Notify all 4,000 daily active users and internal stakeholders of the Sunday maintenance window (start/end time, expected impact), via email/status page/in-app banner, at least 5–7 days in advance, with a reminder 24 hours prior and a designated incident channel for the day of.\n\n3. **Rehearsal on non-production data**: Restore a full backup/snapshot of production into a staging environment, and run the entire migration procedure (initial bulk load, replication setup, cutover steps, verification, and rollback) end-to-end against this non-production copy. Record timings for each phase to validate the 2-hour window is sufficient.\n\n4. **Refine runbook from rehearsal**: Adjust the plan based on rehearsal timings and any errors encountered (e.g., index rebuild time, replication lag). If the rehearsal shows the window is too tight, plan to pre-load bulk data ahead of the maintenance window using ongoing replication, so cutover only needs to apply the final delta.\n\n5. **Pre-window bulk sync (before Sunday)**: Days ahead of the window, take an initial full backup of production (base backup / pg_dump or pg_basebackup) and begin streaming/logical replication of ongoing changes into the target cloud instance, so the bulk of the 2 TB is already transferred before the maintenance window opens.\n\n6. **Take a full pre-cutover backup**: Immediately before the maintenance window begins, take a fresh full backup/snapshot of the on-prem production database (verified restorable) — this is the mandatory safety net before any write-blocking or destructive action.\n\n7. **Open maintenance window and freeze writes**: Put the application into maintenance mode, stop or redirect application writes to the on-prem database, and confirm no new transactions are being committed.\n\n8. **Final delta sync and cutover**: Let replication catch up fully (lag = 0), stop replication cleanly, and re-point application connection strings/DNS/secrets to the new managed cloud database.\n\n9. **Data integrity verification**: Run row-count comparisons per table, checksum comparisons (e.g., `pg_checksums`, `md5` aggregates per table, or a checksum utility), and spot-check critical business tables (e.g., orders, transactions) between source and target before allowing traffic back.\n\n10. **Smoke test and go-live**: Run application-level smoke tests (login, key transactions, reporting queries) against the new database, confirm sequences/identity columns are correctly aligned, then unfreeze writes and take the application out of maintenance mode.\n\n11. **Rollback procedure (trigger if verification/smoke tests fail or window is exceeded)**: Immediately re-point application connections back to the original on-prem database (still intact and unmodified since freeze), re-enable writes there, and take the app out of maintenance mode. If on-prem was already altered, restore from the step-6 backup instead. Communicate the rollback and rescheduled window to stakeholders, and preserve cloud-instance logs for root-cause analysis before retrying.\n\n12. **Post-migration monitoring and closeout**: Monitor the new cloud database's performance, error rates, and replication/backup jobs for 24–48 hours, notify stakeholders that migration succeeded, keep the on-prem instance in read-only standby for an agreed retention period (e.g., 1–2 weeks) as a fallback, then decommission it.\n\nSTEP COUNT: 12",
+  "response_sha256": "4419f0f5f283bf4c3a0642a7505ac1af8c3b7c9c3475ef558e35d3cdd945eed0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28322,
+    "output_tokens": 1317,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1317,
+        "cache_read_input_tokens": 28322,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0188384,
+    "duration_ms": 17435,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:42:31+00:00",
+  "finished_at": "2026-09-13T04:42:50+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

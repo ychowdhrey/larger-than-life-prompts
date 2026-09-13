@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T26_vs_A-r3",
+  "contrast_id": "T26_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T26",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T26",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans are thorough, hit all hard requirements, and stay at 12 steps, but Response A orders its full production backup (step 3) strictly before any replication/CDC setup (step 4), fully honoring the 'backup before any step that modifies production' requirement, whereas Response B sets up logical replication/CDC on the production source (step 2, which entails creating a publication/replication slot) before taking its first full backup (step 4), a subtly riskier sequencing given the hard requirement.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:09+00:00"
+}

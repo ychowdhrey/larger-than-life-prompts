@@ -1,0 +1,22 @@
+{
+  "item_id": "ffa6f1b236d8e87d",
+  "sample_id": "C01-T06-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T06",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five identified defects (mutable default argument, in-place mutation of caller's list, IndexError from unbounded limit, ZeroDivisionError on empty input, and non-backfilled duplicate skipping) are real and correctly traced with concrete examples, while explicitly and correctly excluding the two behaviors the prompt marked as intended.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:28+00:00"
+}

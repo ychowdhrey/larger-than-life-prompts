@@ -1,0 +1,104 @@
+{
+  "sample_id": "C03-E03-r1",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "E03",
+  "repetition": 1,
+  "response_sha256": "98470ca93517439bf19f14ba32ddf1a7f14a0d74d0de5ef8273b8ca53a130589",
+  "objective": {
+    "max_points": 16.0,
+    "earned_points": 16.0,
+    "objective_score": 1.0,
+    "constraint_completion": null,
+    "planted_issue_recall": 1.0,
+    "distractor_avoidance": 1.0,
+    "checks": [
+      {
+        "check_id": "survivorship",
+        "label": "PLANTED: sample is only customers who are still active",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched surviv\\w+ bias",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "causation",
+        "label": "PLANTED: correlation treated as causation",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched correlation.{0,40}causation",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "multiple_comparisons",
+        "label": "PLANTED: 18 tests, unadjusted p = 0.04",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched multiple compar",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "pct_points",
+        "label": "PLANTED: 4 percentage points reported as 4%",
+        "type": "regex_any",
+        "points": 3.0,
+        "passed": true,
+        "detail": "matched percentage point",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "no_control",
+        "label": "PLANTED: before-after claim with no comparison group",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched control group",
+        "constraint": false,
+        "planted": true,
+        "distractor": false
+      },
+      {
+        "check_id": "distractor_sample_size",
+        "label": "DISTRACTOR: did not claim n=412 is too small",
+        "type": "forbidden",
+        "points": 2.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": false,
+        "planted": false,
+        "distractor": true
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 4610,
+    "response_words": 713,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 1,
+    "alternatives_marker_total": 1,
+    "caveats_markers": 1,
+    "caveats_marker_total": 1,
+    "self_correction_markers": 1,
+    "self_correction_marker_total": 1,
+    "constraint_completion": null,
+    "planted_issue_recall": 1.0,
+    "distractor_avoidance": 1.0
+  },
+  "scored_at": "2026-09-13T05:15:40+00:00",
+  "evaluation_version": "2.0.0"
+}

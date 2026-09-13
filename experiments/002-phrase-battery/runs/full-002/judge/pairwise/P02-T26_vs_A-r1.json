@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T26_vs_A-r1",
+  "contrast_id": "T26_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T26",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the structural and safety requirements equally, but Response B addresses the scenario's specific urgency more concretely: it flags that a near-full disk may itself constrain snapshot capacity (snapshot to a separate volume) and explicitly instructs throttling write traffic if disk is projected to hit 100% before the snapshot finishes, directly mitigating the risk of the disk filling during the snapshot window. Response A's mitigation for write-shedding only appears after the snapshot/diagnostics phase, missing this race-condition nuance that is central to a 98%-and-climbing incident.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:30:42+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "b1325a54e196f548",
+  "sample_id": "C01-E05-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E05",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default argument, in-place mutation of the caller's list, IndexError when limit exceeds length, empty-list crashes via IndexError/ZeroDivisionError, and the subtle incomplete-backfill dedup bug with a concrete worked example), states cause and consequence for each, and explicitly confirms the sort direction and average logic are correct per the stated intent without inventing false problems.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:17:00+00:00"
+}

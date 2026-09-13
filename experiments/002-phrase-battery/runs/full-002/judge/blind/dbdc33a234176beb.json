@@ -1,0 +1,22 @@
+{
+  "item_id": "dbdc33a234176beb",
+  "sample_id": "P02-T23-r1",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T23",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a storage snapshot as the mandatory first step, explicitly forbids restart/failover before the snapshot completes, and includes multiple clear abort/rollback conditions, all while providing concrete, actionable, and non-obvious operational detail (snapshot consistency caveats, replica lag checks, staged mitigation, post-incident follow-up).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:06+00:00"
+}

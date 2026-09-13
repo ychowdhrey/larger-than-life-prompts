@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-E05-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E05",
+  "condition_name": "combo_e05",
+  "repetition": 1,
+  "execution_index": 1479,
+  "sample_seed": 6039710669374165058,
+  "prompt_sha256": "c9939a7083ccdb2b51f94c0138ffd179194fe493b3309b9b6a3f3cb5bc6e0c2f",
+  "prompt_chars": 946,
+  "response": "## Defects found\n\n**1. Off‑by‑one boundary error in the implementation (violates R1)**\n\n```python\nif total > 100:\n```\n\nR1 states an order totaling **100 or more** gets the discount (`total >= 100`). The code uses strict `>`, so a `total` of exactly `100` falls through to `return 0.0`.\n\n- **Cause:** wrong comparison operator (`>` instead of `>=`).\n- **Effect:** `discount(100)` returns `0.0` instead of the correct `10.0`. This is a real, production-relevant bug — a customer whose order totals exactly 100 is silently denied a discount they're entitled to.\n- **Not caught by tests:** none of the three tests exercise `total == 100`, so this bug ships undetected.\n\n**2. `test_cap` asserts a value that violates R2 and doesn't match the implementation**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\n- Per the implementation, `discount(1000)` computes `d = 1000 * 0.10 = 100.0`, then `min(100.0, 50.0) = 50.0`. So this test will actually **fail** (`AssertionError: 50.0 != 100.0`) when run — it's not just conceptually wrong, it doesn't even describe the code's real behavior.\n- More fundamentally, the expected value `100.0` is itself invalid against the spec: R2 says the discount must **never exceed 50.00**. A test asserting a discount of `100.0` is asserting a spec violation as if it were correct behavior. Even if someone \"fixed\" this test to match the implementation's return value, the test as currently written is simply broken and must not be trusted or merged as-is.\n- **Effect:** the test suite does not actually verify the cap behavior at all — the one test meant to check R2 is wrong, so R2 has effectively zero passing test coverage right now.\n\n**3. Coverage gap (not a code defect per se, but relevant given \"everything depends on this\")**\n\n- No test checks the boundary at `total == 100`, which is exactly the case that exposes defect #1.\n- No *correct* test verifies the 50.00 cap (e.g., `discount(1000) == 50.0`, or a case just above the cap threshold like `total = 501` → expect `50.0`).\n\n## What checks out\n\n- `test_small` (`discount(50) == 0.0`): correct, matches R3.\n- `test_large` (`discount(200) == 20.0`): correct — `200 * 0.10 = 20.0` exactly in floating point (verified: no rounding artifact here), matches R1.\n- The `min(d, 50.0)` cap logic itself is structurally sound for R2 (aside from being untested correctly, per #2).\n- No floating-point rounding issues affect the *intended* outputs for the values used in these tests (I checked `200*0.10` and `1000*0.10` bit-for-bit — both round cleanly to `20.0` and `100.0` respectively before the cap is applied).\n\n## Bottom line\n\nThis is **not safe to ship as-is**: R1 is actively violated at the boundary (`total == 100`), and the one test meant to guard R2 (`test_cap`) is both factually wrong about what the code returns and internally inconsistent with the requirement it's supposed to check. Minimum fix before production: change `total > 100` to `total >= 100`, correct `test_cap` to expect `50.0`, and add a boundary test for `total == 100` expecting `10.0`.",
+  "response_sha256": "444c061df05fc718b04680d2bfb2018e06221f46676a59edacff1822e86c41d6",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28378,
+    "output_tokens": 7156,
+    "output_tokens_details": {
+      "thinking_tokens": 6010
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 7156,
+        "cache_read_input_tokens": 28378,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0772396,
+    "duration_ms": 70024,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:57:45+00:00",
+  "finished_at": "2026-09-13T04:58:56+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

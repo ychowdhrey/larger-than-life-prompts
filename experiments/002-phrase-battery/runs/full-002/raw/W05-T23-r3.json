@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T23-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T23",
+  "condition_name": "phrase_t23",
+  "repetition": 3,
+  "execution_index": 1074,
+  "sample_seed": 71416906316209521,
+  "prompt_sha256": "1bb007007f3d3187bbd17ae08eb528f50e97de08bf9fd84c121a356627b0d527",
+  "prompt_chars": 724,
+  "response": "## The problem\n\nOur twelve-person team currently works on feature branches that often live for two to four weeks before merging into main. This is now the single biggest source of friction in our delivery process:\n\n- Merge conflicts routinely take half a day or more to resolve because branches drift from main and from each other for weeks\n- CI is green on individual branches but red after merge, since branches are never tested against each other's concurrent changes\n- Code review happens on a single giant diff at the end, by which point the design is locked in and expensive to revisit\n\nThe result is slower releases, more regressions caught in production instead of review, and engineers spending real time on integration work that adds no value for users.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, frequent changes directly to main, behind feature flags where necessary, with branches living hours rather than weeks.\n\n- We adopt feature flags for anything not ready for users, so incomplete work can merge safely without being exposed\n- We strengthen CI gating on main (fast tests, required checks) so broken commits are caught within minutes, not weeks\n\nThis shortens feedback loops, keeps everyone working against the same reality, and makes code review a continuous conversation instead of a once-a-month negotiation.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development raises the risk of shipping half-finished or broken work to main, especially for larger features that genuinely take weeks to build. That risk is real: feature flags add complexity, and a poorly gated flag can leak unfinished behavior to users. I don't think this is a reason to reject the proposal, but it does mean we need discipline around flag hygiene, flag cleanup, and breaking large features into safely mergeable increments — otherwise we've just traded one kind of integration debt for another.\n\nWe should also expect a rocky first month as habits adjust; that's a cost worth paying deliberately rather than discovering by accident.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "45ae147f52f0bf307f664939d2f8c2a8b94be53cd890436b1493caa39b9c8ede",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2565,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1087,
+    "output_tokens_details": {
+      "thinking_tokens": 462
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2565,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1087,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2565,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2565
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.026279200000000003,
+    "duration_ms": 16302,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:48:23+00:00",
+  "finished_at": "2026-09-13T04:48:40+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

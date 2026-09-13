@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-E04-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "E04",
+  "condition_name": "combo_e04",
+  "repetition": 2,
+  "execution_index": 1775,
+  "sample_seed": 17391869219077755812,
+  "prompt_sha256": "33c94d5779f4c2fc032dcf2d2244c52079a61a04a94420b6d59fbe90d6787479",
+  "prompt_chars": 804,
+  "response": "## The problem\n\nOur four active feature branches have each been alive for three to six weeks, and merging any one now means resolving conflicts across files two or three other branches have also touched. Last sprint, a rebase cost two engineers a full day, and we still shipped a regression because integration testing happened only after the merge. Long-lived branches defer integration risk rather than eliminate it, and with twelve people writing code in parallel, every week a branch stays open raises the odds its eventual merge breaks something unexpected.\n\n## The proposal\n\nI propose we move to trunk-based development: everyone commits small, reviewed changes directly to main at least daily, using feature flags to hide work not ready for users.\n\n- Feature flags replace long branches for hiding incomplete work\n- CI runs on every commit to main; a red build blocks new work until fixed\n- Pull requests stay small enough to review within hours, not days\n- We pilot the practice on one team for two sprints first\n- We track merge-conflict time and defect-escape rate, so the switch is judged on evidence\n\nThis isn't a purity exercise. The goal is a shorter feedback loop: catching integration problems within hours instead of weeks, and giving every engineer visibility into what everyone else is building.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands discipline we haven't consistently shown. Feature flags left in code become clutter and a source of bugs themselves, and a team unused to small commits may just batch changes into fewer, larger ones, defeating the purpose. If our test suite isn't fast and reliable enough to trust on every commit, we could end up merging broken code more often — trading rare, painful integration failures for frequent small ones that quietly erode confidence in main. That risk is manageable, but only if we invest in it: faster CI, a flag-cleanup policy with a named owner, and honest retrospectives during the pilot. If the pilot shows more instability than before, we say so and stop.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "9a2fcdf8630a58406f15b331e99bc0f986d1d7e9a22a33b9f383526d9b8771e6",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28316,
+    "output_tokens": 13315,
+    "output_tokens_details": {
+      "thinking_tokens": 12673
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 13315,
+        "cache_read_input_tokens": 28316,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.1388172,
+    "duration_ms": 99996,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:04:42+00:00",
+  "finished_at": "2026-09-13T05:06:23+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

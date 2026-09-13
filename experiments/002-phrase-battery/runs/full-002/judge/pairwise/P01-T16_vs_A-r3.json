@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T16_vs_A-r3",
+  "contrast_id": "T16_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T16",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements, but Response B is slightly more rigorous operationally: it takes a full backup both before the rehearsal and again at the very start of the maintenance window (a fresher, more useful rollback point right before the final sync/cutover), and it explicitly has the rehearsal validate the rollback procedure and adds a schema-freeze/final go-no-go step, giving a more robust runbook overall.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:50+00:00"
+}

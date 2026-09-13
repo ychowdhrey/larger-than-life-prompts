@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T25-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T25",
+  "condition_name": "phrase_t25",
+  "repetition": 3,
+  "execution_index": 2153,
+  "sample_seed": 2410214273851743130,
+  "prompt_sha256": "1dee0daaef867afe70c84f0ee5c8e6bcc3773878a102b6a6538db5c1cae09f08",
+  "prompt_chars": 1012,
+  "response": "## Defects in the memo's reasoning\n\n**1. Survivorship bias — the sample excludes anyone who already churned**\nThe analysis draws only on the 412 customers \"still active on the Pro plan today.\" Restricting the sample to survivors before comparing \"retention\" within that group is analyzing a population that has already been filtered on the outcome of interest. It's also internally unclear what \"31% higher retention\" even measures when every member of the sample is, by construction, retained — the comparison silently drops the churned customers who would be the most informative cases (e.g., \"did the churned group attend webinars less?\"). This can inflate, shrink, or even reverse the apparent relationship between webinar attendance and true churn risk, and it means the 31% figure doesn't answer the question the memo thinks it answers.\n\n**2. Correlation treated as causation, with an unaddressed confound (webinar attendance)**\nAttending an optional onboarding webinar is self-selected. Customers who are more engaged, more invested, or already inclined to stick around are simultaneously more likely to show up to a webinar *and* more likely to stay for unrelated reasons. The memo jumps straight to \"webinars therefore cause higher retention\" without ruling out this confound. This matters directly for the recommendation: making attendance mandatory would change *who* attends (including disengaged customers who previously wouldn't have come), so there's no basis for assuming the observed 31% gap would carry over to a mandatory-attendance policy — the effect could shrink to nothing.\n\n**3. Multiple comparisons without correction (the \"Central region\" finding)**\nEighteen attributes were tested against churn, and one came back significant at p = 0.04. Testing 18 hypotheses at an uncorrected α = 0.05 gives a roughly 60% chance of at least one false positive by pure chance (1 − 0.95¹⁸ ≈ 0.60), even if no real relationship exists anywhere in the data. A single p = 0.04 result surviving out of 18 tries is close to what you'd expect from noise alone, not strong evidence of a real regional effect. No correction (Bonferroni, FDR, etc.) or replication is mentioned. Reallocating next quarter's spend based on this is acting on what is likely a false positive.\n\n**4. Post hoc causal attribution for the satisfaction increase, with no test of significance**\nSatisfaction moved from 62% to 66% and is credited to \"the new support model\" with no consideration of other changes that quarter (seasonality, pricing, product changes, sampling/survey differences) and no indication that a 4-point move is outside normal quarter-to-quarter noise (no confidence interval, sample size, or significance test given for this comparison). Sequencing (\"we changed the model, then satisfaction rose\") is being used as if it proves causation — a classic post hoc ergo propter hoc error. This could lead to crediting/continuing an intervention that had no real effect.\n\nThat's the full set — I don't see additional defects beyond these four (e.g., the arithmetic/numbers themselves aren't in question per your instructions).",
+  "response_sha256": "c0e0ed615cce4bfadce244eb4e959c784d59afd667e8e170481aab1ad79d0f06",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28370,
+    "output_tokens": 2866,
+    "output_tokens_details": {
+      "thinking_tokens": 1861
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2866,
+        "cache_read_input_tokens": 28370,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.034338,
+    "duration_ms": 36708,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:07+00:00",
+  "finished_at": "2026-09-13T05:13:45+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

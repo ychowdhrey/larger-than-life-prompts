@@ -300,3 +300,33 @@ class TestBatteryPromptEquivalenceAndBlinding(unittest.TestCase):
         self.assertIsNone(
             self.prompts.condition_echo("An ordinary answer with no appended text.",
                                         suffixes))
+
+
+class TestTopLevelIndexesAreGenerated(unittest.TestCase):
+    """PHRASES.csv and results.csv carry conclusions next to numbers a script computed.
+
+    A conclusion typed by hand beside a generated number is free to drift from it, which is
+    the same failure the spec lock exists to prevent everywhere else in this repository.
+    """
+
+    def test_indexes_match_what_the_results_generate(self):
+        rc = subprocess.call([sys.executable,
+                              os.path.join(REPO, "scripts", "build_indexes.py"), "--check"],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        self.assertEqual(rc, 0, "run scripts/build_indexes.py and commit the result")
+
+    def test_every_battery_arm_appears_in_the_phrase_index(self):
+        import csv
+        doc = util.read_json(os.path.join(
+            EXP2, "runs", "full-002", "analysis", "battery_summary.json"))
+        with open(os.path.join(REPO, "PHRASES.csv"), encoding="utf-8") as fh:
+            ids = {r["id"] for r in csv.DictReader(fh)}
+        for arm in doc["phrases"]:
+            self.assertIn("002-%s" % arm, ids)
+
+    def test_confidence_never_claims_tested_without_a_finding(self):
+        import csv
+        with open(os.path.join(REPO, "PHRASES.csv"), encoding="utf-8") as fh:
+            for r in csv.DictReader(fh):
+                if r["impact"] in ("Neutral", "Inconclusive"):
+                    self.assertEqual(r["confidence"], "Observed", r["id"])

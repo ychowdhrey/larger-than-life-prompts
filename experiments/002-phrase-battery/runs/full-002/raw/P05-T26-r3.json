@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T26-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 3,
+  "execution_index": 1911,
+  "sample_seed": 16923632587456530323,
+  "prompt_sha256": "b0399d30e66cd8ae5058a9e6e2159879c38f050df144679f3f93d9e71f919fd4",
+  "prompt_chars": 827,
+  "response": "# Billing System Migration Rollout Plan\n## 40,000 Users — Legacy → New Billing System (Dual-Run Supported)\n\n## Overview\n\nBoth billing systems can run concurrently, which allows a gradual, reversible migration rather than a hard cutover. Users are moved in increasing batches, with validation gates between phases. The old system stays live in read/write parity mode until well after the final user batch is confirmed stable.\n\n---\n\n## Phase 1: Pilot (5% of users — 2,000 users)\n\n**Entry criterion:** New billing system has passed full integration testing in staging, including invoice generation, payment capture, tax calculation, and dunning workflows against a shadow copy of production data; rollback procedure has been tested end-to-end at least once.\n\n- Select users from low-risk segments: internal/employee accounts, free-tier or low-ARPU users, and opted-in beta testers.\n- Run both systems in parallel for this cohort; new system is authoritative, old system continues shadow billing for reconciliation.\n- Manual review of every invoice and payment discrepancy during this phase.\n- Duration: minimum 2 full billing cycles before advancing.\n\n## Phase 2: Expansion (30% of users — 12,000 users)\n\n**Entry criterion:** Phase 1 cohort shows invoice accuracy ≥ 99.9%, zero unresolved payment-processing incidents, and reconciliation discrepancies fully explained and closed for both completed billing cycles.\n\n- Broaden to a representative cross-section of plan types, geographies, and payment methods (cards, ACH, wallets, invoiced enterprise).\n- Automated reconciliation between old and new systems runs continuously; alerts route to on-call.\n- Support team fully trained and staffed for elevated ticket volume.\n- Duration: minimum 1 full billing cycle before advancing.\n\n## Phase 3: General Availability (65% of users — 26,000 users, remaining balance)\n\n**Entry criterion:** Phase 2 shows invoice accuracy ≥ 99.95%, payment failure rate delta vs. old system ≤ 0.1 percentage points, and support ticket volume attributable to migration trending flat or down over the prior cycle.\n\n- Migrate all remaining users, including highest-complexity enterprise/custom-contract accounts last, in sub-batches (e.g., 4 waves of ~6,500) rather than one bulk cutover.\n- Old system remains live in parallel, read-write, for reconciliation and fallback for at least one full billing cycle after the last wave completes.\n- **Decommissioning of the old billing system is explicitly out of scope for Phase 3 and is deferred to a separate, subsequent Phase 4 (post-migration stabilization and sunset), which does not begin until the final Phase 3 wave has completed at least one clean billing cycle with no rollback events.**\n\n---\n\n## Risks\n\nRISK: Duplicate or double charges when both systems process the same billing event | Implement idempotency keys and a single source-of-truth flag per account before enabling writes in the new system | Payments Engineering Lead\nRISK: Data drift between old and new customer/payment records during dual-run causes reconciliation to silently diverge | Run automated hourly reconciliation jobs with alerting on any mismatch above threshold, plus daily manual spot-checks | Data Integrity Team\nRISK: Enterprise customers on custom contract terms are migrated incorrectly, causing invoicing disputes | Migrate enterprise/custom-contract accounts last, in small manual-reviewed sub-batches, with account manager sign-off per account | Enterprise Billing Owner\nRISK: Rollback is attempted too late because no clear halt criteria exist | Define and monitor numeric halt thresholds (see below) with automatic pause of further migration batches when breached | Migration Program Manager\n\n---\n\n## Halt / Rollback Metric\n\n**If invoice error rate for any active phase exceeds 0.5% of invoices generated in a rolling 24-hour window, halt all further batch migrations immediately, freeze the current cohort, and initiate rollback review before resuming.**\n\nAdditional supporting thresholds:\n- Payment failure rate increase > 0.2 percentage points vs. old-system baseline for the same cohort → halt.\n- Reconciliation discrepancy backlog > 50 open items unresolved for > 48 hours → halt.\n\n---\n\nPHASES: 3",
+  "response_sha256": "9b01ca106a288eed5b6eb49e9f58c6d636b00addf98dbd9160c9f121fff8527b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28318,
+    "output_tokens": 1468,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1468,
+        "cache_read_input_tokens": 28318,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0203476,
+    "duration_ms": 20958,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:31+00:00",
+  "finished_at": "2026-09-13T05:07:54+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

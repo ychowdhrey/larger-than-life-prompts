@@ -1,0 +1,22 @@
+{
+  "item_id": "26b503d494a16bd9",
+  "sample_id": "P02-E05-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E05",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four headings in order, places a snapshot before any risky action, explicitly forbids restart/failover before the snapshot completes, and includes multiple clear abort/rollback conditions, ending with the correctly formatted SECTIONS line. It goes beyond the minimum with time-to-full estimation, least-destructive-first ordering, and built-in re-measurement checkpoints, making it directly actionable for an on-call responder.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:10+00:00"
+}

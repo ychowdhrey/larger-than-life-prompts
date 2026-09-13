@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T26_vs_A-r2",
+  "contrast_id": "T26_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T26",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the boundary bug (>100 vs >=100) and the wrong expected value in test_cap, but Response B is more precise: it correctly notes the missing boundary test is a coverage gap rather than miscategorizing it as a full defect, and adds an accurate clarifying point that R3 doesn't actually sanction returning 0 at total==100, sharpening the requirement analysis without overclaiming.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:46:02+00:00"
+}

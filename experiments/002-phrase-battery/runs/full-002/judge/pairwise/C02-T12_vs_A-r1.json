@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T12_vs_A-r1",
+  "contrast_id": "T12_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T12",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T12",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly identify the same four core defects (LEFT JOIN neutralized by WHERE, UTC/UTC+8 boundary mismatch, integer division truncation, and NULL total_spent with resulting NULL-sort issues) with equally clear explanations and fixes. Response A additionally flags the GROUP BY not including c.name/c.signup_date, correctly hedging that this only errors on strict engines and is fine under Postgres/MySQL's primary-key functional-dependency rules, which is an accurate and properly caveated extra finding rather than a false positive.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:45:30+00:00"
+}

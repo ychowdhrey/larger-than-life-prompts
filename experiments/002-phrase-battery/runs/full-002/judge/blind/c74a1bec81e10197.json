@@ -1,0 +1,22 @@
+{
+  "item_id": "c74a1bec81e10197",
+  "sample_id": "P01-E08-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E08",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan covers assessment, provisioning, replication, rehearsal, communication, mandatory pre-cutover backup, cutover, integrity verification, rollback, and post-migration wrap-up within exactly 12 numbered steps, satisfying every hard requirement including backup-before-destructive-step ordering. It is a coherent, actionable runbook, though it doesn't quantify replication lag thresholds or address logical replication limitations (e.g., DDL, sequences) that a 2TB migration would realistically hit.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:10+00:00"
+}

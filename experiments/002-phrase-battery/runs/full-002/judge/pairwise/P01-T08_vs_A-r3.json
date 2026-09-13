@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T08_vs_A-r3",
+  "contrast_id": "T08_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T08",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T08",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy every hard requirement, but B is more internally consistent: its dry-run step explicitly rehearses the rollback procedure end-to-end, whereas A's rehearsal step never mentions testing rollback yet a later step assumes it was tested. B also more explicitly guards against split-brain writes by stopping/locking the source at cutover, a small but concrete operational safeguard A omits.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:55+00:00"
+}

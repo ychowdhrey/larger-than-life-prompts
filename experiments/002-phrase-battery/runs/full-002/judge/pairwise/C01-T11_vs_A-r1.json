@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T11_vs_A-r1",
+  "contrast_id": "T11_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T11",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T11",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the same core defects, but Response B is more accurate: it correctly notes that calling top_scores([]) with the default limit=5 actually raises IndexError before reaching the division (ZeroDivisionError only surfaces when limit=0), whereas Response A flatly claims top_scores([]) raises ZeroDivisionError, which is wrong under the default arguments. Response B also identifies an additional genuine defect—mutating a caller-supplied seen list, distinct from the mutable-default-argument issue—giving a more complete and verified analysis.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:43+00:00"
+}

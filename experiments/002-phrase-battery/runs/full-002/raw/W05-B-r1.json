@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-B-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 1,
+  "execution_index": 754,
+  "sample_seed": 3895698270120215467,
+  "prompt_sha256": "1ab164ccf11830b61447e9fb1c51e23e81c80eceadee9c82603b2acd49b3af00",
+  "prompt_chars": 711,
+  "response": "Subject: Moving to Trunk-Based Development\n\n## The problem\n\nOur long-lived feature branches routinely live for two to four weeks before merging, and integration pain scales with that lifespan. Merge conflicts have become a weekly occurrence, code review happens on giant diffs that are hard to reason about, and \"integration day\" regularly eats half a sprint. Three production incidents this quarter traced back to merges that quietly dropped or reordered changes from another branch. With twelve engineers each working in relative isolation, we are effectively building twelve slightly different versions of the codebase and paying an increasing tax to reconcile them.\n\n## The proposal\n\nWe should adopt trunk-based development: everyone commits small, frequent changes directly to main (or through branches lasting under a day), gated by a solid CI pipeline and feature flags for anything not ready for users.\n\n- Branches should live hours, not weeks, and merge behind a feature flag if incomplete.\n- CI must run on every commit to main, with a strict \"fix it in minutes or revert\" policy.\n- Feature flags replace long-lived branches as the mechanism for hiding unfinished work.\n- Code review shifts to smaller, faster PRs reviewed within hours, not days.\n- We pilot this with one team for four weeks before rolling it out company-wide.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development demands discipline and tooling we don't fully have yet: without robust automated tests, we'd be merging unfinished, unvetted code straight into main far more often, which could make main unstable rather than less painful. This is a fair concern — our current test coverage has real gaps, and feature flags add their own complexity and cleanup burden if left unmanaged. We should take it seriously rather than wave it away: the pilot should start with an audit of critical-path test coverage, and we hold ourselves to a rule that no team adopts trunk-based development until CI can catch regressions in the areas that matter most. If the pilot reveals main is breaking more, not less, we pause and fix testing first.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "5caeef1e9f05b0cdf508354dc3a4569bcdb732f925df7cf47552a574abc93d25",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28291,
+    "output_tokens": 678,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 678,
+        "cache_read_input_tokens": 28291,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0124422,
+    "duration_ms": 12146,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:40:53+00:00",
+  "finished_at": "2026-09-13T04:41:07+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

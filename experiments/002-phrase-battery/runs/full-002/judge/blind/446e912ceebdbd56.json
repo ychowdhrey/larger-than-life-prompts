@@ -1,0 +1,22 @@
+{
+  "item_id": "446e912ceebdbd56",
+  "sample_id": "C05-T21-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T21",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug in the implementation (total > 100 vs >= 100), correctly catches that test_cap's expected value of 100.0 is wrong (should be 50.0 due to the R2 cap), and correctly flags the missing boundary test at total==100, while accurately confirming test_small and test_large are fine without inventing any false issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:37+00:00"
+}

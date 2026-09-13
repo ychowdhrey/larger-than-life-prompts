@@ -1,0 +1,22 @@
+{
+  "item_id": "f487048ceab847c8",
+  "sample_id": "C02-E01-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "E01",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (WHERE negating the LEFT JOIN, the UTC vs UTC+8 boundary shift computed in the correct direction, integer-division truncation, NULL-vs-zero SUM with its NULLS FIRST ordering consequence, and the non-portable GROUP BY) are correctly diagnosed with accurate causal explanations and fixes, and the response correctly declines to flag COUNT behavior or the open-ended range as bugs.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:50+00:00"
+}

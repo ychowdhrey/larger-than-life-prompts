@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T21_vs_A-r2",
+  "contrast_id": "T21_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T21",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T21",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly identify the same four core defects (WHERE turning the LEFT JOIN into an INNER JOIN, UTC/UTC+8 boundary mismatch, integer division truncation, and NULL vs 0 for zero-order customers), but Response B adds a concrete, verifiable consequence tied directly to the query as written — that unfixed NULL totals interact with `ORDER BY total_spent DESC` to sort zero-spend customers to the top in Postgres — and backs it with a working corrected query, whereas Response A's extra point about GROUP BY portability is hedged as not actually broken in the likely target engine.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:45:45+00:00"
+}

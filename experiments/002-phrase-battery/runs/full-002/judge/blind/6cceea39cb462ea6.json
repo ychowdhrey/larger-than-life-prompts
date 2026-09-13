@@ -1,0 +1,22 @@
+{
+  "item_id": "6cceea39cb462ea6",
+  "sample_id": "P01-T06-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T06",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 steps, rollback, dry run, integrity verification, stakeholder communication, backup ordered before destructive/cutover actions) and ends with the exact required footer, while remaining a coherent, actionable runbook using logical replication, LSN tracking, checksums, and a go/no-go gate; it is only slightly light on deeper edge cases like sequence/large-object handling or replication rollback specifics.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:39+00:00"
+}

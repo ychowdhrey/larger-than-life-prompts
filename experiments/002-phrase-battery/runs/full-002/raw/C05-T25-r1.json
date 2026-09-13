@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T25-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T25",
+  "condition_name": "phrase_t25",
+  "repetition": 1,
+  "execution_index": 2147,
+  "sample_seed": 13177402863528925257,
+  "prompt_sha256": "d6eda64535b8f80a4218ef9b61b63ad02607df12a735306cef58609b9c5c46ca",
+  "prompt_chars": 851,
+  "response": "## Defects Found\n\n**1. Boundary bug in the implementation (violates R1)**\nThe code uses `total > 100` instead of `total >= 100`. R1 states an order with a total of **100 or more** gets the 10% discount, but `discount(100)` falls through to `return 0.0`. An order totaling exactly 100 incorrectly receives no discount.\n\n**2. Incorrect assertion in `test_cap` (violates R2, and is simply wrong)**\n`test_cap` asserts `discount(1000) == 100.0`. But `1000 * 0.10 = 100.0`, and the cap logic (`min(d, 50.0)`) — which correctly implements R2 — would return `50.0`, not `100.0`. As written, this test would **fail** against the given implementation; it does not correctly verify the R2 cap at all, and its expected value contradicts R2 (a discount of 100.0 would itself violate the \"never more than 50.00\" rule).\n\n**3. Missing boundary test for R1**\nThere is no test for `discount(100)` (the exact threshold). Such a test would have caught defect #1 (the `>` vs `>=` bug). As it stands, the boundary between \"no discount\" and \"10% discount\" is untested.\n\nNo other defects are present: `test_small(50)` correctly validates R3, `test_large(200)` correctly validates the unclamped 10% case, and the cap logic itself (`min(d, 50.0)`) correctly satisfies R2 in principle (only the test's expected value is wrong).",
+  "response_sha256": "73b7dfa275f60c1a4d45949471bbde3b8386463b3140781f35582a2f545c8425",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28355,
+    "output_tokens": 1816,
+    "output_tokens_details": {
+      "thinking_tokens": 1319
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1816,
+        "cache_read_input_tokens": 28355,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.023835000000000002,
+    "duration_ms": 20271,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:12:58+00:00",
+  "finished_at": "2026-09-13T05:13:19+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

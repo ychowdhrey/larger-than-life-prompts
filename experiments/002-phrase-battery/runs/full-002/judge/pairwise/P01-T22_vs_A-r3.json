@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T22_vs_A-r3",
+  "contrast_id": "T22_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T22",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T22",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy the hard requirements, but Response B is more rigorous on the maintenance-window mechanics: it captures WAL position/LSN and per-table row counts/checksums at the moment writes stop (step 8), giving a precise, race-free baseline for the post-cutover verification in step 10, whereas Response A's verification instead compares against an earlier backup that could be stale relative to the drained replication stream. B also takes its final pre-cutover backup as a distinct step right before the window (step 7) rather than folding it into the same step as stopping writes, making the rollback point-in-time clearer and the sequencing slightly cleaner.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:32:28+00:00"
+}

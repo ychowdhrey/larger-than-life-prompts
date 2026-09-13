@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T21_vs_A-r3",
+  "contrast_id": "T21_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T21",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "Tie",
+  "winner_condition": null,
+  "treatment_won": null,
+  "tie": true,
+  "reason": "Both responses correctly and completely identify the same three defects (the off-by-one R1 boundary bug, the incorrect expected value in test_cap, and the missing boundary test at total==100), correctly note that test_small and test_large are fine, and correctly explain the practical consequence that the suite would fail as written. Response A adds a slightly redundant fourth bullet restating the R2-coverage implication and extra floating-point justification, while Response B is more concise and explicitly links the coverage gap to the boundary bug, but neither surfaces a substantive defect or correctness issue the other misses.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:30+00:00"
+}

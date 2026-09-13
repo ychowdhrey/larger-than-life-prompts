@@ -1,0 +1,22 @@
+{
+  "item_id": "ebea4e1eb14a1a88",
+  "sample_id": "C05-D-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "D",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all three actual defects (the >/>= boundary bug at total==100, the incorrect test_cap assertion of 100.0 vs the correct 50.0, and the missing boundary test at 100), explains the concrete consequence of each, and explicitly verifies the other tests are correct without inventing spurious issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:17+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-E04-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "E04",
+  "condition_name": "combo_e04",
+  "repetition": 3,
+  "execution_index": 437,
+  "sample_seed": 657727578573269116,
+  "prompt_sha256": "33c94d5779f4c2fc032dcf2d2244c52079a61a04a94420b6d59fbe90d6787479",
+  "prompt_chars": 804,
+  "response": "## The problem\n\nOur team of twelve now maintains feature branches that routinely live for two to three weeks before merging. Merge conflicts have become a weekly event, integration testing happens too late to catch design mismatches cheaply, and our release cadence has slipped from biweekly to monthly because \"stabilization\" keeps expanding. Long-lived branches let each engineer optimize locally while the codebase drifts apart, and we only discover the cost at merge time, when it is most expensive to pay.\n\n## The proposal\n\nI propose we adopt trunk-based development: every engineer commits to main at least daily, behind feature flags where work is incomplete, with a CI pipeline that blocks merges on failing tests. Concretely:\n\n- Require pull requests to be small enough to review and merge within one business day.\n- Gate incomplete features with flags rather than branches, so main always ships.\n- Invest in a faster CI suite (target under ten minutes) so frequent merges don't bottleneck on pipeline time.\n- Pair this with a two-week trial period, with a retrospective to adjust before making it permanent.\n\nThis shortens feedback loops, keeps integration continuous instead of episodic, and lets us release on demand rather than after multi-week stabilization sprints.\n\n## What could go wrong\n\nThe strongest objection is that feature-flag discipline is itself hard: half-finished, flagged-off code can leak side effects, complicate reasoning about the system, and accumulate as flag debt nobody removes. This is a real cost, not a hypothetical one, and teams that adopt trunk-based development without also committing to flag hygiene often trade merge pain for a different, quieter kind of complexity. We should mitigate it explicitly: every flag gets an owner and a removal deadline tracked in our backlog, reviewed monthly.\n\n- A second, smaller risk is short-term velocity dip during the transition as habits change.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "fc1ca32aa9febbc4eede2388cafa1645cfca0951fe32fadb52bd884ac939dc8c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2590,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 4689,
+    "output_tokens_details": {
+      "thinking_tokens": 4062
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2590,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4689,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2590,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2590
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.062399199999999995,
+    "duration_ms": 36012,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:32:43+00:00",
+  "finished_at": "2026-09-13T04:33:20+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

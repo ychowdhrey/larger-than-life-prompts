@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T20-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 1,
+  "execution_index": 316,
+  "sample_seed": 13756157835824401432,
+  "prompt_sha256": "a0d444aaa21c689f1c5046a86ba6c952f336177203fb62e71b29926e97e3f5ef",
+  "prompt_chars": 734,
+  "response": "## The problem\n\nOur twelve-person team routinely runs feature branches for two to four weeks before merging. Every sprint retro surfaces the same complaint: integration week. Branches drift, merge conflicts multiply, and the \"final\" merge often breaks CI in ways no single branch's tests caught. Last quarter we lost roughly six engineer-days to merge conflicts and post-merge firefighting, and two releases slipped because integration surfaced defects too late to fix calmly.\n\nThis isn't a tooling problem; it's a workflow problem. The longer branches live in isolation, the more expensive reconciliation becomes, and the less our CI reflects what customers will actually run.\n\n## The proposal\n\nI propose we adopt trunk-based development: everyone commits directly to main at least daily, incomplete work ships behind feature flags, and we lean harder on automated tests and code review to keep main releasable at all times.\n\n- Cap in-progress branches at one day of work; anything larger gets broken into smaller, independently mergeable commits.\n- Wrap unfinished features in flags so main stays deployable even mid-feature.\n- Require green CI and one reviewer approval before merge, with merges happening continuously rather than in batches.\n- Invest two weeks upfront in strengthening our test suite and CI speed, since trunk-based development depends on fast, trustworthy automated checks.\n- Run a four-week pilot with one squad before rolling out team-wide, so we can adjust based on real friction rather than theory.\n\n## What could go wrong\n\nThe strongest objection is that our test suite isn't fast or reliable enough yet: flaky tests take fifteen minutes to run, and a broken main would block all twelve engineers simultaneously instead of just one branch owner. That's a real risk, not a hypothetical one — trunk-based development amplifies the cost of a weak safety net rather than tolerating it. I take this seriously enough that I've built test-suite hardening into the proposal itself rather than treating it as an afterthought; if the pilot reveals our CI can't keep pace, we should pause and fix that before expanding further.\n\nThere's also a cultural risk: feature flags left un-cleaned become permanent complexity, and continuous small merges require reviewers who are actually available throughout the day, not just before a deadline.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "79f2d8818afa7b5f2931c3dcb84f73a1522dd9a7182386fd1cb999ad28ad9264",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2569,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1647,
+    "output_tokens_details": {
+      "thinking_tokens": 889
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2569,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1647,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2569,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2569
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0318952,
+    "duration_ms": 18163,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:29:48+00:00",
+  "finished_at": "2026-09-13T04:30:08+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "R03-E08-r1",
+  "run_id": "full-002",
+  "task_id": "R03",
+  "family": "reasoning",
+  "condition_id": "E08",
+  "condition_name": "combo_e08",
+  "repetition": 1,
+  "execution_index": 1937,
+  "sample_seed": 13334709411313029764,
+  "prompt_sha256": "c1238673876138ce3d8b5501ad1108b9df48003eae865f9138718af450c0f946",
+  "prompt_chars": 727,
+  "response": "**Solution:**\n\n- Seat 1: Dev\n- Seat 2: Ben\n- Seat 3: Ana\n- Seat 4: Eli\n- Seat 5: Chi\n\n**Verification:**\n1. Ben(2) < Chi(5) ✓\n2. Ana(3) is not in seat 1 or 5 ✓\n3. Dev(1) and Eli(4): two people (seats 2,3) sit between them ✓\n4. Chi(5) is not adjacent to Dev(1) ✓\n5. Eli(4) > Ana(3) ✓\n6. Ana(3) is immediately right of Ben(2) ✓\n\nAll five constraints are satisfied, and checking the other possible placements of Ana (seat 2 or seat 4) leads to contradictions (seat 2 makes the Dev/Eli gap impossible; seat 4 forces Chi and Eli into the same seat), confirming this is the unique solution.\n\nFINAL ANSWER: Dev, Ben, Ana, Eli, Chi",
+  "response_sha256": "ca78420f6f81d5c606027169899b88d72316407b47334f567a9647909806f174",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28353,
+    "output_tokens": 1438,
+    "output_tokens_details": {
+      "thinking_tokens": 1097
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1438,
+        "cache_read_input_tokens": 28353,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.020054600000000002,
+    "duration_ms": 14408,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:08:09+00:00",
+  "finished_at": "2026-09-13T05:08:24+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

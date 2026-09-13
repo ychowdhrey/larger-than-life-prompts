@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T17-r2",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T17",
+  "condition_name": "phrase_t17",
+  "repetition": 2,
+  "execution_index": 112,
+  "sample_seed": 2172997204090298364,
+  "prompt_sha256": "3ecd8991e46b27c1cddd6e1451350e4df482e565c5ee4024d3912d38e69b2111",
+  "prompt_chars": 833,
+  "response": "Here are the defects I found, in order of severity:\n\n**1. The date filter in `WHERE` silently converts the `LEFT JOIN` into an `INNER JOIN`**\n`WHERE o.created_at >= '2026-01-01'` is evaluated *after* the join. For a customer with no orders at all, `o.created_at` is `NULL`, and `NULL >= '2026-01-01'` is `NULL` (not true), so the row is dropped by the `WHERE` clause. This directly violates the stated requirement that customers with zero orders must still appear with a count of zero — they will be missing from the results entirely. (It also drops customers whose only orders fall *before* 2026-01-01, which is presumably intended, but the zero-order customers being dropped is not.)\nFix: move the date condition into the `ON` clause (`LEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= ...`) so it filters which orders join, not which customer rows survive.\n\n**2. UTC vs. UTC+8 boundary mismatch**\n`created_at` is stored in UTC, but `'2026-01-01'` is being compared as if it were a UTC instant. The team wants the boundary to be local midnight (UTC+8), which is `2025-12-31 16:00:00 UTC`. As written, the query includes orders placed between 16:00 and 24:00 UTC on Dec 31 (which are Jan 1 local time and should count) — wait, actually it's the opposite: it *excludes* those, since it only accepts `created_at >= '2026-01-01' UTC`, which is 08:00 local time on Jan 1. So orders placed locally between midnight and 8am on Jan 1 are wrongly excluded, and if there were an upper bound it would have the same off-by-8-hours problem at the other end. Net effect: orders get bucketed into the wrong calendar day relative to what the local-time team expects.\nFix: shift the boundary by the offset before comparing, e.g. `o.created_at >= '2026-01-01 00:00:00'::timestamp - interval '8 hours'`, or convert `created_at` to the local zone first.\n\n**3. Integer division truncates the cents**\n`total_cents` is an integer column, and `SUM(o.total_cents) / 100` performs integer division in most SQL engines (PostgreSQL, standard SQL semantics). This truncates the fractional dollars rather than rounding — e.g. a sum of 1999 cents becomes `19`, not `19.99`. `total_spent` will be systematically wrong (too low) for essentially every customer.\nFix: `SUM(o.total_cents) / 100.0` (or cast to numeric/decimal) to force decimal division.\n\n**4. Non-aggregated columns in `SELECT` aren't covered by `GROUP BY`**\nThe query groups by `c.customer_id` only, but selects `c.name` and `c.signup_date` ungrouped and unaggregated. This happens to work in PostgreSQL/MySQL when `customer_id` is the primary key (functional dependency), but it will raise an error under ANSI-strict engines (SQL Server, MySQL with `ONLY_FULL_GROUP_BY`, etc.). If portability or strict-mode compliance matters, this is a real defect; if the target is confirmed to be Postgres/MySQL relaxed mode, it happens to be safe.\n\n**5. After fixing defect #1, `total_spent` becomes `NULL` (not `0`) for zero-order customers**\n`SUM()` over zero matched rows returns `NULL`, not `0`, even though `COUNT(o.order_id)` correctly returns `0` for the same rows. This produces an inconsistent report row (`order_count = 0` but `total_spent = NULL`) for exactly the customers the requirement is trying to surface correctly.\nFix: wrap in `COALESCE(SUM(o.total_cents), 0) / 100.0`.\n\n**6. `ORDER BY total_spent DESC` interacts badly with those `NULL`s**\nOnce zero-order customers have `NULL` total_spent, their sort position under `DESC` is dialect-dependent — in PostgreSQL, `NULL`s sort *first* by default under `DESC`, meaning customers with no orders would appear at the very top of a report ostensibly ranking top spenders. This compounds defect #5 rather than being independent, but it's a distinct visible symptom worth calling out and worth an explicit `NULLS LAST` once the `COALESCE` fix isn't applied for some reason.\n\nNo other issues (join key correctness, `COUNT(o.order_id)` choice to avoid counting NULL rows, etc.) are present — those parts are correct.",
+  "response_sha256": "fb0a49b1df9a4d2f4eafa844b55299363cd76db985b5b50353a6ac5e1dd2a089",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2658,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 4601,
+    "output_tokens_details": {
+      "thinking_tokens": 3028
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2658,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4601,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2658,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2658
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.061791200000000004,
+    "duration_ms": 49860,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:24:51+00:00",
+  "finished_at": "2026-09-13T04:25:42+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

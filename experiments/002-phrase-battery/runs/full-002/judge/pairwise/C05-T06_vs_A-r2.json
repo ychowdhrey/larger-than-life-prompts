@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T06_vs_A-r2",
+  "contrast_id": "T06_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T06",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "Tie",
+  "winner_condition": null,
+  "treatment_won": null,
+  "tie": true,
+  "reason": "Both responses correctly identify the same two real defects (the off-by-one `>` vs `>=` boundary bug violating R1, and the wrong expected value 100.0 vs actual 50.0 in test_cap) and both correctly note the missing boundary test at total==100 without introducing any false positives; the only difference is organizational (B labels the missing test as a non-defect coverage gap rather than a numbered defect, which is marginally more precise but not enough to prefer one over the other).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:06+00:00"
+}

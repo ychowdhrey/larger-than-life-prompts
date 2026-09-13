@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T02-r3",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T02",
+  "condition_name": "phrase_t02",
+  "repetition": 3,
+  "execution_index": 2001,
+  "sample_seed": 14308642280045221430,
+  "prompt_sha256": "e02fb9813b734065bd76fcee60b858911049b43b2da29b109ece4a1893182e6f",
+  "prompt_chars": 607,
+  "response": "Here are the defects in `top_scores`:\n\n1. **Mutable default argument (`seen=[]`)** — The default list is created once at function definition time and persists across calls. Since the function calls `seen.append(...)`, every call that doesn't explicitly pass `seen` shares and mutates the same list. This causes scores from earlier, unrelated calls to \"leak\" into later calls, silently causing previously-seen scores to be excluded from `result` even though they never appeared in the current `scores` list.\n\n2. **`limit` not bounded by `len(scores)`** — The loop does `for i in range(0, limit)` and indexes `scores[i]` directly. If `limit` exceeds `len(scores)`, this raises an `IndexError`. Since `limit` defaults to 5, calling the function with fewer than 5 scores will crash.\n\n3. **`scores.sort(reverse=True)` mutates the caller's list in place** — Sorting is done directly on the input list rather than on a copy. This causes the caller's original list to be reordered as a side effect, which is likely surprising/unwanted behavior for callers who don't expect their argument to be mutated (and combines badly with the `seen` aliasing issue, since it's another form of unexpected external mutation).\n\n4. **No handling for empty `scores`** — `average = sum(scores) / len(scores)` divides by zero if `scores` is empty, raising `ZeroDivisionError`. (Also, if `scores` is empty, the `range(0, limit)` loop would hit the `IndexError` from defect 2 first, but even if `limit` were 0, the average calculation would still fail on an empty list.)\n\n5. **Deduplication is against `seen`, not within the current top slice** — This is really a consequence of defect 1, but worth stating precisely: because `seen` accumulates indefinitely across calls (and is never scoped to the current invocation), the function's notion of \"top N scores\" silently shrinks or changes depending on call history, producing fewer than `limit` results in `result` even when `scores` has plenty of distinct values available.\n\nNo other issues are present — the descending sort and the mean-of-all-scores behavior are confirmed intended, so those are not defects.",
+  "response_sha256": "932602658688daec5a7cbcfb2f3690cf8255b7fa43702b7c1b052507a361f938",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28262,
+    "output_tokens": 716,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 716,
+        "cache_read_input_tokens": 28262,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012816399999999999,
+    "duration_ms": 10553,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:09:40+00:00",
+  "finished_at": "2026-09-13T05:09:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

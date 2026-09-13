@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-E05-r2",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E05",
+  "condition_name": "combo_e05",
+  "repetition": 2,
+  "execution_index": 1513,
+  "sample_seed": 7663512097400925229,
+  "prompt_sha256": "354a7acc7062fe0b47a00a347dc7ebc97f44994938bccb6b306ffacc8cb5a9a8",
+  "prompt_chars": 705,
+  "response": "Here are the defects, in order of severity.\n\n**1. Mutable default argument (`seen=[]`) — the most serious bug**\nDefault argument values are evaluated once, when the function is defined, not on each call. Because the body does `seen.append(...)`, every call that doesn't explicitly pass its own `seen` list mutates and reuses the *same* list object across calls. Consequence: state leaks between unrelated invocations. A score returned as \"top\" in one call will silently be excluded from `result` in a later, completely unrelated call (different `scores` argument, different caller) simply because it happened to appear in some earlier call's output. Results become non-deterministic and depend on call history/order, which is exactly the kind of thing that's fine in testing (fresh interpreter, one call) and breaks in production (long-running process, many calls).\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\nSorting descending is intended, but doing it via `list.sort()` reorders the object the caller passed in, rather than sorting a copy. Consequence: any code that holds a reference to the same list before/after calling `top_scores` will see its order silently changed (e.g., if the caller later iterates `scores` expecting original/insertion order, or the same list is shared/reused elsewhere). This is a hidden side effect on an argument, which is surprising and easy to get bitten by.\n\n**3. `IndexError` when `limit` exceeds the number of scores**\nThe loop does `for i in range(0, limit): ... scores[i] ...` with no check that `limit <= len(scores)`. If `scores` has fewer than `limit` elements (e.g. 3 scores with the default `limit=5`), indexing `scores[3]`/`scores[4]` raises `IndexError` and the function crashes. This is a very likely real-world case (short lists), not just an edge case.\n\n**4. Crash on empty `scores`**\n- If `scores == []` and `limit` (default 5) is greater than 0, the very first loop iteration does `scores[0]`, raising `IndexError` before the function ever gets to computing the average.\n- If `scores == []` and `limit <= 0` (so the loop body never executes), then `average = sum(scores) / len(scores)` divides by zero, raising `ZeroDivisionError`.\nEither way, an empty input list crashes the function instead of returning something sensible like `([], 0)` or a clear error.\n\n**5. Deduplication logic can under-fill `result` even when enough distinct values exist**\nThe loop only ever looks at the first `limit` positions of the sorted list (`range(0, limit)`), and *then* filters out values already in `seen`. If there are duplicate values within that window (e.g. ties for high scores), the duplicates are dropped from `result` but nothing from further down the sorted list is pulled in to replace them — the loop never looks past index `limit-1`. Consequence: `result` can come back shorter than `limit` even though the input contains `limit` or more distinct scores. Example: `scores=[5,5,5,5,5,4,3]`, `limit=5` → `result` is just `[5]`, even though `4` and `3` are legitimate next-best distinct scores that exist in the data and could have filled the remaining slots.\n\n**Minor/compounding note:** because of defect #1, `seen` also grows unboundedly across calls in a long-running process, and each lookup is `scores[i] not in seen` (an O(n) linear scan on a list). This isn't a correctness bug on its own, but it amplifies defect #1 (more accumulated state → more spurious exclusions over time) and adds needless overhead.\n\n**Not a defect (for clarity):** `sort(reverse=True)` for descending order and `sum(scores)/len(scores)` for the mean of *all* scores are both stated as intended, and are implemented correctly as far as the arithmetic/ordering goes — the problems above are about mutation/side effects, missing bounds checks, and the incomplete backfill logic, not about the sort direction or which values go into the average.",
+  "response_sha256": "f3d774e7facf73c312644f15d595e6e30711ee8af7750dd869169fe6d2de7aed",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28285,
+    "output_tokens": 5529,
+    "output_tokens_details": {
+      "thinking_tokens": 4209
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5529,
+        "cache_read_input_tokens": 28285,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.060951,
+    "duration_ms": 63444,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:58:46+00:00",
+  "finished_at": "2026-09-13T04:59:50+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

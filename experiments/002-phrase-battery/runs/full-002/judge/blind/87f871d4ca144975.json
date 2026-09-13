@@ -1,0 +1,22 @@
+{
+  "item_id": "87f871d4ca144975",
+  "sample_id": "P01-T02-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T02",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (≤12 numbered steps, rollback, non-prod rehearsal, post-cutover integrity checks via row counts/checksums, stakeholder communication, and backups placed before any production-modifying step) with correct step-count formatting, and is concrete and actionable with real tools and sequencing. It loses a bit on error-checking/depth since it doesn't explicitly reconcile replication lag edge cases or verify its own plan against failure modes beyond the rehearsal step.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:29+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T21-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 3,
+  "execution_index": 22,
+  "sample_seed": 14560148734818319897,
+  "prompt_sha256": "a6090212985f42fad6d18f08e8fc65e0c6cf956be5cf0f3c96fb76a573b19346",
+  "prompt_chars": 1036,
+  "response": "Here are the defects, one per claim.\n\n**1. Webinar attendance → retention (causal claim)**\n- **What's wrong:** This is a correlational comparison (attendees vs. non-attendees among *already-active* Pro customers) being asserted as causal (\"webinars therefore cause higher retention\"). No randomization or control for confounders.\n- **What it causes:** Self-selection bias — customers who are more engaged, more technically committed, or simply newer/more motivated may both attend webinars *and* stay subscribed independently of the webinar content. Mandating webinars for all new customers could yield no retention gain at all, wasting onboarding resources and potentially annoying customers who are forced into a session they didn't want, without the causal mechanism the memo assumes.\n\n**2. Sample restricted to survivors (\"still active on the Pro plan today\")**\n- **What's wrong:** The population studied (412 *currently active* customers) already excludes everyone who churned. This is survivorship bias — comparing attendance rates within survivors tells you nothing reliable about whether webinars affect the odds of churning in the first place, since churned customers (who may have had very different attendance rates) are excluded from the analysis entirely.\n- **What it causes:** The 31% figure could be an artifact of who happened to remain, not a measure of webinars' effect on retention. This compounds defect #1 and makes the causal leap even less justified.\n\n**3. Region/churn finding — multiple comparisons (p-hacking)**\n- **What's wrong:** 18 attributes were tested against churn, and only after testing all of them is a single p = 0.04 result highlighted. With 18 independent tests at α = 0.05, the expected number of false positives by chance alone is roughly 0.9 — i.e., finding \"at least one significant result\" is likely even if no real effect exists anywhere. No correction (e.g., Bonferroni, which would require p < ~0.0028) was applied.\n- **What it causes:** The Central region effect is very likely a false positive (chance fluctuation among many attributes tested). Concentrating next quarter's spend on Central based on this could waste the budget chasing noise while the real drivers of churn (if any) go unaddressed.\n\n**4. Statistical vs. practical significance conflated for the region finding**\n- **What's wrong:** p = 0.04 only says the result is unlikely under the null hypothesis (and even that is undermined by #3) — it says nothing about the *size* of the effect or whether it's business-meaningful. The memo treats \"significant\" as synonymous with \"large and actionable.\"\n- **What it causes:** Even if the Central effect were real, it might be a trivial reduction in churn not worth reallocating an entire quarter's spend toward — a decision made without any cost-benefit or effect-size analysis.\n\n**5. Satisfaction increase (62%→66%) attributed to the support model with no comparison/control**\n- **What's wrong:** No baseline volatility, confidence interval, or sample size is given for this quarter-over-quarter change, and no other explanation is ruled out (seasonality, pricing changes, product releases, survey response bias, a different mix of respondents, etc.). A single before/after data point with a specific intervention \"in the air\" is a classic post hoc ergo propter hoc (correlation-implies-causation via timing) error.\n- **What it causes:** The 4-point move could be normal quarter-to-quarter noise or driven by an unrelated factor. Crediting the new support model risks continuing (or scaling) an intervention that isn't actually responsible for the improvement, while the true cause goes uninvestigated.\n\n**6. (Related to #5) No statistical testing applied to the satisfaction number at all**, in contrast to the rigor (however misapplied) used for the region finding — this inconsistency itself is worth flagging: the memo applies a significance test where it shouldn't be the deciding factor (region) and applies none where at least some test of reliability (e.g., is a 4-point move outside normal quarter-to-quarter variance?) is needed (satisfaction). This double standard means the memo's confidence in each conclusion is not calibrated to actual evidence quality in either case.\n\n**Bottom line:** All three conclusions/recommendations (mandate webinars, shift spend to Central, credit the support model) go beyond what the data support. The two quantitative findings (retention, region) suffer from correlation-causation conflation and survivorship bias respectively, or in the region's case, likely represent noise from unadjusted multiple comparisons; the satisfaction claim lacks any test of whether the change is distinguishable from normal variation.",
+  "response_sha256": "0fd9be78e0a396b5dc3cae0c5846b2173d154ffc5fb86162f34666ee267281d4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2649,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1509,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2649,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1509,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2649,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2649
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0308352,
+    "duration_ms": 21528,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:21:52+00:00",
+  "finished_at": "2026-09-13T04:22:14+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

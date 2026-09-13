@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T07_vs_A-r2",
+  "contrast_id": "T07_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T07",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T07",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response B's abort/rollback conditions are more complete and specific, explicitly covering snapshot failure, remediation-worsening-things, and a post-promotion failover-abort scenario (falling back to the original primary), whereas Response A's failover step lacks a matching rollback trigger. B also gives more concrete root-cause guidance (avoiding blind WAL deletion, cautious handling of a long-running transaction) that makes it slightly more actionable and safer in practice.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:19:42+00:00"
+}

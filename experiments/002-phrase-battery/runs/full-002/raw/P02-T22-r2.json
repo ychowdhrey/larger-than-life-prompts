@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T22-r2",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T22",
+  "condition_name": "phrase_t22",
+  "repetition": 2,
+  "execution_index": 2063,
+  "sample_seed": 7725500708822356046,
+  "prompt_sha256": "85e1bf27a7a750401a60bb9c83c18fb3d51e446c39a558beb117aceead494d5e",
+  "prompt_chars": 746,
+  "response": "# Incident Response Runbook: Production Database Disk Exhaustion with Elevated Write Latency\n\n**Trigger conditions:** Primary production database disk utilization ≥ 95% (currently 98%) AND write latency has increased significantly (currently 3x baseline) within a 20-minute window.\n\n**Severity:** SEV-1 — risk of write failures, transaction rejection, or full outage if disk fills to 100%.\n\n---\n\n## DETECTION\n\n1. Alert source: disk utilization monitor (threshold ≥ 95%) and write latency monitor (threshold: sustained increase ≥ 2x rolling 1-hour baseline) fire independently or together.\n2. On-call responder acknowledges the page within the standard SLA and opens the incident channel/ticket.\n3. Confirm the alert is not a false positive:\n   - Check the monitoring dashboard for both metrics over the last 30–60 minutes to confirm the trend (not a single noisy data point).\n   - Confirm which host/instance is affected and confirm it is the primary (writer), not a replica.\n   - Check for concurrent known activity (scheduled backup, bulk import, migration, index build) that could explain the disk growth and latency spike.\n4. Declare the incident formally (page secondary responder, notify incident commander) once confirmed genuine.\n5. Record the starting timestamp, disk %, and latency figures in the incident log — this baseline is needed later to judge whether mitigations are working.\n\n## IMMEDIATE ACTIONS\n\n1. **Do not restart, reboot, or fail over the primary database at this stage.** No destructive or state-changing action is to be taken before a snapshot exists.\n2. **Take a storage snapshot of the primary database volume immediately.** This is the mandatory first action before any remediation step below that could alter or delete data. Confirm the snapshot job has actually started and record its ID/timestamp in the incident log.\n3. While the snapshot is in progress (or once confirmed started, if the storage layer supports concurrent snapshotting safely):\n   - Notify stakeholders (status page / internal channel) that a SEV-1 database incident is in progress.\n   - Put the service into degraded-mode alerting suppression for downstream noise, but do not silence the primary disk/latency alerts.\n4. **Wait for snapshot completion confirmation before proceeding to MITIGATION.** If the snapshot fails or cannot be confirmed complete, escalate to the database team lead and storage/infra on-call before taking any further action — do not proceed on an unconfirmed snapshot.\n5. Identify the top disk consumers on the volume (largest tables/indexes, WAL/binlog backlog, temp files, orphaned replication slots) so mitigation targets the actual cause rather than guessing.\n\n## MITIGATION\n\nOnly proceed past this point once the snapshot in IMMEDIATE ACTIONS is confirmed complete.\n\n1. **Free space via safe, non-destructive means first**, in order of preference:\n   - Clear expired or rotated log files, old backups, or temp files that are safe to delete per retention policy.\n   - Check for and address a stuck/lagging replication slot or WAL/binlog backlog consuming disk — this is a common root cause of both disk growth and write latency together.\n   - If space can be added without downtime (e.g., online volume expansion supported by the storage layer), expand the volume. This is preferred over deletion-based approaches because it is reversible and low-risk.\n2. **If disk pressure is caused by bloat/dead tuples** (e.g., autovacuum falling behind), consider triggering a targeted vacuum/compaction on the specific object identified — not a blind cluster-wide operation — and only if headroom exists to do so safely (compaction can transiently use more disk).\n3. **If space cannot be freed safely and utilization continues climbing toward 100%**, consider a controlled failover to a healthy, up-to-date replica as a last resort — but only after:\n   - The snapshot is confirmed complete, and\n   - Replica lag is confirmed at or near zero (do not fail over to a lagging replica), and\n   - The incident commander explicitly approves the failover.\n4. Re-check disk utilization and write latency every 5 minutes during mitigation and log each reading.\n\n**Abort / rollback condition:** If at any point during MITIGATION disk utilization crosses 99.5%, write errors begin appearing in application logs, or replica lag is non-trivial (making failover unsafe), **stop the current mitigation action immediately**, do not attempt further changes, and escalate directly to the database team lead and incident commander for a joint decision. Do not attempt a failover or restart under these conditions without explicit IC sign-off, since a rushed failover to a lagging or unhealthy replica risks data loss on top of the existing incident. If any mitigation step itself causes latency or errors to worsen rather than improve within 10 minutes of applying it, revert that specific change (e.g., cancel a running compaction/vacuum job) rather than layering additional changes on top.\n\n## FOLLOW UP\n\n1. Once disk utilization is stable below 80% and write latency has returned to within 20% of baseline for at least 30 minutes, downgrade the incident and notify stakeholders of resolution.\n2. Verify the snapshot taken during IMMEDIATE ACTIONS is retained per policy in case root-cause analysis needs it; do not let it be auto-expired before the postmortem is complete.\n3. Schedule a postmortem within 2 business days covering: root cause of disk growth, why alerting fired at 98% rather than earlier, and why write latency correlated with disk pressure.\n4. Action items to consider for the postmortem:\n   - Lower the disk utilization alert threshold (e.g., page at 80–85%, not 95–98%) to give earlier lead time.\n   - Automate log/WAL rotation and retention if manual cleanup was required during this incident.\n   - Add capacity planning review if organic data growth is outpacing provisioned storage.\n   - Review autovacuum/compaction tuning if bloat was a contributing factor.\n5. Confirm monitoring correctly captured the full timeline (detection to resolution) and attach the incident log, snapshot ID, and timestamps to the postmortem document.\n6. Close the incident ticket only after the postmortem action items have owners and due dates assigned.\n\nSECTIONS: 4",
+  "response_sha256": "ad3a2acf17b7b38b22ab6972e3ab70e984f6761c112ba08e3df477cff6eeabef",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28304,
+    "output_tokens": 2121,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2121,
+        "cache_read_input_tokens": 28304,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0268748,
+    "duration_ms": 28010,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:10:58+00:00",
+  "finished_at": "2026-09-13T05:11:27+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

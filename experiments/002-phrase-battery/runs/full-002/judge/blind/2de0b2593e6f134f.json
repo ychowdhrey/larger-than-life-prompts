@@ -1,0 +1,22 @@
+{
+  "item_id": "2de0b2593e6f134f",
+  "sample_id": "C05-T26-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T26",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the genuine off-by-one boundary bug (>100 vs >=100), the missing boundary test, and the incorrect expected value in test_cap (100.0 vs the correctly-capped 50.0), while accurately clearing test_small and test_large as correct—matching the actual behavior of the code with no false positives or omissions.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:47+00:00"
+}

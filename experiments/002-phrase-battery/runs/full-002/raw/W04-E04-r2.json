@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-E04-r2",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "E04",
+  "condition_name": "combo_e04",
+  "repetition": 2,
+  "execution_index": 739,
+  "sample_seed": 11363142848038473859,
+  "prompt_sha256": "59958e63b0ff5c506663399519c85fde70d78874f60af7b8578d3e19d737219a",
+  "prompt_chars": 716,
+  "response": "A content delivery network, or CDN, is a system that helps websites load faster no matter where a visitor is located. Every website's files—images, videos, text—normally live on one computer called the origin server, which is the original storage location for all of a site's content. If everyone in the world had to fetch files from that single origin server, people far away would experience slow loading, since data has to travel long distances. To solve this, a CDN places copies of the same files on many computers scattered around the globe, positioned close to where people actually live; each of these nearby computers is called an edge location, since it sits at the \"edge\" of the network, near the end users. When a request comes in, the CDN checks whether the nearby edge location already has a saved copy of the requested file. If it does, that's called a cache hit, meaning the file was already stored locally and doesn't need to be fetched from far away, so it loads almost instantly. Think of it like a chain of neighborhood libraries that each keep copies of popular books, so readers don't have to travel to the one central library across the country every time. When no nearby copy exists, the request travels back to the origin server, the file gets copied to the edge location, and future visitors nearby benefit from that stored copy. This entire arrangement quietly makes websites, streaming services, and apps feel fast and reliable for people everywhere.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The original computer storing all of a site's files | Every new or updated file starts here before copies spread out |\n| Edge location | A smaller computer positioned near groups of people, holding copies of popular files | Shortens the distance data has to travel, making pages load faster |\n| Cache hit | A situation where the nearby edge location already has the requested file saved | Avoids a slow trip to the origin server, so content appears almost instantly |\n| Cache miss | A situation where the edge location does not yet have the file and must fetch it from the origin server | Explains why a first request can be slower than later ones from the same area |",
+  "response_sha256": "64db3a6f3c49ab1a0a3038bfbf237371f4e70380f324d5f4b3e2aaeb2f1aaf9e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28292,
+    "output_tokens": 3409,
+    "output_tokens_details": {
+      "thinking_tokens": 2774
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3409,
+        "cache_read_input_tokens": 28292,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0397524,
+    "duration_ms": 28215,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:40:36+00:00",
+  "finished_at": "2026-09-13T04:41:05+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

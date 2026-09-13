@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T02-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T02",
+  "condition_name": "phrase_t02",
+  "repetition": 1,
+  "execution_index": 1330,
+  "sample_seed": 3985718735284710580,
+  "prompt_sha256": "9ed9b427f4e50e107d0d0b389bb62c1462410c7f1bb1484070a388e36685f9b8",
+  "prompt_chars": 723,
+  "response": "## The problem\n\nOur team of twelve ships through long-lived feature branches, and the cost has become visible in every sprint. Branches routinely live for two to three weeks before merging, and by the time they land, they've drifted so far from main that integration itself becomes a project. Merge conflicts eat entire afternoons, code review happens too late to change direction cheaply, and we regularly discover incompatible assumptions between two branches only after both are \"done.\" Worse, we've started avoiding refactors that touch shared code, because we know the merge pain isn't worth it — a sign that our process is now shaping our architecture instead of the other way around.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: everyone commits to main at least daily, behind feature flags where work is incomplete, with short-lived branches (under a day) at most.\n\n- Feature flags let us merge incomplete work safely, decoupling \"merged\" from \"released.\"\n- CI must gate every merge to main, since trunk-based development only works with a reliable, fast pipeline.\n- We'll need a two-week transition period to build flag infrastructure and retrain review habits before flipping the default.\n- Code review shifts to smaller, more frequent diffs, which should actually make reviews faster and more thorough.\n- We should pilot this with one sub-team for two sprints before rolling it out to everyone.\n\n## What could go wrong\n\nThe strongest objection is real: without mature feature-flag discipline, trunk-based development can expose half-finished, buggy work to the rest of the team constantly, and a bad flag left on in production is a genuine incident risk. Teams that adopt trunk-based development without investing in flags first often just trade merge pain for main-branch instability. I don't think this is a reason to avoid the change, but it is a reason to sequence it carefully — flags and CI gates need to exist before we mandate daily merges, not after.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "2722758f5df61325d39e6bcf9a6ad937c57094dd79ca83a7b26c71ab4bff81a0",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28293,
+    "output_tokens": 618,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 618,
+        "cache_read_input_tokens": 28293,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.011842599999999998,
+    "duration_ms": 11919,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:54:10+00:00",
+  "finished_at": "2026-09-13T04:54:23+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

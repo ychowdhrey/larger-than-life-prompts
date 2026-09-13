@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T06-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 3,
+  "execution_index": 1995,
+  "sample_seed": 7301248148491527602,
+  "prompt_sha256": "85f8f077d13bd286180c0eee8abc82e87cb46e049e15e8bff352e6689c8a5ecc",
+  "prompt_chars": 827,
+  "response": "# Rollout Plan: Migrating 40,000 Users to New Billing System\n\n**Approach:** Both systems run in parallel (dual-write/dual-read where applicable) throughout the migration. Users are cut over in increasing batches; the old system remains fully operational as a fallback until well after 100% of users are migrated and stable.\n\n---\n\n## Phase 1 — Pilot (Canary)\n- **Users:** 1% (400 of 40,000), internal accounts and opted-in low-risk customers\n- **Entry criterion:** New system passes 100% of UAT test cases; a 2-week dual-write reconciliation dry run (no live customer cutover) shows matching ledgers on 100% of sampled transactions; rollback procedure has been executed successfully in staging.\n\n## Phase 2 — Early Adopters\n- **Users:** 9% (3,600 of 40,000) — cumulative 10% (4,000 users)\n- **Entry criterion:** Phase 1 has run at least 14 consecutive days with zero Sev1/Sev2 incidents; billing discrepancy rate under 0.1%; billing-related support ticket volume no more than 10% above pre-migration baseline.\n\n## Phase 3 — Broad Rollout\n- **Users:** 40% (16,000 of 40,000) — cumulative 50% (20,000 users)\n- **Entry criterion:** Phase 2 has run at least 14 consecutive days; payment success rate ≥99.5%; reconciliation mismatch rate under 0.05% of transaction value; support ticket volume within 15% of baseline; new system has been load-tested at 150% of projected peak volume.\n\n## Phase 4 — General Availability (Final Migration Batch)\n- **Users:** 50% (20,000 of 40,000) — cumulative 100% (40,000 users)\n- **Entry criterion:** Phase 3 has run at least 21 consecutive days at scale with payment success rate sustained ≥99.5%; no open Sev1 incidents; finance has signed off on reconciliation accuracy for 3 consecutive billing cycles; traffic ramp-up staged over 72 hours rather than an instant cutover.\n\n## Phase 5 — Legacy System Decommission (Separate from Final Migration Batch)\n- **Users:** 0% (no user migration occurs in this phase — the old system is kept fully running through Phase 4 and beyond)\n- **Entry criterion:** All 40,000 users have been on the new system for at least 60 days (minimum 2 full billing cycles) with zero critical billing discrepancies during that window; historical data has been archived from the old system and validated against the new system; legal, finance, and audit have all signed off before any decommissioning, disabling, or deletion of the old billing system begins.\n\n---\n\n## Risks\n\nRISK: Dual-write reconciliation drift causes customers to be double-charged or under-charged during the overlap period | Run automated nightly reconciliation comparing old and new ledgers; auto-flag any variance greater than $1.00 or 0.1% of transaction value for manual review before the next batch proceeds | Billing Engineering Lead\nRISK: Data migration errors corrupt customer billing records (wrong payment method, subscription tier, or proration) | Validate every migrated account against a checksum of source records, migrate in reversible batches, and manually spot-check a random 2% sample per batch before sign-off | Data Migration Team Lead\nRISK: New system cannot handle production-scale transaction volume during the final batch, causing payment delays or failures | Load-test at 150% of projected peak volume before Phase 3; ramp Phase 4 traffic over 72 hours instead of an instant cutover | Platform SRE Lead\nRISK: Customer support is overwhelmed by billing-related inquiries during migration, delaying resolution and harming trust | Train support staff two weeks ahead of Phase 2, stand up a dedicated migration escalation queue, and add on-call coverage for the first 72 hours of each phase | Customer Support Manager\n\n---\n\n## Halt Criteria\n\nThe rollout is halted immediately, no further batches proceed, and remaining users stay on the old system if either of the following is observed:\n- Payment failure rate for migrated users exceeds **1.0%** sustained over any rolling 4-hour window (baseline failure rate on the old system is approximately 0.2%).\n- Reconciliation mismatch between old and new ledgers exceeds **0.5% of daily transaction value** in any single day.\n\nResumption requires root-cause analysis and remediation, followed by re-verification of the entry criterion for the phase in progress.\n\n---\n\n**Arithmetic check:** 400 + 3,600 + 16,000 + 20,000 = 40,000 (100%); cumulative checkpoints of 1%, 10%, 50%, 100% are consistent with the stated per-phase percentages.\n\nPHASES: 5",
+  "response_sha256": "7c6c98c92aaa1cbeeaf75f7e82ee01e8b7b60c49c82b078dece7aa558c1f0abb",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2593,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 4021,
+    "output_tokens_details": {
+      "thinking_tokens": 2399
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2593,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4021,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2593,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2593
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0557312,
+    "duration_ms": 42437,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:09:24+00:00",
+  "finished_at": "2026-09-13T05:10:07+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

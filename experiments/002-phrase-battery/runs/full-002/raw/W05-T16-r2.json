@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T16-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T16",
+  "condition_name": "phrase_t16",
+  "repetition": 2,
+  "execution_index": 1902,
+  "sample_seed": 89284608932988788,
+  "prompt_sha256": "f573b8615a3e7b2ed73bb3e0ec0a32e1446275604b457c52266517862677fc94",
+  "prompt_chars": 767,
+  "response": "## The problem\n\nOur team of twelve has been shipping through long-lived feature branches, and the cost is showing. Branches routinely live two to four weeks before merging, and integration has become an event rather than a habit. Merge conflicts eat entire afternoons, code review happens against a wall of unrelated changes instead of a focused diff, and by the time a branch lands, the \"current\" state of main has drifted so far that nobody trusts it as a release candidate. Last quarter, three of our five production incidents traced back to integration surprises that only surfaced when a large branch finally merged. We are optimizing for the comfort of working in isolation and paying for it in unpredictable releases.\n\n## The proposal\n\nI propose we move to trunk-based development, with everyone committing small, reviewed changes directly to main at least daily, guarded by feature flags for anything incomplete.\n\n- Cap in-progress branches at one business day of work; anything larger gets split.\n- Put incomplete or risky functionality behind feature flags rather than behind a branch.\n- Require CI to pass and a lightweight review before merge, not after.\n- Keep main always deployable, and treat a red main as an all-hands stop-the-line event.\n- Run a two-sprint pilot with one squad before rolling this out team-wide.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands strong test coverage and fast CI, and ours is neither today. Merging small, unfinished pieces into main without adequate automated testing could increase the rate of subtle regressions reaching production, not decrease it. I don't think this objection is wrong — it's a genuine precondition, not a scare tactic. That's why the proposal pairs the workflow change with an investment in CI speed and coverage during the pilot, and why we start with one squad rather than all twelve engineers at once. If coverage and pipeline speed don't improve enough during the pilot, we should delay the wider rollout rather than force it.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "cee165ff74cd7a61698ac9f5edba0e97cd6a807cdd24a75ceaf799dc1462b315",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28301,
+    "output_tokens": 707,
+    "output_tokens_details": {
+      "thinking_tokens": 64
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 707,
+        "cache_read_input_tokens": 28301,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012734200000000001,
+    "duration_ms": 11815,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:20+00:00",
+  "finished_at": "2026-09-13T05:07:33+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

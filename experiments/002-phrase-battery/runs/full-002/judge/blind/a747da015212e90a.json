@@ -1,0 +1,22 @@
+{
+  "item_id": "a747da015212e90a",
+  "sample_id": "C05-T10-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T10",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one boundary bug in the implementation (>100 vs >=100), correctly computes that test_cap's expected value of 100.0 is both wrong given the implementation's actual output (50.0) and inconsistent with R2, and correctly flags missing boundary coverage, while verifying that test_small and test_large are actually correct — no fabricated issues and all claimed defects are genuine.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:40+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "dfea17523fdf63ff",
+  "sample_id": "P01-T16-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T16",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (dry run, rollback, pre-cutover backup gating destructive steps, post-cutover integrity checks, stakeholder communication) within exactly 12 numbered steps and the required STEP COUNT footer, and shows real depth by using pre-window logical replication plus LSN-sync checks to make a 2TB migration feasible in a 2-hour window. It is immediately actionable, though it doesn't explicitly reconcile the dry-run timing result against the actual window budget.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:15+00:00"
+}

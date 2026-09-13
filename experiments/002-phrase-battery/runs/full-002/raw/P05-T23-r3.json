@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T23-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T23",
+  "condition_name": "phrase_t23",
+  "repetition": 3,
+  "execution_index": 2175,
+  "sample_seed": 469528187283551676,
+  "prompt_sha256": "d033ecb985a3508d3f3fef34352c8e496ed5feddd16d168cf803ccdfdb12e408",
+  "prompt_chars": 811,
+  "response": "# Billing System Migration Rollout Plan\n**40,000 users | Dual-run architecture (old + new systems operating concurrently)**\n\n## Overview\n\nThis plan migrates all 40,000 users from the legacy billing system to the new billing system in three named phases, using percentage-based cohorts gated by explicit entry criteria. The old system remains live and fully operational as the source of truth for unmigrated users throughout all phases, and is only considered for retirement after all users are confirmed stable on the new system in a subsequent, separate decommissioning phase.\n\n---\n\n## Phase 1: Canary (5% of users — 2,000 users)\n\n**Entry criterion:** New billing system has passed a full parallel-run reconciliation test against the old system for 30 consecutive days on synthetic/test accounts, with zero unresolved invoice-amount discrepancies, and rollback tooling (to revert a migrated account back to the old system) has been tested successfully in staging.\n\n**Cohort selection:** Internal employee accounts and opted-in low-risk external users (no active disputes, standard payment methods, month-to-month plans only). No enterprise or annual-contract accounts.\n\n**Activities:**\n- Migrate account/subscription metadata and payment method tokens to the new system.\n- Run both systems in shadow mode for this cohort: new system processes billing; old system continues to compute billing in parallel (without charging) for comparison.\n- Daily manual reconciliation review by the billing engineering team.\n\n**Duration:** Minimum 2 weeks, extendable if anomalies are found.\n\n---\n\n## Phase 2: Expansion (35% of users — 14,000 users, cumulative 40%)\n\n**Entry criterion:** Phase 1 cohort has run for at least 14 days with invoice-amount discrepancy rate below 0.1% and zero payment-processing failures attributable to the new system; support ticket volume from Phase 1 users is within 1.2x of the pre-migration baseline.\n\n**Cohort selection:** Broader mix of self-serve and small-business accounts across all supported payment methods and plan types, migrated in daily/weekly waves (e.g., 5–7% of total user base per wave) rather than all at once, to preserve the ability to halt mid-phase.\n\n**Activities:**\n- Reduce shadow-mode duration per user to 3–5 days before full cutover to the new system as primary.\n- Automated reconciliation replaces manual review as the primary detection mechanism, with manual spot-checks.\n- Customer support is briefed and staffed for elevated ticket volume.\n\n**Duration:** 4–6 weeks.\n\n---\n\n## Phase 3: General Availability (60% of users — remaining 24,000 users, cumulative 100%)\n\n**Entry criterion:** Phase 2 cohort sustained for at least 21 days with invoice-amount discrepancy rate below 0.05%, dunning/payment-retry success rate within 1 percentage point of old-system historical baseline, and no Sev-1/Sev-2 billing incidents in the preceding 14 days.\n\n**Cohort selection:** All remaining users, including enterprise, annual-contract, and high-value accounts, migrated in waves with enterprise/high-value accounts scheduled last and given individual white-glove verification (manual invoice comparison for at least one billing cycle before final cutover).\n\n**Activities:**\n- Full migration of remaining user base in scheduled waves.\n- Old system remains live in read-only/reference mode for all migrated users to support audits, disputes, and rollback for a minimum 90-day post-migration retention period.\n- Note: decommissioning, disabling, or deleting the old billing system is explicitly out of scope for this phase and any migration phase; it is planned as a separate, later phase only after all users have been stable on the new system for the full 90-day retention window and finance/compliance sign-off is obtained.\n\n**Duration:** 6–10 weeks.\n\n---\n\n## Halt Criteria (Automated Rollout Gate)\n\nThe rollout must be automatically paused (no further users migrated to the next wave/phase) if any of the following are breached, checked continuously via monitoring dashboards:\n\n- **Invoice discrepancy rate exceeds 0.5%** of migrated users' invoices in any rolling 24-hour window.\n- Failed/declined payment rate for migrated users rises more than 2 percentage points above the old-system historical baseline in any rolling 24-hour window.\n- More than 10 billing-related Sev-1/Sev-2 incidents occur within a single 7-day period.\n\nAny halt requires sign-off from the billing engineering lead and the finance stakeholder before resuming.\n\n---\n\n## Risks\n\nRISK: Payment method tokens fail to migrate correctly, causing failed charges for affected users | Run a pre-migration token validation pass and dry-run charge simulation for every account before cutover; maintain automated rollback to the old system for any account with a token mismatch | Billing Engineering Lead\nRISK: Duplicate billing occurs if both systems attempt to charge the same user during the cutover window | Enforce a hard cutover flag per account (single source of truth at any given time) with a distributed lock/feature flag, and reconcile transaction logs from both systems daily during dual-run | Platform Reliability Engineer\nRISK: Reconciliation discrepancies between old and new systems go undetected due to insufficient monitoring coverage | Implement automated daily reconciliation jobs comparing invoice totals, tax calculations, and proration across both systems, with alerting on any variance above threshold | Data/Analytics Engineer\nRISK: Enterprise customers with custom contract terms are migrated incorrectly, causing invoicing disputes | Require manual white-glove review and one full billing-cycle shadow run for every enterprise account before final cutover in Phase 3 | Enterprise Account Manager\nRISK: Customer support is overwhelmed by a spike in billing-related tickets during a migration wave | Stagger migration waves at a pace support capacity can absorb, pre-brief support with known issue runbooks, and monitor ticket volume as a rollout gating metric | Customer Support Lead\n\nPHASES: 3",
+  "response_sha256": "fdbd20bb35d1317a1a9043f44debaa37bd96cb5f10730318ae5bc37f47d3338e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28316,
+    "output_tokens": 2036,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2036,
+        "cache_read_input_tokens": 28316,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0260272,
+    "duration_ms": 26703,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:35+00:00",
+  "finished_at": "2026-09-13T05:14:03+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

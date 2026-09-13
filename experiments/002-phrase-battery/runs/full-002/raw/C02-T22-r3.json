@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T22-r3",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T22",
+  "condition_name": "phrase_t22",
+  "repetition": 3,
+  "execution_index": 1475,
+  "sample_seed": 17817560641855320547,
+  "prompt_sha256": "ac342dfdf2a35ee3ed3177509bb50da2cc59bced267ab5479a9029381c3d215f",
+  "prompt_chars": 841,
+  "response": "Here are the defects I found in the query:\n\n**1. The LEFT JOIN is defeated by the WHERE clause (customers with no orders get dropped)**\n`WHERE o.created_at >= '2026-01-01'` is applied *after* the join, on a column that comes from the right-hand (orders) table. For a customer with no orders at all, `o.created_at` is NULL, and `NULL >= '2026-01-01'` is not true — so the row is filtered out entirely, along with the customer. This silently converts the LEFT JOIN into an INNER JOIN. It also drops any customer whose orders exist but none fall in the date range. This directly violates the stated requirement that customers with no orders must still appear with a zero count.\n*Fix:* move the date condition into the `ON` clause: `LEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= ...`\n\n**2. The date boundary ignores the UTC+8 requirement (timezone bug)**\n`created_at` is stored in UTC, but `'2026-01-01'` is compared to it as a bare literal — effectively UTC midnight. The team wants the cutoff to be midnight in UTC+8, which is 8 hours *earlier* in UTC (i.e., `2025-12-31 16:00:00 UTC`). As written, orders created between `2025-12-31 16:00:00 UTC` and `2026-01-01 00:00:00 UTC` — which already fall on Jan 1 in the team's local calendar — are wrongly excluded from \"since 2026-01-01.\" Any report built on this pattern (single day, month, etc.) will have its boundaries off by 8 hours, misclassifying orders placed near local midnight.\n*Fix:* shift the comparison into UTC+8 terms, e.g. `o.created_at >= '2026-01-01 00:00:00'::timestamp - interval '8 hours'`, or convert `created_at` to local time before comparing against a local calendar date.\n\n**3. `total_spent` comes back NULL instead of 0 for no-order customers**\nEven once defect #1 is fixed so zero-order customers appear, `SUM(o.total_cents)` over a group with no matching order rows evaluates to NULL, not 0. So `order_count` correctly shows 0 (COUNT ignores NULLs) but `total_spent` shows NULL — an inconsistent, and for a report, wrong result. It also affects `ORDER BY total_spent DESC`: NULLs are not guaranteed to sort last (e.g., in Postgres, NULLs sort *first* in DESC order by default), so customers with zero spend could end up at the top of a ranking meant to surface top spenders.\n*Fix:* `COALESCE(SUM(o.total_cents), 0) / 100 AS total_spent`.\n\n**4. Integer division truncates the cents-to-currency conversion**\n`SUM(o.total_cents) / 100` divides an integer by an integer literal. In databases where this performs integer division (e.g., PostgreSQL with an integer/bigint column), the result truncates instead of rounding — e.g., 1999 cents becomes 19, not 19.99. This understates every customer's total_spent whenever their cents total isn't an exact multiple of 100.\n*Fix:* divide by `100.0` or cast explicitly, e.g. `SUM(o.total_cents) / 100.0 AS total_spent`.\n\nNo other issues stand out — `GROUP BY c.customer_id` with `c.name`/`c.signup_date` in the SELECT list is fine as long as `customer_id` is the customers primary key (functionally determines those columns), and `COUNT(o.order_id)` correctly yields 0 for unmatched rows once the join predicate is fixed.",
+  "response_sha256": "bd4a83b59b203483ca96dfb5f3a2fa3219c1cc02376e6d4bb19c3041cc9cb610",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28387,
+    "output_tokens": 5381,
+    "output_tokens_details": {
+      "thinking_tokens": 4133
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5381,
+        "cache_read_input_tokens": 28387,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0594914,
+    "duration_ms": 56301,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:57:40+00:00",
+  "finished_at": "2026-09-13T04:58:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T20-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 3,
+  "execution_index": 560,
+  "sample_seed": 6140339606229912593,
+  "prompt_sha256": "a0d444aaa21c689f1c5046a86ba6c952f336177203fb62e71b29926e97e3f5ef",
+  "prompt_chars": 734,
+  "response": "## The problem\n\nOur team of twelve has drifted into long-lived feature branches that often survive for two to three weeks before merging. Integration has become an event rather than a habit, and every event now carries risk. Merge conflicts routinely consume half a day per developer, and our last three releases each slipped due to last-minute integration surprises that unit tests never caught in isolation. The core issue is that branches diverge quietly while we work, and we only discover how much they've diverged when we try to reunite them.\n\n- Average time-to-merge has grown from 3 days to 11 days over the past two quarters, and code review quality has suffered as reviewers face 800-line diffs instead of focused changes.\n\n## The proposal\n\nI propose we adopt trunk-based development: all engineers commit directly to main at least daily, behind feature flags where work is incomplete, with branches living no longer than a day or two.\n\n- Feature flags let us ship unfinished work safely, decoupling deployment from release and giving product the ability to toggle features independently of code changes.\n- Small, frequent commits mean smaller diffs, faster reviews, and conflicts caught while the context is still fresh in everyone's mind.\n- Continuous integration against main becomes meaningful again, since main will actually reflect what everyone is building, not a stale snapshot from two weeks ago.\n\n## What could go wrong\n\nThe strongest objection is that trunk-based development demands strong CI discipline and test coverage we don't fully have today; without it, we risk breaking main frequently and blocking the whole team rather than just one branch. This is a fair concern, and I won't dismiss it: our current test suite has gaps, particularly in the payments module, and a broken main could stall twelve people instead of one. The mitigation is sequencing — we invest two weeks in shoring up CI gates and flag infrastructure before flipping the switch, and we start with lower-risk teams first.\n\n- We should also expect short-term friction as engineers relearn habits around smaller commits and flag management.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "5b0af2087e816815349d7f6df2fac6d017cd0e3bdcb12ad39106a63a1be6b705",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28295,
+    "output_tokens": 718,
+    "output_tokens_details": {
+      "thinking_tokens": 62
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 718,
+        "cache_read_input_tokens": 28295,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.012843,
+    "duration_ms": 12327,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:36:05+00:00",
+  "finished_at": "2026-09-13T04:36:18+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

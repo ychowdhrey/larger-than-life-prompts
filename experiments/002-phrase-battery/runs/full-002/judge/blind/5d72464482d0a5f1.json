@@ -1,0 +1,22 @@
+{
+  "item_id": "5d72464482d0a5f1",
+  "sample_id": "P02-E03-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E03",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, clearly sequences a storage snapshot before any destructive or restart/failover action, explicitly forbids restart/failover pre-snapshot in multiple places, includes a well-developed set of abort/rollback conditions tied to restoring from the snapshot, and ends with the correctly formatted SECTIONS line matching the actual heading count.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:58+00:00"
+}

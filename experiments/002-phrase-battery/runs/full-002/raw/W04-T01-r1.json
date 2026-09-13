@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T01-r1",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T01",
+  "condition_name": "phrase_t01",
+  "repetition": 1,
+  "execution_index": 1429,
+  "sample_seed": 2288207965247843842,
+  "prompt_sha256": "79cff96f44d6f9cd954253e416a38bfe3c4654fdc1dd5fe05f3f3e81f3a62ec4",
+  "prompt_chars": 625,
+  "response": "A content delivery network exists to make websites load fast no matter where a visitor is located. Every website lives permanently on an origin server, the single main computer that stores the real, original copy of all its files. Sending every visitor across the world to that one origin server would be slow, so a content delivery network places copies of the site's files on many other computers scattered across different cities, each called an edge location because it sits at the edge of the network, close to real people. When someone requests a page, the system first checks whether a nearby edge location already has a saved copy; finding one is called a cache hit, and it means the answer comes back almost instantly without bothering the origin server at all. Think of it like a chain of neighborhood bakeries that all sell bread baked from one master recipe kept at a central kitchen, so nobody has to travel across the country just for a loaf. Only when no nearby copy exists does the request travel further to fetch fresh content. This setup reduces waiting time, spreads out heavy traffic, and keeps a site running smoothly even during sudden surges of visitors.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The main computer holding the site's original files | Everything else is copied from here |\n| Edge location | A nearby computer storing copies close to visitors | Shortens the distance data must travel |\n| Cache hit | A request answered by a nearby copy | Makes pages load faster |\n| Content delivery network | The whole system of connected edge locations | Keeps sites reliable under heavy traffic |",
+  "response_sha256": "81be29210c1e099f2ad4e57f70041234601633a5b6ef00a435840a051ba9c2a4",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28265,
+    "output_tokens": 487,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 487,
+        "cache_read_input_tokens": 28265,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.010527,
+    "duration_ms": 8819,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:56:27+00:00",
+  "finished_at": "2026-09-13T04:56:37+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

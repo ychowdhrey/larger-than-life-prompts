@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T21-r1",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 1,
+  "execution_index": 1503,
+  "sample_seed": 10512657656248362642,
+  "prompt_sha256": "a1e6fb1b03b21d222d3f7be1455ef0a07ca486374655e696391e23ed52d8ec30",
+  "prompt_chars": 764,
+  "response": "# Incident Response Runbook: Primary Production Database — Disk Near-Full + Write Latency Spike\n\n**Trigger condition:** Primary production database disk utilization ≥ 95% (currently 98%) AND write latency has increased ≥2x baseline within a 20-minute window.\n\n**Severity:** SEV-1 — imminent risk of write failures, database halt, or data loss.\n\n---\n\n## DETECTION\n\n1. Confirm the alert is real, not a monitoring artifact:\n   - Check disk utilization from at least two sources (e.g., cloud provider console/CloudWatch and `df -h` / `node_exporter` metrics on the host) — confirm ≥95% and rising.\n   - Check write latency dashboards (p50/p95/p99) to confirm a sustained ≥2x increase over the last 20 minutes, not a brief spike.\n   - Check for correlated signals: replication lag, WAL/redo log growth rate, connection pool saturation, error rates on write endpoints, and any recent deploys or migrations.\n2. Declare the incident: open an incident channel/ticket, page the on-call DBA and the on-call incident commander (IC) if not already engaged.\n3. Assign roles explicitly: one Incident Commander, one hands-on-keyboard Responder, one Communicator. **Only the designated Responder executes commands against production.**\n4. Start a timestamped incident log (who did what, when, and the observed effect) — this is mandatory and begins now, not after the fact.\n5. Determine growth rate: if disk is rising faster than ~1%/min, treat the timeline as minutes, not hours, and escalate urgency accordingly.\n\n---\n\n## IMMEDIATE ACTIONS\n\n**Do not restart, fail over, reboot, or otherwise disrupt the primary database at this stage. Do not run destructive cleanup (deleting files, dropping tables/partitions, truncating logs) until Step 1 is complete.**\n\n1. **Take a storage snapshot of the primary database volume(s) first, before any other remediation step.** This is mandatory and blocking — no space-freeing, restart, or failover action proceeds until the snapshot is confirmed complete and verified (check snapshot status = \"completed\"/\"available\", not just \"initiated\"). If the storage layer cannot snapshot while ≥98% full, take the smallest possible safe action to create headroom (e.g., pause non-critical batch writers) solely to permit the snapshot, then snapshot immediately.\n2. If a replica exists, verify replication is healthy and confirm the replica is caught up (low lag) — this becomes your safety net but is **not** a substitute for the primary snapshot in Step 1.\n3. Once the snapshot is confirmed, identify what is consuming disk:\n   - Check for unbounded WAL/binlog/redo log growth (often caused by a stalled replica or long-running transaction holding logs).\n   - Check for temp file bloat, orphaned large objects, runaway audit/query logs, or a recent bulk-load job.\n   - Check for long-running or idle-in-transaction sessions blocking log recycling/vacuum.\n4. Communicate status to stakeholders: current disk %, latency trend, ETA to next update (every 10–15 minutes minimum during an active SEV-1).\n\n---\n\n## MITIGATION\n\nPerform these only after the Step 1 snapshot is confirmed:\n\n1. **Free disk space with the least destructive option first:**\n   - Kill or terminate long-running/idle-in-transaction sessions that are blocking WAL/log cleanup.\n   - Rotate and archive (do not delete outright without archiving) old logs to secondary storage.\n   - Trigger vacuum/compaction (e.g., `VACUUM`, log purge) if space allows it to run without pushing utilization to 100% mid-operation.\n   - If safe and pre-approved, expand the volume online (e.g., cloud provider live resize) — this is preferable to deleting data and should be attempted before destructive cleanup where the platform supports it.\n2. **Throttle or shed load** if space cannot be freed fast enough: pause non-critical write jobs, batch imports, and background analytics writes; apply write rate-limiting or put low-priority write paths into a backpressure/queued state.\n3. Only after the above are exhausted, and only with IC sign-off, consider planned failover to a verified, low-lag, snapshotted-or-independently-healthy replica. This is a last resort, not a first response, and must never occur before Step 1's snapshot of the primary is confirmed.\n4. Re-check disk utilization and write latency every 2–5 minutes after each action; do not stack multiple untested changes simultaneously.\n\n**Abort / rollback condition (mandatory stop point):**\nIf, at any point, disk utilization reaches 100%, the database stops accepting writes, or any mitigation action (log purge, vacuum, volume resize, session kill) causes write latency to spike further, replication to break, or additional errors to appear — **stop immediately, do not proceed to the next mitigation step, and escalate to the IC and senior DBA.** Do not attempt a restart or failover as an improvised fix in this state unless the Step 1 snapshot is confirmed and a second, independent approver (IC + senior DBA) explicitly authorizes it. If a resize or cleanup action is in progress and produces errors or unexpected data inconsistency, halt the action, do not retry blindly, and restore from the Step 1 snapshot rather than continuing forward.\n\n---\n\n## FOLLOW UP\n\n1. Confirm resolution: disk utilization stable and trending down (target <80%), write latency back to baseline for at least 30 sustained minutes.\n2. Verify data integrity: compare row counts/checksums on critical tables against the pre-incident snapshot and replica, if applicable.\n3. Preserve the incident timeline, snapshot IDs, and all commands run for the postmortem.\n4. Schedule a blameless postmortem within 3 business days covering: root cause of disk growth, why alerting didn't fire earlier (if applicable), and whether autoscaling/alert thresholds need adjustment (e.g., alert at 80%/85% instead of 98%).\n5. Action items: implement automated disk-usage alerting at lower thresholds, add WAL/log growth monitoring, review retention policies, and confirm snapshot/backup automation is capturing this class of incident going forward.\n6. Update this runbook with any gaps discovered during execution.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01CmJUE6KaErxvofUKAHDV3f\n\nSECTIONS: 4",
+  "response_sha256": "2d60f9b1ff8b3ce7e0f01ae08e6d82614c5860b3a0287ab5f756f1848209b3df",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28308,
+    "output_tokens": 2232,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2232,
+        "cache_read_input_tokens": 28308,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0279856,
+    "duration_ms": 29550,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:58:26+00:00",
+  "finished_at": "2026-09-13T04:58:57+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

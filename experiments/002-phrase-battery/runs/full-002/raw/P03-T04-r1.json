@@ -1,0 +1,68 @@
+{
+  "sample_id": "P03-T04-r1",
+  "run_id": "full-002",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T04",
+  "condition_name": "phrase_t04",
+  "repetition": 1,
+  "execution_index": 1274,
+  "sample_seed": 5586765128978236448,
+  "prompt_sha256": "ecf6d4ad498a7b44786e4d0efd53e1f8b608a223c913670b3727eda8affec083",
+  "prompt_chars": 1100,
+  "response": "**Reasoning:**\n\nDependency chain analysis:\n- Path A: T1(2) → T2(2) → T4(3) → T6(3) = 10 days (critical path)\n- Path B: T1(2) → T3(2) → T5(2) → T6(3) = 9 days\n\nSince T6 needs both T4 and T5 finished, and the critical path totals exactly 10 days, the schedule is tight but feasible.\n\nAssign the critical path (T1→T2→T4→T6) to E1, and the parallel path (T3→T5) to E2, then let E1 (or either, but pick one) finish with T6 once both T4 and T5 are done.\n\n- E1: T1 (Day 1–2), T2 (Day 3–4, starts after T1 done), T4 (Day 5–7, starts after T2 done), T6 (Day 8–10, starts after T4 and T5 done)\n- E2: T3 (Day 3–4, starts after T1 done), T5 (Day 5–6, starts after T3 done), then idle\n\nCheck: T6 needs T4 (done end of Day 7) and T5 (done end of Day 6) → can start Day 8, runs 8–10. Fits within Day 10. ✓\n\n**Schedule:**\n\nDAY 1 | E1 | T1\nDAY 2 | E1 | T1\nDAY 3 | E1 | T2\nDAY 3 | E2 | T3\nDAY 4 | E1 | T2\nDAY 4 | E2 | T3\nDAY 5 | E1 | T4\nDAY 5 | E2 | T5\nDAY 6 | E1 | T4\nDAY 6 | E2 | T5\nDAY 7 | E1 | T4\nDAY 8 | E1 | T6\nDAY 9 | E1 | T6\nDAY 10 | E1 | T6\n\nLAST DAY: 10",
+  "response_sha256": "ec3877fc3df897a4b6119e1b81bbdfd350ccb37a303220ade5132c08a7bc9a23",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28476,
+    "output_tokens": 1275,
+    "output_tokens_details": {
+      "thinking_tokens": 663
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1275,
+        "cache_read_input_tokens": 28476,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.018449200000000002,
+    "duration_ms": 13348,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:53:05+00:00",
+  "finished_at": "2026-09-13T04:53:19+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

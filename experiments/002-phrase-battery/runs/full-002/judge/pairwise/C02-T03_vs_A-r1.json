@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T03_vs_A-r1",
+  "contrast_id": "T03_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T03",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T03",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly diagnose the LEFT JOIN/WHERE interaction, the UTC vs UTC+8 boundary error, the integer division truncation, and the NULL/ordering issue for zero-order customers with equally accurate explanations and fixes, but Response A additionally flags that selecting c.name and c.signup_date without aggregation under GROUP BY c.customer_id is non-portable and would actually error on engines like SQL Server or Oracle, a real defect that Response B misses entirely, making A the more thorough review.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:35:10+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T13-r2",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 2,
+  "execution_index": 577,
+  "sample_seed": 14689758433582074413,
+  "prompt_sha256": "86fcf1959cc78f63d0828cbdb93465d97b4854cccdf09a39a4b6739be059b23a",
+  "prompt_chars": 526,
+  "response": "**Setting up the numbers:**\n\n- Prevalence: P(disease) = 1/500 = 0.002, so P(no disease) = 0.998\n- Sensitivity: P(+ | disease) = 0.98\n- Specificity: P(− | no disease) = 0.95, so P(+ | no disease) = 0.05 (false positive rate)\n\n**Applying Bayes' theorem:**\n\nP(+) = P(+|disease)·P(disease) + P(+|no disease)·P(no disease)\nP(+) = (0.98 × 0.002) + (0.05 × 0.998)\nP(+) = 0.00196 + 0.0499\nP(+) = 0.05186\n\nP(disease | +) = P(+|disease)·P(disease) / P(+)\nP(disease | +) = 0.00196 / 0.05186\nP(disease | +) ≈ 0.037794 → **3.78%**\n\n**Why this is counterintuitive:** Even with a 98%-sensitive, 95%-specific test, because the condition is rare (1 in 500), the pool of healthy people is so much larger than the pool of sick people that the absolute number of false positives (≈49.9 per 1000 tested) swamps the true positives (≈1.96 per 1000 tested). Most positive results come from the healthy majority being (rarely) misclassified, not from the rare true cases.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "027b801a76ecb71b4e5860ae50bd36ddb25910022d0415443dd7601fdd076f63",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2495,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 951,
+    "output_tokens_details": {
+      "thinking_tokens": 489
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2495,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 951,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2495,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2495
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0246392,
+    "duration_ms": 10256,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:36:26+00:00",
+  "finished_at": "2026-09-13T04:36:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "b23b32c4e8d19f74",
+  "sample_id": "P01-E01-r3",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E01",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (12 steps, rollback, rehearsal, post-cutover integrity checks via row counts/checksums, stakeholder communication, and backups placed correctly before any production-modifying step) while including realistic technical detail like LSN tracking, sequence syncing, and replication drain that makes it directly actionable for a real migration.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:55+00:00"
+}

@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T15_vs_A-r1",
+  "contrast_id": "T15_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T15",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T15",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly identify the WHERE-clause join defect, the UTC/UTC+8 boundary error, NULL-vs-zero with its ordering implication, and integer division truncation with equivalent accuracy; Response A additionally and appropriately flags the non-aggregated GROUP BY columns as a real portability risk (with correct caveats about when it does/doesn't fail) and supplies a fully corrected query that fixes all five issues including the GROUP BY list, making it slightly more complete and directly usable.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:28:00+00:00"
+}

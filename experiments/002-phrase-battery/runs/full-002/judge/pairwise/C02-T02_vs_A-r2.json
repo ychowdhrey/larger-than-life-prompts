@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T02_vs_A-r2",
+  "contrast_id": "T02_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T02",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T02",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly identify the same five core defects (LEFT JOIN turned into INNER JOIN, the UTC+8 date-boundary mismatch, NULL vs. 0 for zero-order customers, integer division truncation, and non-aggregated GROUP BY columns), but Response A additionally flags a real, correct downstream consequence — that NULL total_spent values will sort to the top under Postgres's default DESC-NULLS-first behavior, scrambling the 'highest spender' ranking — which is an accurate and actionable point B omits.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:34:21+00:00"
+}

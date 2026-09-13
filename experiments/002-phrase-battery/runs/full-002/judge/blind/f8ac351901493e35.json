@@ -1,0 +1,22 @@
+{
+  "item_id": "f8ac351901493e35",
+  "sample_id": "P01-T18-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T18",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 numbered steps, rollback, dry run, post-cutover integrity checks, stakeholder communication, and a full verified backup before the destructive cutover step) and ends with the correctly formatted step count, while remaining specific and actionable for a real 2 TB migration; it loses a little on depth/error-checking for not explicitly addressing the risk that a 2 TB sync might not fit the tight two-hour window or specifying a contingency if replication catch-up runs long.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:25+00:00"
+}

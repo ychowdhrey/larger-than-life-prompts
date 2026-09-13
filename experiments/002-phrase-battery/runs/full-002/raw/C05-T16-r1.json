@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T16-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T16",
+  "condition_name": "phrase_t16",
+  "repetition": 1,
+  "execution_index": 1962,
+  "sample_seed": 17186723135754048937,
+  "prompt_sha256": "cdb87afea0b2fad2560c9e6081730235ac87b3e6d57fcbca6101a22e94c7adcd",
+  "prompt_chars": 892,
+  "response": "Here are the defects I found, checked against R1–R3 and against what the code and tests actually compute:\n\n**1. Boundary bug in the implementation — violates R1**\n`discount(total)` uses `if total > 100:`, but R1 says a total of **100 or more** gets the discount. At `total == 100` the function falls through to `return 0.0` instead of returning `10.0`. This is an off-by-one error on the threshold, and it directly contradicts R1's \"100 or more\" wording (R3 also implies 100 itself is *not* \"below 100\", so it must get a discount).\n\n**2. `test_cap` asserts a value that violates R2 and doesn't match the code**\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\nFor `total = 1000`: `d = 1000 * 0.10 = 100.0`, then `min(100.0, 50.0) = 50.0`. So the function actually returns `50.0`, not `100.0` — this assertion will fail when run. Separately, even as a *spec* the expected value is wrong: R2 says the discount must never exceed 50.00, so a test named `test_cap` asserting `100.0` is internally inconsistent with the requirement it's supposedly verifying. This test will break the build if run, and if it were somehow \"fixed\" by changing the implementation to match 100.0, that would violate R2 instead.\n\n**3. No test covers the R1/R3 boundary at total = 100**\nNone of the three tests use `total == 100` (or anything at the boundary, e.g. 99.99 vs 100.00). Given R1 explicitly calls out \"100 or more\" and R3 explicitly calls out \"below 100,\" the boundary is the one case that most needs a test — and its absence is exactly why defect #1 (the `>` vs `>=` bug) is not caught by this suite.\n\n**Not a defect:** the 50.00 cap logic itself (`min(d, 50.0)`) is correctly implemented and would be correctly validated by a test with the right expected value (50.0 for total=1000); `test_small` and `test_large` are both correct and match the requirements.\n\n**Net effect if shipped as-is:** an order totaling exactly 100 silently gets no discount (revenue/customer-facing bug against R1), and the test suite as written will fail on `test_cap` before it even ships (or worse, someone \"fixes\" the test by removing the cap, which would then violate R2 for large orders).",
+  "response_sha256": "c5813781b8e451850cb111765e16e8d30c082d51337a25644101cee1d9778fc6",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28363,
+    "output_tokens": 2461,
+    "output_tokens_details": {
+      "thinking_tokens": 1668
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2461,
+        "cache_read_input_tokens": 28363,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0302866,
+    "duration_ms": 27419,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:08:44+00:00",
+  "finished_at": "2026-09-13T05:09:13+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

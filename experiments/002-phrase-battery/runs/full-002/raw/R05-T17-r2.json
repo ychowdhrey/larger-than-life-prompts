@@ -1,0 +1,68 @@
+{
+  "sample_id": "R05-T17-r2",
+  "run_id": "full-002",
+  "task_id": "R05",
+  "family": "reasoning",
+  "condition_id": "T17",
+  "condition_name": "phrase_t17",
+  "repetition": 2,
+  "execution_index": 1790,
+  "sample_seed": 8210583893160385064,
+  "prompt_sha256": "aab207233134d6b82a42b010ceab61fc06e0d87978a9f42855125e47317ae80c",
+  "prompt_chars": 238,
+  "response": "**401**\n\nDivisible by 3: 333; by 5: 200; by 15: 66 → divisible by 3 or 5: 333+200−66=467.\nAmong these, divisible by 7 means divisible by 21 or 35: 47+28−9=66.\n467−66=401.\n\nFINAL ANSWER: 401",
+  "response_sha256": "01e098296453c5d254a9e79e915590f34b34afea371f1988bc610cc6ba64598f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28148,
+    "output_tokens": 329,
+    "output_tokens_details": {
+      "thinking_tokens": 224
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 329,
+        "cache_read_input_tokens": 28148,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0089236,
+    "duration_ms": 5159,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:04:56+00:00",
+  "finished_at": "2026-09-13T05:05:02+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

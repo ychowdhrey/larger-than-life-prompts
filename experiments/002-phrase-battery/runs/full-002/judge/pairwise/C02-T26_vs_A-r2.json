@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T26_vs_A-r2",
+  "contrast_id": "T26_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T26",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T26",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both catch the core defects (LEFT JOIN turned INNER via WHERE, UTC/UTC+8 mismatch, GROUP BY issue, integer division, NULL total_spent), but Response B additionally catches a real and easily-missed bug: with total_spent as NULL for zero-order customers, PostgreSQL's default NULLS FIRST on DESC sort would push those customers to the top of a report, which is a genuine correctness issue affecting the report's usability. Response B's extra point about the missing upper bound is more speculative, but it is appropriately hedged rather than asserted as fact, so it doesn't meaningfully detract from an otherwise more thorough and equally accurate review.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:03+00:00"
+}

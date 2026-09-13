@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T17-r2",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T17",
+  "condition_name": "phrase_t17",
+  "repetition": 2,
+  "execution_index": 1844,
+  "sample_seed": 15030444220517177434,
+  "prompt_sha256": "57102324da41df2e62f55602529ef6b34a5360b9ec5aea57a783ad6653442592",
+  "prompt_chars": 636,
+  "response": "A content delivery network is a system that helps websites and videos load quickly no matter where a person is located in the world. Normally, all the information for a website lives in one place, called the origin server, which is the original computer that stores the real, master copy of everything. If everyone had to fetch data from that single origin server, people far away would experience slow loading, because information has to travel a long physical distance. To solve this, a content delivery network places many copies of the same information on smaller computers scattered around the world, called edge locations, positioned close to where people actually are. When someone requests a page, the request first checks a nearby edge location instead of traveling all the way to the origin server. If that nearby location already has a fresh copy stored, this is called a cache hit, and the information is delivered almost instantly. Think of it like a chain of neighborhood libraries that each keep popular books on hand, so readers do not need to travel to the one central library across the country every time. When there is no stored copy nearby, the edge location fetches fresh data from the origin server, saves it, and serves it, so future requests become faster. This whole arrangement reduces waiting time, spreads out heavy traffic, and keeps things running smoothly even when many people browse at once. The result is a faster, more reliable experience for everyone, everywhere.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The one original computer holding the master copy of a website's content | It is the ultimate source of truth, but relying on it alone makes distant requests slow |\n| Edge location | A smaller computer placed physically close to where people are | It shortens the distance data must travel, cutting waiting time |\n| Cache hit | A request that finds a fresh copy already stored nearby | It means near-instant delivery without contacting the origin server |\n| Cache miss | A request for which no fresh copy exists nearby yet | It triggers a fetch from the origin server, slightly slower until a copy is stored for next time |",
+  "response_sha256": "3456afa8d6e19e13ab75ea5d7d6685bb49955bad03e99d3080c84d48f394e974",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28267,
+    "output_tokens": 3485,
+    "output_tokens_details": {
+      "thinking_tokens": 2861
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3485,
+        "cache_read_input_tokens": 28267,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0405074,
+    "duration_ms": 30954,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:06:02+00:00",
+  "finished_at": "2026-09-13T05:06:34+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

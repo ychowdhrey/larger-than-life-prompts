@@ -1,0 +1,93 @@
+{
+  "sample_id": "W03-T07-r2",
+  "task_id": "W03",
+  "family": "writing",
+  "condition_id": "T07",
+  "repetition": 2,
+  "response_sha256": "a3b977bf093cd42cb8c3fdf57c64471d788320acaceb1d8d18739a94160c770b",
+  "objective": {
+    "max_points": 14.0,
+    "earned_points": 14.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "subject_line",
+        "label": "First line is a Subject line of 60 characters or fewer",
+        "type": "subject_line",
+        "points": 4.0,
+        "passed": true,
+        "detail": "subject line is 58 characters (max 60)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "paragraphs",
+        "label": "Body is exactly three paragraphs",
+        "type": "paragraph_count",
+        "points": 4.0,
+        "passed": true,
+        "detail": "3 paragraphs (need 3)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "date",
+        "label": "States the new delivery date",
+        "type": "regex_any",
+        "points": 2.0,
+        "passed": true,
+        "detail": "matched 14 April|April 14|14th April",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "one_question",
+        "label": "Exactly one question mark",
+        "type": "count_matches",
+        "points": 2.0,
+        "passed": true,
+        "detail": "found 1 (allowed 1..1)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "banned",
+        "label": "Avoids every banned word",
+        "type": "forbidden",
+        "points": 2.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 756,
+    "response_words": 132,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 1,
+    "caveats_marker_total": 1,
+    "self_correction_markers": 1,
+    "self_correction_marker_total": 2,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:48+00:00",
+  "evaluation_version": "2.0.0"
+}

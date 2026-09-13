@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T01-r3",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T01",
+  "condition_name": "phrase_t01",
+  "repetition": 3,
+  "execution_index": 1080,
+  "sample_seed": 956844466734009423,
+  "prompt_sha256": "79d556ad61dbc8df590595b8d74ae976e56464c55a08c17570c6a490e51120f5",
+  "prompt_chars": 838,
+  "response": "## Defects Found\n\n**1. Boundary error in the implementation (violates R1)**\n\nThe code uses `if total > 100:` instead of `if total >= 100:`. R1 states a total of **100 or more** qualifies for the discount, but with strict `>`, an order totaling exactly `100` falls through to `return 0.0`.\n\n- **Cause:** `>` used where `>=` is required.\n- **Effect:** `discount(100)` returns `0.0` instead of the correct `10.0`. Any order with a total of exactly 100 is silently denied its discount — an off-by-one bug at a boundary that's very likely to occur in real order totals.\n- **Not caught by tests:** none of the three tests exercise `total == 100`, so this bug ships undetected.\n\n**2. `test_cap` asserts an incorrect expected value (test bug, and it also fails to validate R2)**\n\nFor `discount(1000)`: `d = 1000 * 0.10 = 100.0`, then `min(d, 50.0) = 50.0`. So the implementation actually returns `50.0`, not `100.0`.\n\n- **Cause:** The test asserts `discount(1000) == 100.0`, which is simply wrong arithmetic/expectation.\n- **Effect:** This test **fails** even against the given implementation (which is otherwise correctly capping at 50.0 in this case) — a false negative that would block a correct implementation or mask the fact that the person writing tests didn't understand the cap.\n- **Additional problem:** The expected value `100.0` itself violates R2 (\"discount is never more than 50.00\"). Even if this assertion happened to pass against some implementation, it would mean that implementation *violates* R2. So this test cannot correctly validate R2 no matter what — it's testing for the wrong thing entirely.\n\n**3. Missing boundary test for R1/R3 (test coverage gap)**\n\nThere is no test for `total == 100`, which is the exact dividing line between R1 (\"100 or more\") and R3 (\"below 100\"). This is precisely the case needed to catch defect #1.\n\n- **Effect:** The boundary bug in the implementation goes completely undetected by the test suite.\n\n---\n\n### What is *not* a defect (for clarity)\n- `test_small` (`discount(50) == 0.0`) is correct per R3.\n- `test_large` (`discount(200) == 20.0`) is correct: `200 * 0.10 = 20.0`, under the cap, matches R1.\n- The cap logic itself (`min(d, 50.0)`) is structurally correct for R2 — the problem is only that `test_cap`'s expected value doesn't reflect it.",
+  "response_sha256": "cc8ad5241dc9bcd231ab84517c09c8398e467ed0b1b5e59d5b726d596b8f3638",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28351,
+    "output_tokens": 2258,
+    "output_tokens_details": {
+      "thinking_tokens": 1394
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2258,
+        "cache_read_input_tokens": 28351,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0282542,
+    "duration_ms": 25450,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:48:31+00:00",
+  "finished_at": "2026-09-13T04:48:57+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

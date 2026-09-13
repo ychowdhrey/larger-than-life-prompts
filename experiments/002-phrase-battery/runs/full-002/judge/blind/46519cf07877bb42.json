@@ -1,0 +1,22 @@
+{
+  "item_id": "46519cf07877bb42",
+  "sample_id": "R01-T11-r3",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T11",
+  "repetition": 3,
+  "scores": {
+    "task_success": 1,
+    "thoroughness": 2,
+    "constraint_adherence": 5,
+    "error_checking": 1,
+    "depth": 2,
+    "usefulness": 1
+  },
+  "reason": "The arithmetic contains a date error: 15:40 UTC + 13h25m = 29:05, which crosses midnight only once and should land on 4 March 2027, not 5 March, so the final answer is off by one day despite the correct method being shown.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:44:01+00:00"
+}

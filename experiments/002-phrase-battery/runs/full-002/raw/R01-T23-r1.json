@@ -1,0 +1,68 @@
+{
+  "sample_id": "R01-T23-r1",
+  "run_id": "full-002",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T23",
+  "condition_name": "phrase_t23",
+  "repetition": 1,
+  "execution_index": 1854,
+  "sample_seed": 3768189010891007911,
+  "prompt_sha256": "b7ce11befd6203c158ee2c9584f6b77e0d3a731e78ea974ad296af80916dfe60",
+  "prompt_chars": 441,
+  "response": "Departure in UTC: 23:40 (3 Mar) − 8h = 15:40 UTC, 3 March 2027.\n\nAdd flight time: 15:40 + 13:25 = 29:05 → 05:05 UTC, 4 March 2027.\n\nSince London is UTC+0 on that date, local arrival time = 05:05 on 4 March 2027.\n\nFINAL ANSWER: 2027-03-04 05:05",
+  "response_sha256": "4ab09a8bf37c1c525c16c13b94697013e2004f59cfe242ea010abff44af57717",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28237,
+    "output_tokens": 272,
+    "output_tokens_details": {
+      "thinking_tokens": 128
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 272,
+        "cache_read_input_tokens": 28237,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.008371400000000001,
+    "duration_ms": 4711,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:06:17+00:00",
+  "finished_at": "2026-09-13T05:06:22+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

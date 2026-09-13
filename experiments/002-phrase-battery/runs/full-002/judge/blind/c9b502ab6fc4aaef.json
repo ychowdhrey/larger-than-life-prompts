@@ -1,0 +1,22 @@
+{
+  "item_id": "c9b502ab6fc4aaef",
+  "sample_id": "C02-T23-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T23",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (WHERE-clause nullifying the LEFT JOIN, missing UTC+8 offset conversion, integer division truncation, NULL vs zero for no-order customers, and NULLS-first sort ordering), gives correct fixes for each, and explicitly confirms COUNT/GROUP BY are not problems rather than inventing issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:52+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "1e1537e02c68b474",
+  "sample_id": "C02-T01-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T01",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE clause nullifying the LEFT JOIN, UTC vs UTC+8 boundary mismatch, integer division truncation, and the resulting NULL-vs-zero total_spent after fixing the join) with accurate explanations and concrete fixes, and reports no spurious issues; the timezone explanation shows a visible mid-reasoning self-correction that lands on the right conclusion but is slightly untidy.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:20:40+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "c7013956e9d4f3c9",
+  "sample_id": "C02-T15-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T15",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "All five defects (LEFT JOIN nullified by WHERE, UTC/UTC+8 boundary mismatch, NULL SUM, NULL sort order, integer division truncation) are correctly diagnosed with accurate causal explanations and working fixes, and the response correctly declines to flag the GROUP BY column list as a defect with a valid justification, showing it checked for false positives rather than padding the list.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:04+00:00"
+}

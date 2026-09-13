@@ -1,0 +1,22 @@
+{
+  "item_id": "c1dc5cd04b88bb1f",
+  "sample_id": "P03-T03-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T03",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule is logically valid: prerequisites are respected with strict day-after starts, no engineer is double-booked, all tasks fit by Day 10, and the output format (including idle-day omission and the LAST DAY line) exactly matches the required specification. The reasoning derives the schedule step by step but never explicitly re-verifies the finished plan against the constraints, so error-checking is only implicit rather than a distinct confirmation pass.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:00+00:00"
+}

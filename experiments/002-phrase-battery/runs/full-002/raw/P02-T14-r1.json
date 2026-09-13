@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T14-r1",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 1,
+  "execution_index": 1200,
+  "sample_seed": 9815432997056301751,
+  "prompt_sha256": "1718875c1ea653cb0f6c446f195694ea41211a72bb9c304a608fac140ddea2c3",
+  "prompt_chars": 750,
+  "response": "# Incident Response Runbook: Primary Production Database — Critical Disk Utilisation with Elevated Write Latency\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 98% AND write latency has increased ~3x over a 20-minute window.\n\n**Severity:** SEV-1 (imminent risk of write failures / outage)\n\n---\n\n## DETECTION\n\n1. Confirm the alert is real, not a monitoring artefact:\n   - Cross-check disk utilisation on at least two sources (e.g., cloud provider metrics console AND host-level `df -h` / `du` via SSH or exec into the DB node).\n   - Cross-check write latency against the database's own metrics (e.g., `pg_stat_activity`, slow query log, RDS/CloudWatch `WriteLatency`, or equivalent) and against application-side p95/p99 write latency dashboards.\n2. Confirm scope: is this the primary only, or are replicas also affected? Record replica lag at this moment — you will need it later.\n3. Identify what is consuming disk: check for runaway WAL/binlog growth, temp table spill, a long-running transaction holding old WAL segments, an errant bulk import, or index bloat.\n4. Open an incident channel and page the on-call DBA and the service owner. Timestamp the start of the incident.\n5. Snapshot the current state into the incident log before doing anything else: disk %, growth rate (%/min), latency numbers, top disk consumers, active connection count, and replica lag. This baseline is what you'll compare against after every step below.\n\n---\n\n## IMMEDIATE ACTIONS\n\n**Ordering rule (hard constraint): no restart, failover, or promotion of the primary may occur until a storage snapshot has been successfully taken and verified. Data-loss-risking actions are gated on the same condition.**\n\n1. **Take a storage snapshot of the primary now**, before any remediation, cleanup, restart, or failover is attempted.\n   - Use the platform-native mechanism (e.g., EBS snapshot, RDS/Aurora snapshot, LVM snapshot, storage-array snapshot) so it is crash-consistent at minimum, application-consistent if your tooling supports a quiesced/`fsync`-flushed snapshot without long write blocking.\n   - **Verify the snapshot completed and is marked available/valid** — do not proceed on the assumption that \"snapshot initiated\" means \"snapshot exists.\"\n   - Record the snapshot ID/ARN and timestamp in the incident log. This is the recovery point for every subsequent action.\n2. Only after the snapshot is confirmed valid:\n   - Place the application (or the specific write path) into a degraded/throttled mode if you have a feature flag or rate limiter for writes, to reduce the rate of disk growth while you work. Do not do this if it would itself corrupt in-flight transactions — prefer read-only mode over a hard kill.\n   - Identify and, if safe, terminate any single runaway query/session that is the dominant cause of growth (e.g., an uncommitted long transaction preventing WAL/vacuum cleanup). Kill sessions individually and record each PID/query killed — do not bulk-kill all connections.\n3. Do **not** restart the database process and do **not** trigger failover/promotion of a replica at this stage. Restarting or failing over before the snapshot exists risks losing the forensic and recovery baseline, and a restart under 98% disk can also fail to come back cleanly (WAL replay itself needs disk headroom).\n4. Notify stakeholders (status page / internal channel) that a SEV-1 is in progress and writes may be degraded or briefly blocked.\n\n---\n\n## MITIGATION\n\nPerform these only after Step 1 of IMMEDIATE ACTIONS (verified snapshot) is complete.\n\n1. **Reclaim disk space, safest options first:**\n   a. Purge rotated logs, old core dumps, and non-essential temp files on the DB host filesystem (never touch active WAL/binlog files still required for replication or crash recovery).\n   b. Archive and remove already-shipped WAL/binlog segments that are confirmed replicated and backed up (check replica ACK position and backup completion before deleting any).\n   c. Run housekeeping (e.g., `VACUUM`, purge of expired partitions/old data per retention policy) only if disk has enough headroom for the operation's own temp usage — check this explicitly, since vacuum-type operations can transiently increase disk usage and worsen a near-full disk.\n2. **If space cannot be reclaimed fast enough, expand capacity:**\n   - Prefer an online volume resize (cloud block storage expand, e.g., EBS modify-volume) which does not require downtime, over any action requiring a restart.\n   - If the storage backend requires a restart to expand, this is the only point in the runbook where a restart may be considered — and only after: (i) the snapshot is verified, (ii) at least one alternate copy of data exists (replica or the snapshot itself) confirmed healthy, and (iii) the on-call lead has explicitly approved it.\n3. **Failover, if required:**\n   - Failover to a replica is permitted only after the primary snapshot is verified AND the target replica's replication lag and data consistency have been confirmed healthy (lag near zero, no replication errors in its log).\n   - Failing over with an unhealthy or significantly lagging replica converts this into a data-loss incident — do not do it under time pressure without that check.\n4. Continuously monitor disk utilisation and write latency after each action; require the trend to visibly reverse (utilisation dropping, latency returning toward baseline) before moving to the next mitigation step or declaring the incident mitigated.\n\n### Abort / rollback conditions\n\n- **Abort condition 1:** If the storage snapshot fails, times out, or cannot be verified as valid, **stop all further remediation** (no cleanup, no restart, no failover). Escalate immediately to the DBA lead and storage/infra team; continue only with manual, closely supervised read-only mitigations (e.g., blocking new writes at the load balancer) until a valid snapshot exists.\n- **Abort condition 2:** If any action taken during MITIGATION (log purge, WAL cleanup, vacuum, resize) causes write latency to worsen, error rates to increase, or replica lag to spike, **stop that action, reverse it if reversible** (e.g., restore purged-but-recoverable files from the snapshot/backup, cancel an in-flight resize if supported), and revert to the last known-good state before reassessing.\n- **Abort condition 3:** If disk utilisation reaches 100% or the database becomes unresponsive to write queries entirely, do not attempt a restart as a first response — escalate to full incident commander involvement and restore from the verified snapshot to a new instance rather than restarting the degraded primary in place.\n\n---\n\n## FOLLOW UP\n\n1. Once disk utilisation is stable (< 80% and trending flat/down) and write latency has returned to baseline for at least 30 minutes, declare the incident resolved and record resolution time.\n2. Conduct a blameless post-incident review within 5 business days covering:\n   - Root cause of disk growth (data growth, WAL/binlog buildup, missing retention, runaway query, etc.).\n   - Why alerting did not trigger earlier (target: alert at 80–85% disk, not 98%).\n3. Implement preventive follow-ups, e.g.:\n   - Automated disk capacity alerting with earlier thresholds and predictive/trend-based alerting (not just static thresholds).\n   - Automated WAL/log retention and rotation policies.\n   - Pre-provisioned headroom or auto-scaling storage where the platform supports it.\n4. Validate the snapshot taken during this incident: confirm it is restorable (test restore in a non-prod environment) and then retain per backup policy or delete per data-retention policy once confirmed no longer needed for the RCA.\n5. Update this runbook with any gaps discovered during the incident (missing tooling, unclear ownership, timing issues) before closing the incident ticket.\n\n---\n\nSECTIONS: 4",
+  "response_sha256": "a4b5d5ba912556805c24b0fce0bb018d519d3adcd5c7a640e736d28dd9b23442",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28309,
+    "output_tokens": 2709,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2709,
+        "cache_read_input_tokens": 28309,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0327558,
+    "duration_ms": 36388,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:51:19+00:00",
+  "finished_at": "2026-09-13T04:51:57+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

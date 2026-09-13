@@ -208,5 +208,222 @@ set Experiment 001 ran against · Rubric 2.0.0 · Prompt 1.0.0 · Workflow 1.1.0
 
 ## Results
 
-Full run in progress. This section is written from `runs/full-002/analysis/` once the run
-completes; the generated report is [analysis.md](analysis.md).
+**Full run complete: 2,220 generations, 2026-09-13, `runs/full-002`.** Generated report in
+[analysis.md](analysis.md), machine readable in `runs/full-002/analysis/`.
+
+Pipeline health: 2,220/2,220 generations, 2,220/2,220 objective scores, 2,220/2,220 blind
+judgments and 1,560/1,560 pairwise comparisons. **Zero blinding leaks** in 2,220 responses.
+Spec lock, prompt equivalence across all 37 arms, and the sha256 ledger verified in both
+directions. Generation cost 60.61 USD.
+
+The container running the judging stages was interrupted part-way through and 729 judge
+units failed with the CLI killed mid-call. They were re-run under the same configuration
+per `METHODOLOGY.md`; the retry completed 456 blind and 415 pairwise units with 0 failures.
+No raw output was touched, because failures are recorded under `state/failures/` and raw
+outputs are write-once. The failure records are kept.
+
+### The headline: 26 of 26 arms are Neutral
+
+No phrase met the preregistered decision rule on the primary outcome. Not one, in either
+direction.
+
+### The primary outcome ran out of room, and this run proves it
+
+The empty control scored **4.950 of 5** on blind judge task success, against 4.783 in
+Experiment 001. At that level a phrase has almost nowhere to go but down, and the numbers
+show exactly that shape:
+
+| Measure | Arms above the empty control | Arms below | Median effect |
+|---|---:|---:|---:|
+| Blind judge task success (A = 4.950 / 5) | **1** of 26 | 25 | -0.100 |
+| Objective score (A = 0.927) | **11** of 26 | 15 | -0.006 |
+
+The same 26 arms, the same generations, two instruments. On the saturated one almost
+everything looks harmful; on the one with headroom the arms sit symmetrically around the
+control. **"Appended text makes things worse" is an artefact of the ceiling, not a finding.**
+Effective n says the same thing: the `vs_A` contrast discriminated on a median of 5 of 20
+tasks on the judge measure and 9 of 20 on the objective score.
+
+This was declared in advance — see PREREGISTRATION.md section 4.1, written before the run
+from Experiment 001's measurements — which is the only reason it can be read as a property
+of the instrument rather than argued about after the fact.
+
+### The replication arm worked, and it cost Experiment 001 its candidate pattern
+
+`T01` re-ran Experiment 001's phrase inside this battery. It reproduced the null: **-0.033**
+on the primary outcome against the empty control, **+0.016** on the objective score, both
+intervals spanning zero. The instruments agree with 001 about the phrase.
+
+They do not agree with 001 about anything else. The three shared control arms carry
+byte-identical text in both experiments, so the difference between runs is pure run-to-run
+variation:
+
+| Same appended text | Exp 001 | Exp 002 | Drift |
+|---|---:|---:|---:|
+| A control, judge task success | 4.783 | 4.950 | **+0.167** |
+| B generic encouragement, judge task success | 4.800 | 4.883 | +0.083 |
+| D explicit effort, judge task success | 4.883 | 4.800 | **-0.083** |
+| B generic encouragement, objective | 0.914 | 0.948 | **+0.034** |
+| D explicit effort, objective | 0.953 | 0.935 | -0.018 |
+
+`D_vs_A` on the primary outcome was **+0.100 in Experiment 001 and -0.150 here** — the same
+sentence, the same task set, the same model, opposite signs. On the objective score D's lead
+shrank from +0.031 to +0.008, and B overtook it.
+
+Experiment 001 offered one candidate pattern: *the active ingredient in appended text is
+instruction content, not tone.* **It does not replicate.** It was one run's noise, and the
+only reason that is visible is that this battery re-ran the same controls.
+
+The drift on identical text (up to 0.167 on the primary outcome, 0.034 on the objective
+score) is **larger than almost every treatment effect in the battery**. That number is the
+noise floor, and nothing smaller than it should be called a result.
+
+### No behavioural family separates from irrelevant text
+
+PREREGISTRATION.md section 9 names the falsification criterion for the emotional families:
+*indistinguishable from the placebo arms*. Pooling each family's member arms and comparing
+them against the two placebo arms — exploratory, since only the family-versus-reference
+contrasts were preregistered as tests:
+
+| Family | Primary vs placebo | 95% CI | Objective vs placebo | 95% CI |
+|---|---:|---|---:|---|
+| F1 Cinematic motivation | +0.108 | [-0.021, +0.279] | +0.024 | [-0.000, +0.051] |
+| F2 Explicit effort instruction | +0.083 | [-0.050, +0.242] | +0.020 | [-0.002, +0.043] |
+| F3 Appreciation / affection | +0.003 | [-0.122, +0.142] | +0.010 | [-0.015, +0.042] |
+| F4 Trust / confidence | -0.086 | [-0.278, +0.114] | +0.002 | [-0.030, +0.036] |
+| F5 Challenge / competition | +0.069 | [-0.108, +0.269] | +0.023 | [-0.009, +0.062] |
+| F6 High stakes framing | +0.025 | [-0.097, +0.156] | +0.015 | [-0.011, +0.041] |
+| F7 Identity / role priming | -0.014 | [-0.164, +0.158] | +0.005 | [-0.021, +0.031] |
+| F8 Social / team framing | +0.064 | [-0.064, +0.242] | +0.012 | [-0.013, +0.041] |
+
+**Every interval spans zero. Every BH q is 1.000.** Eight behavioural families, 24 phrases,
+1,440 generations, and none of them is distinguishable from telling the model about the
+weather.
+
+Read against the empty control instead, three families are *demonstrably worse* on the
+primary outcome after FDR — identity/role priming (q = 0.009), appreciation (q = 0.035) and
+trust/confidence (q = 0.035). That comparison is the ceiling artefact above: the placebo
+family is negative too (-0.142), and the objective score shows none of it.
+
+### Emotional framing does not amplify an explicit instruction
+
+Eight combination arms appended a phrase and then the canonical effort instruction. `E08` is
+built on a placebo phrase, so it measures what appending *any* extra sentence plus the
+instruction does. Every other combination arm's lift over the instruction, minus the
+placebo's lift:
+
+| Arm | Family | Lift over placebo combo (objective) | 95% CI |
+|---|---|---:|---|
+| E01 | Cinematic | +0.0115 | [-0.018, +0.046] |
+| E02 | Appreciation | +0.0104 | [-0.020, +0.048] |
+| E03 | Trust | +0.0173 | [-0.008, +0.044] |
+| E04 | Challenge | +0.0079 | [-0.016, +0.033] |
+| E05 | High stakes | +0.0101 | [-0.016, +0.038] |
+| E06 | Identity | -0.0098 | [-0.035, +0.012] |
+| E07 | Social | -0.0184 | [-0.049, +0.007] |
+
+All seven intervals span zero. Adding emotional framing on top of "be especially thorough"
+buys what adding a sentence about the weather buys.
+
+### What appended text *does* change: the look of the answer
+
+This is where the battery is not null at all, and it is the most useful thing in it. These
+are secondary and descriptive measures — multiplicity applies and none is a preregistered
+test — but the pattern is consistent across arms.
+
+`T06`, **"Check every number and every claim before you finish."** — the one arm that names
+error checking:
+
+| Measure | Effect vs empty control | 95% CI |
+|---|---:|---|
+| Judge **error_checking** | **+0.583** | [+0.183, +1.017] |
+| Judge thoroughness | +0.300 | [+0.083, +0.550] |
+| Response length (words) | **+44.98** | [+22.7, +68.5] |
+| **Task success (primary)** | +0.017 | [-0.083, +0.117] |
+| **Objective score** | +0.012 | [-0.017, +0.043] |
+
+`T14`, **"This one is harder than it looks. Prove me wrong."** — writes **+109.6 words**
+(CI [+71.3, +147.6]), scores +0.317 on judged thoroughness, and moves the primary outcome by
+-0.017 and the objective score by +0.018.
+
+**A targeted instruction reliably moves the dimension it names, and reliably fails to move
+whether the answer is right.** Telling the model to check produces more checking *language*
+and more *judged* checking. It does not produce a better answer on a task set with planted
+defects to find.
+
+### Pairwise preference measures length
+
+Blind pairwise preference against the empty control, over 1,560 comparisons: treatment win
+rate 0.472 excluding ties. Two arms win convincingly — `T14` at 0.733 (p = 0.0025) and `T15`
+at 0.721 (p = 0.0054) — though neither survives BH correction across the 26 arms
+(q = 0.064 and 0.070), and both are flat on both scored outcomes.
+
+Across the 26 arms:
+
+| Correlation with mean response length | r |
+|---|---:|
+| Pairwise win rate against the empty control | **+0.767** |
+| Objective-score effect against the empty control | **+0.175** |
+
+How much longer a phrase makes the answer explains most of the variance in which answer a
+blind judge says it would use, and almost none of the variance in whether the answer is
+better. This is the length bias `METHODOLOGY.md` names as a confound, measured directly
+rather than assumed.
+
+### Adverse effects
+
+Four contrasts meet the full decision rule **in the reference's favour**, all on the
+objective score and all against generic encouragement: `T07_vs_B` (-0.038, Holm p = 0.023),
+`T11_vs_B` (-0.071, Holm p = 0.019), `T20_vs_B` (-0.039, Holm p = 0.029) and `T25_vs_B`
+(-0.045, Holm p = 0.006). None survives the battery-wide FDR (q = 0.15 to 0.19), and the
+last of them is a **placebo** arm, which is the reason to read the whole set as B running
+high in this run rather than as four phrases being harmful.
+
+The largest single negative effect in the battery is `T11`, **"You are the best there is at
+this. I know you will get it right."**: -0.333 on the primary outcome and **-0.051** on the
+objective score against the empty control, the worst arm on both instruments independently.
+The preregistration recorded the competing prediction for family F4 in advance — that stated
+trust may *license less checking*, because the work is pre-approved. The direction is
+consistent with it. The evidence is not sufficient to claim it: `T11_vs_A` on the objective
+score has Holm p = 0.073 and BH q = 0.427.
+
+## Conclusion
+
+**Impact: Neutral for all 26 arms. Status: Observed.**
+
+Twenty-five new phrases across nine behavioural families, measured at 60 generations each
+against three shared controls on the same task set as Experiment 001, produced **no
+demonstrated improvement on any contrast**. No family separates from irrelevant filler. No
+emotional framing amplifies an explicit instruction. The one phrase that plainly instructs
+the model to check its work moves judged checking by +0.58 and the objective score by +0.012.
+
+Two results here are worth more than the nulls:
+
+1. **Experiment 001's candidate pattern did not replicate, and reversed.** `D_vs_A` went from
+   +0.100 to -0.150 on identical text. A battery with shared controls and a replication arm
+   is what made that visible, and it is an argument for running phrases in batteries rather
+   than one at a time.
+2. **Appended text changes style, not correctness.** Length explains pairwise preference
+   (r = +0.767) and not objective performance (r = +0.175). A phrase can make an answer that
+   a blind judge prefers, reads as more thorough, and contains more checking language, while
+   leaving what the answer actually gets right exactly where it was.
+
+On the confidence ladder every arm stays at **Observed**. None survived a controlled
+evaluation, because there was nothing to survive.
+
+## Next action
+
+1. **Do not re-run `config/full.json` under a new `run_id` hoping for a different number.**
+   The design was preregistered, the run completed clean, and the answer is a null on 26
+   arms.
+2. **The task set is now the binding constraint, and this run quantified it.** The judge
+   measure discriminates on a median of 5 of 20 tasks; the objective score on 9 of 20; the
+   control sits at 4.95 of 5. The honest next step is a **task set v2** hard enough that the
+   control fails a meaningful fraction of the time, then a fresh experiment. That will break
+   both existing spec locks, which is the intended behaviour. `runs/full-002/` and this
+   report stay as they are.
+3. **The open question this run generated is about measurement, not about phrases.** Between-
+   run drift on identical text reached 0.167 on the primary outcome — larger than nearly
+   every treatment effect measured here. Before another phrase is tested, it is worth running
+   the same control arm several times under different `run_id`s to characterise that floor
+   directly. Any future effect smaller than it is not interpretable.

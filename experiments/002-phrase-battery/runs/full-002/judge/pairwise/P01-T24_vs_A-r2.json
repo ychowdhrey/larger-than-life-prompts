@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T24_vs_A-r2",
+  "contrast_id": "T24_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T24",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T24",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans hit every hard requirement, but Response A's step 2 has the migration tool install/configure logical replication (touching production replication slots/config) before the full backup in step 3, undercutting its own stated intent and the requirement that backup precede any production-modifying action; Response B orders backup (step 3) strictly before the dry run and before establishing replication (step 5), which is the more correct and internally consistent sequence.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:46:22+00:00"
+}

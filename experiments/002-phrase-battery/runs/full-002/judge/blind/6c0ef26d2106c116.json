@@ -1,0 +1,22 @@
+{
+  "item_id": "6c0ef26d2106c116",
+  "sample_id": "P05-T15-r3",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T15",
+  "repetition": 3,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (named phases with percentages/entry criteria, correctly formatted RISK lines, decommission kept separate from the final migration phase, numeric halt metrics, and a trailing PHASES line), but the phase percentages/user counts don't actually sum to 40,000 (99% cumulative, 400 users unaccounted for), an inconsistency the response never catches or reconciles.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:34+00:00"
+}

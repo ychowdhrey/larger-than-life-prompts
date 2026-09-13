@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T20_vs_A-r3",
+  "contrast_id": "T20_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T20",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet the hard requirements, but Response B is organized more usably: it separates the mandatory snapshot as a single unambiguous first step in IMMEDIATE ACTIONS, stages emergency options without executing them, and its abort/rollback condition covers both the reclamation and failover paths concretely (including a 5-minute replica-lag check). Response A is also compliant and thorough but is denser and slightly redundant, making B marginally more actionable under real incident pressure.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:33:52+00:00"
+}

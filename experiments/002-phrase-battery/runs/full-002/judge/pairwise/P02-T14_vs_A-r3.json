@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T14_vs_A-r3",
+  "contrast_id": "T14_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T14",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy all hard requirements (four correctly ordered headings, snapshot before any risky action, no restart/failover before snapshot, explicit abort/rollback conditions), so the differentiator is fidelity to the stated incident: Response A's trigger conditions exactly match the scenario (98% disk, tripled latency, 20-minute window) and stay internally consistent throughout, whereas Response B invents different thresholds (95% disk, 2x baseline, 30-minute window) and then contradicts itself later by referencing '3x baseline as stated in this scenario,' creating confusing, inconsistent guidance a real responder would have to reconcile.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:52+00:00"
+}

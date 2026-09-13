@@ -1,0 +1,22 @@
+{
+  "item_id": "9bcc8f2cac3a249e",
+  "sample_id": "C02-T11-r3",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T11",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 4,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the critical WHERE-turns-LEFT-JOIN-into-INNER-JOIN bug (which violates the zero-order requirement), the UTC/UTC+8 boundary mismatch, integer division truncation, missing COALESCE for NULL sums, and the resulting NULL-sort ordering issue, all with concrete fixes; its only flaw is asserting MySQL truncates integer division with '/', which is factually incorrect since MySQL's division operator returns a decimal result.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:48+00:00"
+}

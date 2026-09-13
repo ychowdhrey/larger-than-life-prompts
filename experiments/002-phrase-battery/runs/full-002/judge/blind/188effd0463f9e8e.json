@@ -1,0 +1,22 @@
+{
+  "item_id": "188effd0463f9e8e",
+  "sample_id": "P01-T12-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T12",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (12-step numbered list, rehearsal on non-prod data, pre-backup before destructive steps, post-cutover checksum/row-count verification, stakeholder communication, rollback, correct STEP COUNT line) while showing genuine domain depth, notably using CDC/logical replication with pre-window bulk load to make a 2TB migration feasible within a 2-hour window and separating pre- vs post-cutover validation for a clean rollback point.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:06+00:00"
+}

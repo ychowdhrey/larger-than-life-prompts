@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T10-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T10",
+  "condition_name": "phrase_t10",
+  "repetition": 3,
+  "execution_index": 2209,
+  "sample_seed": 11452651640234045962,
+  "prompt_sha256": "34b7a33b220aa76a53752f591f8d5c4e2a25dfed10b3399ac15a7f16085d12e4",
+  "prompt_chars": 809,
+  "response": "# Rollout Plan: Migrating 40,000 Users from Legacy Billing to New Billing System\n\n## Overview\n\nBoth billing systems will run in parallel throughout the migration, allowing safe rollback at any point before full cutover. Users are migrated in batches by phase, with each phase gated by an entry criterion validated against the results of the prior phase. The legacy system remains fully operational (read/write, capable of processing billing runs) until a separate, later decommissioning phase — decommissioning is explicitly out of scope for the migration phases below.\n\n---\n\n## Phase 1: Canary (2% of users, ~800 users)\n\n**Entry criterion:** Dual-write/dual-read reconciliation job has run successfully against a synthetic test dataset in staging for 5 consecutive days with zero data-mismatch errors, and rollback tooling (re-pointing a user back to the old system) has been tested successfully on at least 10 test accounts.\n\n**Cohort selection:** Internal employee accounts and opt-in volunteer customers with low billing complexity (single subscription, standard currency, no active disputes).\n\n**Activities:** Migrate account/subscription/payment-method records to the new system; enable dual-write so both systems record transactions; run automated invoice-parity checks daily; support team briefed and on standby.\n\n**Exit criterion to advance:** 5 business days of stable operation, invoice-parity checks passing at ≥99.9% match rate, no Sev1/Sev2 incidents attributable to migration.\n\n---\n\n## Phase 2: Early Adopters (15% of users, ~6,000 users)\n\n**Entry criterion:** Phase 1 exit criteria met AND fewer than 3 billing-related support tickets per 1,000 migrated users in Phase 1's final 3 days AND finance team has signed off on reconciliation accuracy for Phase 1 cohort.\n\n**Cohort selection:** Broaden to a representative mix of plan types and geographies, still excluding highest-value enterprise accounts and accounts with known billing edge cases (proration disputes, multi-entity invoicing, tax-exempt status).\n\n**Activities:** Continue dual-write; begin sampling-based automated reconciliation (100% of transactions checked, not just samples, given manageable volume); enable customer-facing billing-history view on new system for migrated users; expand support runbook based on Phase 1 learnings.\n\n**Exit criterion to advance:** 7 days stable, invoice-parity ≥99.95% match rate, payment failure rate for migrated cohort within 0.5 percentage points of legacy-system baseline, no unresolved Sev1 incidents.\n\n---\n\n## Phase 3: General Availability (60% of users, ~24,000 users)\n\n**Entry criterion:** Phase 2 exit criteria met AND load testing confirms new system handles projected peak transaction volume (based on Phase 2 observed throughput × safety margin) AND finance sign-off on Phase 2 reconciliation AND on-call rotation staffed for extended coverage during this phase.\n\n**Cohort selection:** All remaining standard-tier and mid-market accounts, migrated in weekly sub-batches of ~10-15% of total user base to preserve ability to pause between sub-batches.\n\n**Activities:** Full dual-write continues; automated daily reconciliation reports to finance; proactive customer communication before each sub-batch; dedicated incident channel remains staffed.\n\n**Exit criterion to advance:** All sub-batches complete, invoice-parity ≥99.95% sustained across full phase, cumulative billing-related churn attributable to migration under 0.1%.\n\n---\n\n## Phase 4: Final Batch — High-Complexity & Enterprise Accounts (23% of users, ~9,200 users)\n\n**Entry criterion:** Phase 3 exit criteria met AND each remaining enterprise account has an individually reviewed migration runbook (custom contract terms, multi-entity billing, negotiated tax handling) signed off by account management AND legacy system decommissioning has NOT yet been scheduled or initiated.\n\n**Cohort selection:** Remaining enterprise, custom-contract, and previously-excluded edge-case accounts, migrated in small batches (white-glove, potentially with account manager involvement per customer).\n\n**Activities:** Dual-write maintained; extended parallel-run period (minimum 2 full billing cycles) before this cohort's legacy access is deprecated; final full-system reconciliation against finance ledgers.\n\n**Exit criterion:** 100% of users migrated, two consecutive clean billing cycles reconciled, finance and legal sign-off obtained. **Note:** Decommissioning the old billing system is a distinct, subsequent phase that may only begin after this phase's exit criteria are fully met — it is not part of, and does not begin during, this final migration phase.\n\n---\n\n## Metrics & Automatic Halt Criteria\n\nThe rollout is automatically paused (no further batches migrated) if, at any point:\n\n- Invoice-parity mismatch rate exceeds **0.5%** of transactions in any 24-hour window.\n- Payment failure rate for migrated users exceeds baseline (legacy system's trailing 30-day average) by more than **1.0 percentage point**.\n- More than **5 Sev1 incidents** attributable to the new billing system occur within any 7-day period.\n- Reconciliation job lag (time between transaction and successful cross-system verification) exceeds **4 hours** for more than **2%** of transactions.\n\nA halt triggers root-cause analysis and remediation before any further batches proceed; already-migrated users are not automatically rolled back unless data integrity is at risk.\n\n---\n\nRISK: Data mismatch between old and new systems during dual-write causes incorrect customer invoices | Automated daily reconciliation job comparing transaction records across both systems, with alerting on any discrepancy above 0.1% | Billing Platform Engineering Lead\nRISK: Migrated users experience failed payments due to payment-method tokenization errors during transfer | Pre-migration token validation step per batch, plus a fast rollback path to reprocess failed payments on the legacy system | Payments Engineering Team Lead\nRISK: Support team is overwhelmed by billing-related tickets during a batch migration | Staggered batch sizing tied to support capacity, pre-migration customer communication, and an expanded on-call rotation during each phase | Customer Support Operations Manager\nRISK: Enterprise customers with custom contract terms are migrated incorrectly, causing revenue leakage or overbilling | Individual runbook review and account-management sign-off required before any enterprise account enters the final batch | Finance & Revenue Operations Lead\nRISK: Premature decommissioning of the legacy system before all migrated data is validated, causing irreversible data loss | Explicit organizational policy and change-management gate requiring decommissioning to be a separate approved phase after final batch validation | VP of Engineering / Change Advisory Board\n\nPHASES: 4",
+  "response_sha256": "a2318314a5dc5ebfce857120d2fb0eac68d73b459d945984f417e596a5b77b15",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28316,
+    "output_tokens": 2318,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2318,
+        "cache_read_input_tokens": 28316,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.028847200000000003,
+    "duration_ms": 29136,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:14:39+00:00",
+  "finished_at": "2026-09-13T05:15:09+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

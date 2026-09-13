@@ -1,0 +1,68 @@
+{
+  "sample_id": "R01-T24-r1",
+  "run_id": "full-002",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T24",
+  "condition_name": "phrase_t24",
+  "repetition": 1,
+  "execution_index": 1247,
+  "sample_seed": 17780935815712746615,
+  "prompt_sha256": "be784d00371b309540744eaa9ae3949ead809ee04c3ec944f355b31dedd136ab",
+  "prompt_chars": 447,
+  "response": "Departure in KL: 23:40 on 3 March 2027 (UTC+8) → convert to UTC by subtracting 8 hours = 15:40 UTC on 3 March 2027.\n\nAdd flight duration of 13h 25m: 15:40 + 13:25 = 29:05 → 05:05 on 4 March 2027 (UTC).\n\nSince London is at UTC+0 on that date, local arrival time equals UTC time: 05:05 on 4 March 2027.\n\nFINAL ANSWER: 2027-03-04 05:05",
+  "response_sha256": "be3c60e2400b22357e787ae6e6f825ce03d4fc3468cc4d01e8c10440515b3c48",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28239,
+    "output_tokens": 316,
+    "output_tokens_details": {
+      "thinking_tokens": 135
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 316,
+        "cache_read_input_tokens": 28239,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0088118,
+    "duration_ms": 5493,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:52:32+00:00",
+  "finished_at": "2026-09-13T04:52:38+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

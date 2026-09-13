@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T03_vs_A-r2",
+  "contrast_id": "T03_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T03",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T03",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both satisfy all hard requirements, but Response B's abort/rollback condition is more concrete and directly ties to reversing course (explicitly preparing to restore from the IMMEDIATE ACTIONS snapshot) with measurable triggers (latency worsening >5 min, replication lag spike, disk still climbing), whereas Response A's abort conditions are more diffuse across phases and its detection-phase 'abort' is really just a false-alarm downgrade rather than a true stop-and-reverse trigger. B's mitigation sequencing (re-checking disk%/latency after each reversible step) is also slightly tighter operationally.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:31:05+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T03-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T03",
+  "condition_name": "phrase_t03",
+  "repetition": 3,
+  "execution_index": 180,
+  "sample_seed": 17250509457146581299,
+  "prompt_sha256": "7c4236259d9a8987cbbab8de7fc7400fbb01afbf5fba5ba454b12d8655460734",
+  "prompt_chars": 813,
+  "response": "# Billing System Migration Rollout Plan\n**Scope:** Migrate 40,000 existing users from legacy billing system to new billing system, with both systems running in parallel throughout.\n\n## Overview\n\nBoth systems remain live and operational for the duration of the migration. Users are moved in batches, with each phase gated by an explicit entry criterion rather than a fixed calendar date. The old billing system is not touched (no disabling, deleting, or decommissioning of any component) until a separate, dedicated decommissioning phase that occurs only after the final migration batch has been validated and stabilized.\n\n---\n\n## Phase 1: Canary (0.5% of users, ~200 users)\n\n**Entry criterion:** New billing system has passed full integration/regression testing in staging, dual-write/dual-read reconciliation tooling is deployed and verified against production-shadow data, and rollback procedure has been executed successfully in a dry run.\n\n**Population:** Internal employee accounts and opted-in low-risk external users (no active disputes, no complex billing arrangements such as multi-entity or custom contracts).\n\n**Activities:**\n- Migrate accounts to new system while old system continues shadow-processing (read-only) for comparison.\n- Manually review every transaction, invoice, and payment event for discrepancies.\n- Validate support tooling and customer-facing statements render correctly.\n\n**Exit criterion:** Zero unreconciled billing discrepancies for 5 consecutive business days; support ticket volume from canary group within baseline range.\n\n---\n\n## Phase 2: Expanded Early Adopters (10% of users, ~4,000 users)\n\n**Entry criterion:** Phase 1 exit criteria met, plus sign-off from Finance and Customer Support leads on data integrity and support-load readiness.\n\n**Population:** Randomized sample stratified across plan types, geographies, and payment methods (credit card, ACH, invoice-based) to surface edge cases.\n\n**Activities:**\n- Automated reconciliation runs hourly instead of manual review.\n- Enable customer-facing self-service billing pages on new system for this cohort.\n- Load-test billing job schedulers (invoicing, dunning, renewals) at this scale.\n\n**Exit criterion:** Payment failure rate for migrated cohort within 0.2 percentage points of the pre-migration baseline for 7 consecutive days; no P1/P2 incidents attributable to the new system.\n\n---\n\n## Phase 3: General Rollout (60% of users, ~24,000 users)\n\n**Entry criterion:** Phase 2 exit criteria met; on-call runbooks updated and support team trained on new system's tooling; automated rollback tested at Phase 2 scale.\n\n**Population:** All remaining users except those explicitly flagged for Phase 4 (high-value enterprise accounts, custom billing arrangements, active legal/dispute holds).\n\n**Activities:**\n- Migrate in daily sub-batches (e.g., 2,000–3,000/day) rather than a single cutover, with a 24-hour bake period between sub-batches before proceeding.\n- Continue dual-system reconciliation, shifting from full-transaction comparison to statistical sampling plus anomaly detection.\n- Publish user-facing migration notices in advance for this cohort.\n\n**Exit criterion:** Cumulative reconciliation error rate below 0.05% across the batch; billing-related support tickets trending flat or down week-over-week.\n\n---\n\n## Phase 4: Final Batch — High-Complexity & Remaining Accounts (29.5% of users, ~11,800 users)\n\n**Entry criterion:** Phase 3 exit criteria met; each high-complexity account (custom contracts, multi-entity billing, enterprise SLAs) has an individually reviewed migration plan signed off by Finance and Account Management.\n\n**Population:** Enterprise/custom-contract accounts, disputed or legally-held accounts (migrated only after resolution), and any stragglers from earlier phases.\n\n**Activities:**\n- White-glove migration with account-specific validation and dedicated support contact per enterprise account.\n- Final full reconciliation pass across 100% of migrated users (old vs. new system) before declaring migration complete.\n- Old billing system remains fully live and untouched through this phase and through a subsequent stabilization window — no deletion, disabling, or decommissioning occurs here.\n\n**Exit criterion:** 100% of accounts migrated and reconciled with zero open critical discrepancies; 14-day stabilization window post-final-batch with no billing-related P1 incidents.\n\n*(A separate, later Decommissioning Phase — not counted among the migration phases above — begins only after this stabilization window closes, and covers retiring the old system's write paths, data archival, and infrastructure teardown.)*\n\n---\n\n## Halt Criteria (Rollout-Stopping Metrics)\n\nThe rollout is paused immediately, and the current phase's remaining batches held, if any of the following occur:\n- **Payment failure rate** for a migrated cohort exceeds baseline by more than **1.0 percentage point** over any rolling 24-hour window.\n- **Billing reconciliation discrepancy rate** exceeds **0.5%** of migrated transactions in any 24-hour window.\n- More than **3 P1 incidents** attributable to the new billing system occur within any 7-day period.\n\n---\n\n## Risks\n\nRISK: Duplicate or missed charges caused by both systems processing the same billing event during dual-run | Implement idempotency keys and a single source-of-truth flag per account so only one system executes financial actions at a time | Billing Platform Engineering Lead\nRISK: Data drift between old and new systems due to sync lag or schema mismatches corrupting customer balances | Run automated hourly reconciliation jobs with alerting on any variance above threshold, plus daily manual spot-checks during Phases 1-2 | Data Integrity Engineer\nRISK: Enterprise customers with custom contract terms are migrated incorrectly, causing invoice disputes and revenue leakage | Require individual migration sign-off per enterprise account from Finance and Account Management before inclusion in Phase 4 | Finance Operations Manager\nRISK: Support team is overwhelmed by billing-related tickets during peak migration batches | Stagger daily sub-batch sizes, pre-train support staff on new system, and maintain a rollback path for any single account within 1 hour | Customer Support Director\nRISK: Rollback from new system back to old system fails or loses transactional data after a batch has issues | Test rollback procedures at each phase's scale before that phase begins and maintain append-only audit logs on both systems | Site Reliability Engineering Lead\n\nPHASES: 4",
+  "response_sha256": "d4738005b156789f902ff29ceed80138b37559dc185daa68618bcd115f1b8c20",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2593,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2216,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2593,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2216,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2593,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2593
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0376812,
+    "duration_ms": 29027,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:26:19+00:00",
+  "finished_at": "2026-09-13T04:26:50+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

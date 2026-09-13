@@ -1,0 +1,22 @@
+{
+  "item_id": "b98f17f39706aecc",
+  "sample_id": "P03-T20-r2",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T20",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule is fully correct: all prerequisite timing rules, one-task-per-engineer-per-day limits, and the 10-day bound are satisfied, verified by tracing each task's start/finish against its prerequisites. The response follows the required output format exactly and ends with the correct LAST DAY line, but it never explicitly re-checks its own construction against the constraints after building it.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:48+00:00"
+}

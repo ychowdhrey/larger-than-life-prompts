@@ -1,0 +1,19 @@
+{
+  "pair_id": "C05-T19_vs_A-r2",
+  "contrast_id": "T19_vs_A",
+  "task_id": "C05",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T19",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both correctly identify the same two real defects (the `>` vs `>=` boundary bug and test_cap's wrong expected value) and both note the missing boundary test, but Response A pads its list with items 3 and 4 that just restate items 1 and 2 as if they were separate defects, while Response B is more concise and more precise about the R3 boundary nuance (correctly noting R3 doesn't actually cover total==100 rather than claiming it's 'contradicted').",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:48:15+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "0d9de90b86fde3b2",
+  "sample_id": "P02-T26-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T26",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a verified storage snapshot before any destructive or failover action, includes explicit abort/rollback conditions, and closes with the required SECTIONS line, while also addressing realistic nuances like WAL vs data volume, replica lag, and secondary latency causes.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:14+00:00"
+}

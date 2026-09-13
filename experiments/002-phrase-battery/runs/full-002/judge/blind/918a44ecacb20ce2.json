@@ -1,0 +1,22 @@
+{
+  "item_id": "918a44ecacb20ce2",
+  "sample_id": "C05-T01-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T01",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the >/>= boundary bug against R1, correctly recomputes discount(1000) as 50.0 to catch the wrong expected value in test_cap, and flags the missing boundary test at total==100, while accurately confirming the two passing tests are correct and not fabricating extra issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:58+00:00"
+}

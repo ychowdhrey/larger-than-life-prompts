@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T07_vs_A-r2",
+  "contrast_id": "T07_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T07",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T07",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements, but Response B sequences steps more consistently (replication setup and dry run occur before the pre-cutover backup, with backup clearly preceding the actual data sync/CDC start, without the internal contradiction Response A has by claiming its backup precedes replication touching production slots even though tooling setup is listed as an earlier step). Response B also adds a distinct final freeze-notice communication and a post-verification smoke-test step, and its rollback procedure more carefully addresses partial-failure states (data modified only in cloud) than Response A's.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:24+00:00"
+}

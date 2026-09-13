@@ -1,0 +1,22 @@
+{
+  "item_id": "444f4f4442511853",
+  "sample_id": "C02-T20-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T20",
+  "repetition": 2,
+  "scores": {
+    "task_success": 4,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 5,
+    "usefulness": 4
+  },
+  "reason": "Correctly identifies the critical defects (WHERE nullifying the LEFT JOIN, UTC vs UTC+8 boundary mismatch, NULL-vs-zero SUM affecting sort order, and the GROUP BY portability risk) with accurate consequences and fixes, but the integer-division claim is factually wrong for MySQL (whose '/' operator returns decimal, not truncated integer results), showing a lapse in verifying a technical claim it presents as universal.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:22:44+00:00"
+}

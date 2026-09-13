@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-B-r3",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "B",
+  "condition_name": "generic_encouragement",
+  "repetition": 3,
+  "execution_index": 2110,
+  "sample_seed": 10566448583881300176,
+  "prompt_sha256": "348c9cc0c2bb0899aedb6111742e38784e6b3d08e583979f59e4bc20c65c720f",
+  "prompt_chars": 997,
+  "response": "## Defects found\n\n### 1. Webinar attendance → retention\n\n**a. Causal claim from correlational data.** The memo asserts webinars \"cause\" higher retention purely from an observed association among existing customers. No randomization or control group is used to rule out reverse causation or confounding.\n*Effect:* Could justify a costly mandatory-webinar policy that produces no actual retention gain if the true driver is something else.\n\n**b. Self-selection / engagement confound.** Customers who choose to attend an optional webinar are already more engaged, motivated, or invested than those who don't — and engagement independently predicts retention. The 31% gap may reflect pre-existing differences between attenders and non-attenders, not any effect of the webinar itself.\n*Effect:* Making webinars mandatory would not necessarily convert disengaged customers into the \"attender\" retention profile, since mandatory attendance removes the very selection effect that produced the association.\n\n**c. Survivorship / immortal-time bias.** The population analyzed is \"customers still active on the Pro plan today\" — i.e., only survivors. Attending a webinar requires having survived long enough for one to occur, which mechanically links \"attended\" to \"was retained longer,\" independent of any real effect of the webinar. Comparing retention within an already-active-only sample, rather than tracking full cohorts (including churned customers) from signup forward, structurally inflates the apparent benefit of attendance.\n*Effect:* The 31% figure is likely to overstate any genuine effect, possibly entirely an artifact of how the sample was constructed.\n\n**d. Extrapolation to a different population.** Even taken at face value, the finding is about existing Pro customers who self-selected into webinars. Recommending mandatory attendance for *new* customers assumes the relationship generalizes to a population and a (compulsory, not voluntary) treatment condition never observed in the data.\n*Effect:* Policy may fail to reproduce the observed gain and add friction/cost to onboarding for no benefit.\n\n### 2. Region and churn\n\n**e. Multiple-comparisons / data-dredging problem.** Eighteen attributes were tested against churn, and the one result crossing p = 0.04 is highlighted. With 18 independent tests at α = 0.05, the chance of finding at least one \"significant\" result by chance alone is roughly 1 − 0.95¹⁸ ≈ 60%, even if no attribute actually matters. No correction (Bonferroni, FDR, etc.) or pre-registration is mentioned.\n*Effect:* The Central-region effect is quite plausibly a false positive; concentrating next quarter's spend there risks misallocating budget toward a region with no real churn advantage while starving regions that may actually respond to investment.\n\n### 3. Satisfaction increase\n\n**f. Causal attribution without ruling out alternatives.** A rise from 62% to 66% in one quarter is attributed to \"the new support model,\" but no comparison group, prior trend, or control for other concurrent changes (seasonality, pricing, product changes, survey methodology/respondent pool) is presented.\n*Effect:* Could lead to over-crediting and further investment in a support model that had little or nothing to do with the change, while the actual cause goes unaddressed.\n\n**g. No assessment of whether the change is meaningful vs. noise.** There's no indication the 4-point move exceeds normal quarter-to-quarter variation (margin of error, sample size, historical volatility of the metric aren't discussed).\n*Effect:* A routine fluctuation could be mistaken for a genuine, repeatable improvement, leading to premature conclusions about \"what's working.\"\n\n**h. Percentage-point vs. percent conflation.** Going from 62% to 66% is a 4-*percentage-point* increase, but it's described as a \"4% improvement.\" The actual relative improvement is about 6.5% (4/62). This is a labeling/interpretation error, not a numeric error, but it misstates the size of the effect.\n*Effect:* Downstream reporting or comparisons (e.g., against other percentage-based KPIs measured in relative terms) could understate or misrepresent the actual magnitude of change.",
+  "response_sha256": "b181083fe2b877c6d779470cf54a492ff56186035ec9a197aa397f11a4e61185",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28368,
+    "output_tokens": 4384,
+    "output_tokens_details": {
+      "thinking_tokens": 3022
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 4384,
+        "cache_read_input_tokens": 28368,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.049517599999999995,
+    "duration_ms": 53139,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:12:04+00:00",
+  "finished_at": "2026-09-13T05:12:58+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

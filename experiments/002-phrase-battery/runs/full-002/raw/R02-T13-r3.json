@@ -1,0 +1,68 @@
+{
+  "sample_id": "R02-T13-r3",
+  "run_id": "full-002",
+  "task_id": "R02",
+  "family": "reasoning",
+  "condition_id": "T13",
+  "condition_name": "phrase_t13",
+  "repetition": 3,
+  "execution_index": 1847,
+  "sample_seed": 8420988052084940252,
+  "prompt_sha256": "86fcf1959cc78f63d0828cbdb93465d97b4854cccdf09a39a4b6739be059b23a",
+  "prompt_chars": 526,
+  "response": "## Setting Up the Problem\n\nThis is a classic base-rate fallacy problem. Using Bayes' theorem:\n\n- P(Disease) = 1/500 = 0.002\n- P(No Disease) = 0.998\n- P(Test+ | Disease) = 0.98 (sensitivity)\n- P(Test+ | No Disease) = 1 − 0.95 = 0.05 (false positive rate)\n\n**Total probability of testing positive:**\n\nP(Test+) = P(Disease)·P(Test+|Disease) + P(No Disease)·P(Test+|No Disease)\nP(Test+) = (0.002 × 0.98) + (0.998 × 0.05)\nP(Test+) = 0.00196 + 0.04990\nP(Test+) = 0.05186\n\n**Applying Bayes' theorem:**\n\nP(Disease | Test+) = 0.00196 / 0.05186 ≈ 0.0377941...\n\nConverting to a percentage: **3.7794...%** → rounds to **3.78%**\n\n## Why This Is Counterintuitive\n\nEven with a 98% sensitive, 95% specific test, a positive result only means a ~3.78% chance of actually having the condition. This is because the disease is rare (0.2% prevalence), so the pool of healthy people is huge (998 out of 1000) — and even a small 5% false-positive rate among that huge healthy pool generates far more false positives (≈49.9 per 1000) than true positives (≈1.96 per 1000). Most positive results come from healthy people who were false-flagged, not from people who actually have the condition.\n\nFINAL ANSWER: 3.78",
+  "response_sha256": "1cbddf12cbc757a729e92fa59dc451bf87e0a5f8682aac48b01ef94b006e43c3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28221,
+    "output_tokens": 851,
+    "output_tokens_details": {
+      "thinking_tokens": 314
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 851,
+        "cache_read_input_tokens": 28221,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.014158200000000001,
+    "duration_ms": 9957,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:06:06+00:00",
+  "finished_at": "2026-09-13T05:06:17+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

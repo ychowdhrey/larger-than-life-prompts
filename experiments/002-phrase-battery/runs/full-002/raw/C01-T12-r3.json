@@ -1,0 +1,68 @@
+{
+  "sample_id": "C01-T12-r3",
+  "run_id": "full-002",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "T12",
+  "condition_name": "phrase_t12",
+  "repetition": 3,
+  "execution_index": 262,
+  "sample_seed": 11696569234007783184,
+  "prompt_sha256": "98b0ad9a23b4fe530c6fb43ad04d3d61b6ea11d5257f41bff6f8ed7249469c05",
+  "prompt_chars": 621,
+  "response": "Here are the defects I found:\n\n**1. Mutable default argument (`seen=[]`)**\nDefault argument values are evaluated once, at function definition time, and the same list object is reused across *every* call that doesn't explicitly pass `seen`. This means:\n- State leaks across unrelated calls. Two completely separate invocations (e.g., different users' or different games' score lists) will silently share the \"already seen\" set, so a score from an earlier, unrelated call can suppress an identical value in a later call's `result`.\n- The list grows without bound for the lifetime of the program, and results become dependent on call history/order — a serious hidden-state bug and a classic Python pitfall.\n\n**2. `scores.sort(reverse=True)` mutates the caller's list in place**\nSorting is done on the object the caller passed in, not a copy. This silently reorders the caller's original list as a side effect, which can break code elsewhere that relies on the original ordering of `scores`.\n\n**3. `IndexError` when `limit` exceeds the number of scores**\n`for i in range(0, limit)` indexes `scores[i]` unconditionally up to `limit`, with no bound check against `len(scores)`. If `limit > len(scores)` (e.g., default `limit=5` with only 3 scores), this raises `IndexError: list index out of range` instead of just returning as many scores as are available.\n\n**4. `ZeroDivisionError` on empty input**\n`average = sum(scores) / len(scores)` divides by `len(scores)` with no guard for an empty list. Calling the function with `scores=[]` raises `ZeroDivisionError`.\n\n**5. Duplicate-suppression logic conflates \"seen across calls\" with \"duplicate values within the same list\"**\nThe `seen`/`not in seen` check is meant to avoid re-adding a value, but it also collapses genuine duplicate scores *within a single call's `scores` list* (e.g., two entries both equal to 100 in the top `limit`). Only the first occurrence is kept, so `result` can silently end up with fewer than `limit` entries even though `scores` has at least `limit` elements — legitimate tied scores are dropped rather than both being counted. This is compounded by defect #1: because `seen` persists, this suppression gets progressively worse across successive calls.",
+  "response_sha256": "6ec7a4771b727c913edf8fd08cbd6bb2dece1633b80cb18d73229da3c2b62fa1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28264,
+    "output_tokens": 2266,
+    "output_tokens_details": {
+      "thinking_tokens": 1518
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2266,
+        "cache_read_input_tokens": 28264,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0283168,
+    "duration_ms": 27639,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:28:23+00:00",
+  "finished_at": "2026-09-13T04:28:52+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T02-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T02",
+  "condition_name": "phrase_t02",
+  "repetition": 1,
+  "execution_index": 1752,
+  "sample_seed": 714596161666878335,
+  "prompt_sha256": "a0744974e0303ca511fe7c08b415462ec5fd414c5e977ef201cbddf1f9ed2915",
+  "prompt_chars": 848,
+  "response": "## Defects Found\n\n**1. Off‑by‑one boundary error in the implementation (violates R1)**\n\n```python\nif total > 100:\n```\n\nR1 requires the discount to apply when the total is \"100 or more\" — i.e., `total >= 100`. The code uses a strict `>`, so `discount(100)` falls through to `return 0.0` instead of returning `10.0` (100 × 0.10, well under the 50.00 cap). This is a genuine requirements violation: an order totaling exactly 100 gets no discount at all.\n\n**2. `test_cap` asserts the wrong expected value (test defect)**\n\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\n\nFor `total=1000`, `d = 1000 * 0.10 = 100.0`, and the implementation correctly applies `min(d, 50.0)`, so the real return value is `50.0`, not `100.0`. This test's expected value ignores the very cap (R2) it's supposed to verify — as written, it would fail with `AssertionError: 50.0 != 100.0` against the given implementation. It is not \"testing the cap,\" it's asserting an uncapped result, so it is simply wrong.\n\n**3. Missing test for the R1 boundary (test coverage gap)**\n\nNo test exercises `total == 100`. This is exactly the value at which the implementation bug (defect 1) manifests, so the boundary condition required by R1 is left completely unverified. Even after fixing defect 2, the test suite would still pass despite the `total > 100` bug going undetected, since no test distinguishes `>` from `>=`.\n\n## Not defects (checked, found fine)\n\n- `test_small` (`discount(50) == 0.0`) correctly reflects R3.\n- `test_large` (`discount(200) == 20.0`) is arithmetically and float-precision correct (200 × 0.10 rounds exactly to 20.0 in IEEE‑754 double), and correctly falls below the R2 cap.\n- The cap logic itself (`min(d, 50.0)`) is correctly implemented for any total that does reach that branch — the only problem is which totals reach it (defect 1).",
+  "response_sha256": "dff04517c4b97c6fac7912dc8efec2d61dad5c07b5b13488c002be2b16710a29",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28355,
+    "output_tokens": 5274,
+    "output_tokens_details": {
+      "thinking_tokens": 4571
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5274,
+        "cache_read_input_tokens": 28355,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.058415,
+    "duration_ms": 54026,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:04:15+00:00",
+  "finished_at": "2026-09-13T05:05:10+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

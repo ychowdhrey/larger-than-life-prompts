@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T17_vs_A-r2",
+  "contrast_id": "T17_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both satisfy the hard requirements, but Response B distributes concrete, phase-specific abort/rollback conditions (detection, immediate actions, mitigation) with explicit timeouts, and opens MITIGATION with an unambiguous gate ('Only proceed once the snapshot ... is confirmed complete/consistent'), making the snapshot-before-risk ordering harder to violate in practice than Response A's single consolidated abort-condition block tucked at the end of MITIGATION.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:34:54+00:00"
+}

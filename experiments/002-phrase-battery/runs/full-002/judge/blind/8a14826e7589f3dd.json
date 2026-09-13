@@ -1,0 +1,22 @@
+{
+  "item_id": "8a14826e7589f3dd",
+  "sample_id": "C02-T10-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T10",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all defects implied by the schema notes (LEFT JOIN neutralized by WHERE, UTC/UTC+8 boundary mismatch, integer division truncation, NULL-vs-zero for empty groups) plus a valid secondary consequence (NULL sort ordering), each with accurate concrete examples and correct fixes, without inventing unsupported issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:35+00:00"
+}

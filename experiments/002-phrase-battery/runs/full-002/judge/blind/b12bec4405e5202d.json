@@ -1,0 +1,22 @@
+{
+  "item_id": "b12bec4405e5202d",
+  "sample_id": "P05-T19-r1",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T19",
+  "repetition": 1,
+  "scores": {
+    "task_success": 3,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 2,
+    "depth": 4,
+    "usefulness": 3
+  },
+  "reason": "All explicit formatting requirements (named phased percentages with entry criteria, RISK lines, halt metric, decommission timing, PHASES line) are satisfied, but the migration percentages across phases (0.5+5+35+49.5=90%, and 200+2,000+14,000+19,800=36,000 users) do not sum to 100% or 40,000 despite Phase 5 asserting all 40,000 users are migrated, an internal arithmetic inconsistency that undermines the plan's core numeric claim and shows no self-verification.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:47+00:00"
+}

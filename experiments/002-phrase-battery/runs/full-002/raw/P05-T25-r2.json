@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T25-r2",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T25",
+  "condition_name": "phrase_t25",
+  "repetition": 2,
+  "execution_index": 1687,
+  "sample_seed": 1860458004969175408,
+  "prompt_sha256": "e2d4dd358f29877826a4fd5a61cbdc0027b167c82ecb76e9ef13816552fcedaa",
+  "prompt_chars": 813,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\nBoth billing systems will run in parallel (dual-run) throughout the migration. Users are migrated in batches; the legacy system remains fully operational and authoritative for unmigrated users until all phases complete and a separate post-migration validation period has passed.\n\n---\n\n## Phase 1: Pilot (5% of users — ~2,000 users)\n**Entry criterion:** New billing system has passed end-to-end integration testing in staging, including invoice generation, payment capture, tax calculation, and refund flows, with zero critical defects open, and a rollback procedure has been tested successfully at least once.\n\n- Cohort: Internal accounts, employee accounts, and opted-in low-risk customers (e.g., monthly plans under a defined spend threshold, no active disputes).\n- Both systems run in parallel; new system is authoritative for migrated users, old system retains a synced read-only copy for reconciliation.\n- Duration: minimum 2 weeks or until 3 consecutive billing cycles complete cleanly for the pilot cohort.\n\n## Phase 2: Expanded Rollout (35% of users — ~14,000 users)\n**Entry criterion:** Phase 1 exit metrics met (see Metrics section) for two consecutive full billing cycles, support ticket volume attributable to migration is below 1% of migrated users, and finance has reconciled Phase 1 invoicing totals against the legacy system with less than 0.1% variance.\n\n- Cohort: Broader mix of plan types and geographies, excluding highest-value enterprise accounts and known edge cases (multi-entity billing, custom contracts).\n- Migration executed in sub-waves of ~2,000–3,000 users per week to preserve ability to pause between waves.\n- Customer support and finance teams are staffed for elevated ticket volume during this phase.\n\n## Phase 3: General Availability / Full Migration (60% of users — ~24,000 users)\n**Entry criterion:** Phase 2 exit metrics met for two consecutive billing cycles, all known edge-case billing scenarios (proration, multi-currency, enterprise contracts) have been validated against the new system with real or shadow transactions, and executive sign-off obtained from Finance and Customer Success.\n\n- Cohort: All remaining users, including highest-value and highest-complexity accounts, migrated last and in smaller, closely monitored sub-batches.\n- Old billing system remains active in parallel (read/write standby, not decommissioned) through this phase and through a subsequent stabilization period.\n- Legacy system decommissioning is explicitly out of scope for Phase 3 and will be addressed only in a separate, later Phase 4 (Legacy Decommission) after a minimum 60-day stabilization window with no P1/P2 billing incidents.\n\n---\n\n## Metrics and Halt Conditions\n- **Halt the rollout immediately if failed/erroneous payment transactions among migrated users exceed 0.5% of migrated transactions in any 24-hour window.**\n- Halt or pause a batch if billing discrepancy (amount charged vs. amount expected) affects more than 25 accounts in a single sub-wave.\n- Halt if customer-reported billing support tickets exceed 3% of the currently migrated user base within a 48-hour period.\n\n---\n\n## Risks\n\nRISK: Duplicate or double-billing of customers during dual-run period | Implement idempotency keys and a reconciliation job that cross-checks both systems daily before settlement | Billing Engineering Lead\nRISK: Data mapping errors (e.g., incorrect plan, tax, or currency mapping) causing incorrect invoices | Run shadow billing (parallel invoice generation without charging) for each cohort for one full cycle before cutover | Data Migration Team Lead\nRISK: Customer support overwhelmed by migration-related inquiries | Pre-stage FAQs, train support staff before each phase, and scale on-call support capacity proportional to phase size | Customer Support Manager\nRISK: Legacy system dependency (e.g., third-party integrations, tax engine) not fully replicated in new system | Conduct integration parity audit and require sign-off from Integrations team before Phase 2 entry | Integrations Engineering Lead\nRISK: Rollback becomes impractical after large batches migrate due to state drift between systems | Cap batch sizes and require successful rollback drill before each phase, keep legacy system as source of truth until final validation | Platform Reliability Owner\n\nPHASES: 3",
+  "response_sha256": "c6f5c9759e518e7e0e2b3d27ae26e4b9cbafcd5cb4881a602c56a491542c333a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28318,
+    "output_tokens": 1520,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1520,
+        "cache_read_input_tokens": 28318,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.020867600000000004,
+    "duration_ms": 20197,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:02:41+00:00",
+  "finished_at": "2026-09-13T05:03:03+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

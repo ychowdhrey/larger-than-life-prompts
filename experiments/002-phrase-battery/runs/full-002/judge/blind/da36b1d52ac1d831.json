@@ -1,0 +1,22 @@
+{
+  "item_id": "da36b1d52ac1d831",
+  "sample_id": "P02-T03-r3",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T03",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, explicitly mandates a verified snapshot before any destructive or restart/failover action, includes multiple well-specified abort/rollback conditions, and closes with the correct SECTIONS: 4 line, while also engaging with realistic complications like WAL/replication-slot buildup and lag-aware failover decisions.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:22+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-T01-r2",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "T01",
+  "condition_name": "phrase_t01",
+  "repetition": 2,
+  "execution_index": 1909,
+  "sample_seed": 5209927664188096142,
+  "prompt_sha256": "ac10a292e42c0f500e0eaf4b16ee4b1c47ed2be4a65044226534d640928ee01c",
+  "prompt_chars": 999,
+  "response": "## Claim 1: \"Webinars cause higher retention → make attendance mandatory\"\n\n**1. Survivorship bias in the sample.**\nThe analysis only looks at the 412 customers *still active on Pro today*. Churned customers are excluded entirely. Comparing webinar attendance \"retention\" rates within a population that has already been filtered down to survivors doesn't tell you anything about whether webinar attendance affected who churned — you'd need to compare attendance rates (or subsequent churn) across *all* customers who started on Pro, including the ones who left. As written, the comparison is drawn from a biased subsample and could understate or overstate the true relationship in either direction.\n\n**2. Self-selection confound (correlation ≠ causation).**\nWebinar attendance wasn't randomized — customers chose to attend. More engaged, more satisfied, or more invested customers are plausibly *both* more likely to show up to a webinar *and* more likely to renew, independent of anything the webinar itself does. The 31% gap could be entirely explained by this pre-existing difference in engagement rather than any causal effect of the webinar. This would cause the team to credit the webinar for a retention difference that engagement (or company size, contract value, tenure, etc.) actually produced.\n\n**3. The intervention doesn't match the evidence.**\nEven granting some real effect, the data describes *voluntary* attendees. Making attendance *mandatory* changes who attends (including uninterested or resentful customers) and may not reproduce the same effect — coerced attendance could have a weaker effect or even backfire. Generalizing from an observational, self-selected group to a forced policy is an unsupported leap that could cause the company to spend effort on a mandate that doesn't replicate the observed 31% gap.\n\n## Claim 2: \"Central region churns less (p=0.04) → concentrate spend there\"\n\n**4. Multiple-comparisons problem (data dredging).**\n18 attributes were tested against churn, and the memo highlights the one that hit p=0.04. With 18 independent tests at roughly the conventional 0.05 threshold, you'd expect close to one \"significant\" result to turn up by chance alone even if none of the attributes actually matter. No correction (Bonferroni, FDR, etc.) is mentioned. This means the Central-region finding is quite plausibly a false positive, and the memo treats a likely statistical fluke as a real, actionable effect — which would cause budget to be redirected based on noise rather than a genuine driver of churn.\n\n**5. Statistical significance isn't the same as a meaningful or causal effect.**\nEven if p=0.04 is a genuine signal, that only speaks to whether the difference is unlikely under the null — it says nothing about the size of the effect or why it exists. Region could be a proxy for something else (industry mix, account size, sales channel) rather than a cause of lower churn. Recommending a spend reallocation without knowing the effect size or the mechanism risks misallocating spend based on a correlate rather than a cause.\n\n## Claim 3: \"Satisfaction rose 4 points → the new support model is working\"\n\n**6. No causal attribution established (post hoc reasoning).**\nThe memo attributes the entire 4-point change to the new support model without ruling out other explanations — seasonal effects, other product/pricing changes that quarter, or general trend. Concurrent timing is not evidence of causation; this would cause the team to credit (and keep investing in) the support model for an improvement that may have had nothing to do with it.\n\n**7. No test of whether the change is meaningful vs. noise.**\nThere's no indication of sample size, margin of error, or a significance test for the 62%→66% move. A 4-point swing in a satisfaction metric can easily fall within normal quarter-to-quarter measurement variation. Declaring the model \"working\" from a single unqualified point estimate risks reacting to noise as if it were a real, sustained improvement.\n\nNo other defects are present — the arithmetic and reported figures themselves aren't in question, only the inferential leaps drawn from them.",
+  "response_sha256": "9aa103a982aa2d7425a6130e613cc10255ca4ec6f35f5855e1189dce5aea2a44",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28366,
+    "output_tokens": 3429,
+    "output_tokens_details": {
+      "thinking_tokens": 2109
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3429,
+        "cache_read_input_tokens": 28366,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.039967199999999994,
+    "duration_ms": 44268,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:30+00:00",
+  "finished_at": "2026-09-13T05:08:15+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

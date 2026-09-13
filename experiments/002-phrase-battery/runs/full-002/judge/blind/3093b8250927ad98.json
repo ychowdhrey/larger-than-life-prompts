@@ -1,0 +1,22 @@
+{
+  "item_id": "3093b8250927ad98",
+  "sample_id": "P01-T21-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T21",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits exactly 12 numbered steps and satisfies every hard requirement (backup before both the wal_level change and the cutover, a staged rehearsal, post-cutover checksum/row-count verification, stakeholder communication, and a rollback procedure), with technically credible detail like logical replication setup, lag monitoring, and sequence sync. It is directly actionable by a DBA team, though it doesn't explicitly cross-check itself against the stated constraints beyond satisfying them implicitly.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:35:32+00:00"
+}

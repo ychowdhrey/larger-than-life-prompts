@@ -1,0 +1,22 @@
+{
+  "item_id": "6d236a1dd464fb23",
+  "sample_id": "P02-E01-r2",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "E01",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The runbook uses the exact four required headings in order, places a mandatory snapshot before any destructive step, explicitly forbids restart/failover until the snapshot completes (permitting failover only afterward), includes a clear abort/rollback condition, and closes with the required SECTIONS: 4 line — while remaining specific and actionable enough for a real on-call responder to follow.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:36:01+00:00"
+}

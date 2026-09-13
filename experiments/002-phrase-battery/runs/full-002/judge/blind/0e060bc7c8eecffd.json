@@ -1,0 +1,22 @@
+{
+  "item_id": "0e060bc7c8eecffd",
+  "sample_id": "P01-T02-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T02",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 4
+  },
+  "reason": "The plan hits every hard requirement (12 steps, backup before destructive steps, dry run, rollback, stakeholder comms, integrity check) with technically sound PostgreSQL-specific detail, but it re-enables read-write traffic in step 8 before running integrity verification in step 9, undermining verification as a safety gate, and cites pg_checksums (a page-corruption tool) somewhat imprecisely as a cross-instance integrity check.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:30+00:00"
+}

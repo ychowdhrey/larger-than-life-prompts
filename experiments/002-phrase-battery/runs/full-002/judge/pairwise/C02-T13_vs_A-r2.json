@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T13_vs_A-r2",
+  "contrast_id": "T13_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 2,
+  "treatment_condition": "T13",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T13",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both correctly identify the four core defects (LEFT JOIN turned into INNER JOIN, UTC/UTC+8 mismatch, NULL sum instead of 0, integer division truncation) with equally accurate explanations. The tie-breaker is the fifth point: A's is a speculative SQL-standards nitpick about GROUP BY that A itself concedes 'isn't necessarily broken in every environment,' whereas B's fifth point (NULL sort ordering pushing zero-spend customers to the top of a DESC-ordered report) is a concrete, well-reasoned consequence directly tied to the query's own ORDER BY clause and its already-identified NULL-total defect, making it more directly useful for someone fixing this specific report.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:36:31+00:00"
+}

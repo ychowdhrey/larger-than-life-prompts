@@ -1,0 +1,22 @@
+{
+  "item_id": "0b9862f6098847ab",
+  "sample_id": "P03-T22-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T22",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule is fully valid: all precedence constraints, one-task-per-engineer-per-day rules, and the 10-day deadline are satisfied (verified by tracing each task's start/end against its prerequisites), and the output strictly follows the requested line format ending with the correct LAST DAY line, though the response never explicitly re-checks its own solution against the constraints beyond the initial reasoning pass.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:51+00:00"
+}

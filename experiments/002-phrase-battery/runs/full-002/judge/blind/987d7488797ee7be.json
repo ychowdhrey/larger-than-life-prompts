@@ -1,0 +1,22 @@
+{
+  "item_id": "987d7488797ee7be",
+  "sample_id": "R01-T24-r3",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T24",
+  "repetition": 3,
+  "scores": {
+    "task_success": 1,
+    "thoroughness": 2,
+    "constraint_adherence": 4,
+    "error_checking": 1,
+    "depth": 2,
+    "usefulness": 1
+  },
+  "reason": "The UTC conversion (15:40 UTC, 3 March) is correct, but the response double-counts the day rollover when adding 13h25m, concluding 5 March 05:05 UTC when the correct sum of 15:40 + 13:25 is 05:05 on 4 March; the final answer is off by one day.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:44:26+00:00"
+}

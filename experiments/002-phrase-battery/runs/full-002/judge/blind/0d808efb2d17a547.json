@@ -1,0 +1,22 @@
+{
+  "item_id": "0d808efb2d17a547",
+  "sample_id": "P01-D-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "D",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits all six hard requirements (≤12 numbered steps, rollback, non-prod rehearsal, explicit post-cutover verification, stakeholder communication, backup before any destructive step) and ends with the exact required format, while correctly reasoning that a 2 TB dataset cannot be moved via dump/restore in a 2-hour window and instead designing around continuous replication with a short cutover — a realistic, actionable plan for the stated constraints.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:54+00:00"
+}

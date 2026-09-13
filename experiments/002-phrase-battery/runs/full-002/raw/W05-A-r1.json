@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-A-r1",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 1,
+  "execution_index": 2021,
+  "sample_seed": 16048464784171981834,
+  "prompt_sha256": "a111ab385a58ee4c9d9b09d3ebf66c4f201a45f68c187de2d1510ad4237226f3",
+  "prompt_chars": 685,
+  "response": "## The problem\n\nOur team of twelve has been shipping through long-lived feature branches for over a year, and the cost is showing. Branches routinely live for two to three weeks before merging, and by the time they land, the diffs are large, the conflicts are painful, and nobody besides the author remembers all the context. Integration has become an event instead of a habit: we discover incompatibilities on merge day rather than the day they were introduced. Release velocity has slowed as a direct result, and code review has degenerated into rubber-stamping 800-line diffs because reviewers can't realistically hold that much change in their heads.\n\n## The proposal\n\nI'm proposing we move to trunk-based development, where engineers commit small, frequent changes directly to main behind feature flags, with short-lived branches (under a day) at most. This means:\n\n- Every engineer merges to main at least once per day, gated by automated tests\n- Incomplete features ship dark behind flags rather than living in a branch\n- CI must run on every commit to main, not just nightly\n- We invest in a flag-management system before rollout begins\n- We run a two-week pilot with one squad before team-wide adoption\n\n## What could go wrong\n\nThe strongest objection is that continuous integration to main requires a test suite and CI pipeline that are fast and reliable enough to trust on every commit — and ours currently is not. Our suite takes 40 minutes and flakes often enough that people already ignore red builds. If we move to trunk-based development without fixing that first, we'll just be merging broken code into main constantly, which is worse than what we have now. This is a real risk, not a hypothetical one, and it means the CI investment isn't optional groundwork — it's a prerequisite. I'm not asking us to flip a switch; I'm asking us to fix CI reliability in parallel with the pilot, and only expand once the pilot squad's build is green and fast.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "62de70c113d918dcd68072ea55398fbc7bc392fe4c85a05a15eb7ef950ac6f77",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28280,
+    "output_tokens": 614,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 614,
+        "cache_read_input_tokens": 28280,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0118,
+    "duration_ms": 11666,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:10:05+00:00",
+  "finished_at": "2026-09-13T05:10:18+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

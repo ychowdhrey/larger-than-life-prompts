@@ -1,0 +1,22 @@
+{
+  "item_id": "24b6f4e9ba7b064e",
+  "sample_id": "C05-E03-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E03",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (>100 vs >=100 violating R1), correctly flags the test_cap assertion as both factually wrong (actual result is 50.0, not 100.0) and inconsistent with R2, and correctly notes the missing boundary test at total==100, while verifying the other two tests are actually correct including a floating-point sanity check.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:52+00:00"
+}

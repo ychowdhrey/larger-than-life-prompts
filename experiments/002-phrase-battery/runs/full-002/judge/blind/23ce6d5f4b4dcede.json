@@ -1,0 +1,22 @@
+{
+  "item_id": "23ce6d5f4b4dcede",
+  "sample_id": "C02-T14-r2",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T14",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (LEFT JOIN nullified by WHERE, missing UTC+8 timezone shift on the date boundary, integer division truncation, NULL from SUM over zero rows, and resulting NULL sort-order issue), gives concrete fixes and examples, and appropriately hedges the GROUP BY portability point as not a confirmed bug rather than fabricating an issue.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:21:49+00:00"
+}

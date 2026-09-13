@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T19-r1",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 1,
+  "execution_index": 943,
+  "sample_seed": 11634069119577933019,
+  "prompt_sha256": "6bbfab53a9bde5d28c4ae7034c4ade539d1d735a6df5061b0b908b161be1c37a",
+  "prompt_chars": 845,
+  "response": "Here are the defects I find, in rough order of severity:\n\n**1. The `WHERE` clause silently turns the `LEFT JOIN` into an `INNER JOIN`**\n`WHERE o.created_at >= '2026-01-01'` is applied *after* the join, on a column that comes from the right-hand table. For a customer with no matching orders, `o.created_at` is `NULL`, and `NULL >= '2026-01-01'` evaluates to unknown/false — so that row is discarded by the `WHERE` clause. The net effect is that only customers with at least one order on/after the cutoff survive, exactly the opposite of the stated requirement (\"a customer with no orders at all must still appear... with a count of zero\"). Customers with zero orders, or with orders only *before* the cutoff, vanish from the report entirely instead of showing `order_count = 0`.\nFix: move the date predicate into the `ON` clause (`LEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= ...`) so it filters which orders get matched, not which customers survive.\n\n**2. The date boundary is compared in UTC but is meant to represent a UTC+8 calendar day**\n`created_at` is stored in UTC, but the literal `'2026-01-01'` is being compared directly against it with no offset adjustment, even though the business rule is \"calendar days in UTC+8.\" Local midnight 2026‑01‑01 00:00 (UTC+8) is actually 2025‑12‑31 16:00 UTC. As written, the filter instead cuts over at 2026‑01‑01 00:00 UTC, which is 08:00 on Jan 1 in local time. This means every order placed between local midnight and 8am on Jan 1 (a UTC timestamp of Dec 31 evening) is wrongly excluded from \"2026\" data, and — more generally — every day-boundary in this report is shifted by 8 hours from what the local-time team actually means by \"that calendar day.\" Fix: shift the boundary by the offset before comparing (e.g. `created_at >= '2025-12-31 16:00:00'`) or normalize `created_at` to local time before comparing to the calendar date.\n\n**3. Integer division truncates the monetary total**\n`total_cents` is an integer column, and `SUM(o.total_cents) / 100` divides an integer sum by the integer literal `100`. In integer arithmetic this truncates any remainder, so e.g. a customer whose orders sum to 1299 cents ($12.99) would report `total_spent = 12`, silently dropping the cents. This isn't a rounding nicety — it's a systematic under-reporting of revenue for any customer whose total isn't an exact multiple of 100 cents. Fix: `SUM(o.total_cents) / 100.0` (or cast to `numeric`/`decimal`) to force real division.\n\n**4. `total_spent` will be `NULL`, not `0`, for customers with no qualifying orders**\nOnce defect #1 is fixed so zero-order customers appear, `SUM(o.total_cents)` over zero rows returns `NULL`, and `NULL / 100` is also `NULL`. So while `order_count` correctly shows `0` (COUNT ignores NULLs), `total_spent` will show `NULL` instead of `0`, which is inconsistent and likely to break downstream consumers expecting a numeric value. Fix: `COALESCE(SUM(o.total_cents), 0) / 100.0`.\n\n**5. `ORDER BY total_spent DESC` will misplace the `NULL` rows once they exist**\nTied to defect #4: in engines where `NULL` sorts as the largest value by default (e.g., PostgreSQL treats NULLs as larger than any value, and by default `DESC` puts them first), the zero-order customers with `NULL` total_spent would float to the *top* of a report that's supposed to be ranked by spend, ahead of actual paying customers. Fixing defect #4 with `COALESCE(...,0)` also resolves this (since all totals are non-negative, `0` sorts last under `DESC`), but if that fix isn't applied, an explicit `NULLS LAST` would be needed.\n\n**6. Non-aggregated columns in `SELECT` are not in `GROUP BY` (portability concern)**\n`c.name` and `c.signup_date` are selected but not aggregated and not listed in `GROUP BY c.customer_id`. This is only legal because most engines (PostgreSQL, MySQL with `customer_id` as the table's primary key) recognize the functional dependency on the primary key. On a database or configuration that enforces strict standard SQL grouping rules without that recognition, this query would fail to execute rather than return wrong results. Worth calling out as a portability risk even though it may run fine on the intended engine.",
+  "response_sha256": "a705f069b0f7eaccbba08ad9bed6f7ddb1dcea9914322fd51ad980bd0d4a83be",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2663,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 5726,
+    "output_tokens_details": {
+      "thinking_tokens": 4132
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2663,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 5726,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2663,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2663
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0730612,
+    "duration_ms": 61783,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:45:08+00:00",
+  "finished_at": "2026-09-13T04:46:11+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

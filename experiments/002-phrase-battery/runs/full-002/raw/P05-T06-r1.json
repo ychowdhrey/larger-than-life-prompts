@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T06-r1",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 1,
+  "execution_index": 2056,
+  "sample_seed": 16681388712909078827,
+  "prompt_sha256": "85f8f077d13bd286180c0eee8abc82e87cb46e049e15e8bff352e6689c8a5ecc",
+  "prompt_chars": 827,
+  "response": "# Rollout Plan: Migrating 40,000 Users to New Billing System\n\n## Overview\n\nThis plan migrates 40,000 existing users from the legacy billing system to the new billing system in three named phases, with both systems running concurrently (dual-run) throughout the migration window. The old system remains fully active and untouched through the entire user-migration process; any deprecation of the old system is explicitly deferred to a separate post-migration phase (see \"Post-Migration Cleanup\" below), satisfying the requirement that decommissioning never overlaps with the final migration batch.\n\nAssumptions stated for transparency: 40,000 users is the total population; percentages below are of that total (400 users = 1%, 2,000 users = 5%, 20,000 users = 50%, etc.). Dual-run means both systems process billing events for a migrated account in parallel (or the old system stands by in read-only/reconciliation mode) so that a rollback simply repoints traffic back to the old system without data loss.\n\n---\n\n## Phase 1 — Pilot (1% of users, 400 users)\n\n**Entry criterion:** New billing system has passed a full end-to-end test suite covering invoicing, payment capture, refunds, proration, and tax calculation in a staging environment with production-like data, AND a rollback mechanism (repoint to old system) has been tested successfully at least once in staging.\n\n**Scope:** 400 internal/opt-in or low-risk users (e.g., employees, sandbox accounts, or users who explicitly opted into early access), selected to exclude enterprise/high-revenue accounts.\n\n**Duration:** Minimum 5 business days, or until at least 2 full billing cycles have completed for the cohort, whichever is longer.\n\n**Goals:** Validate the migration pipeline itself, confirm dual-run reconciliation logic produces matching outputs between old and new systems, and surface integration issues before wider exposure.\n\n---\n\n## Phase 2 — Expanded Rollout (15% of users, 6,000 users)\n\n**Entry criterion:** Phase 1 completed with zero unresolved critical/Sev-1 defects, invoice-amount discrepancy rate between old and new systems below 0.1% of transactions, and no more than 1 customer-reported billing error per 100 migrated users.\n\n**Scope:** A broader, randomly sampled cross-section of the user base, including a mix of plan types and geographies, but still capped to exclude the top 5% of accounts by revenue.\n\n**Duration:** Minimum 10 business days, spanning at least 1 full monthly billing cycle for the cohort.\n\n**Goals:** Stress-test the system at meaningfully higher volume, validate support team readiness and runbook accuracy, and confirm the halt/rollback process works under real (not staged) conditions if triggered.\n\n---\n\n## Phase 3 — Full Rollout (Remaining 84%, 33,600 users)\n\n**Entry criterion:** Phase 2 completed with invoice-amount discrepancy rate below 0.1%, payment failure rate attributable to migration below 0.5%, support escalation volume for migrated users no more than 1.2x the baseline escalation rate for non-migrated users, and engineering/support sign-off obtained from both teams.\n\n**Scope:** All remaining users, migrated in sub-batches (e.g., 10 batches of ~3,360 users, or batches aligned to billing-cycle anniversary dates to avoid migrating an account mid-cycle) to preserve the ability to halt partway through.\n\n**Duration:** Rolled out over 2–4 weeks in sub-batches, with a 24–48 hour observation window between sub-batches for the first half of the phase.\n\n**Goals:** Complete migration of the full user base while retaining batch-level halt capability; this phase migrates users only — it does not include any decommissioning action against the old system.\n\n---\n\n## Post-Migration Cleanup (Separate, Later Phase — Not a Migration Phase)\n\n**Entry criterion:** 100% of users migrated and stable in the new system for a minimum of one full billing cycle (at least 30 days) with no reopened Sev-1/Sev-2 incidents, plus a completed financial reconciliation audit confirming no revenue discrepancy.\n\n**Scope:** Only after this separate phase begins does the plan address putting the old billing system into read-only archival mode, and later, decommissioning it. This is intentionally not bundled with Phase 3 or any user-migration batch.\n\n---\n\n## Halt Criteria (Automatic Rollout Pause)\n\nThe rollout must be paused (no further users migrated to the next batch/phase) if any of the following occur, checked continuously via monitoring dashboards:\n\n- **Invoice discrepancy rate exceeds 0.5%** of reconciled transactions between old and new systems within any rolling 24-hour window (metric with numeric threshold, as required).\n- Payment failure rate for migrated users exceeds 2x the pre-migration baseline failure rate for 2 consecutive hours.\n- Any single data-integrity incident affecting more than 50 accounts simultaneously.\n\nWhen a halt triggers, the on-call lead executes the tested rollback (repoint affected accounts to the old system) and a post-incident review is required before resuming.\n\n---\n\n## Risks\n\nRISK: Invoice or payment amounts mismatch between old and new systems for migrated accounts, causing customer billing errors | Run both systems in parallel per account for at least one billing cycle and automatically reconcile every transaction before fully cutting over that account | Billing Engineering Lead\nRISK: Support team is unprepared for new-system-specific customer questions, leading to slow resolution and customer churn | Train support staff and publish updated runbooks before Phase 2 begins, and stage a support on-call rotation during each phase's observation window | Customer Support Manager\nRISK: A batch of migrated users experiences a payment processor integration failure that blocks charges | Migrate in small, reversible sub-batches with a tested rollback path, and require a successful test transaction per payment method type before batch sign-off | Payments Platform Engineer\nRISK: Migrating an account mid-billing-cycle causes duplicate or missed charges | Align migration batch timing to each account's billing-cycle boundary rather than migrating on a fixed calendar date | Billing Engineering Lead\nRISK: Data migration (stored payment methods, credits, discounts) is incomplete or corrupted for some accounts | Validate a checksum/record-count match between source and destination records for every migrated account before removing it from dual-run mode | Data Migration Engineer\n\n---\n\nPHASES: 3",
+  "response_sha256": "e3765298998ad85661d2209b7042ef136e0384ed7f7ba184fac82acd0772287c",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28319,
+    "output_tokens": 2177,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2177,
+        "cache_read_input_tokens": 28319,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.027437800000000002,
+    "duration_ms": 29221,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:10:51+00:00",
+  "finished_at": "2026-09-13T05:11:21+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

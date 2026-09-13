@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-E07-r1",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "E07",
+  "condition_name": "combo_e07",
+  "repetition": 1,
+  "execution_index": 154,
+  "sample_seed": 14753177093974032287,
+  "prompt_sha256": "73bf402770dda20da2ef60fc6870ef45e4d73be76fbcd397b36b461446a430fc",
+  "prompt_chars": 875,
+  "response": "1. **Assess and prepare**: Inventory the 2 TB database (schema, extensions, roles, size growth rate), select the target managed service (e.g., AWS RDS/Aurora, GCP Cloud SQL, Azure Database for PostgreSQL) with matching or newer PostgreSQL version, size compute/storage/IOPS for the 4,000 DAU workload, and provision the instance with equivalent network access, security groups, and parameter/config settings.\n\n2. **Establish connectivity and replication tooling**: Set up a secure link (VPN/private peering) between on-prem and cloud, and configure logical replication (e.g., native `pg_logical`/`publication-subscription`, or a CDC tool like AWS DMS) to allow continuous data sync ahead of cutover, minimizing the final data delta.\n\n3. **Take a full baseline backup**: Before any load testing or rehearsal touches production, take a full verified backup (`pg_basebackup` or equivalent) and confirm it restores successfully; retain this as the pre-migration safety net independent of later backups.\n\n4. **Dry run / rehearsal on non-production data**: Restore the backup into a staging copy of the target managed service, run the full migration and cutover procedure (schema migration, replication catchup, application config switch, smoke tests) against this non-production dataset end-to-end, and time each phase to validate the plan fits inside the two-hour window.\n\n5. **Fix issues and refine runbook**: Address any schema incompatibilities, extension gaps, performance issues, or timing overruns found in the rehearsal; update the runbook and re-run the rehearsal if major changes were made.\n\n6. **Communicate the migration schedule**: Notify stakeholders and the 4,000 users at least several days in advance (and again 24 hours and 1 hour before) of the Sunday maintenance window, expected downtime, and any expected impact, via status page/email/in-app banner; establish an internal comms channel for the migration team.\n\n7. **Begin initial bulk data sync**: Start the logical replication/CDC initial load from production to the cloud target ahead of the maintenance window so the bulk of the 2 TB transfers without downtime, leaving only incremental changes to catch up during the window.\n\n8. **Take a pre-cutover full backup**: Immediately before the maintenance window begins (and before making the database read-only or modifying it further), take a fresh full backup/snapshot of the production on-prem database as the final rollback point.\n\n9. **Execute the maintenance-window cutover**: Put the application in maintenance mode, stop writes to on-prem, let replication drain to zero lag, verify final sync completion, redirect application connection strings/DNS to the managed cloud database, and bring the application back online in read-write mode against the new database.\n\n10. **Verify data integrity post-cutover**: Run row-count comparisons per table, checksum/hash comparisons (e.g., `pg_checksums`, `checksum` extension, or custom hash aggregates) between source and target, validate sequence values, foreign key integrity, and application-level smoke tests before declaring success.\n\n11. **Monitor and confirm stability**: Watch replication lag (if kept as fallback), query performance, error rates, and connection health for a defined soak period; only exit maintenance mode fully once integrity checks and monitoring pass, then send an all-clear communication to stakeholders/users.\n\n12. **Rollback procedure (execute if cutover or verification fails)**: Keep the on-prem database untouched/read-only (not decommissioned) with the pre-cutover backup as the fallback; if integrity checks fail or critical issues arise, revert application connection strings/DNS back to on-prem, resume on-prem in read-write mode, restore from the pre-cutover backup if any corruption occurred, communicate the rollback and revised timeline to stakeholders, and diagnose the failure before scheduling a retry with rehearsal fixes.\n\nSTEP COUNT: 12",
+  "response_sha256": "ef253e4411a58a654422c6751eff8c78a523648e7716b86e8e7c0bba1c8254e1",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2607,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1307,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2607,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1307,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2607,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2607
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0286472,
+    "duration_ms": 17591,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:25:43+00:00",
+  "finished_at": "2026-09-13T04:26:01+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

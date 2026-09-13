@@ -1,0 +1,22 @@
+{
+  "item_id": "7917fba758257310",
+  "sample_id": "P01-T07-r2",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T07",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The plan hits every hard requirement (≤12 numbered steps, dry run, rollback, post-cutover integrity checks via row counts/checksums/sequences, stakeholder communication, backup placed before any destructive/modifying step) and ends with the exact required format, while showing genuine technical depth (logical replication with CDC, replication-lag drain, backup restorability check, phased on-prem decommission).",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:54+00:00"
+}

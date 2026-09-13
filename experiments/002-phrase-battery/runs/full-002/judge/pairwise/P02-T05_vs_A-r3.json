@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T05_vs_A-r3",
+  "contrast_id": "T05_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T05",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response B's abort/rollback condition is more concrete and actionable (specific triggers during reclamation and during failover, with explicit rollback-to-snapshot steps), and it adds post-incident data-integrity verification (checksums/row counts against the snapshot) that Response A omits, making it a more complete and operationally sound runbook.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:24:10+00:00"
+}

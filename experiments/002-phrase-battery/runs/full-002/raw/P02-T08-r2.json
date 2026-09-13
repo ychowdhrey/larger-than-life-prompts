@@ -1,0 +1,68 @@
+{
+  "sample_id": "P02-T08-r2",
+  "run_id": "full-002",
+  "task_id": "P02",
+  "family": "planning",
+  "condition_id": "T08",
+  "condition_name": "phrase_t08",
+  "repetition": 2,
+  "execution_index": 11,
+  "sample_seed": 4205702594758898335,
+  "prompt_sha256": "e852dbb18a09200fe579143ddcfd465526b5c94ff9f42da49abe6f848ee9fd8a",
+  "prompt_chars": 754,
+  "response": "# Incident Response Runbook: Production Database Disk Exhaustion + Write Latency Degradation\n\n**Trigger conditions:** Primary production database disk utilisation ≥ 98% AND write latency has tripled (or more) within a 20-minute window.\n\n---\n\n## DETECTION\n\n1. Confirm the alert is real, not a monitoring blip:\n   - Check disk utilisation metric on the primary DB host from at least two sources (e.g., infra monitoring dashboard + `df -h` / cloud provider volume metrics on the host itself).\n   - Confirm write latency trend over the last 20–30 minutes via APM/DB metrics (p50/p95/p99 write latency), not a single spike.\n2. Identify which volume is filling: data volume, WAL/journal/redo log volume, or temp/spill space — they require different responses.\n3. Check for a co-occurring cause: a large batch job, an unbounded transaction, a runaway logging/audit table, replication lag causing WAL retention, or a failed cleanup/vacuum job.\n4. Page the on-call DBA/database owner and declare an incident (open incident channel, assign an Incident Commander) if disk will hit 100% at current growth rate within the next hour.\n5. Record the timestamp of first detection and current growth rate (%/minute) — this determines how much time is available before hard failure.\n\n---\n\n## IMMEDIATE ACTIONS\n\n1. **Take a storage snapshot of the primary database volume(s) before doing anything else that changes state.** This is mandatory and blocking — do not proceed to any remediation step until the snapshot has started and its status is confirmed \"in progress\" or \"completed\" per your storage provider's tooling.\n   - If snapshot creation itself is blocked by disk space (some backends need free space to snapshot), immediately escalate to the storage/cloud team for an emergency volume expansion or alternate backup path — do not skip the snapshot requirement; find another way to capture a consistent point-in-time copy (e.g., storage-layer snapshot rather than logical dump, which is usually low-impact even at high disk usage).\n2. While the snapshot is running, do **not**:\n   - Restart the database process or service.\n   - Fail over to a replica.\n   - Run destructive cleanup (`DROP`, `TRUNCATE`, `DELETE` without a backup) on any table.\n   - Manually kill long-running write transactions without first checking whether doing so is safe (see rollback condition below).\n3. Notify downstream teams/status page (internal or customer-facing, per your incident severity policy) that writes may be degraded.\n4. Identify immediate non-destructive relief valves that don't require restart/failover:\n   - Rotate or ship old log files off the log volume (if logs, not data, are the growth source) to a separate volume/object storage.\n   - Pause or throttle known non-critical write-heavy jobs (batch imports, analytics ingestion) at the application/scheduler level.\n   - If autoscaling storage is available (e.g., cloud-managed DB with online volume expansion), trigger an **online volume expansion** — this typically does not require a restart and is preferable to any restart/failover path.\n\n---\n\n## MITIGATION\n\nOnly proceed once the snapshot in IMMEDIATE ACTIONS is confirmed complete.\n\n1. **Prefer online, non-disruptive remediation first:**\n   - Expand the storage volume online if the platform supports it (most cloud-managed databases do). This is the safest path and should be attempted before any restart or failover.\n   - Free space via safe, reversible actions: archive/compress old partitions, drop confirmed-obsolete temp tables, clear WAL/binlog segments that are already confirmed replicated and safe to purge.\n2. **If online expansion is not possible and disk is still climbing toward 100%:**\n   - Only now consider a controlled failover to a healthy, in-sync replica, or a restart to clear runaway state (e.g., stuck long transaction holding WAL) — and only after the snapshot is confirmed complete and, where possible, a second confirmation that the replica is caught up (replication lag near zero) if failing over.\n   - Before failover: verify replica data consistency and lag; a failover to a lagging or inconsistent replica risks data loss and should not be treated as a safe default.\n3. **Abort / rollback condition (explicit):**\n   - If, after taking the snapshot and expanding storage or freeing space, disk utilisation does **not** drop or write latency does **not** improve within 10 minutes — or if utilisation continues climbing past 99% — **stop the current mitigation path immediately**, do not proceed to failover or restart, and escalate to the database vendor/senior DBA for a manual, guided intervention. Continuing to apply the same fix under these conditions risks data corruption or an uncontrolled crash; reverse any in-flight destructive cleanup (restore purged/archived data from the snapshot if needed) before trying a different approach.\n   - Additionally, if replica lag is non-zero or unknown at the time failover is being considered, abort the failover plan and fall back to storage expansion or vendor escalation instead.\n4. Continuously monitor disk utilisation and write latency after each action; do not stack multiple remediation steps simultaneously without observing the effect of each.\n\n---\n\n## FOLLOW UP\n\n1. Confirm disk utilisation has stabilised below a safe threshold (e.g., < 80%) and write latency has returned to baseline for at least 30 minutes before closing the incident.\n2. Verify the snapshot taken during IMMEDIATE ACTIONS is valid and retained per backup policy; do not delete it until a post-incident review confirms it's no longer needed as a rollback point.\n3. Write a post-incident report covering: root cause of disk growth, why it wasn't caught earlier by capacity alerting, timeline of actions taken, and whether the abort condition was triggered.\n4. Action items to prevent recurrence: lower disk utilisation alert thresholds (e.g., alert at 75%/85% instead of only at 98%), implement automated log/WAL rotation, add automated online storage autoscaling if not already present, and review capacity forecasting cadence.\n5. Schedule a review of replica lag monitoring and failover runbooks if failover was considered or executed during this incident.\n\nSECTIONS: 4",
+  "response_sha256": "be3294fa69818faa6feae781aa354742a07ad1dc24dd647e5cd9273b49fa7aeb",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2584,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 2097,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2584,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2097,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2584,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2584
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0364552,
+    "duration_ms": 29036,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:21:17+00:00",
+  "finished_at": "2026-09-13T04:21:47+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T21-r1",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 1,
+  "execution_index": 2173,
+  "sample_seed": 3447890093038233197,
+  "prompt_sha256": "d0b8f3a4e112fd71558e67eb6a749b4f4f74694e73bdd4f777d2690065e4fea3",
+  "prompt_chars": 875,
+  "response": "## Defects Found\n\n**1. Boundary bug in `discount()` — violates R1**\nThe implementation checks `total > 100`, but R1 requires the discount to apply when the total is **100 or more** (`>=`). For `total == 100`, the function falls through to the final `return 0.0`, giving no discount when it should give `100 * 0.10 = 10.0`.\n- *Cause:* wrong comparison operator (`>` instead of `>=`).\n- *Effect:* an order totaling exactly 100 is silently denied its discount — a real, exploitable pricing bug at a natural boundary value that customers/orders are likely to hit often.\n\n**2. `test_cap` asserts the wrong value — fails and misrepresents R2**\n`test_cap` calls `discount(1000)` and asserts the result equals `100.0`. But `1000 * 0.10 = 100.0`, and R2 caps the discount at `50.00`, so `min(100.0, 50.0) = 50.0`. The implementation actually returns `50.0`, so this assertion is false and the test **fails** as written against the given (otherwise-capping) implementation.\n- *Cause:* expected value in the test was computed before applying the cap, forgetting R2 entirely.\n- *Effect:* the one test meant to exercise the discount cap (R2) is broken — it doesn't verify the cap at all, and worse, it would only \"pass\" against a hypothetical implementation that *doesn't* cap, which contradicts R2. As it stands, running the suite reports a failure on correct capping behavior.\n\n**3. No test for the boundary total of exactly 100 — R1/R3 boundary is unverified**\nNone of the three tests check `total == 100`. This is precisely the value needed to expose defect #1 (the `>` vs `>=` bug). `test_small` (50) and `test_large` (200) are both comfortably on one side of the boundary and can't catch an off-by-one error there.\n- *Effect:* the test suite gives false confidence — it can pass (once defect #2 is fixed) while the R1 boundary bug ships undetected.\n\n## Not defects (checked, found fine)\n- `test_large`'s expectation (`discount(200) == 20.0`) is correct and consistent with R1/R2.\n- The capping logic itself (`min(d, 50.0)`) is structurally correct for values that do reach the `if` branch — only the test's expected number is wrong, not the capping mechanism.\n- `test_small`'s expectation (`discount(50) == 0.0`) correctly reflects R3.\n\n**Summary:** one implementation defect (boundary condition, defect #1) and two test-suite defects (a wrong assertion in `test_cap`, defect #2, and a missing boundary test, defect #3). Fixing only the implementation's `>` to `>=` is not enough — `test_cap` must also be corrected to expect `50.0`, and a `discount(100) == 10.0` test should be added to lock in the fixed boundary behavior.",
+  "response_sha256": "ef7f0d1424907d18ee06e8ceacb4688f8bd84998391ba7b1c242822fb675356f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28360,
+    "output_tokens": 2875,
+    "output_tokens_details": {
+      "thinking_tokens": 1891
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2875,
+        "cache_read_input_tokens": 28360,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.034426,
+    "duration_ms": 29614,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:13:34+00:00",
+  "finished_at": "2026-09-13T05:14:04+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

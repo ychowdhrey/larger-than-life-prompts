@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T16_vs_A-r3",
+  "contrast_id": "T16_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T16",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T16",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response A orders its risk-reduction steps consistently (online expansion before any file removal, low-risk before high-risk) and adds a concrete escalation path for when a snapshot can't be taken at near-full capacity, whereas Response B labels its first mitigation step 'non-destructive' yet includes dropping/truncating tables before trying an online volume resize, contradicting its own stated risk ordering and creating a confusing sequence for responders.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:39:53+00:00"
+}

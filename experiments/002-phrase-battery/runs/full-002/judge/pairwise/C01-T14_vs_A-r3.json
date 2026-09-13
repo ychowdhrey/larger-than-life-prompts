@@ -1,0 +1,19 @@
+{
+  "pair_id": "C01-T14_vs_A-r3",
+  "contrast_id": "T14_vs_A",
+  "task_id": "C01",
+  "family": "critique",
+  "repetition": 3,
+  "treatment_condition": "T14",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T14",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both responses correctly identify the same five core defects, but Response B verifies each with concrete traced examples (including a fully worked trace showing the mutable-default cross-call failure and a worked example showing the dedup window bug drops four of five ties), and it additionally flags the O(n) `seen` lookup as a minor efficiency issue while explicitly confirming the sort direction and average-over-all-scores are correctly not defects, which is more rigorous and directly verifiable than Response A's equivalent but less precisely illustrated points.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:32:58+00:00"
+}

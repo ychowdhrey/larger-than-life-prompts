@@ -1,0 +1,22 @@
+{
+  "item_id": "2c3109bc658e491a",
+  "sample_id": "C05-T10-r2",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T10",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real R1 boundary bug (`>` vs `>=`), correctly flags that test_cap's expected value (100.0) is wrong since the implementation actually returns 50.0 for discount(1000), and correctly notes the missing boundary test for total==100, all backed by accurate arithmetic and no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:32:59+00:00"
+}

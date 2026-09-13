@@ -1,0 +1,19 @@
+{
+  "pair_id": "C02-T13_vs_A-r1",
+  "contrast_id": "T13_vs_A",
+  "task_id": "C02",
+  "family": "critique",
+  "repetition": 1,
+  "treatment_condition": "T13",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both catch the same four genuine defects (WHERE nullifying the LEFT JOIN, UTC vs UTC+8 boundary, integer division truncation, and NULL-vs-zero with NULL sort ordering) with equally correct explanations and fixes. Response B adds a fifth 'defect' about non-aggregated columns in GROUP BY, but this claim is self-contradictory (it says MySQL infers functional dependency, then lists MySQL as failing) and is simply wrong for PostgreSQL, which has supported functional dependency on a grouped primary key since version 9.1 — so B reports a problem that isn't actually present on the most likely target engine, which the task explicitly says not to do.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:47+00:00"
+}

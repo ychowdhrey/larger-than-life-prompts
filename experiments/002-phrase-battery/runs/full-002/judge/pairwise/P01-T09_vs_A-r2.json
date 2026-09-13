@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T09_vs_A-r2",
+  "contrast_id": "T09_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T09",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements almost identically, but Response A's rollback step is internally more coherent: it restores the pre-cutover backup only if the untouched on-prem source itself was corrupted, whereas Response B's rollback confusingly suggests restoring the on-prem backup 'if any writes occurred on the target,' which doesn't logically address problems on the cloud target it's rolling back from.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:02+00:00"
+}

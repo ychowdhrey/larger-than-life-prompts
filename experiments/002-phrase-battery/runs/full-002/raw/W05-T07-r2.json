@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T07-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T07",
+  "condition_name": "phrase_t07",
+  "repetition": 2,
+  "execution_index": 815,
+  "sample_seed": 6897405274200251231,
+  "prompt_sha256": "bbd6b89a4b9522c87b1e43fe65909a27f4c4aa6ee1bede6896c157af97320227",
+  "prompt_chars": 738,
+  "response": "## The problem\n\nOur team of twelve is spending more time managing merges than shipping features. Long-lived feature branches routinely survive one to three weeks, and by the time they're ready to merge, they've drifted far enough from main that integration becomes its own project. Two patterns keep repeating: merge conflicts that take half a day to untangle, and \"integration surprises\" where two branches independently touched the same module in incompatible ways. Code review also suffers — reviewers face 800-line diffs instead of digestible changes, so review quality drops and approvals become rubber stamps. Meanwhile, main branch stability is an illusion, since large chunks of real work are invisible to it until merge day, which means our CI signal on main doesn't reflect what's actually being built.\n\n## The proposal\n\nI'm proposing we move to trunk-based development: everyone commits directly to main (or through same-day short-lived branches), gated by feature flags for anything incomplete.\n\n- All work integrates into main at least once per day, in small, reviewable increments.\n- Incomplete features ship behind flags rather than sitting unmerged.\n- CI must stay green on main at all times, with fast, reliable automated tests as the safety net.\n- Code review shifts to smaller, faster-turnaround diffs rather than large batch reviews.\n- We adopt a \"stop the line\" norm: a broken main gets fixed before new work continues.\n\n## What could go wrong\n\nThe strongest objection is real: trunk-based development demands strong test coverage and fast CI, and today our suite takes 25 minutes and has known gaps in integration tests. If we flip to daily integration without fixing that first, we risk merging broken code into main more often, just less visibly than before. I take this seriously — it means our rollout should start with a two-week investment in CI speed and coverage before we mandate daily merges, not after. Feature flags also add complexity and technical debt if we don't clean them up, so we'll need a flag-retirement policy from day one.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "1134e88a580cbe9e24ef43895cf3c687f9c42ad84f39e6ea1c6dcc62b37bfb9a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2571,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 648,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2571,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 648,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2571,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2571
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0219132,
+    "duration_ms": 11570,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:42:19+00:00",
+  "finished_at": "2026-09-13T04:42:32+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

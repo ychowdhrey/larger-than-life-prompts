@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T17_vs_A-r3",
+  "contrast_id": "T17_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T17",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T17",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response A's MITIGATION section labels 'drop or truncate known-disposable tables' as a 'non-destructive' first step, which is an internal contradiction that could mislead an operator into treating a genuinely destructive action as low-risk. Response B's space-reclamation guidance is more internally consistent and technically careful (e.g., explicitly warning not to purge WAL/binlogs that replicas or backups depend on, and coordinating before killing transactions), making it marginally more reliable as an actionable runbook.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:30:30+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "C05-T19-r3",
+  "run_id": "full-002",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T19",
+  "condition_name": "phrase_t19",
+  "repetition": 3,
+  "execution_index": 1693,
+  "sample_seed": 15198495907165581362,
+  "prompt_sha256": "a259cddd78c18253c4005fa6c26249d864a7ceec36e902033a2ba6d8b30fdf6f",
+  "prompt_chars": 861,
+  "response": "Here are the defects I found:\n\n**1. Off‑by‑one boundary error in the implementation (violates R1)**\nThe code uses `if total > 100:` instead of `total >= 100`. R1 says a total of **100 or more** should get the 10% discount. With `total == 100`, the implementation falls through to `return 0.0`, giving no discount when a 10.0 discount is required. This is a real bug that contradicts R1 for the exact boundary value.\n\n**2. `test_cap` asserts an incorrect expected value (and itself violates R2)**\n```python\ndef test_cap():\n    assert discount(1000) == 100.0\n```\nFor `total = 1000`, the implementation computes `d = 1000 * 0.10 = 100.0`, then `min(100.0, 50.0) = 50.0`. So `discount(1000)` actually returns `50.0`, not `100.0` — this assertion is wrong and the test would fail against the given (correct-for-R2) implementation. Worse, the expected value hard-coded in the test (`100.0`) itself exceeds the 50.00 cap mandated by R2, so even conceptually this test does not correctly express R2 — it would only pass with a buggy implementation that failed to cap the discount at all.\n\n**3. No test exercises the R1/R3 boundary (`total == 100`)**\nNone of the three tests check `total = 100`. This is precisely the value where the off-by-one defect (#1) manifests, so the test suite fails to catch it. Given R1 and R3 explicitly split behavior at the value 100 (\"100 or more\" vs. \"below 100\"), a boundary test is necessary to actually verify the requirement, and it's missing.\n\n**4. No test actually verifies the cap is reached correctly (R2)**\nBecause `test_cap`'s expected value is wrong (#2), there is no passing/correct test demonstrating that the discount is properly capped at 50.00 for a large order (e.g., asserting `discount(1000) == 50.0` or checking a value just above the cap threshold, `total = 501`). So R2's capping behavior is effectively untested by a correct assertion.\n\n**Not a defect:** the capping logic itself (`min(d, 50.0)`) is correct with respect to R2 — for totals from 100 up to 500 the 10% discount stays at or below 50, and above 500 it's correctly clamped to 50.0. `test_large` correctly reflects an uncapped case (20.0 for total 200), and `test_small` correctly reflects R3.",
+  "response_sha256": "3eb7557cbd2f426986dc5f85de2c3fe95c42585bfd2d24584d5dc3428fd800fe",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28358,
+    "output_tokens": 1902,
+    "output_tokens_details": {
+      "thinking_tokens": 1081
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1902,
+        "cache_read_input_tokens": 28358,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.024695600000000005,
+    "duration_ms": 22461,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:02:54+00:00",
+  "finished_at": "2026-09-13T05:03:17+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

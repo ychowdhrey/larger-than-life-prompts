@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T08_vs_A-r1",
+  "contrast_id": "T08_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T08",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both meet the hard requirements, but Response B is more operationally rigorous: it addresses the edge case of snapshotting when the disk is already near-full (snapshot to a separate target), adds a non-destructive write-throttling option while the snapshot is in flight, explicitly gates a primary restart behind snapshot completion plus IC sign-off, and its FOLLOW UP includes post-mitigation data-integrity/checksum verification that A omits despite the incident involving destructive cleanup risk.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:17+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T06-r2",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 2,
+  "execution_index": 1404,
+  "sample_seed": 18221057973722711062,
+  "prompt_sha256": "9ed7d349023586e69b3b819793379ad943259a834b2cc8ec721b9237f0fe0e0b",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur team of twelve engineers works almost entirely on long-lived feature branches, some open for two to three weeks before merging. By the time a branch merges, it has usually diverged far enough from main that integration becomes its own project. Merge conflicts eat hours, code review happens on stale diffs, and bugs surface only after everything comes together at once. We've had three release delays this quarter that traced directly to last-minute integration problems, not to the features themselves.\n\n## The proposal\n\nI propose we move to trunk-based development: every engineer commits directly to main at least once a day, behind feature flags where a change isn't ready for users. Concretely, that means:\n\n- Branches live no longer than one to two days before merging.\n- All new work behind incomplete features ships behind a feature flag, not a branch.\n- CI must pass on every commit to main, with no exceptions.\n- We invest in a fast, reliable test suite so a broken main gets caught within minutes, not days.\n- We run a two-week pilot with one squad before rolling out team-wide.\n\n## What could go wrong\n\nThe strongest objection is real: with twelve people committing to main daily, we increase the chance that an incomplete or buggy change destabilizes the trunk for everyone, and feature flags add code complexity that has to be cleaned up later or it becomes permanent cruft. This isn't a minor concern — teams that adopt trunk-based development without disciplined CI and flag hygiene often end up with a main branch that's technically shared but practically unstable, which is worse than what we have now. Our mitigation is investing in the test suite and flag-cleanup discipline before we scale past the pilot, but that investment is real cost, not a hand-wave.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "6f21c64c0fb9da91087605177546c1ec009f3c09eef2e4019e32c5d1eaa6bd77",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28294,
+    "output_tokens": 3960,
+    "output_tokens_details": {
+      "thinking_tokens": 3399
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3960,
+        "cache_read_input_tokens": 28294,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.04526279999999999,
+    "duration_ms": 33313,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:55:53+00:00",
+  "finished_at": "2026-09-13T04:56:27+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

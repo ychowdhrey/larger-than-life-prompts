@@ -1,0 +1,19 @@
+{
+  "pair_id": "P02-T25_vs_A-r3",
+  "contrast_id": "T25_vs_A",
+  "task_id": "P02",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T25",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T25",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet the hard requirements (four correctly ordered headings, snapshot-before-risk gating, no restart/failover before snapshot, and explicit abort/rollback conditions), but Response A's mitigation ordering is more prudent, explicitly limiting destructive reclamation to logs/shipped WAL segments and only 'well-understood, previously tested' vacuum/compaction, whereas Response B suggests dropping/truncating tables to free space, which is a riskier action for a live incident even with a second-engineer check. A also states two distinct, clearly numbered abort/rollback conditions rather than bundling them into one dense paragraph, making the safety gates easier to follow during a live incident.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:42:38+00:00"
+}

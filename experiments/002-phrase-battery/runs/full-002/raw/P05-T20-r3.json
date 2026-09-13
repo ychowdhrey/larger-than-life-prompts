@@ -1,0 +1,68 @@
+{
+  "sample_id": "P05-T20-r3",
+  "run_id": "full-002",
+  "task_id": "P05",
+  "family": "planning",
+  "condition_id": "T20",
+  "condition_name": "phrase_t20",
+  "repetition": 3,
+  "execution_index": 1442,
+  "sample_seed": 1896569573816893633,
+  "prompt_sha256": "c96a7c6f7b24cfedba1826186047d6de0c564846b4fb6c798dc20db9bb7e2bcc",
+  "prompt_chars": 821,
+  "response": "# Rollout Plan: Migration of 40,000 Users from Legacy Billing System to New Billing System\n\n## Overview\n\nBoth billing systems (legacy \"BILL-OLD\" and new \"BILL-NEW\") will run concurrently throughout the migration. Users are migrated in discrete batches; each user's billing records, payment methods, invoicing history, and active subscriptions must be verified in BILL-NEW before that user's billing-of-record is switched over. The legacy system remains fully operational as a fallback and system of record for unmigrated users through every phase below — it is not touched (no deletion, disabling, or decommissioning) until a dedicated post-migration phase that follows the final migration batch.\n\n---\n\n## Phase 1: Pilot (2% of users, ~800 users)\n\n**Entry criterion:** BILL-NEW has passed a full parallel-run reconciliation test against BILL-OLD for 30 consecutive days using synthetic/shadow traffic (0 unresolved discrepancies over $1), dual-write/dual-read architecture is confirmed working in staging, and rollback tooling (per-user revert to BILL-OLD as system of record) has been tested successfully in a dry run.\n\n**Population:** Internal employee accounts and opted-in low-risk beta users (non-enterprise, monthly billing, no active disputes).\n\n**Duration:** 2 weeks minimum before proceeding.\n\n**Exit criterion to advance:** Metrics below within threshold for the full duration, and manual audit of 100% of pilot accounts' invoices confirms accuracy.\n\n---\n\n## Phase 2: Early Majority (25% of users, ~10,000 users)\n\n**Entry criterion:** Phase 1 exit criteria met; billing discrepancy rate in Phase 1 was below 0.1% of transactions; support ticket volume attributable to billing migration in Phase 1 was below 2% of migrated users; engineering sign-off that all P0/P1 defects found in Phase 1 are resolved and deployed.\n\n**Population:** Randomized sample stratified across plan types (excluding enterprise/custom-contract accounts), weighted toward monthly (not annual) billing cycles so a full billing cycle can be observed quickly.\n\n**Duration:** 3–4 weeks, migrated in weekly sub-batches (e.g., ~2,500/week) to allow metric checkpoints between sub-batches.\n\n**Exit criterion to advance:** Metrics within threshold across all weekly sub-batches; at least one full monthly billing cycle completed cleanly for the earliest sub-batch in this phase.\n\n---\n\n## Phase 3: General Availability / Full Migration (73% of users, remaining ~29,200 users, including annual and enterprise accounts)\n\n**Entry criterion:** Phase 2 exit criteria met; enterprise/custom-contract test cohort (a small carve-out of ~50 representative enterprise accounts) has been migrated separately and successfully invoiced for one full cycle; customer support and finance teams have completed migration-specific training; customer communication/notice period (minimum 14 days' advance notice per contractual/legal requirements) has been sent to all remaining users.\n\n**Population:** All remaining users, sequenced with enterprise/annual/custom-contract accounts migrated last within this phase (smaller final sub-batches, e.g., last 5% held for a dedicated final batch with extra manual review) given their higher revenue-per-account risk.\n\n**Duration:** 4–6 weeks, in progressively sized sub-batches, with the final batch (highest-risk/enterprise accounts) migrated last and monitored for one full billing cycle before Phase 3 is declared complete.\n\n**Exit criterion to advance:** All users successfully migrated and billed at least once through BILL-NEW; metrics within threshold; zero unresolved critical billing discrepancies.\n\n---\n\n## Phase 4 (Post-Migration, Separate from User Migration Phases): Legacy Decommission\n\n**Entry criterion:** Phase 3 fully complete, including a minimum 60-day parallel-run retention window post-final-batch-migration during which BILL-OLD remains live, read-only, and available for reconciliation/audit/rollback reference; finance has completed a full close-the-books reconciliation between BILL-OLD and BILL-NEW; legal/compliance sign-off on data retention requirements.\n\n**Action:** Only after this separate phase's entry criterion is met does decommissioning (disabling writes, archiving data, eventual shutdown) of BILL-OLD begin. This is explicitly not bundled with the final user-migration batch in Phase 3.\n\n---\n\n## Halt Metric\n\nIf, at any point during Phases 1–3, the **billing discrepancy rate exceeds 0.5% of transactions in any rolling 24-hour window**, the rollout is automatically halted: no further batches are migrated until root cause is identified and resolved, and previously migrated batches are not rolled back automatically but are placed under enhanced monitoring. Additional halt triggers: failed-payment rate for migrated users exceeding 1.5% above the BILL-OLD baseline, or customer-reported billing incidents exceeding 25 in a single day.\n\n---\n\n## Risks\n\nRISK: Duplicate or missed charges during dual-write window due to sync race conditions | Implement idempotency keys on all transactions and a reconciliation job comparing BILL-OLD and BILL-NEW ledgers every 15 minutes with automated alerting on mismatch | Engineering Lead, Billing Platform\nRISK: Enterprise customers with custom contract terms are misconfigured in BILL-NEW, causing incorrect invoicing | Migrate enterprise accounts last in a dedicated sub-batch with manual finance review and customer confirmation before cutover | Finance Operations Manager\nRISK: Customer payment methods (stored cards/tokens) fail to migrate correctly, causing failed renewals | Run a payment-method validation pass (tokenized re-verification with the payment processor) prior to each batch and require successful validation before batch cutover | Payments Engineering Lead\nRISK: Support team is overwhelmed by billing-related tickets during migration, delaying resolution and harming customer trust | Staff a dedicated migration support queue with escalation path and pre-written runbooks for known issue classes, staffed ahead of each phase | Customer Support Manager\nRISK: Rollback for a migrated user is attempted after BILL-NEW has already generated a new invoice, causing double-billing on revert | Build and test a per-user rollback procedure that voids/cancels any BILL-NEW invoices as part of the revert transaction, verified in Phase 1 dry runs | Engineering Lead, Billing Platform\n\nPHASES: 4",
+  "response_sha256": "54c337bec0c7105fa3a321f4eb4b3655a2c87b0e38d494f5ccd0dd6e438bb9b3",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28320,
+    "output_tokens": 2247,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2247,
+        "cache_read_input_tokens": 28320,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.028137999999999996,
+    "duration_ms": 28835,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:56:53+00:00",
+  "finished_at": "2026-09-13T04:57:23+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

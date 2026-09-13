@@ -1,0 +1,68 @@
+{
+  "sample_id": "R01-T21-r1",
+  "run_id": "full-002",
+  "task_id": "R01",
+  "family": "reasoning",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 1,
+  "execution_index": 1921,
+  "sample_seed": 3746377655669973961,
+  "prompt_sha256": "4f07a06e10952685def3cfa655e5762bfb02a1de0322a1d41548e666881c4ada",
+  "prompt_chars": 467,
+  "response": "**Working it out:**\n\n- Departure: 23:40 on 3 March 2027, Kuala Lumpur (UTC+8) → in UTC that's 15:40 on 3 March 2027.\n- Add flight time of 13h 25m: 15:40 + 13:25 = 29:05 → i.e. 05:05 the next day, so 05:05 UTC on 4 March 2027.\n- London is UTC+0 on this date (still on GMT, before clocks spring forward), so local arrival time = UTC time.\n\n**Arrival: 05:05 on 4 March 2027, London time.**\n\nFINAL ANSWER: 2027-03-04 05:05",
+  "response_sha256": "fddf5b4d53fc1be39bf9a5dc1a01bb35e8b571d60fc3f1f34ad9f2e0262bd44a",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28244,
+    "output_tokens": 337,
+    "output_tokens_details": {
+      "thinking_tokens": 118
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 337,
+        "cache_read_input_tokens": 28244,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.009022800000000001,
+    "duration_ms": 5866,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:47+00:00",
+  "finished_at": "2026-09-13T05:07:54+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

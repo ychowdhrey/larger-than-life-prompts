@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T15_vs_A-r1",
+  "contrast_id": "T15_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T15",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T15",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy the stated requirements, but Response B configures logical replication/CDC on the production source (step 3) before the full backup is taken (step 4), violating the rule that a full backup must precede any step that modifies production data; Response A correctly places the full backup (step 5) before it establishes CDC replication (step 6) or freezes writes, so its sequencing fully respects the hard requirement.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:44:16+00:00"
+}

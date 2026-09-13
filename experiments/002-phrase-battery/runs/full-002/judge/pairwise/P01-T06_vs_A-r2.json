@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T06_vs_A-r2",
+  "contrast_id": "T06_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T06",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "A",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Response A keeps the application in maintenance mode until after data-integrity verification and only re-enables writes on the new database once checks pass, so its rollback is clean and lossless; Response B repoints the app and resumes normal writes against the new database in step 9 before verification in step 10, meaning a failed check could require reconciling writes already made to the target with no mechanism given for that, which is a real correctness gap in its rollback design.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:49:55+00:00"
+}

@@ -1,0 +1,22 @@
+{
+  "item_id": "bde830371bbc8024",
+  "sample_id": "C01-E04-r2",
+  "task_id": "C01",
+  "family": "critique",
+  "condition_id": "E04",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all real defects (mutable default argument, in-place sort side effect, missing bounds check, division-by-zero, and the subtler duplicate-skipping issue that under-fills the result), explains the mechanism and consequence of each with concrete examples, and reports nothing that isn't actually present in the code.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:16:46+00:00"
+}

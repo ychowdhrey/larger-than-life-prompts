@@ -1,0 +1,82 @@
+{
+  "sample_id": "W01-E06-r1",
+  "task_id": "W01",
+  "family": "writing",
+  "condition_id": "E06",
+  "repetition": 1,
+  "response_sha256": "3520027e8de754b14a94daa3d817c7dab7c8494228e24e23f61b111b406777ac",
+  "objective": {
+    "max_points": 15.0,
+    "earned_points": 15.0,
+    "objective_score": 1.0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null,
+    "checks": [
+      {
+        "check_id": "word_count",
+        "label": "150 to 170 words",
+        "type": "word_count",
+        "points": 4.0,
+        "passed": true,
+        "detail": "160 words (allowed 150..170)",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "facts",
+        "label": "States all four required facts",
+        "type": "regex_all",
+        "points": 4.0,
+        "passed": true,
+        "detail": "all matched",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "banned",
+        "label": "Avoids every banned word",
+        "type": "forbidden",
+        "points": 4.0,
+        "passed": true,
+        "detail": "clean",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      },
+      {
+        "check_id": "closing",
+        "label": "Ends with the exact required sentence",
+        "type": "ends_with",
+        "points": 3.0,
+        "passed": true,
+        "detail": "final sentence was 'open any list and select save view to get started'",
+        "constraint": true,
+        "planted": false,
+        "distractor": false
+      }
+    ]
+  },
+  "indicators": {
+    "response_chars": 926,
+    "response_words": 160,
+    "coverage": 1.0,
+    "coverage_hits": 5,
+    "coverage_possible": 5,
+    "verification_markers": 0,
+    "verification_marker_total": 0,
+    "alternatives_markers": 0,
+    "alternatives_marker_total": 0,
+    "caveats_markers": 0,
+    "caveats_marker_total": 0,
+    "self_correction_markers": 0,
+    "self_correction_marker_total": 0,
+    "constraint_completion": 1.0,
+    "planted_issue_recall": null,
+    "distractor_avoidance": null
+  },
+  "scored_at": "2026-09-13T05:15:48+00:00",
+  "evaluation_version": "2.0.0"
+}

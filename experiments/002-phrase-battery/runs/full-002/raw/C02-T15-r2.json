@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T15-r2",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T15",
+  "condition_name": "phrase_t15",
+  "repetition": 2,
+  "execution_index": 1839,
+  "sample_seed": 14204327154656204735,
+  "prompt_sha256": "34db5e5fa46f5bf01a6172de1b4542c51eb89a7594576838a9fb5fd5a23e2cf2",
+  "prompt_chars": 842,
+  "response": "## Defects found\n\n**1. The `LEFT JOIN` is silently converted into an `INNER JOIN` by the `WHERE` clause**\n`WHERE o.created_at >= '2026-01-01'` is evaluated *after* the join, on the joined row. For a customer with no orders (or no orders since that date), `o.created_at` is `NULL`, and `NULL >= '2026-01-01'` is `NULL` (not true), so the row is dropped by the `WHERE` filter. This eliminates exactly the rows the `LEFT JOIN` was added to preserve. Result: customers with zero orders — the case the report explicitly requires to show up with a count of 0 — disappear entirely instead of appearing with `order_count = 0`. Fix: move the date predicate into the `ON` clause (`LEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= ...`).\n\n**2. No timezone conversion for the \"local calendar day\" boundary**\n`created_at` is stored in UTC, but the literal `'2026-01-01'` is compared directly against it with no offset adjustment. Local midnight Jan 1 in UTC+8 is `2025-12-31 16:00:00` UTC, not `2026-01-01 00:00:00` UTC. As written, the cutoff is 8 hours later than the team's actual local-day boundary, so every order placed between local midnight and 8:00 AM local on Jan 1 (i.e., stored as `2025-12-31 16:00`–`23:59:59` UTC) is wrongly excluded from \"on/after Jan 1.\" The predicate needs to shift by the UTC+8 offset (e.g. compare against `'2025-12-31 16:00:00'` UTC, or convert `created_at` to the target zone before truncating to a date) to align with the local calendar day the business actually means.\n\n**3. Integer division truncates money**\n`SUM(o.total_cents) / 100` divides an integer sum by the integer literal `100`. In databases that perform integer division on two integer operands (e.g. PostgreSQL, SQL Server), this truncates the fractional dollars — e.g. a sum of 1999 cents yields `19`, not `19.99`. This silently under-reports `total_spent` for essentially every customer whose total isn't an exact multiple of 100 cents. Fix: divide by `100.0` (or cast to numeric/decimal) before dividing.\n\n**4. `total_spent` is `NULL`, not `0`, for customers with no orders**\nEven once defect #1 is fixed so zero-order customers appear in the results, `SUM(o.total_cents)` over a group with no matching order rows returns `NULL`, not `0` — `SUM` (unlike `COUNT`) doesn't zero-fill on an empty set. So while `order_count` correctly reads `0` (because `COUNT(o.order_id)` ignores the NULL), `total_spent` will read `NULL` for the same customer, which is inconsistent and will render as blank instead of `0` for any consumer of the report. Fix: `COALESCE(SUM(o.total_cents), 0) / 100.0`.\n\n**5. `ORDER BY total_spent DESC` puts the zero-order customers at the top, not the bottom**\nThis follows directly from defect #4. In PostgreSQL (and several other engines), the default null-ordering for `DESC` is `NULLS FIRST`. So once customers with no orders are correctly included (via the fix to defect #1) and their `total_spent` is `NULL` (per defect #4), a \"highest spenders first\" report will actually list every zero-order customer *before* the real top spenders, rather than at the bottom where they belong. This is a real ordering bug that only becomes visible once the join is fixed — worth catching now rather than after the first fix ships. Resolving defect #4 (coalescing to `0`) also resolves this, since `0` will sort after positive amounts in a `DESC` list.\n\n**6. Non-aggregated columns (`c.name`, `c.signup_date`) selected without being in `GROUP BY` or wrapped in an aggregate**\n`GROUP BY c.customer_id` alone, while selecting `c.name` and `c.signup_date`, is only legal because those columns are functionally dependent on the primary key `customer_id` of the same table — a feature PostgreSQL, SQLite, and MySQL (non-strict mode) support, but which SQL Server, Oracle, and MySQL running with `ONLY_FULL_GROUP_BY` do not. On those engines this query fails to parse/execute at all. This is a portability risk worth flagging even though it may run fine on the current database.\n\n## Not actually defects (checked, but ruled out)\n- `COUNT(o.order_id)` (rather than `COUNT(*)`) is correct — it properly yields `0` for a customer with no matched order rows instead of counting a phantom row.\n- The join predicate itself (`o.customer_id = c.customer_id`) is correct.\n- There's no evidence the report needs an upper date bound — an open-ended \"since 2026-01-01\" filter is plausible as intended and isn't flagged as a defect on its own; only its lack of timezone alignment (defect #2) is a problem.",
+  "response_sha256": "a68c96a50720edb1f810c3665c8446238298925decac428caf000a488eb60f1b",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28389,
+    "output_tokens": 6858,
+    "output_tokens_details": {
+      "thinking_tokens": 5121
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 6858,
+        "cache_read_input_tokens": 28389,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0742618,
+    "duration_ms": 72705,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:05:55+00:00",
+  "finished_at": "2026-09-13T05:07:09+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

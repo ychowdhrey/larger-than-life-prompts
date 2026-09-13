@@ -1,0 +1,22 @@
+{
+  "item_id": "e88fe99a117c3e05",
+  "sample_id": "P03-T17-r2",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "T17",
+  "repetition": 2,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 4,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The schedule correctly identifies the critical path (T1->T2->T4->T6, 10 days) and packs the shorter branch (T3->T5) into E2's slack without conflicts, satisfying all prerequisite and non-overlap constraints while hitting the minimum possible finish day of 10; the output format and LAST DAY line match the required spec exactly, with only a brief rather than exhaustive self-verification.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:38:36+00:00"
+}

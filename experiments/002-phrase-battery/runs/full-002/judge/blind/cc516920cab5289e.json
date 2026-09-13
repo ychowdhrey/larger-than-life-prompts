@@ -1,0 +1,22 @@
+{
+  "item_id": "cc516920cab5289e",
+  "sample_id": "C05-E01-r1",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "E01",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real off-by-one bug (`>` vs `>=` at total==100 violating R1/R3), correctly catches that test_cap's expected value of 100.0 is wrong (the implementation actually returns 50.0 due to capping), and correctly flags the missing boundary test at 100 — with no false positives, and it even verifies float precision on 1000*0.10 to rule out a spurious concern.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:30+00:00"
+}

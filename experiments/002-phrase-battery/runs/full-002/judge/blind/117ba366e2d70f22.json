@@ -1,0 +1,22 @@
+{
+  "item_id": "117ba366e2d70f22",
+  "sample_id": "P01-T01-r1",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T01",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The plan satisfies every hard requirement (≤12 numbered steps, rollback, non-production rehearsal, post-cutover integrity checks via row counts/checksums, stakeholder communication, and a pre-cutover full backup) and correctly uses continuous logical replication plus a final incremental sync to make a 2 TB migration feasible within a 2-hour window, but it shows no explicit self-check against the requirements and leaves some operational nuances (extension compatibility, connection pooling/DNS TTL) unaddressed.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:34:28+00:00"
+}

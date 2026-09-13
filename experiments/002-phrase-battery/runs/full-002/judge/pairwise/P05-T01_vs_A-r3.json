@@ -1,0 +1,19 @@
+{
+  "pair_id": "P05-T01_vs_A-r3",
+  "contrast_id": "T01_vs_A",
+  "task_id": "P05",
+  "family": "planning",
+  "repetition": 3,
+  "treatment_condition": "T01",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "B",
+  "winner_condition": "A",
+  "treatment_won": false,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements, but Response B's metrics/halt-condition section is more rigorous, giving four distinct numeric thresholds (payment failure rate, discrepancy rate, API error rate, P95 latency) each tied to a specific rolling time window, whereas Response A supplies only one true numeric halt threshold and labels its other triggers as explicitly non-numeric. B's batch math is also internally consistent (5×2,000=10,000 for Phase 2), while A's Phase 3 sub-wave math (5×15%=75%) doesn't quite match the stated 73%.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T10:33:26+00:00"
+}

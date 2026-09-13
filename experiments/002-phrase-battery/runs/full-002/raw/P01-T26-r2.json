@@ -1,0 +1,68 @@
+{
+  "sample_id": "P01-T26-r2",
+  "run_id": "full-002",
+  "task_id": "P01",
+  "family": "planning",
+  "condition_id": "T26",
+  "condition_name": "phrase_t26",
+  "repetition": 2,
+  "execution_index": 671,
+  "sample_seed": 1258907803898672556,
+  "prompt_sha256": "b3197c836267fcdc91f35cf71d35372f766780842ec950dbb7b719646d851f67",
+  "prompt_chars": 829,
+  "response": "# PostgreSQL 2 TB Migration Plan: On-Prem → Managed Cloud Database\n\n**Context:** 2 TB production PostgreSQL, ~4,000 DAU, single 2-hour Sunday maintenance window.\n\n**Strategy:** Use logical replication (or a CDC tool) to pre-load and continuously sync the bulk of the 2 TB ahead of time, so the maintenance window is only used for final sync, cutover, and verification — not a full 2 TB transfer.\n\n1. **Assess & design:** Inventory the source database (extensions, version, custom types, sequences, large objects), size each table, and choose the managed target (version-matched or newer) and migration method (native logical replication, or a tool like AWS DMS/pg_dump+restore for the base + logical replication for deltas). Document rollback and success criteria up front.\n\n2. **Provision and configure target:** Stand up the managed instance sized for 2 TB + headroom, matching extensions/parameters, configure networking/VPC, security groups, and IAM/credentials. Enable `wal_level=logical` on source if using logical replication.\n\n3. **Full backup of production:** Take a verified full backup (e.g., `pg_basebackup` or snapshot) of the on-prem database and confirm it restores successfully before any replication setup touches the source. This satisfies the \"backup before any destructive/modifying step\" requirement.\n\n4. **Dry run on non-production data:** Restore the backup into a staging/non-production copy of both source and target, execute the full migration procedure (initial load, replication setup, cutover scripts, verification, rollback) end-to-end against this staging copy, and time each phase to validate the 2-hour window is sufficient.\n\n5. **Initial bulk load (pre-window):** Days before cutover, perform the initial 2 TB data copy to the managed target (parallel `pg_dump`/`pg_restore`, or native logical-replication initial sync) while production stays live and unaffected.\n\n6. **Continuous replication & catch-up (pre-window):** Establish logical replication (or CDC) from source to target so ongoing writes stream continuously, monitoring replication lag until it is near-zero, for several days before the scheduled window.\n\n7. **Stakeholder communication:** Notify all 4,000 users and internal stakeholders in advance (e.g., 1 week and 24 hours prior) of the Sunday maintenance window, expected downtime, and a status/rollback contact channel; post a maintenance banner in-app.\n\n8. **Pre-window final backup:** Immediately before the maintenance window opens, take one more full backup/snapshot of production (covering last-minute changes) so the system can be restored to this exact point if cutover fails.\n\n9. **Cutover (within the window):** Put the application into maintenance mode, stop writes to the source, wait for replication lag to reach zero, run `ANALYZE` on the target, repoint application connection strings/DNS to the managed database, and re-enable traffic in read-only or full mode as validated.\n\n10. **Data integrity verification:** Run automated checks comparing source and target — row counts per table, checksums/hashes (e.g., `pg_checksums`, `md5` aggregates per table, or a checksum tool), max sequence/ID values, and spot-query critical tables — before declaring cutover successful.\n\n11. **Go-live confirmation and monitoring:** If verification passes, remove maintenance mode, monitor application error rates, query latency, and replication/connection health closely for the remainder of the window and the following hours; notify stakeholders migration is complete.\n\n12. **Rollback procedure (trigger if step 10 fails or critical errors appear post-cutover):** Immediately revert application connection strings/DNS back to the on-prem source (which was never decommissioned and had writes paused, not deleted), restore from the pre-window backup (step 8) if the source was altered, disable replication to the target, notify stakeholders of the rollback, and re-open the incident window before re-attempting migration on a later date.\n\nSTEP COUNT: 12",
+  "response_sha256": "4a71bee2a9e364ff5f4031607285780e058938b6f250527d46ecd9e3f511402d",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2591,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 1355,
+    "output_tokens_details": {
+      "thinking_tokens": 23
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2591,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1355,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2591,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2591
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.029063200000000004,
+    "duration_ms": 18960,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:38:47+00:00",
+  "finished_at": "2026-09-13T04:39:07+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

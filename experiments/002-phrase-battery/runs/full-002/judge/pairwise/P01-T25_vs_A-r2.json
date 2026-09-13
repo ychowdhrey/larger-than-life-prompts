@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T25_vs_A-r2",
+  "contrast_id": "T25_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 2,
+  "treatment_condition": "T25",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T25",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy all hard requirements with very similar content, but Response A contains an internal inconsistency: step 2 installs and configures replication tooling on production before step 3's backup, yet step 3's text claims the backup happens 'before any replication setup touches production replication slots/config,' directly contradicting the prior step's ordering. Response B keeps its backup-before-modification logic consistent throughout, making it slightly more trustworthy as an actual runbook.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:20+00:00"
+}

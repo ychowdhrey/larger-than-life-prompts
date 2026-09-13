@@ -1,0 +1,68 @@
+{
+  "sample_id": "C04-T21-r1",
+  "run_id": "full-002",
+  "task_id": "C04",
+  "family": "critique",
+  "condition_id": "T21",
+  "condition_name": "phrase_t21",
+  "repetition": 1,
+  "execution_index": 1276,
+  "sample_seed": 15232883021792965400,
+  "prompt_sha256": "97b1046d137b57acc61c27a6c5b8460ff0cd25687899687844ce74bf670632e2",
+  "prompt_chars": 1268,
+  "response": "Here are the defects in this extract:\n\n**1. Conflicting notice periods for Client-initiated termination (4.1 vs 4.2)**\n4.1 sets a general rule that either party may terminate on 30 days' notice. 4.2 then requires the Client specifically to give \"not less than 45 days\" notice. These directly conflict as to how much notice a Client must give: is 30 days sufficient (per 4.1, since the Client is one of \"either party\"), or is 45 days required (per 4.2)? As written, a Client relying on 4.1 and giving 30 days' notice would be in breach of 4.2, while the agreement never states that 4.2 overrides 4.1. This would cause a real dispute over whether a Client's notice was valid, potentially affecting when termination takes effect and therefore the refund calculation under Table 4A.\n\n**2. Gap in Table 4A — no rate for 6 months remaining**\nThe bands are \"9 or more,\" \"7 to 8,\" \"3 to 5,\" and \"fewer than 3.\" This covers 0–2, 3–5, 7–8, and 9+, but leaves exactly 6 months remaining with no applicable refund rate. A termination with 6 months remaining cannot be resolved under Table 4A as drafted, causing a genuine calculation gap.\n\n**3. Refund amount in Table 4A doesn't match the stated rate**\nFor the \"3 to 5\" months band, the rate given is 40%, but 40% of a $12,000 annual prepayment is $4,800, not the $3,600 shown. $3,600 actually corresponds to a 30% rate. The percentage and the dollar example contradict each other, so it's unclear which figure is authoritative — the rate or the example amount — leading to two different possible refund outcomes ($4,800 vs $3,600) for the same scenario.\n\n**4. \"Effective Termination Date\" is used but never defined or fixed to an event**\n4.4 measures the 14-day refund payment window from the \"Effective Termination Date\" (capitalized as if it's a defined term), but nothing in this extract defines what that date is or ties it to the end of the notice period in 4.1/4.2. Combined with the unresolved 30-day/45-day conflict above, it's unclear when the clock for either the termination itself or the 14-day refund payment actually starts running.",
+  "response_sha256": "31c47c98255938f5257b226a9ac8b9d04c54263c7ce74a14f8cd3919fafaf642",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28533,
+    "output_tokens": 3340,
+    "output_tokens_details": {
+      "thinking_tokens": 2586
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3340,
+        "cache_read_input_tokens": 28533,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.039110599999999995,
+    "duration_ms": 36724,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:53:06+00:00",
+  "finished_at": "2026-09-13T04:53:43+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

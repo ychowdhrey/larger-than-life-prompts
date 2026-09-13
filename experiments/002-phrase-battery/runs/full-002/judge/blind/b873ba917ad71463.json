@@ -1,0 +1,22 @@
+{
+  "item_id": "b873ba917ad71463",
+  "sample_id": "C02-T26-r1",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T26",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all four real defects (WHERE-defeats-LEFT-JOIN, UTC vs UTC+8 boundary misalignment with correct directional math, integer division truncation, and the cascading NULL total_spent once the join is fixed), gives accurate fixes, and explicitly confirms COUNT(o.order_id) and GROUP BY usage are not defects rather than inventing issues.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:23:14+00:00"
+}

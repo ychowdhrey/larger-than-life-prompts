@@ -1,0 +1,68 @@
+{
+  "sample_id": "C03-A-r1",
+  "run_id": "full-002",
+  "task_id": "C03",
+  "family": "critique",
+  "condition_id": "A",
+  "condition_name": "control",
+  "repetition": 1,
+  "execution_index": 1809,
+  "sample_seed": 9002773679051467354,
+  "prompt_sha256": "8089cc52136149aaf3746caa0a30a0a28611b73de88c74774b49c8123ea07a52",
+  "prompt_chars": 971,
+  "response": "Here is every defect I find, grouped by claim.\n\n## Claim 1: Webinar attendance → retention\n\n**1. Survivorship bias in the sample itself.**\nThe analysis is restricted to the 412 customers who are *still active today*. But \"retention\" can only be meaningfully compared across a cohort that includes people who churned. By filtering to survivors before comparing groups, churned customers (who may disproportionately be non-attendees, or attendees, depending on the true effect) are dropped from both arms. This is conditioning on the outcome, and it can inflate, shrink, or even reverse the apparent attendance effect. **Effect:** the 31% figure may not reflect the true relationship between webinars and retention at all — it's computed on a population that has already been filtered by the very outcome being studied.\n\n**2. Correlation treated as causation.**\nAttendance is voluntary. Customers who choose to attend an onboarding webinar are plausibly more engaged, more organized, or more invested in the product than those who don't — any of which could independently drive retention. Nothing in the data rules out this self-selection confound. **Effect:** the claim \"webinars therefore cause higher retention\" is not supported by an observational correlation; it requires a controlled comparison (e.g., randomizing webinar invitations) to establish causation.\n\n**3. The policy recommendation doesn't follow even if the correlation were causal.**\nThe observed effect comes from customers who *chose* to attend. Making attendance mandatory changes the population and the mechanism — compliant-but-unmotivated attendees dragged into a mandatory session are not the same population that produced the 31% figure. **Effect:** mandating attendance could easily fail to reproduce the observed benefit, or could even backfire (e.g., irritating customers with forced sessions), yet the memo extrapolates the voluntary-attendance effect onto a mandatory-attendance policy.\n\n## Claim 2: Central region and churn\n\n**4. Multiple comparisons / data dredging.**\nEighteen attributes were tested against churn, and only the one that happened to clear p = 0.04 is reported. At a conventional 0.05 threshold, testing 18 independent attributes gives roughly a 1 − 0.95¹⁸ ≈ 60% chance of at least one \"significant\" result purely by chance. No correction (Bonferroni, FDR, etc.) is mentioned. **Effect:** the Central region finding is very likely a false positive — a statistical fluke surfaced by testing many hypotheses and reporting only the winner — not a real regional effect.\n\n**5. Correlation-to-causation leap, again, with a resource-allocation consequence.**\nEven taking p = 0.04 at face value, \"Central region churns less\" does not mean churn is *caused* by anything about the region — it could be confounded by account size, industry mix, tenure, or sales rep assigned to that region. **Effect:** concentrating spend on Central region assumes a causal lever (\"spending more there will improve/protect the number\") that the test never demonstrated, and could misallocate budget away from regions that actually need or would respond to investment.\n\n## Claim 3: Satisfaction rose 62% → 66%\n\n**6. No test of whether the change is distinguishable from noise.**\nA 4-point move in a survey metric is presented as evidence of a real change without any indication of sample size, confidence interval, or significance test. Quarter-to-quarter survey metrics fluctuate for many mundane reasons (response mix, timing, wording). **Effect:** the memo may be interpreting ordinary measurement noise as a genuine improvement.\n\n**7. Single-cause attribution / post hoc reasoning.**\nEven if the 4-point rise is real, the memo attributes it entirely to \"the new support model\" without ruling out other things that changed that quarter (seasonality, pricing, product releases, other CS initiatives). **Effect:** credit is assigned to one specific program with no evidence that isolates its effect from everything else that happened concurrently — this could lead to continued investment in something that isn't actually responsible for the gain.\n\n**8. Percentage points described as \"percent.\"**\n62% to 66% is a 4-percentage-point increase, but the relative increase is about 6.5% (4/62). Calling this a \"4% improvement\" blurs two different quantities. **Effect:** readers may misjudge the magnitude of the change (understating the relative improvement, or more generally being confused about what \"4%\" refers to) when the two figures are used interchangeably in later reporting or comparisons.",
+  "response_sha256": "b0a1c3e58245f57bc8afd6486cc58a06777429109079833bf67c1d884deb032f",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28357,
+    "output_tokens": 3816,
+    "output_tokens_details": {
+      "thinking_tokens": 2338
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 3816,
+        "cache_read_input_tokens": 28357,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0438354,
+    "duration_ms": 49357,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:05:19+00:00",
+  "finished_at": "2026-09-13T05:06:09+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

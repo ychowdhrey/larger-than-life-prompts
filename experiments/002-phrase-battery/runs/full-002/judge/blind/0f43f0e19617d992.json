@@ -1,0 +1,22 @@
+{
+  "item_id": "0f43f0e19617d992",
+  "sample_id": "C05-T14-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "T14",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies all three real defects (the R1 boundary off-by-one, the incorrect test_cap assertion that actually fails against the code and would violate R2 if 'fixed' the wrong way, and the missing boundary test), verifies each claim with concrete arithmetic traces, and reports no false positives.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:33:16+00:00"
+}

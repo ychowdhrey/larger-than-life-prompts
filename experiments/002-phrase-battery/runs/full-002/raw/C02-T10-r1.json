@@ -1,0 +1,68 @@
+{
+  "sample_id": "C02-T10-r1",
+  "run_id": "full-002",
+  "task_id": "C02",
+  "family": "critique",
+  "condition_id": "T10",
+  "condition_name": "phrase_t10",
+  "repetition": 1,
+  "execution_index": 1900,
+  "sample_seed": 390726194515998139,
+  "prompt_sha256": "427adc35f8397490b4710372168586d0c122fdfc2d1793f7e533e0363dc035f9",
+  "prompt_chars": 831,
+  "response": "Reviewing this query, here are the actual defects:\n\n**1. The `WHERE` clause silently kills the LEFT JOIN (breaks the \"zero-order customers must appear\" requirement)**\n\n```sql\nWHERE o.created_at >= '2026-01-01'\n```\n\nFor a customer with no orders, the join produces `o.created_at = NULL`. `NULL >= '2026-01-01'` evaluates to `NULL` (not true), so the `WHERE` clause filters that row out — the `LEFT JOIN` is effectively turned into an `INNER JOIN`. Customers with zero orders (or zero orders since that date) disappear from the report entirely, directly violating the stated requirement. The date filter needs to move into the `ON` clause instead:\n\n```sql\nLEFT JOIN orders o ON o.customer_id = c.customer_id AND o.created_at >= '2026-01-01'\n```\n\n**2. No upper bound on the date filter**\n\n`o.created_at >= '2026-01-01'` only has a lower bound, so it includes all orders from 2026-01-01 onward indefinitely (today, into the future, forever). If this is meant to be a report scoped to a particular period (e.g. \"since the start of 2026\" is fine as an open-ended filter, but if the intent was e.g. \"year 2026\" or \"this month\"), there's no closing bound. At minimum this is worth flagging since the query's intent isn't stated — if an end date was intended, it's missing.\n\n**3. Timezone mismatch: the boundary is compared in UTC, not UTC+8**\n\n`created_at` is stored in UTC, but the team wants calendar-day boundaries in UTC+8. `'2026-01-01'` as written is interpreted as `2026-01-01 00:00:00 UTC`, which is `2026-01-01 08:00:00` in UTC+8 — not local midnight. This shifts the effective cutoff by 8 hours, so orders placed between local midnight and 8am on Jan 1 (UTC+8) are wrongly excluded (they're still Dec 31 UTC), and the boundary doesn't line up with any local calendar day at all. The comparison should convert to local time first, e.g. (Postgres-style) `o.created_at >= '2026-01-01 00:00:00+08'` or `o.created_at AT TIME ZONE 'Asia/Shanghai' >= '2026-01-01'`, depending on the engine.\n\n**4. `GROUP BY c.customer_id` with non-aggregated `c.name` and `c.signup_date` in the SELECT list**\n\nThis is only safe if `customer_id` is the primary key of `customers` (functionally determines `name` and `signup_date`). If that holds, this is not a bug on most engines (Postgres allows it via functional dependency; MySQL allows it non-strictly). However, on stricter engines/standard SQL (e.g. SQL Server, or MySQL with `ONLY_FULL_GROUP_BY`), this would fail to even run — worth flagging as a portability concern, though not incorrect given the likely schema.\n\n**5. `SUM(o.total_cents) / 100` — integer division risk**\n\nIf `total_cents` is an integer type and `100` is treated as an integer literal, on engines that perform integer division for two integer operands (e.g. dividing two `INT`s in SQL Server, or in some MySQL configurations under certain modes) this truncates cents instead of producing a decimal dollar amount. It should be `SUM(o.total_cents) / 100.0` (or `CAST(... AS NUMERIC)`) to force decimal division and get accurate dollar values. On engines like Postgres, `/100` on an integer sum also does integer division (truncates toward zero) — so this is a real bug there too, not just a portability concern.\n\n**6. No `NULL` guard needed for `SUM`, but note on `total_spent` for zero-order customers**\n\nOnce defect #1 is fixed and zero-order customers are properly retained via the `ON`-clause fix, `SUM(o.total_cents)` for those customers will correctly return `NULL` (not `0`), since there are no matching rows to sum. Depending on downstream consumers, a `NULL` total_spent for a zero-order customer may be undesirable/confusing (e.g., sorting, display). Consider wrapping with `COALESCE(SUM(o.total_cents), 0) / 100.0` to show `0` instead of blank/NULL. This isn't wrong per se, but it's a real gap given the explicit requirement that zero-order customers must appear with a count of zero — a `NULL` spend value could look like an error to report consumers even though the count will correctly show `0` from `COUNT(o.order_id)`.\n\n---\n\n**Corrected query:**\n\n```sql\nSELECT c.customer_id,\n       c.name,\n       COUNT(o.order_id) AS order_count,\n       COALESCE(SUM(o.total_cents), 0) / 100.0 AS total_spent,\n       c.signup_date\nFROM customers c\nLEFT JOIN orders o\n       ON o.customer_id = c.customer_id\n      AND o.created_at >= '2026-01-01 00:00:00+08'  -- local UTC+8 midnight, converted appropriately for the engine\nGROUP BY c.customer_id, c.name, c.signup_date\nORDER BY total_spent DESC;\n```\n\nSummary of what was actually wrong: (1) the `WHERE` filter nullifying the outer join and dropping zero-order customers, (2) the UTC/UTC+8 timezone mismatch on the date boundary, and (3) integer division truncating `total_spent`. The `GROUP BY` column list and open-ended date range are secondary/portability notes rather than confirmed bugs given the stated requirements.",
+  "response_sha256": "d965c2398da7c9a6d2b6cb5e2ba00f471604bfa14d700987ebbbc183d6f345bf",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28384,
+    "output_tokens": 1913,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1913,
+        "cache_read_input_tokens": 28384,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0248108,
+    "duration_ms": 21861,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:07:19+00:00",
+  "finished_at": "2026-09-13T05:07:42+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

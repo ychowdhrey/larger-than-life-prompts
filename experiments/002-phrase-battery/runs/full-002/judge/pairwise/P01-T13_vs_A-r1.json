@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T13_vs_A-r1",
+  "contrast_id": "T13_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T13",
+  "reference_condition": "A",
+  "treatment_in_slot": "A",
+  "preference_slot": "A",
+  "winner_condition": "T13",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both plans satisfy the checklist items, but A strictly honors the backup-before-modification rule by taking the full production backup (step 5) before any step that alters production for replication (step 6), whereas B builds the logical-replication pipeline on production (step 3, which requires publication/replica-identity changes on the source) before its first full backup (step 4), violating the explicit ordering requirement. A also states clearer reasoning for why CDC replication is used instead of a straight dump given the 2 TB size and 2-hour window.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:52:05+00:00"
+}

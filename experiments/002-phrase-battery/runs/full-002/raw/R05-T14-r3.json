@@ -1,0 +1,68 @@
+{
+  "sample_id": "R05-T14-r3",
+  "run_id": "full-002",
+  "task_id": "R05",
+  "family": "reasoning",
+  "condition_id": "T14",
+  "condition_name": "phrase_t14",
+  "repetition": 3,
+  "execution_index": 1307,
+  "sample_seed": 14167171204967438532,
+  "prompt_sha256": "85953ba5409fbbe7bc000adb77751b5f80e16689d608c4b9994bfd1da88775dd",
+  "prompt_chars": 250,
+  "response": "## Setting Up the Problem\n\nI need |A ∪ B| minus the part of that union also divisible by 7, where A = multiples of 3, B = multiples of 5, within 1–1000.\n\n**Step 1: Count divisible by 3 or 5 (ignoring the \"not 7\" condition for now)**\n\n- ⌊1000/3⌋ = 333\n- ⌊1000/5⌋ = 200\n- ⌊1000/15⌋ = 66 (multiples of both 3 and 5)\n\n|A ∪ B| = 333 + 200 − 66 = **467**\n\n**Step 2: Remove those in this set that are also divisible by 7**\n\nA number in A ∪ B is also divisible by 7 exactly when it's divisible by 21 (=3·7) or by 35 (=5·7). Use inclusion-exclusion again on these:\n\n- ⌊1000/21⌋ = 47\n- ⌊1000/35⌋ = 28\n- ⌊1000/105⌋ = 9 (lcm(21,35)=105, catches double-counted multiples of 105)\n\nCount divisible by 21 or 35 = 47 + 28 − 9 = **66**\n\n**Step 3: Subtract**\n\n467 − 66 = **401**\n\n## Cross-check with a different decomposition\n\nSplit into \"div by 3 but not 7\" and \"div by 5 but not 7,\" then remove double-counted \"div by 15 but not 7\":\n\n- Div by 3, not 7: 333 − 47 = 286\n- Div by 5, not 7: 200 − 28 = 172\n- Div by 15, not 7: 66 − 9 = 57\n\nTotal = 286 + 172 − 57 = **401** ✓\n\nBoth methods agree, so the answer holds.\n\nFINAL ANSWER: 401",
+  "response_sha256": "ea0391caaa742fe50980485f80a0ade51bc30c4ef739f662b82ef11bf20d0104",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 28156,
+    "output_tokens": 1186,
+    "output_tokens_details": {
+      "thinking_tokens": 602
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1186,
+        "cache_read_input_tokens": 28156,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.0174952,
+    "duration_ms": 12780,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:53:43+00:00",
+  "finished_at": "2026-09-13T04:53:57+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

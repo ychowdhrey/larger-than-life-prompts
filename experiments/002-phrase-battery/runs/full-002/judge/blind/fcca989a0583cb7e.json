@@ -1,0 +1,22 @@
+{
+  "item_id": "fcca989a0583cb7e",
+  "sample_id": "P03-B-r1",
+  "task_id": "P03",
+  "family": "planning",
+  "condition_id": "B",
+  "repetition": 1,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 4,
+    "constraint_adherence": 5,
+    "error_checking": 3,
+    "depth": 4,
+    "usefulness": 5
+  },
+  "reason": "The schedule is fully valid: all precedence constraints are respected, no engineer is double-booked on any day, every task fits within Day 1-10, and the format including the LAST DAY line matches the spec exactly. The reasoning correctly identifies the critical path (T1-T2-T4-T6=10 days) justifying the tight schedule, but there is no explicit post-hoc verification step re-checking each constraint against the final table.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:37:19+00:00"
+}

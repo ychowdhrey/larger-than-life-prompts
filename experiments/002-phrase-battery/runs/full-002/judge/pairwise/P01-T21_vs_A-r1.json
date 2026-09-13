@@ -1,0 +1,19 @@
+{
+  "pair_id": "P01-T21_vs_A-r1",
+  "contrast_id": "T21_vs_A",
+  "task_id": "P01",
+  "family": "planning",
+  "repetition": 1,
+  "treatment_condition": "T21",
+  "reference_condition": "A",
+  "treatment_in_slot": "B",
+  "preference_slot": "B",
+  "winner_condition": "T21",
+  "treatment_won": true,
+  "tie": false,
+  "reason": "Both meet all hard requirements, but Response B's plan is more realistic for a 2 TB database with only a two-hour window: it explicitly pre-syncs the bulk data via replication days ahead so cutover only needs a final delta, and it adds a refinement step after rehearsal to adjust based on actual timings, whereas Response A implies replication setup happens within/around the window without this pre-staging emphasis. B also more explicitly ties rollback triggers to failed verification/timeout and preserves logs for root-cause analysis.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "judged_at": "2026-09-13T05:40:47+00:00"
+}

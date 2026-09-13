@@ -1,0 +1,22 @@
+{
+  "item_id": "175f9c0fd50436ce",
+  "sample_id": "C05-B-r3",
+  "task_id": "C05",
+  "family": "critique",
+  "condition_id": "B",
+  "repetition": 3,
+  "scores": {
+    "task_success": 5,
+    "thoroughness": 5,
+    "constraint_adherence": 5,
+    "error_checking": 5,
+    "depth": 5,
+    "usefulness": 5
+  },
+  "reason": "The response correctly identifies the real boundary bug (total > 100 vs >=100), correctly catches that test_cap asserts 100.0 when the implementation actually returns 50.0, notes the missing boundary test at total=100, and accurately confirms the other two tests are correct without inventing false defects.",
+  "judge_model": "claude-sonnet-5",
+  "judge_backend": "claude_cli",
+  "judge_prompt_version": "2.0.0",
+  "rubric_version": "2.0.0",
+  "judged_at": "2026-09-13T05:31:14+00:00"
+}

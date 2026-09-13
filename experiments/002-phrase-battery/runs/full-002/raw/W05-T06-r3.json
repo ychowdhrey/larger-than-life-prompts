@@ -1,0 +1,68 @@
+{
+  "sample_id": "W05-T06-r3",
+  "run_id": "full-002",
+  "task_id": "W05",
+  "family": "writing",
+  "condition_id": "T06",
+  "condition_name": "phrase_t06",
+  "repetition": 3,
+  "execution_index": 448,
+  "sample_seed": 8820050406601036965,
+  "prompt_sha256": "9ed7d349023586e69b3b819793379ad943259a834b2cc8ec721b9237f0fe0e0b",
+  "prompt_chars": 740,
+  "response": "## The problem\n\nOur engineering team of twelve has spent the last two quarters shipping through long-lived feature branches, and the cost is now visible in our velocity metrics. Branches routinely live for two to three weeks before merging, which means:\n\n- Merges regularly require a full day or more of conflict resolution, because branches diverge so far from main that changes overlap unpredictably.\n- Integration bugs surface only after merge, when the original context is gone, so fixes take longer and reviews balloon into audits of hundreds of changed files instead of focused evaluations.\n\nThe result is unpredictable release timing and reviewers who rubber-stamp changes they can no longer reasonably evaluate.\n\n## The proposal\n\nI propose we move to trunk-based development: every engineer commits small, reviewed changes directly to main at least once per day, and incomplete features are hidden behind flags rather than isolated on branches.\n\n- Cap any branch's lifetime at one day, with CI running on every push to main so breakage is caught within minutes, not weeks.\n- Use feature flags to decouple deployment from release, so half-finished work can sit safely in main without being visible to users.\n\nThis mirrors practices at Google, which runs a trunk-based workflow at far larger scale than ours, and it directly removes the two failure modes described above: it eliminates large-diff merges and shortens feedback loops from weeks to hours.\n\n## What could go wrong\n\nThe strongest objection is real: without discipline, trunk-based development can let broken or half-built code land on main, blocking every other engineer at once. That risk is legitimate, which is why teams who adopt this model also adopt feature flags and strong CI gates as prerequisites, not afterthoughts. Skipping that investment would trade merge pain for main-branch instability, which could be worse, not better.\n\n- Require the CI and feature-flag investment described above to be complete, and reviewed, before we require daily trunk commits from the whole team.\n\nI would like a decision by the end of next week.",
+  "response_sha256": "24410098ff66b62579129b494afd90d1ae702a31d20443d3f98d374bfea23f16",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2568,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 9136,
+    "output_tokens_details": {
+      "thinking_tokens": 8497
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2568,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 9136,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2568,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2568
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.1067812,
+    "duration_ms": 76238,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T04:33:07+00:00",
+  "finished_at": "2026-09-13T04:34:24+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}

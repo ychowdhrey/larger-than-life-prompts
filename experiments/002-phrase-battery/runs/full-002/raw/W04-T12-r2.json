@@ -1,0 +1,68 @@
+{
+  "sample_id": "W04-T12-r2",
+  "run_id": "full-002",
+  "task_id": "W04",
+  "family": "writing",
+  "condition_id": "T12",
+  "condition_name": "phrase_t12",
+  "repetition": 2,
+  "execution_index": 1610,
+  "sample_seed": 2981956490437288172,
+  "prompt_sha256": "4587cd2a4c310c7fe0a3c22166641079ec34d5ec19e25946cff7709d1b8edd53",
+  "prompt_chars": 649,
+  "response": "A content delivery network is a system of computers spread across many cities that store copies of websites and videos so people can load them faster. Normally, every request for a page travels back to one origin server, meaning the main computer where the website's files originally live. That trip can be slow if the origin server sits far away. A content delivery network solves this by keeping copies of popular content at an edge location, which is simply a smaller storage point positioned closer to where people actually are, such as a data center in a nearby city. When someone requests a page and the nearby edge location already has a saved copy ready to serve, that's called a cache hit, and it means the request never has to travel all the way back to the origin server. Think of it like a chain of neighborhood libraries that each keep copies of the most popular books, so readers rarely need to travel to the one central archive across the country. This setup reduces waiting time, lowers strain on the origin server, and helps pages keep working smoothly even when many people request them at once, or when the main server experiences a temporary problem.\n\n| Term | Plain meaning | Why it matters |\n|---|---|---|\n| Origin server | The original computer storing a website's files | It's the ultimate source, but slow if used for every request |\n| Edge location | A smaller storage point near an area of people | It shortens the distance data has to travel |\n| Cache hit | A request answered by a saved nearby copy | It means faster loading and less strain elsewhere |\n| Content delivery network | The whole network of edge locations working together | It keeps popular content fast and reliable everywhere |",
+  "response_sha256": "63a2472dde3ae95e7a20946a7b546ff95a00af2a8eb5a9ca3ae6b075e996462e",
+  "backend": "claude_cli",
+  "model": "claude-sonnet-5",
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2545,
+    "cache_read_input_tokens": 25726,
+    "output_tokens": 486,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2545,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 486,
+        "cache_read_input_tokens": 25726,
+        "cache_creation_input_tokens": 2545,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2545
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard"
+  },
+  "meta": {
+    "model": "claude-sonnet-5",
+    "served_model": "claude-sonnet-5",
+    "cost_usd": 0.020189199999999997,
+    "duration_ms": 9149,
+    "num_turns": 1,
+    "stop_reason": "end_turn",
+    "attempt": 1
+  },
+  "condition_echo": null,
+  "started_at": "2026-09-13T05:01:08+00:00",
+  "finished_at": "2026-09-13T05:01:18+00:00",
+  "versions": {
+    "prompt_version": "1.0.0",
+    "evaluation_version": "2.0.0",
+    "judge_prompt_version": "2.0.0",
+    "workflow_version": "1.1.0"
+  }
+}
